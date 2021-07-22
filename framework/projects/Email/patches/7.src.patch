@@ -1,0 +1,43 @@
+diff --git a/src/java/org/apache/commons/mail/Email.java b/src/java/org/apache/commons/mail/Email.java
+index 56d3f14..ac04953 100644
+--- a/src/java/org/apache/commons/mail/Email.java
++++ b/src/java/org/apache/commons/mail/Email.java
+@@ -1239,11 +1239,10 @@ public abstract class Email
+         {
+             return this.hostName;
+         }
+-        else if (this.session != null)
++        else
+         {
+             return this.session.getProperty(MAIL_HOST);
+         }
+-        return null;
+     }
+ 
+     /**
+@@ -1257,11 +1256,10 @@ public abstract class Email
+         {
+             return this.smtpPort;
+         }
+-        else if (this.session != null)
++        else
+         {
+             return this.session.getProperty(MAIL_PORT);
+         }
+-        return null;
+     }
+ 
+     /**
+@@ -1341,11 +1339,10 @@ public abstract class Email
+         {
+             return this.sslSmtpPort;
+         }
+-        else if (this.session != null)
++        else
+         {
+             return this.session.getProperty(MAIL_SMTP_SOCKET_FACTORY_PORT);
+         }
+-        return null;
+     }
+ 
+     /**

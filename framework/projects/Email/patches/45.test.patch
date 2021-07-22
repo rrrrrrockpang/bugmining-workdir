@@ -1,0 +1,26 @@
+diff --git a/src/test/java/org/apache/commons/mail/EmailTest.java b/src/test/java/org/apache/commons/mail/EmailTest.java
+index 6d8e35a..9d668af 100644
+--- a/src/test/java/org/apache/commons/mail/EmailTest.java
++++ b/src/test/java/org/apache/commons/mail/EmailTest.java
+@@ -1001,21 +1001,6 @@ public class EmailTest extends AbstractEmailTest
+          email = new MockEmailConcrete();
+          email.setHostName(strTestMailServer);
+          email.setSmtpPort(getMailServerPort());
+-         email.addTo("me@home.com");
+-
+-         email.send();
+-    }
+-
+-    @Test
+-    public void testSendFromSetInSession() throws Exception
+-    {
+-         getMailServer();
+-
+-         email = new MockEmailConcrete();
+-         email.setHostName(strTestMailServer);
+-         email.setSmtpPort(getMailServerPort());
+-         email.addTo("me@home.com");
+-         email.getSession().getProperties().setProperty(EmailConstants.MAIL_FROM, "me@home.com");
+ 
+          email.send();
+     }

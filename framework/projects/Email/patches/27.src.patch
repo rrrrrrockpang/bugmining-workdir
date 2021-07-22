@@ -1,0 +1,20 @@
+diff --git a/src/java/org/apache/commons/mail/MultiPartEmail.java b/src/java/org/apache/commons/mail/MultiPartEmail.java
+index 4c08474..f97a548 100644
+--- a/src/java/org/apache/commons/mail/MultiPartEmail.java
++++ b/src/java/org/apache/commons/mail/MultiPartEmail.java
+@@ -425,14 +425,7 @@ public class MultiPartEmail extends Email
+         // verify that the DataSource is valid
+         try
+         {
+-            final InputStream is = (ds != null) ? ds.getInputStream() : null;
+-            if (is != null)
+-            {
+-                // close the input stream to prevent file locking on windows
+-                is.close();
+-            }
+-            
+-            if (is == null)
++            if (ds == null || ds.getInputStream() == null)
+             {
+                 throw new EmailException("Invalid Datasource");
+             }

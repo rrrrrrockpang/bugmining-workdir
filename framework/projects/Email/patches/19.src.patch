@@ -1,0 +1,21 @@
+diff --git a/src/java/org/apache/commons/mail/HtmlEmail.java b/src/java/org/apache/commons/mail/HtmlEmail.java
+index f2fc7a4..30e25a2 100644
+--- a/src/java/org/apache/commons/mail/HtmlEmail.java
++++ b/src/java/org/apache/commons/mail/HtmlEmail.java
+@@ -24,7 +24,6 @@ import java.net.URL;
+ import java.util.HashMap;
+ import java.util.Iterator;
+ import java.util.List;
+-import java.util.Locale;
+ import java.util.Map;
+ 
+ import javax.activation.DataHandler;
+@@ -322,7 +321,7 @@ public class HtmlEmail extends MultiPartEmail
+      */
+     public String embed(File file) throws EmailException
+     {
+-        String cid = EmailUtils.randomAlphabetic(HtmlEmail.CID_LENGTH).toLowerCase(Locale.ENGLISH);
++        String cid = EmailUtils.randomAlphabetic(HtmlEmail.CID_LENGTH).toLowerCase();
+         return embed(file, cid);
+     }
+ 

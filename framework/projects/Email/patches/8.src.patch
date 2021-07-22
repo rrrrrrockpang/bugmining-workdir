@@ -1,0 +1,52 @@
+diff --git a/src/java/org/apache/commons/mail/Email.java b/src/java/org/apache/commons/mail/Email.java
+index d5afad3..604b0ac 100644
+--- a/src/java/org/apache/commons/mail/Email.java
++++ b/src/java/org/apache/commons/mail/Email.java
+@@ -325,18 +325,6 @@ public abstract class Email
+     public void setContent(Object aObject, String aContentType)
+     {
+         this.content = aObject;
+-        this.updateContentType(aContentType);
+-    }
+-
+-
+-    /**
+-     * Update the contentType.
+-     *
+-     * @param   aContentType aContentType
+-     * @since 1.2
+-     */
+-    public void updateContentType(final String aContentType)
+-    {
+         if (EmailUtils.isEmpty(aContentType))
+         {
+             this.contentType = null;
+@@ -1082,23 +1070,17 @@ public abstract class Email
+                 }
+             }
+ 
+-            // update content type (and encoding)
+-            this.updateContentType(this.contentType);
+-            
++            // ========================================================
++            // Start of replacement code
+             if (this.content != null)
+             {
+                 this.message.setContent(this.content, this.contentType);
+             }
++            // end of replacement code
++            // ========================================================
+             else if (this.emailBody != null)
+             {
+-                if (this.contentType == null)
+-                {
+-                    this.message.setContent(this.emailBody);
+-                }
+-                else
+-                {
+-                    this.message.setContent(this.emailBody, this.contentType);
+-                }
++                this.message.setContent(this.emailBody);
+             }
+             else
+             {

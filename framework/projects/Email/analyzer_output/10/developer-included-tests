@@ -1,0 +1,10 @@
+org/apache/commons/mail/DefaultAuthenticatorTest.java
+org/apache/commons/mail/EmailAttachmentTest.java
+org/apache/commons/mail/EmailLiveTest.java
+org/apache/commons/mail/EmailTest.java
+org/apache/commons/mail/HtmlEmailTest.java
+org/apache/commons/mail/InvalidAddressTest.java
+org/apache/commons/mail/InvalidInternetAddressTest.java
+org/apache/commons/mail/MultiPartEmailTest.java
+org/apache/commons/mail/SendWithAttachmentsTest.java
+org/apache/commons/mail/SimpleEmailTest.java

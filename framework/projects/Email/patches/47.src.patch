@@ -1,0 +1,20 @@
+diff --git a/src/main/java/org/apache/commons/mail/util/MimeMessageUtils.java b/src/main/java/org/apache/commons/mail/util/MimeMessageUtils.java
+index 2307676..6d7efa5 100644
+--- a/src/main/java/org/apache/commons/mail/util/MimeMessageUtils.java
++++ b/src/main/java/org/apache/commons/mail/util/MimeMessageUtils.java
+@@ -174,7 +174,14 @@ public final class MimeMessageUtils
+         {
+             if (fos != null)
+             {
+-                fos.close();
++                try
++                {
++                    fos.close();
++                }
++                catch (final Exception e)
++                {
++                    e.printStackTrace();
++                }
+             }
+         }
+     }

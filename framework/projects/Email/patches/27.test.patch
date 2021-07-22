@@ -1,0 +1,36 @@
+diff --git a/src/test/org/apache/commons/mail/MultiPartEmailTest.java b/src/test/org/apache/commons/mail/MultiPartEmailTest.java
+index 11bbf36..3787eee 100644
+--- a/src/test/org/apache/commons/mail/MultiPartEmailTest.java
++++ b/src/test/org/apache/commons/mail/MultiPartEmailTest.java
+@@ -23,7 +23,6 @@ import java.net.URL;
+ import java.util.HashMap;
+ import java.util.Map;
+ 
+-import javax.activation.FileDataSource;
+ import javax.activation.URLDataSource;
+ import javax.mail.internet.MimeMultipart;
+ 
+@@ -327,23 +326,6 @@ public class MultiPartEmailTest extends BaseEmailTestCase
+         }
+     }
+ 
+-    public void testAttachFileLocking() throws Exception {
+-
+-        // ====================================================================
+-        // EMAIL-120: attaching a FileDataSource may result in a locked file
+-        //            resource on windows systems
+-        // ====================================================================
+-
+-        File tmpFile = File.createTempFile("attachment", ".eml");
+-        
+-        this.email.attach(
+-                new FileDataSource(tmpFile),
+-                "Test Attachment",
+-                "Test Attachment Desc");
+-
+-        assertTrue(tmpFile.delete());
+-    }
+-    
+     /**
+      *
+      * @throws Exception Exception

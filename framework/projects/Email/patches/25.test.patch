@@ -1,0 +1,37 @@
+diff --git a/src/test/org/apache/commons/mail/resolver/DataSourceFileResolverTest.java b/src/test/org/apache/commons/mail/resolver/DataSourceFileResolverTest.java
+index 6c8c0fa..4290c27 100644
+--- a/src/test/org/apache/commons/mail/resolver/DataSourceFileResolverTest.java
++++ b/src/test/org/apache/commons/mail/resolver/DataSourceFileResolverTest.java
+@@ -16,17 +16,16 @@
+  */
+ package org.apache.commons.mail.resolver;
+ 
+-import java.io.File;
+-import java.io.IOException;
+-import java.io.InputStream;
+-
+-import javax.activation.DataSource;
+-
+ import junit.framework.TestCase;
+-
+ import org.apache.commons.io.IOUtils;
+ import org.apache.commons.mail.DataSourceResolver;
+ 
++import javax.activation.DataSource;
++import java.io.File;
++import java.io.IOException;
++import java.io.InputStream;
++import java.net.URL;
++
+ /**
+  * JUnit test case for DateSourceResolver.
+  *
+@@ -48,7 +47,7 @@ public class DataSourceFileResolverTest extends TestCase
+         assertTrue(toByteArray(dataSourceResolver.resolve("images/asf_logo_wide.gif")).length == IMG_SIZE);
+         assertTrue(toByteArray(dataSourceResolver.resolve("./images/asf_logo_wide.gif")).length == IMG_SIZE);
+         assertTrue(toByteArray(dataSourceResolver.resolve("../test/images/asf_logo_wide.gif")).length == IMG_SIZE);
+-        assertNull(toByteArray(dataSourceResolver.resolve("/images/does-not-exist.gif")));
++        assertNull(toByteArray(dataSourceResolver.resolve("/images/asf_logo_wide.gif")));
+         assertNull(dataSourceResolver.resolve("./images/does-not-exist.gif"));
+     }
+ 

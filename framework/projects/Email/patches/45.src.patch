@@ -1,0 +1,36 @@
+diff --git a/src/main/java/org/apache/commons/mail/Email.java b/src/main/java/org/apache/commons/mail/Email.java
+index c384fa3..6d37271 100644
+--- a/src/main/java/org/apache/commons/mail/Email.java
++++ b/src/main/java/org/apache/commons/mail/Email.java
+@@ -1328,8 +1328,7 @@ public abstract class Email
+             }
+             else
+             {
+-                if (session.getProperty(EmailConstants.MAIL_SMTP_FROM) == null
+-                        && session.getProperty(EmailConstants.MAIL_FROM) == null)
++                if (session.getProperty(MAIL_SMTP_FROM) == null)
+                 {
+                     throw new EmailException("From address required");
+                 }
+diff --git a/src/main/java/org/apache/commons/mail/EmailConstants.java b/src/main/java/org/apache/commons/mail/EmailConstants.java
+index 0137232..0843cad 100644
+--- a/src/main/java/org/apache/commons/mail/EmailConstants.java
++++ b/src/main/java/org/apache/commons/mail/EmailConstants.java
+@@ -231,17 +231,6 @@ public final class EmailConstants
+      */
+     public static final String MAIL_MIME_CHARSET = "mail.mime.charset";
+ 
+-    /////////////////////////////////////////////////////////////////////////
+-    // since 1.4
+-    /////////////////////////////////////////////////////////////////////////
+-
+-    /**
+-     * The from email address.
+-     * @since 1.4
+-     */
+-    public static final String MAIL_FROM = "mail.from";
+-
+-
+     /** Hide constructor. */
+     private EmailConstants()
+     {

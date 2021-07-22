@@ -1,0 +1,40 @@
+diff --git a/src/main/java/org/apache/commons/mail/HtmlEmail.java b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+index 623f10f..8d00cab 100644
+--- a/src/main/java/org/apache/commons/mail/HtmlEmail.java
++++ b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+@@ -548,7 +548,7 @@ public class HtmlEmail extends MultiPartEmail
+             bodyContainer = bodyEmbedsContainer;
+             this.addPart(bodyEmbedsContainer, 0);
+ 
+-            // If TEXT body was specified, create a alternative container and add it to the embeds container
++            //If TEXT body was specified, create a alternative container and add it to the embeds container
+             if (EmailUtils.isNotEmpty(this.text))
+             {
+                 bodyContainer = new MimeMultipart("alternative");
+@@ -566,23 +566,9 @@ public class HtmlEmail extends MultiPartEmail
+         }
+         else if (EmailUtils.isNotEmpty(this.text) && EmailUtils.isNotEmpty(this.html))
+         {
+-            // EMAIL-142: if we have both an HTML and TEXT body, but no attachments or
+-            //            inline images, the root container should have mimetype
+-            //            "multipart/alternative".
+-            // reference: http://tools.ietf.org/html/rfc2046#section-5.1.4
+-            if (this.inlineEmbeds.size() > 0 || isBoolHasAttachments())
+-            {
+-                // If both HTML and TEXT bodies are provided, create an alternative
+-                // container and add it to the root container
+-                bodyContainer = new MimeMultipart("alternative");
+-                this.addPart(bodyContainer, 0);
+-            }
+-            else
+-            {
+-                // no attachments or embedded images present, change the mimetype
+-                // of the root container (= body container)
+-                rootContainer.setSubType("alternative");
+-            }
++            //If both HTML and TEXT bodies are provided, create a alternative container and add it to the root container
++            bodyContainer = new MimeMultipart("alternative");
++            this.addPart(bodyContainer, 0);
+         }
+ 
+         if (EmailUtils.isNotEmpty(this.html))

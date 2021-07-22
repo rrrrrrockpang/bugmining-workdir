@@ -1,0 +1,88 @@
+diff --git a/src/main/java/org/apache/commons/mail/Email.java b/src/main/java/org/apache/commons/mail/Email.java
+index 4d38751..1b804d4 100644
+--- a/src/main/java/org/apache/commons/mail/Email.java
++++ b/src/main/java/org/apache/commons/mail/Email.java
+@@ -397,7 +397,7 @@ public abstract class Email
+     }
+ 
+     /**
+-     * Set the content and contentType.
++     * Set the content & contentType
+      *
+      * @param   aObject aObject
+      * @param   aContentType aContentType
+diff --git a/src/main/java/org/apache/commons/mail/HtmlEmail.java b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+index fc1773a..6c3d192 100644
+--- a/src/main/java/org/apache/commons/mail/HtmlEmail.java
++++ b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+@@ -59,7 +59,7 @@ import javax.mail.internet.MimeMultipart;
+  *
+  * <p>It is also possible to embed URLs, files, or arbitrary
+  * <code>DataSource</code>s directly into the body of the mail:
+- * <pre>
++ * <pre><code>
+  * HtmlEmail he = new HtmlEmail();
+  * File img = new File("my/image.gif");
+  * PNGDataSource png = new PNGDataSource(decodedPNGOutputStream); // a custom class
+@@ -70,7 +70,7 @@ import javax.mail.internet.MimeMultipart;
+  * msg.append("&lt;/body&gt;&lt;/html&gt;");
+  * he.setHtmlMsg(msg.toString());
+  * // code to set the other email fields (not shown)
+- * </pre>
++ * </pre></code>
+  *
+  * <p>Embedded entities are tracked by their name, which for <code>File</code>s is
+  * the filename itself and for <code>URL</code>s is the canonical path. It is
+@@ -110,7 +110,7 @@ public class HtmlEmail extends MultiPartEmail
+     protected List<InlineImage> inlineImages;
+ 
+     /**
+-     * Embedded images Map&lt;String, InlineImage&gt; where the key is the
++     * Embedded images Map<String, InlineImage> where the key is the
+      * user-defined image name.
+      */
+     protected Map<String, InlineImage> inlineEmbeds = new HashMap<String, InlineImage>();
+diff --git a/src/main/java/org/apache/commons/mail/ImageHtmlEmail.java b/src/main/java/org/apache/commons/mail/ImageHtmlEmail.java
+index 8bfd443..5f5f76a 100644
+--- a/src/main/java/org/apache/commons/mail/ImageHtmlEmail.java
++++ b/src/main/java/org/apache/commons/mail/ImageHtmlEmail.java
+@@ -24,21 +24,19 @@ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
+ /**
+- * <p>Small wrapper class on top of HtmlEmail which encapsulates the required logic
++ * Small wrapper class on top of HtmlEmail which encapsulates the required logic
+  * to retrieve images that are contained in "&lt;img src=../&gt;" elements in the HTML
+  * code. This is done by replacing all img-src-elements with "cid:"-entries and
+  * embedding images in the email.
+- * </p>
+- * <p>
++ * </br>
+  * For local files the class tries to either load them via an absolute path or -
+  * if available - use a relative path starting from a base directory. For files
+  * that are not found locally, the implementation tries to download
+  * the element and link it in.
+- * </p>
+- * <p>
++ * </br>
+  * The image loading is done by an instance of <code>DataSourceResolver</code>
+  * which has to be provided by the caller.
+- * </p>
++ * </br>
+  *
+  * @since 1.3
+  * @version $Id$
+@@ -50,11 +48,11 @@ public class ImageHtmlEmail extends HtmlEmail
+     // including newlines on any place, HTML is not case sensitive and there
+     // can be arbitrary text between "IMG" and "SRC" like IDs and other things.
+ 
+-    /** Regexp for extracting {@code <img>} tags */
++    /** regexp for extracting <img> tags */
+     public static final String REGEX_IMG_SRC =
+             "(<[Ii][Mm][Gg]\\s*[^>]*?\\s+[Ss][Rr][Cc]\\s*=\\s*[\"'])([^\"']+?)([\"'])";
+ 
+-    /** regexp for extracting {@code <script>} tags */
++    /** regexp for extracting <script> tags */
+     public static final String REGEX_SCRIPT_SRC =
+             "(<[Ss][Cc][Rr][Ii][Pp][Tt]\\s*.*?\\s+[Ss][Rr][Cc]\\s*=\\s*[\"'])([^\"']+?)([\"'])";
+ 

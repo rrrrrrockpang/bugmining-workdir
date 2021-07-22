@@ -1,0 +1,116 @@
+diff --git a/src/main/java/org/apache/commons/mail/Email.java b/src/main/java/org/apache/commons/mail/Email.java
+index 1b804d4..b0ac47d 100644
+--- a/src/main/java/org/apache/commons/mail/Email.java
++++ b/src/main/java/org/apache/commons/mail/Email.java
+@@ -1284,17 +1284,7 @@ public abstract class Email
+ 
+             if (this.content != null)
+             {
+-                if (EmailConstants.TEXT_PLAIN.equalsIgnoreCase(this.contentType)
+-                        && this.content instanceof String)
+-                {
+-                    // EMAIL-104: call explicitly setText to use default mime charset
+-                    //            (property "mail.mime.charset") in case none has been set
+-                    this.message.setText(this.content.toString(), this.charset);
+-                }
+-                else
+-                {
+-                    this.message.setContent(this.content, this.contentType);
+-                }
++                this.message.setContent(this.content, this.contentType);
+             }
+             else if (this.emailBody != null)
+             {
+@@ -1309,7 +1299,7 @@ public abstract class Email
+             }
+             else
+             {
+-                this.message.setText("");
++                this.message.setContent("", Email.TEXT_PLAIN);
+             }
+ 
+             if (this.fromAddress != null)
+diff --git a/src/main/java/org/apache/commons/mail/EmailConstants.java b/src/main/java/org/apache/commons/mail/EmailConstants.java
+index d5d2905..ae1b6c0 100644
+--- a/src/main/java/org/apache/commons/mail/EmailConstants.java
++++ b/src/main/java/org/apache/commons/mail/EmailConstants.java
+@@ -107,9 +107,6 @@ public final class EmailConstants
+     /** defines the text/html content type */
+     public static final String TEXT_HTML = "text/html";
+ 
+-    /** defines the html subtype */
+-    public static final String TEXT_SUBTYPE_HTML = "html";
+-
+     /** defines the text/plain content type */
+     public static final String TEXT_PLAIN = "text/plain";
+ 
+@@ -224,12 +221,6 @@ public final class EmailConstants
+      */
+     public static final String MAIL_SMTPS_SEND_PARTIAL = "mail.smtps.sendpartial";
+ 
+-    /**
+-     * Defines the default mime charset to use when none has been specified for the message.
+-     * @since 1.3.2
+-     */
+-    public static final String MAIL_MIME_CHARSET = "mail.mime.charset";
+-
+     /** Hide constructor. */
+     private EmailConstants()
+     {
+diff --git a/src/main/java/org/apache/commons/mail/HtmlEmail.java b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+index 6c3d192..79c4d5e 100644
+--- a/src/main/java/org/apache/commons/mail/HtmlEmail.java
++++ b/src/main/java/org/apache/commons/mail/HtmlEmail.java
+@@ -534,8 +534,8 @@ public class HtmlEmail extends MultiPartEmail
+         MimeMultipart rootContainer = this.getContainer();
+         MimeMultipart bodyEmbedsContainer = rootContainer;
+         MimeMultipart bodyContainer = rootContainer;
+-        MimeBodyPart msgHtml = null;
+-        MimeBodyPart msgText = null;
++        BodyPart msgHtml = null;
++        BodyPart msgText = null;
+ 
+         rootContainer.setSubType("mixed");
+ 
+@@ -576,9 +576,17 @@ public class HtmlEmail extends MultiPartEmail
+             msgHtml = new MimeBodyPart();
+             bodyContainer.addBodyPart(msgHtml, 0);
+ 
+-            // EMAIL-104: call explicitly setText to use default mime charset
+-            //            (property "mail.mime.charset") in case none has been set
+-            msgHtml.setText(this.html, this.charset, EmailConstants.TEXT_SUBTYPE_HTML);
++            // apply default charset if one has been set
++            if (EmailUtils.isNotEmpty(this.charset))
++            {
++                msgHtml.setContent(
++                    this.html,
++                    EmailConstants.TEXT_HTML + "; charset=" + this.charset);
++            }
++            else
++            {
++                msgHtml.setContent(this.html, EmailConstants.TEXT_HTML);
++            }
+ 
+             for (InlineImage image : this.inlineEmbeds.values())
+             {
+@@ -591,9 +599,17 @@ public class HtmlEmail extends MultiPartEmail
+             msgText = new MimeBodyPart();
+             bodyContainer.addBodyPart(msgText, 0);
+ 
+-            // EMAIL-104: call explicitly setText to use default mime charset
+-            //            (property "mail.mime.charset") in case none has been set
+-            msgText.setText(this.text, this.charset);
++            // apply default charset if one has been set
++            if (EmailUtils.isNotEmpty(this.charset))
++            {
++                msgText.setContent(
++                    this.text,
++                    EmailConstants.TEXT_PLAIN + "; charset=" + this.charset);
++            }
++            else
++            {
++                msgText.setContent(this.text, EmailConstants.TEXT_PLAIN);
++            }
+         }
+     }
+ 
