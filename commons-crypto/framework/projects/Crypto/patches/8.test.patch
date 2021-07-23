@@ -1,0 +1,115 @@
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java b/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
+index 9428e2a..c1ef849 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
+@@ -45,7 +45,7 @@ public class OpensslCipherTest extends AbstractCipherTest {
+     Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
+ 
+     try {
+-      Openssl.getInstance("AES2/CTR/NoPadding");
++      Openssl cipher = Openssl.getInstance("AES2/CTR/NoPadding");
+       Assert.fail("Should specify correct algorithm.");
+     } catch (NoSuchAlgorithmException e) {
+       Assert.assertTrue(e.getMessage().contains("Doesn't support algorithm: AES2 and mode: CTR"));
+@@ -58,7 +58,7 @@ public class OpensslCipherTest extends AbstractCipherTest {
+     Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
+ 
+     try {
+-      Openssl.getInstance("AES/CTR/NoPadding2");
++      Openssl cipher = Openssl.getInstance("AES/CTR/NoPadding2");
+       Assert.fail("Should specify correct padding.");
+     } catch (NoSuchPaddingException e) {
+       Assert.assertTrue(e.getMessage().contains("Doesn't support padding: NoPadding2"));
+@@ -70,7 +70,7 @@ public class OpensslCipherTest extends AbstractCipherTest {
+   public void testInvalidMode() throws Exception {
+     try {
+       Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
+-      Openssl.getInstance("AES/CTR2/NoPadding");
++      Openssl cipher = Openssl.getInstance("AES/CTR2/NoPadding");
+       Assert.fail("java.security.NoSuchAlgorithmException should be thrown.");
+     } catch (NoSuchAlgorithmException e) {
+       Assert.assertTrue(e.getMessage().contains("Doesn't support algorithm: AES and mode: CTR2"));
+diff --git a/src/test/java/org/apache/commons/crypto/random/AbstractRandomTest.java b/src/test/java/org/apache/commons/crypto/random/AbstractRandomTest.java
+index d2919ea..6c6f692 100644
+--- a/src/test/java/org/apache/commons/crypto/random/AbstractRandomTest.java
++++ b/src/test/java/org/apache/commons/crypto/random/AbstractRandomTest.java
+@@ -17,14 +17,14 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
+-import java.security.GeneralSecurityException;
++import java.io.IOException;
+ import java.util.Arrays;
+ 
+ import org.junit.Test;
+ 
+ public abstract class AbstractRandomTest {
+ 
+-  public abstract SecureRandom getSecureRandom() throws GeneralSecurityException;
++  public abstract SecureRandom getSecureRandom() throws IOException;
+ 
+   @Test(timeout=120000)
+   public void testRandomBytes() throws Exception {
+diff --git a/src/test/java/org/apache/commons/crypto/random/TestJavaSecureRandom.java b/src/test/java/org/apache/commons/crypto/random/TestJavaSecureRandom.java
+index 2bbed66..26152b0 100644
+--- a/src/test/java/org/apache/commons/crypto/random/TestJavaSecureRandom.java
++++ b/src/test/java/org/apache/commons/crypto/random/TestJavaSecureRandom.java
+@@ -17,7 +17,7 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
+-import java.security.GeneralSecurityException;
++import java.io.IOException;
+ import java.util.Properties;
+ 
+ import org.apache.commons.crypto.conf.ConfigurationKeys;
+@@ -26,7 +26,7 @@ import static junit.framework.Assert.fail;
+ public class TestJavaSecureRandom extends AbstractRandomTest {
+ 
+   @Override
+-  public SecureRandom getSecureRandom() throws GeneralSecurityException {
++  public SecureRandom getSecureRandom() throws IOException {
+     Properties props = new Properties();
+     props.setProperty(ConfigurationKeys.COMMONS_CRYPTO_SECURE_RANDOM_CLASSES_KEY,
+         JavaSecureRandom.class.getName());
+diff --git a/src/test/java/org/apache/commons/crypto/random/TestOpensslSecureRandom.java b/src/test/java/org/apache/commons/crypto/random/TestOpensslSecureRandom.java
+index 13224dd..c9ff37b 100644
+--- a/src/test/java/org/apache/commons/crypto/random/TestOpensslSecureRandom.java
++++ b/src/test/java/org/apache/commons/crypto/random/TestOpensslSecureRandom.java
+@@ -17,7 +17,7 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
+-import java.security.GeneralSecurityException;
++import java.io.IOException;
+ import java.util.Properties;
+ 
+ import org.apache.commons.crypto.conf.ConfigurationKeys;
+@@ -26,7 +26,7 @@ import static junit.framework.Assert.fail;
+ public class TestOpensslSecureRandom extends AbstractRandomTest {
+ 
+   @Override
+-  public SecureRandom getSecureRandom() throws GeneralSecurityException {
++  public SecureRandom getSecureRandom() throws IOException {
+     Properties props = new Properties();
+     props.setProperty(ConfigurationKeys.COMMONS_CRYPTO_SECURE_RANDOM_CLASSES_KEY,
+         OpensslSecureRandom.class.getName());
+diff --git a/src/test/java/org/apache/commons/crypto/random/TestOsSecureRandom.java b/src/test/java/org/apache/commons/crypto/random/TestOsSecureRandom.java
+index de88511..138f766 100644
+--- a/src/test/java/org/apache/commons/crypto/random/TestOsSecureRandom.java
++++ b/src/test/java/org/apache/commons/crypto/random/TestOsSecureRandom.java
+@@ -17,12 +17,13 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
++import java.io.IOException;
+ import java.util.Properties;
+ 
+ public class TestOsSecureRandom extends AbstractRandomTest{
+ 
+   @Override
+-  public SecureRandom getSecureRandom() {
++  public SecureRandom getSecureRandom() throws IOException {
+     return new OsSecureRandom(new Properties());
+   }
+ }

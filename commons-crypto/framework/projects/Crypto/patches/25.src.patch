@@ -1,0 +1,63 @@
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java b/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
+index f5bdf92..65079b6 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
+@@ -30,7 +30,6 @@ import javax.crypto.Cipher;
+ import javax.crypto.IllegalBlockSizeException;
+ import javax.crypto.ShortBufferException;
+ 
+-import org.apache.commons.crypto.conf.ConfigurationKeys;
+ import org.apache.commons.crypto.utils.Utils;
+ 
+ /**
+@@ -53,7 +52,7 @@ public class JceCipher implements CryptoCipher {
+         this.props = props;
+         this.transformation = transformation;
+ 
+-        String provider = getJCEProvider(props);
++        String provider = Utils.getJCEProvider(props);
+         if (provider == null || provider.isEmpty()) {
+             cipher = Cipher.getInstance(transformation.getName());
+         } else {
+@@ -205,17 +204,4 @@ public class JceCipher implements CryptoCipher {
+     public void close() {
+         // Do nothing
+     }
+-
+-    /**
+-     * Gets the Jce provider.
+-     *
+-     * @param props The <code>Properties</code> class represents a set of
+-     *        properties.
+-     * @return the jce provider based on the props.
+-     */
+-    private static String getJCEProvider(Properties props) {
+-        return props.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY) !=
+-            null ? props.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY)
+-            : System.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY);
+-    }
+ }
+diff --git a/src/main/java/org/apache/commons/crypto/utils/Utils.java b/src/main/java/org/apache/commons/crypto/utils/Utils.java
+index 3fa3a18..0388a0e 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/Utils.java
++++ b/src/main/java/org/apache/commons/crypto/utils/Utils.java
+@@ -157,6 +157,19 @@ public final class Utils {
+         return cipherClassString;
+     }
+ 
++    /**
++     * Gets the Jce provider.
++     *
++     * @param props The <code>Properties</code> class represents a set of
++     *        properties.
++     * @return the jce provider based on the props.
++     */
++    public static String getJCEProvider(Properties props) {
++        return props.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY) !=
++            null ? props.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY)
++            : System.getProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_JCE_PROVIDER_KEY);
++    }
++
+     /**
+      * Gets the random device path.
+      *

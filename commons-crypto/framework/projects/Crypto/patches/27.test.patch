@@ -1,0 +1,13 @@
+diff --git a/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java b/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
+index 1781796..09b8fd9 100644
+--- a/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
++++ b/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
+@@ -92,7 +92,7 @@ public class PositionedCryptoInputStreamTest {
+ 
+     private PositionedCryptoInputStream getCryptoInputStream(
+             CryptoCipher cipher, int bufferSize) throws IOException {
+-        return new PositionedCryptoInputStream(props, new PositionedInputForTest(
++        return new PositionedCryptoInputStream(new PositionedInputForTest(
+                 Arrays.copyOf(encData, encData.length)), cipher, bufferSize,
+                 key, iv, 0);
+     }

@@ -1,0 +1,52 @@
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+index 1f4b162..c54cfab 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+@@ -24,7 +24,6 @@ import org.apache.commons.crypto.conf.ConfigurationKeys;
+ 
+ import org.junit.Assert;
+ import org.junit.Test;
+-import static junit.framework.Assert.fail;
+ 
+ public class CryptoCipherFactoryTest {
+     @Test
+@@ -38,8 +37,7 @@ public class CryptoCipherFactoryTest {
+     @Test
+     public void testEmptyCipher() throws GeneralSecurityException {
+         Properties properties = new Properties();
+-        properties.setProperty(
+-                ConfigurationKeys.COMMONS_CRYPTO_CIPHER_CLASSES_KEY, "");
++        properties.put(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_CLASSES_KEY, "");
+         CryptoCipher defaultCipher = CryptoCipherFactory.getInstance(
+                 CipherTransformation.AES_CBC_NOPADDING, properties);
+         Assert.assertEquals(OpensslCipher.class.getName(), defaultCipher
+@@ -49,28 +47,11 @@ public class CryptoCipherFactoryTest {
+     @Test
+     public void testInvalidCipher() throws GeneralSecurityException {
+         Properties properties = new Properties();
+-        properties.setProperty(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_CLASSES_KEY,
++        properties.put(ConfigurationKeys.COMMONS_CRYPTO_CIPHER_CLASSES_KEY,
+                 "InvalidCipherName");
+         CryptoCipher defaultCipher = CryptoCipherFactory.getInstance(
+                 CipherTransformation.AES_CBC_NOPADDING, properties);
+         Assert.assertEquals(JceCipher.class.getName(), defaultCipher.getClass()
+                 .getName());
+     }
+-
+-    @Test
+-    public void testDisableFallback() throws GeneralSecurityException {
+-        Properties properties = new Properties();
+-        properties.setProperty(
+-                ConfigurationKeys.COMMONS_CRYPTO_CIPHER_CLASSES_KEY,
+-                "InvalidCipherName");
+-        properties.setProperty(ConfigurationKeys
+-            .COMMONS_CRYPTO_ENABLE_FALLBACK_ON_NATIVE_FAILED_KEY, "false");
+-        try {
+-            CryptoCipher defaultCipher = CryptoCipherFactory.getInstance(
+-                    CipherTransformation.AES_CBC_NOPADDING, properties);
+-            fail("Should throw an exception when DisableFallback");
+-        } catch (Exception e) {
+-            ;
+-        }
+-    }
+ }

@@ -1,0 +1,250 @@
+diff --git a/src/test/java/org/apache/commons/crypto/CryptoBenchmark.java b/src/test/java/org/apache/commons/crypto/CryptoBenchmark.java
+index 80d6422..ff43c59 100644
+--- a/src/test/java/org/apache/commons/crypto/CryptoBenchmark.java
++++ b/src/test/java/org/apache/commons/crypto/CryptoBenchmark.java
+@@ -53,13 +53,13 @@ import org.openjdk.jmh.annotations.Warmup;
+ public class CryptoBenchmark {
+ 
+     // TODO replace these with the appropriate public fields/methods when these have been set up
+-    private static final String RANDOM_OPENSSL_JNA = "org.apache.commons.crypto.jna.OpenSslJnaCryptoRandom";
++    private static final String RANDOM_OPENSSL_JNA = "org.apache.commons.crypto.jna.OpensslJnaCryptoRandom";
+     private static final String RANDOM_JAVA        = "org.apache.commons.crypto.random.JavaCryptoRandom";
+     private static final String RANDOM_OS          = "org.apache.commons.crypto.random.OsCryptoRandom";
+-    private static final String RANDOM_OPENSSL     = "org.apache.commons.crypto.random.OpenSslCryptoRandom";
++    private static final String RANDOM_OPENSSL     = "org.apache.commons.crypto.random.OpensslCryptoRandom";
+ 
+-    private static final String CIPHER_OPENSSL_JNA = "org.apache.commons.crypto.jna.OpenSslJnaCipher";
+-    private static final String CIPHER_OPENSSL     = "org.apache.commons.crypto.cipher.OpenSslCipher";
++    private static final String CIPHER_OPENSSL_JNA = "org.apache.commons.crypto.jna.OpensslJnaCipher";
++    private static final String CIPHER_OPENSSL     = "org.apache.commons.crypto.cipher.OpensslCipher";
+     private static final String CIPHER_JCE         = "org.apache.commons.crypto.cipher.JceCipher";
+ 
+     private static final byte[] KEY = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+index 9f5f3f3..8c84ef7 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+@@ -40,7 +40,7 @@ import org.junit.Test;
+ 
+ public abstract class AbstractCipherTest {
+ 
+-    public static final String OPENSSL_CIPHER_CLASSNAME = OpenSslCipher.class.getName();
++    public static final String OPENSSL_CIPHER_CLASSNAME = OpensslCipher.class.getName();
+ 
+     public static final String JCE_CIPHER_CLASSNAME = JceCipher.class.getName();
+ 
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+index 4547aab..65029e9 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+@@ -30,7 +30,7 @@ public class CryptoCipherFactoryTest {
+     public void testDefaultCipher() throws GeneralSecurityException {
+         CryptoCipher defaultCipher = CryptoCipherFactory
+                 .getCryptoCipher("AES/CBC/NoPadding");
+-        Assert.assertEquals(OpenSslCipher.class.getName(), defaultCipher
++        Assert.assertEquals(OpensslCipher.class.getName(), defaultCipher
+                 .getClass().getName());
+     }
+ 
+@@ -41,7 +41,7 @@ public class CryptoCipherFactoryTest {
+                 ConfigurationKeys.CIPHER_CLASSES_KEY, "");
+         CryptoCipher defaultCipher = CryptoCipherFactory.getCryptoCipher(
+                 "AES/CBC/NoPadding", properties);
+-        Assert.assertEquals(OpenSslCipher.class.getName(), defaultCipher
++        Assert.assertEquals(OpensslCipher.class.getName(), defaultCipher
+                 .getClass().getName());
+     }
+ 
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java b/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
+index c5f0497..9df67f7 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/OpensslCipherTest.java
+@@ -42,10 +42,10 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(expected = NoSuchAlgorithmException.class, timeout = 120000)
+     public void testInvalidAlgorithm() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
+ 
+         try {
+-            OpenSsl.getInstance("AES2/CTR/NoPadding");
++            Openssl.getInstance("AES2/CTR/NoPadding");
+             Assert.fail("Should specify correct algorithm.");
+         } catch (NoSuchAlgorithmException e) {
+             Assert.assertTrue(e.getMessage().contains(
+@@ -56,10 +56,10 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(expected = NoSuchPaddingException.class, timeout = 120000)
+     public void testInvalidPadding() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
+ 
+         try {
+-            OpenSsl.getInstance("AES/CTR/NoPadding2");
++            Openssl.getInstance("AES/CTR/NoPadding2");
+             Assert.fail("Should specify correct padding.");
+         } catch (NoSuchPaddingException e) {
+             Assert.assertTrue(e.getMessage().contains(
+@@ -71,8 +71,8 @@ public class OpensslCipherTest extends AbstractCipherTest {
+     @Test(expected = NoSuchAlgorithmException.class, timeout = 120000)
+     public void testInvalidMode() throws Exception {
+         try {
+-            Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
+-            OpenSsl.getInstance("AES/CTR2/NoPadding");
++            Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
++            Openssl.getInstance("AES/CTR2/NoPadding");
+             Assert.fail("java.security.NoSuchAlgorithmException should be thrown.");
+         } catch (NoSuchAlgorithmException e) {
+             Assert.assertTrue(e.getMessage().contains(
+@@ -83,12 +83,12 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(timeout = 120000)
+     public void testUpdateArguments() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
+-        OpenSsl cipher = OpenSsl
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
++        Openssl cipher = Openssl
+                 .getInstance("AES/CTR/NoPadding");
+         Assert.assertNotNull(cipher);
+ 
+-        cipher.init(OpenSsl.ENCRYPT_MODE, KEY, IV);
++        cipher.init(Openssl.ENCRYPT_MODE, KEY, IV);
+ 
+         // Require direct buffers
+         ByteBuffer input = ByteBuffer.allocate(1024);
+@@ -117,12 +117,12 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(timeout = 120000)
+     public void testDoFinalArguments() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
+-        OpenSsl cipher = OpenSsl
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
++        Openssl cipher = Openssl
+                 .getInstance("AES/CTR/NoPadding");
+         Assert.assertNotNull(cipher);
+ 
+-        cipher.init(OpenSsl.ENCRYPT_MODE, KEY, IV);
++        cipher.init(Openssl.ENCRYPT_MODE, KEY, IV);
+ 
+         // Require direct buffer
+         ByteBuffer output = ByteBuffer.allocate(1024);
+@@ -138,15 +138,15 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(expected = InvalidKeyException.class, timeout = 120000)
+     public void testInvalidKey() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
+-        OpenSsl cipher = OpenSsl
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
++        Openssl cipher = Openssl
+                 .getInstance("AES/CTR/NoPadding");
+         Assert.assertNotNull(cipher);
+ 
+         final byte[] invalidKey = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+                 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x11 };
+         try {
+-            cipher.init(OpenSsl.ENCRYPT_MODE, invalidKey, IV);
++            cipher.init(Openssl.ENCRYPT_MODE, invalidKey, IV);
+             Assert.fail("java.security.InvalidKeyException should be thrown.");
+         } catch (Exception e) {
+             Assert.assertTrue(e.getMessage().contains("Invalid AES key length: " + invalidKey.length + " bytes"));
+@@ -156,15 +156,15 @@ public class OpensslCipherTest extends AbstractCipherTest {
+ 
+     @Test(expected = InvalidAlgorithmParameterException.class, timeout = 120000)
+     public void testInvalidIV() throws Exception {
+-        Assume.assumeTrue(OpenSsl.getLoadingFailureReason() == null);
+-        OpenSsl cipher = OpenSsl
++        Assume.assumeTrue(Openssl.getLoadingFailureReason() == null);
++        Openssl cipher = Openssl
+                 .getInstance("AES/CTR/NoPadding");
+         Assert.assertNotNull(cipher);
+ 
+         final byte[] invalidIV = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
+                 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x11 };
+         try {
+-            cipher.init(OpenSsl.ENCRYPT_MODE, KEY, invalidIV);
++            cipher.init(Openssl.ENCRYPT_MODE, KEY, invalidIV);
+             Assert.fail("java.security.InvalidAlgorithmParameterException should be thrown.");
+         } catch (Exception e) {
+             Assert.assertTrue(e.getMessage().contains("Wrong IV length: must be 16 bytes long"));
+diff --git a/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCipherTest.java b/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCipherTest.java
+index 30b7fde..2d01ffa 100644
+--- a/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCipherTest.java
+@@ -19,7 +19,7 @@
+ package org.apache.commons.crypto.jna;
+ 
+ import org.apache.commons.crypto.cipher.AbstractCipherTest;
+-import org.apache.commons.crypto.jna.OpenSslJnaCipher;
++import org.apache.commons.crypto.jna.OpensslJnaCipher;
+ 
+ public class OpensslJnaCipherTest extends AbstractCipherTest {
+ 
+@@ -30,7 +30,7 @@ public class OpensslJnaCipherTest extends AbstractCipherTest {
+                 "AES/CBC/PKCS5Padding",
+                 "AES/CTR/NoPadding"
+                 };
+-        cipherClass = OpenSslJnaCipher.class.getName();
++        cipherClass = OpensslJnaCipher.class.getName();
+     }
+ 
+     @Override
+diff --git a/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandomTest.java b/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandomTest.java
+index 550b4a6..159fada 100644
+--- a/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandomTest.java
++++ b/src/test/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandomTest.java
+@@ -21,7 +21,7 @@ import java.security.GeneralSecurityException;
+ import java.util.Properties;
+ 
+ import org.apache.commons.crypto.conf.ConfigurationKeys;
+-import org.apache.commons.crypto.jna.OpenSslJnaCryptoRandom;
++import org.apache.commons.crypto.jna.OpensslJnaCryptoRandom;
+ import org.apache.commons.crypto.random.AbstractRandomTest;
+ import org.apache.commons.crypto.random.CryptoRandom;
+ import org.apache.commons.crypto.random.CryptoRandomFactory;
+@@ -35,11 +35,11 @@ public class OpensslJnaCryptoRandomTest extends AbstractRandomTest {
+         Properties props = new Properties();
+         props.setProperty(
+                 ConfigurationKeys.SECURE_RANDOM_CLASSES_KEY,
+-                OpenSslJnaCryptoRandom.class.getName());
++                OpensslJnaCryptoRandom.class.getName());
+         CryptoRandom random = CryptoRandomFactory.getCryptoRandom(props);
+-        if (!(random instanceof OpenSslJnaCryptoRandom)) {
++        if (!(random instanceof OpensslJnaCryptoRandom)) {
+             fail("The CryptoRandom should be: "
+-                    + OpenSslJnaCryptoRandom.class.getName());
++                    + OpensslJnaCryptoRandom.class.getName());
+         }
+         return random;
+     }
+diff --git a/src/test/java/org/apache/commons/crypto/random/CryptoRandomFactoryTest.java b/src/test/java/org/apache/commons/crypto/random/CryptoRandomFactoryTest.java
+index a8d2946..b24586f 100644
+--- a/src/test/java/org/apache/commons/crypto/random/CryptoRandomFactoryTest.java
++++ b/src/test/java/org/apache/commons/crypto/random/CryptoRandomFactoryTest.java
+@@ -43,7 +43,7 @@ public class CryptoRandomFactoryTest {
+     public void testDefaultRandom() throws GeneralSecurityException {
+         Properties props = new Properties();
+         CryptoRandom random = CryptoRandomFactory.getCryptoRandom(props);
+-        Assert.assertEquals(OpenSslCryptoRandom.class.getName(),
++        Assert.assertEquals(OpensslCryptoRandom.class.getName(),
+             random.getClass().getName());
+     }
+ 
+diff --git a/src/test/java/org/apache/commons/crypto/random/OpensslCryptoRandomTest.java b/src/test/java/org/apache/commons/crypto/random/OpensslCryptoRandomTest.java
+index 4cca0f0..973da72 100644
+--- a/src/test/java/org/apache/commons/crypto/random/OpensslCryptoRandomTest.java
++++ b/src/test/java/org/apache/commons/crypto/random/OpensslCryptoRandomTest.java
+@@ -30,11 +30,11 @@ public class OpensslCryptoRandomTest extends AbstractRandomTest {
+         Properties props = new Properties();
+         props.setProperty(
+                 ConfigurationKeys.SECURE_RANDOM_CLASSES_KEY,
+-                OpenSslCryptoRandom.class.getName());
++                OpensslCryptoRandom.class.getName());
+         CryptoRandom random = CryptoRandomFactory.getCryptoRandom(props);
+-        if (!(random instanceof OpenSslCryptoRandom)) {
++        if (!(random instanceof OpensslCryptoRandom)) {
+             fail("The CryptoRandom should be: "
+-                    + OpenSslCryptoRandom.class.getName());
++                    + OpensslCryptoRandom.class.getName());
+         }
+         return random;
+     }

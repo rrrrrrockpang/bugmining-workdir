@@ -1,0 +1,141 @@
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipher.java b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipher.java
+index 746a4d1..bd494fb 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipher.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipher.java
+@@ -44,6 +44,13 @@ public interface CryptoCipher extends Closeable {
+      */
+     CipherTransformation getTransformation();
+ 
++    /**
++     * Gets the properties for this cipher.
++     *
++     * @return the properties for this cipher.
++     */
++    Properties getProperties();
++
+     /**
+      * Initializes the cipher with mode, key and iv.
+      *
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java b/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
+index 2098b43..324c75f 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/JceCipher.java
+@@ -37,6 +37,7 @@ import org.apache.commons.crypto.utils.Utils;
+  * Implements the {@link CryptoCipher} using JCE provider.
+  */
+ public class JceCipher implements CryptoCipher {
++    private final Properties props;
+     private final CipherTransformation transformation;
+     private final Cipher cipher;
+ 
+@@ -49,6 +50,7 @@ public class JceCipher implements CryptoCipher {
+      */
+     public JceCipher(Properties props, CipherTransformation transformation)
+             throws GeneralSecurityException {
++        this.props = props;
+         this.transformation = transformation;
+ 
+         String provider = getJCEProvider(props);
+@@ -69,6 +71,16 @@ public class JceCipher implements CryptoCipher {
+         return transformation;
+     }
+ 
++    /**
++     * Gets the properties for the jce cipher.
++     *
++     * @return the properties for this cipher.
++     */
++    @Override
++    public Properties getProperties() {
++        return props;
++    }
++
+     /**
+      * Initializes the cipher with mode, key and iv.
+      *
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java b/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
+index a39e769..37938c4 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
+@@ -36,6 +36,7 @@ import org.apache.commons.crypto.utils.Utils;
+  * Implements the CryptoCipher using JNI into OpenSSL.
+  */
+ public class OpensslCipher implements CryptoCipher {
++    private final Properties props;
+     private final CipherTransformation transformation;
+     private final Openssl cipher;
+ 
+@@ -48,6 +49,7 @@ public class OpensslCipher implements CryptoCipher {
+      */
+     public OpensslCipher(Properties props, CipherTransformation transformation)
+             throws GeneralSecurityException {
++        this.props = props;
+         this.transformation = transformation;
+ 
+         String loadingFailureReason = Openssl.getLoadingFailureReason();
+@@ -68,6 +70,16 @@ public class OpensslCipher implements CryptoCipher {
+         return transformation;
+     }
+ 
++    /**
++     * Gets the properties for the openssl cipher.
++     *
++     * @return the properties for this cipher.
++     */
++    @Override
++    public Properties getProperties() {
++        return props;
++    }
++
+     /**
+      * Initializes the cipher with mode, key and iv.
+      *
+diff --git a/src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.java b/src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.java
+index 55f47c3..cbd77fb 100644
+--- a/src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.java
++++ b/src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.java
+@@ -55,11 +55,6 @@ public class PositionedCryptoInputStream extends CTRCryptoInputStream {
+      */
+     private final Queue<CipherState> cipherPool = new ConcurrentLinkedQueue<CipherState>();
+ 
+-    /**
+-     * properties for constructing a CryptoCipher
+-     */
+-    private final Properties props;
+-
+     /**
+      * Constructs a {@link PositionedCryptoInputStream}.
+      *
+@@ -73,8 +68,8 @@ public class PositionedCryptoInputStream extends CTRCryptoInputStream {
+      */
+     public PositionedCryptoInputStream(Properties props, Input in, byte[] key,
+             byte[] iv, long streamOffset) throws IOException {
+-        this(props, in, Utils.getCipherInstance(AES_CTR_NOPADDING, props),
+-                Utils.getBufferSize(props), key, iv, streamOffset);
++        this(in, Utils.getCipherInstance(AES_CTR_NOPADDING, props), Utils
++                .getBufferSize(props), key, iv, streamOffset);
+     }
+ 
+     /**
+@@ -88,11 +83,10 @@ public class PositionedCryptoInputStream extends CTRCryptoInputStream {
+      * @param streamOffset the start offset in the data.
+      * @throws IOException if an I/O error occurs.
+      */
+-    protected PositionedCryptoInputStream(Properties props, Input input, CryptoCipher cipher,
++    protected PositionedCryptoInputStream(Input input, CryptoCipher cipher,
+             int bufferSize, byte[] key, byte[] iv, long streamOffset)
+             throws IOException {
+         super(input, cipher, bufferSize, key, iv, streamOffset);
+-        this.props = props;
+     }
+ 
+     /**
+@@ -320,7 +314,7 @@ public class PositionedCryptoInputStream extends CTRCryptoInputStream {
+             CryptoCipher cipher;
+             try {
+                 cipher = CryptoCipherFactory.getInstance(getCipher()
+-                        .getTransformation(), props);
++                        .getTransformation(), getCipher().getProperties());
+             } catch (GeneralSecurityException e) {
+                 throw new IOException(e);
+             }

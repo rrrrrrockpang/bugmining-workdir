@@ -1,0 +1,28 @@
+diff --git a/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java b/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
+index 1813624..3adb9b6 100644
+--- a/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
++++ b/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
+@@ -84,9 +84,11 @@ public class OpensslCryptoRandom extends Random implements CryptoRandom {
+      */
+     public OpensslCryptoRandom(Properties props)
+             throws NoSuchAlgorithmException {
+-        //fallback needs to be initialized here in any case cause even if
+-        //nativeEnabled is true OpensslCryptoRandomNative.nextRandBytes may fail
+-        fallback = new JavaCryptoRandom(props);
++        if (!nativeEnabled) {
++            fallback = new JavaCryptoRandom(props);
++        } else {
++            fallback = null;
++        }
+     }
+ 
+     /**
+@@ -143,7 +145,7 @@ public class OpensslCryptoRandom extends Random implements CryptoRandom {
+      */
+     @Override
+     public void close() {
+-        if (fallback != null) {
++        if (!nativeEnabled && fallback != null) {
+             fallback.close();
+         }
+     }

@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+index 1929685..83e7d37 100644
+--- a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
++++ b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+@@ -195,8 +195,6 @@ public class CryptoRandomFactory {
+                 errorMessage.append("Class: [" + klassName + "] is not a CryptoRandom.");
+             } catch (ClassNotFoundException e) {
+                 errorMessage.append("CryptoRandom: [" + klassName + "] not found.");
+-            } catch (Exception e) {
+-                errorMessage.append("CryptoRandom: [" + klassName + "] failed with " + e.getMessage());
+             }
+         }
+ 

@@ -1,0 +1,5082 @@
+commit 8af1b6cc4a91331d19e029761b6527d257665f15
+Author: dianfu <dian.fu@intel.com>
+Date:   Fri Mar 27 16:35:20 2015 +0800
+
+    0.0.1 ready
+
+commit 81bbe37025fab7a7aaf026ec1bd0c782ebffc355
+Author: dianfu <dian.fu@intel.com>
+Date:   Mon Mar 30 11:22:06 2015 +0800
+
+    update the group id
+
+commit c0b2daf0517b358b2f3825bc26780c90ac2c1681
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Mar 31 11:28:24 2015 +0800
+
+    change groupId to com.intel.chimera
+
+commit 9e5327ccdd96ec4f35c4f6b52883d29277172470
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Apr 1 09:00:53 2015 +0800
+
+    add script to build javadoc and packageSource
+
+commit 565290def7a5b150ecf660e414d0d37f1175706c
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Apr 1 11:18:43 2015 +0800
+
+    using JceAesCtrCryptoCodec if not configured
+
+commit d4f06bdc55dfaedffa1db56c77b1d6e87da7857e
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Apr 1 13:22:27 2015 +0800
+
+    add publish support for sonatype
+
+commit 52228b57f337318a3f3dca85a1b1128eb977b9ed
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Nov 11 14:56:51 2015 +0800
+
+    Refactor the interface of CryptoInputStream/CryptoOutputStream to allow users provide configuration properties
+
+commit 7bed8576082bc4f6190719cf709ae4a456410c47
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Nov 11 15:41:47 2015 +0800
+
+    Add unit tests for one byte encryption test and tests for securerandom
+
+commit 3b435559724dd9dc913dec1c9994bfbf175c3443
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Nov 11 16:04:38 2015 +0800
+
+    remove unused code in CryptoInputStream
+
+commit f3c5416e574e159e5d56af85c045c4422a365a5f
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Nov 11 03:06:50 2015 -0500
+
+    Clean up read method of crypto inputstream
+
+commit 80a8628bb5aeb61f186ade3a8abafe7c0421e3ff
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Nov 11 16:49:18 2015 +0800
+
+    Bugfix: StreamInput should return -1 to the caller when the underline inputstream return -1
+
+commit afa3d61ed12af8f727104b23b66a8510d5545342
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Nov 11 17:44:19 2015 +0800
+
+    Rename ChimeraUtils to Utils
+
+commit bd678dc1cb87a4df51b2605c46e6e7693f42e0c9
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Nov 11 10:33:20 2015 -0500
+
+    Doc: update the readme since 0.5.0 released
+
+commit 5ec957e7d698f5383b92589f298a705a2a8eadd4
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Nov 11 20:03:27 2015 -0500
+
+    Update version and contributor list
+
+commit 22a2a8e77d22b4a604e9bc1801fb835c084d21b0
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 09:30:46 2015 +0800
+
+    Add back the version file
+
+commit 372ae1978fbf2fb7387204c8dac028fb8c729c46
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 10:03:34 2015 +0800
+
+    Update README adding documentation about how to make a release
+
+commit 3ae8f7ec1e4094a6fa6a96fd453586a509d155e7
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 13:19:21 2015 +0800
+
+    Refactor CryptoInputStream: ReadableByteChannel as input
+
+commit b25ce46bac2984c199b53b0b501a7f0ae23aa3b8
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 13:21:41 2015 +0800
+
+    Refactor Input related classes to package com.intel.chimera.input
+
+commit 95e285559c5b7cfbd6558154ec47779dff46acf8
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 14:00:54 2015 +0800
+
+    Refactor CryptoOutputStream: Add Output support
+
+commit ba35e16f5337420c31aa9ae042b6acaf536caddd
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 14:36:53 2015 +0800
+
+    Add WritableByteChannel inteface for CryptoOutputStream
+
+commit bec57138f184408f55bf5ce4936ec535ca10f385
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 14:55:37 2015 +0800
+
+    Refactor codec related classes to package com.intel.chimera.codec
+
+commit 30324881844b5cb34edfdc542b2b523ca4c5e4c2
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 15:48:12 2015 +0800
+
+    Fix read bug related to method skip
+
+commit 9feab01dd101cb321886fa2e07cd91ae8b384531
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 16:33:50 2015 +0800
+
+    Add comments for newly added classes
+
+commit 58ab6e7b5f1ffa55f37703e994fe459494927807
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Nov 12 18:09:47 2015 +0800
+
+    Add test for ReadableByteChannel and WritableByteChannel
+
+commit fe93a8de98a221dbfec6bd401f97d34b49de79f7
+Author: dianfu <dian.fu@intel.com>
+Date:   Mon Nov 16 09:14:50 2015 +0800
+
+    Refactor: remove unnecessary parameters of a few methods in CryptoInputStream
+
+commit de040588a25c023b7b2a7208516f3e94a8d2d979
+Author: dianfu <dian.fu@intel.com>
+Date:   Mon Nov 16 11:11:12 2015 +0800
+
+    Remove unnecessary copy in CryptoInputStream#read
+
+commit 4d41bf596d97aeca958df218e7927ae69d630043
+Author: dianfu <dian.fu@intel.com>
+Date:   Mon Nov 16 11:15:54 2015 +0800
+
+    Remove ChannelStreamInput as it's unused currently
+
+commit 9813ce1ede0d6cbc2c05b7b99d7a1b0075565392
+Author: dianfu <dian.fu@intel.com>
+Date:   Mon Nov 16 16:25:29 2015 +0800
+
+    Avoid unnecessary copy from outBuffer to user provided output buffer in method CryptoInputStream#read
+
+commit 1bb46cba6953b9e7af225923c7b69e57d4a09a67
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Nov 18 21:03:10 2015 -0500
+
+    Simplify configuration usage
+
+commit 62347d20d4de4de57ef3eb509704c09ddca07433
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Nov 20 03:00:54 2015 -0500
+
+    Add default value for caes ctr nopadding codec class
+
+commit 59acf3953249bd8a4af3b629dcab107db72691a4
+Author: dianfu <dian.fu@intel.com>
+Date:   Fri Nov 20 17:18:23 2015 +0800
+
+    Change mothod Utils.getSecureRandomClass to Utils.getSecureRandom to make it easy to use
+
+commit 536be4f8f7a1a51882639441917f226d06320621
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Dec 9 16:44:19 2015 +0800
+
+    Minor improvement: skip trying other codec classes when found one available
+
+commit d9b11890c0d73f6e7ac23f1489ad663051b267a7
+Author: dianfu <dian.fu@intel.com>
+Date:   Wed Dec 9 16:46:38 2015 +0800
+
+    Bugfix: should use method getName() instead of name() for CipherSuite
+
+commit 1210902edfa9a0ba3444721d09ec72d8d7b9fc3c
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Dec 14 03:40:08 2015 -0500
+
+    Add findbugs and fix related bugs
+
+commit 7dc37b4b88fdffd8e274404fee0d19aafb71e3bd
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Jan 4 21:03:07 2016 -0500
+
+    0.9.0 release
+
+commit 14fbea2781864b82ca3845b56c63dd684ff46627
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Jan 4 21:38:18 2016 -0500
+
+    1.0.0-snapshot
+
+commit 2d6b5abd3eb98b96728e66c70e47f99b1ec098b8
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jan 5 13:53:03 2016 +0800
+
+    Add travis ci
+
+commit 32d133ff87e41581d5f20d3c741dda04d7db5fe2
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jan 6 11:32:37 2016 +0800
+
+    Refactory concepts: codec -> cipher+transformation
+
+commit 6ff5969108080b94aac1e00a8720e92b74b991cd
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jan 6 11:33:55 2016 +0800
+
+    fix UnitTests
+
+commit b2596bf003c3167b1bf5e83f26e29a3972e9262c
+Merge: 14fbea2 2d6b5ab
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Wed Jan 6 13:41:09 2016 +0800
+
+    Merge pull request #4 from sundapeng/travis-ci
+    
+    Add travis ci support
+
+commit d0fd28fd8f583a154814a6c8403be479e9073d2c
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jan 6 14:15:26 2016 +0800
+
+    fix comments and variables
+
+commit 415eba23a4fd8016f1887ba2c5cc66f2c2b675a5
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jan 6 14:29:50 2016 +0800
+
+    fix style
+
+commit d698caccaafcac4856701ba9c3fc722bd33f78df
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jan 6 15:51:54 2016 +0800
+
+    add javadoc for Cipher
+
+commit d5b79449b5fde8ec8ababcdaf6d730a073d3fded
+Merge: b2596bf d698cac
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Wed Jan 6 16:16:46 2016 +0800
+
+    Merge pull request #5 from sundapeng/cipher-refactory
+    
+    Cipher refactory
+
+commit 1751bff35db111223f8f253e997ef6574fb001b0
+Author: jerrychenhf <jerrychenhf@yahoo.com>
+Date:   Wed Jan 6 16:36:35 2016 +0800
+
+    Update README.md
+    
+    Update the description of the project in the README file.
+
+commit 690e101b3cc2c8744b1e7cbfbec7f936791c42f9
+Author: jerrychenhf <jerrychenhf@yahoo.com>
+Date:   Wed Jan 6 16:40:52 2016 +0800
+
+    Update README.md
+    
+    Correct a typo and add a note for who implement the algorithms.
+
+commit f436725d6d72cfe78819d8fb75654e498af8e1d6
+Author: Jerry Chen <haifeng.chen@intel.com>
+Date:   Wed Jan 6 16:42:06 2016 +0800
+
+    Rename one default conf key to be consistent and define CONF_PREFIX
+
+commit 3b2234a942c6e06d594193bebc1fe0b99de9cf2a
+Author: Jerry Chen <haifeng.chen@intel.com>
+Date:   Wed Jan 6 18:30:46 2016 +0800
+
+    Standardize the names and remove chimera from method and variable names
+
+commit 58d0b78ca0fa58a33480ea3f64d9c5daaadb0bc8
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Jan 6 22:09:20 2016 -0500
+
+    ChannelInput uses Buffer as skip buffer instead of DirectBuffer
+
+commit 4371eb77132d99327d2216e26e203ba4f6b79225
+Merge: 3b2234a 58d0b78
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Jan 7 11:30:29 2016 +0800
+
+    Merge pull request #8 from winningsix/RemoveDirectBufferForChannelInput
+    
+    ChannelInput should use Buffer as skip buffer instead of DirectBuffer
+
+commit 6e74cbd70afb97af090c729a04a608012876f04d
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 00:29:49 2016 -0500
+
+    Update the usage section in README since the refactory
+
+commit 84d0aa6eae7162c929d9a1b6666968d2f17a2acc
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 01:12:05 2016 -0500
+
+    Make the created buffer reusable in skip ChannelInput
+
+commit ddde9584bee042f2a71e330c6ee28c388779da7b
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 01:22:59 2016 -0500
+
+    Rename variable for BUFFER_SIZE
+
+commit 7690e367f01a138a13f87a666a5a497e0929324f
+Merge: 4371eb7 ddde958
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Jan 7 14:54:06 2016 +0800
+
+    Merge pull request #11 from winningsix/RemoveDirectBufferForChannelInput
+    
+    Make the created buffer reusable in skip ChannelInput
+
+commit 5266f4754dd25d34c4c9dfdb0a554c5b76f131cd
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 01:57:26 2016 -0500
+
+    Update the configuration section of README
+
+commit 721396102f5f235467f613884be7fbb579add354
+Merge: 7690e36 5266f47
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Jan 7 15:07:24 2016 +0800
+
+    Merge pull request #10 from winningsix/README
+    
+    Update the usage section in README since the refactory This closes #10
+
+commit 6c83cc98d13df7f5a20d9f43070275a7cf17fc04
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 22:23:39 2016 -0500
+
+    Fix findbugs issue
+
+commit 82db6e632e76c968c348a54e2a2de34c807670af
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 20:53:58 2016 -0500
+
+    Update the usage section for configurations
+
+commit 8fdeaa4b61bf8d32fd62c3cd13897c0f7d45c927
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Jan 8 02:34:46 2016 -0500
+
+    Update patch addressing the Haifeng's comments
+
+commit 58665145aa64f6d3cf609e8e7cf2b9b23ed46481
+Merge: 7213961 8fdeaa4
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 09:00:59 2016 +0800
+
+    Merge pull request #17 from winningsix/findbugs
+    
+    Fix findbugs issue
+
+commit 2ec02fd149b53a4abb15771f1cc991abf0c64013
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 10 20:48:12 2016 -0500
+
+    Remove unnecessary ignore file entry
+
+commit e06a7944f9a2c46006b4c99f8afe838028a1a002
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 10 21:08:01 2016 -0500
+
+    Remove unnecessary empty line
+
+commit 67da4c9a8a1e21461c1d62f959fa1c2b61c5956e
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 10 21:09:12 2016 -0500
+
+    Remove another unnecessary line
+
+commit 734d93d07cbe795e0dd0e03952ffb9c3671cbc0a
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 02:28:09 2016 -0500
+
+    Some refactory for Cipher class
+
+commit ffe69097efa7e6fdb49cdf14830c1fc95a745b58
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 02:53:56 2016 -0500
+
+    Change cipher to interface
+
+commit 4ea13677666bc5d440620eb4a5d7bbb5e5e41a96
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Jan 7 21:44:24 2016 -0500
+
+    Remove unused imports and add back the override annotations
+
+commit 000a4c78b20cefa68c0dbaa427106e61707a7fa1
+Merge: 5866514 67da4c9
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 10:13:01 2016 +0800
+
+    Merge pull request #21 from winningsix/master
+    
+    Remove unnecessary ignore file entry
+
+commit 3505a4085227ee2cb3b6f86ab69111f61b82cce2
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jan 7 23:06:58 2016 +0800
+
+    Add CBC cipher support
+
+commit 90d75c1007db400b7a8deb5ec80fa58a22a87469
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jan 8 10:25:45 2016 +0800
+
+    address comment
+
+commit 8ecad0526420fb19dad8519dbedf920f30f642aa
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jan 8 16:33:00 2016 +0800
+
+    add 192bit key support
+
+commit 877882c52c55adfb94b2dadcef9f764d62d9fc28
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Sun Jan 10 21:52:45 2016 +0800
+
+    revert stream unit test
+
+commit bed6a86dc8991b3edd134afed146180b0b1bc2f9
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Sun Jan 10 23:52:51 2016 +0800
+
+    Add Cipher unit test
+
+commit a47ba35098742bb1a4f71f3554a5656bc7bf2d32
+Merge: 000a4c7 4ea1367
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 10:17:16 2016 +0800
+
+    Merge pull request #12 from winningsix/CipherFactory
+    
+    Some refactory for Cipher class
+
+commit 2c629fd955355f8a801f9df2a0e0ae126446afb6
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 10:44:11 2016 +0800
+
+    fix merge
+
+commit 0d6fec4068c95d771fc4fa248432e10eaf395225
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 10 21:46:49 2016 -0500
+
+    Remove so file and use Maven plugin to trigger make
+
+commit 258885bd110c4edae74e01d49abbe840ab99fc56
+Merge: a47ba35 2c629fd
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Mon Jan 11 10:54:46 2016 +0800
+
+    Merge pull request #15 from sundapeng/cbc-cipher
+    
+    Add CBC cipher support
+
+commit ee2f1900fdaca56a70838dfa0e696d44378ecae6
+Merge: 258885b 82db6e6
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 10:56:06 2016 +0800
+
+    Merge pull request #16 from winningsix/Doc
+    
+    Update the usage section for configurations This closes #13
+
+commit 71c7e0d7ddfcd65af0e06ecb5185750ebc0a2e07
+Merge: ee2f190 0d6fec4
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 11:17:01 2016 +0800
+
+    Merge pull request #23 from winningsix/REMOVESOFILE
+    
+    Remove so file and use Maven plugin to trigger make This closes #23
+
+commit 89d4ce42c92e7f2ba5eca8ee0d5dbb09504a68aa
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Mon Jan 11 12:42:08 2016 +0800
+
+    Fix wrap of table
+
+commit 87d9126667e04601967fdf81c03b92c61ff8b111
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Jan 11 02:11:49 2016 -0500
+
+    Add RAT check
+
+commit b5ea94494c8037cb43160a3fb7d0336562f37fe0
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Jan 11 02:27:00 2016 -0500
+
+    Update discussion group information
+
+commit 742801b2941e345da7cac6e51d0091d8b08a84a4
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Jan 11 02:30:52 2016 -0500
+
+    Fix wrong URL
+
+commit b2ef16eb5fd346f5bcdba854603c84b51ed0c35a
+Merge: 89d4ce4 87d9126
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 15:38:12 2016 +0800
+
+    Merge pull request #24 from winningsix/RAT
+    
+    Add RAT check
+
+commit b1fbef49bfe8953263a066f724b196cceaaa3e78
+Merge: b2ef16e 742801b
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Mon Jan 11 15:38:23 2016 +0800
+
+    Merge pull request #25 from winningsix/GROUP
+    
+    Update discussion group information
+
+commit 303a8965a0f354263a9e5071c2269551d7022125
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 16:25:45 2016 +0800
+
+    fix Invalid repo
+
+commit a5cff3905dc2c6842687859a8326607292dad21b
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 16:31:25 2016 +0800
+
+    Fix 302 redirect
+
+commit b6deddf46761184a0a1faab1d52e3ebeba616e77
+Merge: b1fbef4 a5cff39
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Mon Jan 11 16:45:09 2016 +0800
+
+    Merge pull request #27 from sundapeng/master
+    
+    Fix Invalid repo
+
+commit 54a668241e3563a4696493e514744c3e8bfaab3f
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 16:46:26 2016 +0800
+
+    Update Jenkins build status
+
+commit 6993fd1721ce0c76a6feecba58ca4741ab68bc70
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 16:54:51 2016 +0800
+
+    Fix missing equality sign in OpensslNative.c
+
+commit dc671132464769e5fc1164021cc91c023678b89a
+Merge: b6deddf 54a6682
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Mon Jan 11 17:02:31 2016 +0800
+
+    Merge pull request #29 from sundapeng/master
+    
+    Update Jenkins build status
+
+commit 89b52bbb5f47411b675814b0458cdacbb132d86f
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 01:15:07 2016 +0800
+
+    refactory random
+
+commit 20df3b2a5466f4061029190d5de76aa9561e5993
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 09:18:36 2016 +0800
+
+    use JavaSecureRandom as Openssl fallback
+
+commit 443dd724cd7f79be5949204d3ac3fbe97aec73e2
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 14:48:42 2016 +0800
+
+    Fix remove public of interface method and etc
+
+commit bf8ccb626b045131971ee9970c13605a4dbd8c39
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 16:13:49 2016 +0800
+
+    make SecureRandom clean
+
+commit 7121e6abc7b883589031c778f58f28b7ad112bd5
+Merge: dc67113 6993fd1
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Mon Jan 11 17:36:23 2016 +0800
+
+    Merge pull request #30 from sundapeng/master
+    
+    Fix missing equality sign in OpensslNative.c
+
+commit 91c0613627c44bf3138040f7ce423e1935e38c90
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Jan 11 10:24:14 2016 -0800
+
+    Don't invoke sbt from the makefile.
+    
+    This avoids rebuilding everything with sbt when running "mvn install".
+    Also avoid copying the generated library to the source directory.
+
+commit 01aade938a8adb159158596cbf38af89eb20be59
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jan 12 09:17:57 2016 +0800
+
+    remove Utils.getSecureRandom(Properties props)
+
+commit bc463763893ce107645da22aef99527658ce2251
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jan 11 17:28:02 2016 +0800
+
+    Explicit close() on Cipher
+
+commit 6f61b90e082a8bfbff38f4a09b9d36ce69372280
+Merge: 7121e6a 01aade9
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Tue Jan 12 09:36:59 2016 +0800
+
+    Merge pull request #20 from sundapeng/random-factory
+    
+    Refactory random and add close method
+
+commit a0dc4c31ceccf4c6ca8aca3a40294ef5c7518803
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jan 12 09:52:22 2016 +0800
+
+    remove unused LOG
+
+commit 78054ecf5681de74fd69b21a9133083ce0b8e383
+Merge: 6f61b90 91c0613
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 12 10:41:29 2016 +0800
+
+    Merge pull request #33 from vanzin/no-sbt-in-make
+    
+    Don't invoke sbt from the makefile.
+
+commit a4f85e7605c150fe6ef3a7a28ca354d698c13261
+Merge: 78054ec a0dc4c3
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Tue Jan 12 11:16:24 2016 +0800
+
+    Merge pull request #32 from sundapeng/explicit-cipher-close
+    
+    Explicit cipher close
+
+commit 4b9c953499c500d9d7b3310f66e722849c6e0ef7
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Jan 12 02:17:26 2016 -0500
+
+    Remove unneeded dependencies
+
+commit 665d97bac6c244ba3cbdd047f6e2b91f31eaed48
+Merge: a4f85e7 4b9c953
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Tue Jan 12 16:10:01 2016 +0800
+
+    Merge pull request #37 from winningsix/34
+    
+    Remove unneeded dependencies This closes #34
+
+commit cee7a42c9228cdedbffd468652222014d8693901
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 12 15:26:21 2016 +0800
+
+    support release to maven central repository
+
+commit 92827695c00cddf3861b9a777ec615041600817d
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 12 15:55:36 2016 +0800
+
+    update the format of readme
+
+commit 71ebd28c688079d6e6e1c559c2eeb6bed0689cd9
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 12 16:08:11 2016 +0800
+
+    remove sbt related files
+
+commit 8a2b1b3d2e7d2d950ab5a02862db0fc4e2eae4d9
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 12 16:26:13 2016 +0800
+
+    Add version property for the dependencies and move the develop documentation to wiki
+
+commit e168f4f776fd27490894456e98e8532914296166
+Merge: 665d97b 8a2b1b3
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Wed Jan 13 09:17:08 2016 +0800
+
+    Merge pull request #38 from dianfu/maven-release
+    
+    Enable release with maven
+
+commit 69889c4a72d89c170d27803a6fb306c17687c1b2
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Jan 14 10:47:01 2016 +0800
+
+    Rename Utils to ChimeraUtils
+
+commit 2eb185cd8c107a4dd2422c3ad13adabad0aae3ff
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Jan 14 11:03:02 2016 +0800
+
+    Rename CipherUtils back to Utils and change the exception of Cipher.getInstance to IOException
+
+commit 5ae863f54e57bc704199e9893bff3a9c61df8126
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Jan 14 13:11:29 2016 +0800
+
+    change the log level to error when exception is encountered
+
+commit df54887163a617813ef95b1a768bd95e5b2864e4
+Merge: e168f4f 5ae863f
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Jan 14 14:45:36 2016 +0800
+
+    Merge pull request #42 from dianfu/improve_utils
+    
+    Let users create a Cipher instance via CipherFactory
+
+commit c2d9efb5e561ee6bc73e23201fd53c8773512181
+Author: dianfu <dian.fu@intel.com>
+Date:   Thu Jan 14 09:16:14 2016 +0800
+
+    Add PositionedCryptoInputStream and PositionedCryptoOutputStream
+
+commit 8b81cc0569bb85c86434a599e139da38be52e108
+Merge: df54887 c2d9efb
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Jan 14 15:16:12 2016 +0800
+
+    Merge pull request #40 from dianfu/positioned-stream
+    
+    Add PositionedCryptoInputStream
+
+commit 5810003e580d7009351c8da0c7f088480756c8db
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jan 14 02:37:40 2016 -0500
+
+    Add findbugs and rat check plugin to build
+    
+    Closes #35 from sundapeng/findbugs
+
+commit 32e6727939408421c7dc2c8b4049d01ce01ac506
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Jan 15 01:03:25 2016 -0500
+
+    Add profiles to enable cross platform compling This closes #36 from winningsix/chimera
+
+commit 57f697939d549bfec952417e51a8f3be6048a55d
+Author: dianfu <dian.fu@intel.com>
+Date:   Fri Jan 15 02:30:12 2016 -0500
+
+    Cipher.getInstance throw GeneralSecurityException
+    
+    This closes #43
+
+commit a983a2c232aeb50ba3064fd1d63da0052f2ab224
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 17 20:08:42 2016 -0500
+
+    Fix bug relates to StreamInput. This closes #46 from dianfu/bugfix_stream_input
+
+commit 419dcb297da2d9738462299a01ccd2c0c509d71a
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Sun Jan 17 21:02:55 2016 -0500
+
+    Repackages. This closes #45 from winningsix/repackages
+
+commit 1f5fd4b5921440441491700ed35de207b8fa5595
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Jan 18 11:14:58 2016 +0800
+
+    Bug Fix: doFinal should use the parameter for out buffer
+
+commit a9fbd297538b78d7bb5d9fbea5ecd6b4abba361d
+Author: dianfu <dian.fu@intel.com>
+Date:   Tue Jan 19 13:25:22 2016 +0800
+
+    Add positioned read and seek capability to PositionedCryptoInputStream. This closes #48 from dianfu/improve_postioned_stream
+
+commit 319be95ff6e1b24713b4e9e18617b8e5a989eb73
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Jan 19 20:15:06 2016 -0500
+
+    Make transformation as required parameter when obtain instance from CipherFactory. This closes #47 from winningsix/RefineAPI.
+
+commit 821bfd995e075ea067b3c89829fc5caa5d1e86db
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Feb 4 20:08:11 2016 -0500
+
+    Formalize secure random configurations. This closes #51
+
+commit a6fab706187bce528ca561e9cb411c01d69d07ef
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Feb 4 20:14:08 2016 -0500
+
+    Add convert utility for Cipher Transformation. This closes #53.
+
+commit 77284d6ac3345867fe0449183ae0e11760f4f29c
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Feb 5 09:54:55 2016 -0500
+
+    Rename security random with crypto prefix and do NPE check for factory method
+
+commit 7f051db191f7b1b1e7b23a5e3f32c3646d93b3bb
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Feb 19 01:27:49 2016 -0500
+
+    Regroup Chimera configurations. This closes #56 from winningsix/chimera
+
+commit 51b113132e723a202245738b01053400504ad7fa
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Feb 22 10:22:51 2016 +0800
+
+    Implement CryptoInputStream and CryptoOutputStream supports any AES modes
+
+commit 12ec9e5484c71c753ade801f46e558f4d36fda7a
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Feb 22 10:43:14 2016 +0800
+
+    Improve with a full set of constuctors for passing the stream offset
+
+commit 3dff9a2e76be64c1eff137d64c485a466bdfdf27
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Feb 22 16:16:33 2016 +0800
+
+    Counter to CTR, format whitespaces, buffer size fix
+
+commit f2848351ee2f1f6296c5c16818d62d66510c46a2
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Feb 22 19:26:09 2016 +0800
+
+    Remove all trailing space (eclipse generated or left by formating
+
+commit 9b2831892c7dfd778c5f1ce5bef175fa68bd956c
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Feb 23 09:43:19 2016 +0800
+
+    Correct the names in comments and improve the format style
+
+commit 7fdf2d2dd74efce85c579aa9c4392626c99aa90c
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Feb 23 14:01:10 2016 +0800
+
+    Remove the unnecessary assignment of streamOffset in constructor
+
+commit b04ae5079b2340906882d4cc45d7f3f0f76932e1
+Merge: 7f051db 7fdf2d2
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Feb 23 14:15:31 2016 +0800
+
+    Merge the generic CryptoInputStream and CryptoOutputStream implementation.
+
+commit d93a46ce33626ccc18206377119665b5f309a990
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Feb 23 01:15:07 2016 -0500
+
+    Remove the dependency of Guava
+
+commit 4397b1435497630968c608c49f1c40da971bdbcc
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Feb 23 02:42:45 2016 -0500
+
+    Update Java Doc for newly added utils API
+
+commit 1d854e99f0d7a6832728df968d8f7c275fd16f34
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Feb 23 03:18:55 2016 -0500
+
+    Rename split class util method
+
+commit 88d234a1b7bb3b45f01d07448eaf629b274613f2
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Feb 23 18:22:34 2016 +0800
+
+    Add Unit Tests for CryptoInputStream/CryptoOutputStream
+
+commit 2bdd4f7c4014350cda16026ca78ad4aaaf884cb4
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Feb 23 20:52:19 2016 -0500
+
+    Compare list instead of array in unit tests
+
+commit c1f7ea2c58e4b6ef814749777d1edeab52d1366c
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue Feb 23 21:35:11 2016 -0500
+
+    Address comments
+
+commit ca595ae29a6a30c65b4d1b1e2338b8e6eba0c8ed
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Feb 25 11:29:42 2016 +0800
+
+    Update patch
+
+commit fb1425f5761d5184a6c20daf1b5166e179ced2e3
+Merge: b04ae50 c1f7ea2
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Feb 25 16:32:40 2016 +0800
+
+    Merge pull request #62 from winningsix/remove_guava
+    
+    Remove the dependency of Guava
+
+commit 78ed6e9dc88fba0a9059496b45ae9b71112142bb
+Merge: fb1425f ca595ae
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Fri Feb 26 14:31:05 2016 +0800
+
+    Merge pull request #63 from sundapeng/UT
+    
+    Add Unit Tests for CryptoInputStream/CryptoOutputStream
+
+commit a732e5145726b084e7b1233c456fcd04b049050b
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Feb 26 15:05:34 2016 +0800
+
+    fix PKCS5Padding of openssl
+
+commit 450b825bdde4fa2726a8a9d30495cdc752c6c896
+Merge: 78ed6e9 a732e51
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Fri Feb 26 16:25:09 2016 +0800
+
+    Merge pull request #64 from sundapeng/padding
+    
+    Fix PKCS5Padding of openssl
+
+commit b935d7f7d6a3babbfeaf53cfe9566c769258ceb8
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Mon Feb 29 10:37:18 2016 +0800
+
+    Remove the unnecessary PositionedCryptoOutputStream
+
+commit 100cd4a1625c7569d8b86e44b664df41d94289f2
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Feb 29 22:42:44 2016 -0500
+
+    Set Project language level to JDK6
+
+commit 6b6c35a1cffd6053e37c9ba3a936e4c484169531
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Mar 1 15:21:28 2016 +0800
+
+    Reorganize the tests class
+
+commit 44aea21f939bcf9b866a02f50ad9b3ae8429e863
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Mar 1 15:26:20 2016 +0800
+
+    Add slf4j simple for Unit tests
+
+commit 5770680bb25462aa7bd8bb9fb5cd1f3127baf9f1
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Mar 2 01:18:20 2016 -0500
+
+    Remove profiles for JDK
+
+commit 3970f747c648db448a2d57616405f8b459c99b99
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Mar 2 15:59:47 2016 +0800
+
+    Add PKCS5Padding
+
+commit 36e2732571fa133d7f69e4fc2a2fd9b11b8dce41
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Mar 2 16:01:07 2016 +0800
+
+    Fix read() when read(byte[] byte, int off, int len) return 0
+
+commit a367a1058ac5eeeddd7ef12e0b9e2c9942f5e740
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Mar 2 16:34:50 2016 +0800
+
+    Address comments: refine the name of class and method
+
+commit 080c0cbd21f43b6d4a7e27e77c89aa070256b67a
+Merge: b935d7f 5770680
+Author: Ferdinand Xu <xuf@apache.org>
+Date:   Thu Mar 3 09:53:36 2016 +0800
+
+    Merge pull request #68 from winningsix/jdk6
+    
+    Set Project language level to JDK6 This closes #67
+
+commit 679ff085c540d0895932c09d1ca2aa0fe10d7917
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Mar 3 13:15:25 2016 +0800
+
+    Address comments
+
+commit d816cda523f92e59f1c4a23edc7dc227827c2da5
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Mar 3 13:41:20 2016 +0800
+
+    refine the method name of Unit Tests
+
+commit 3380458461086c1ba7847c052a5c5eca7d5eb7e8
+Merge: 080c0cb d816cda
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Fri Mar 4 13:41:18 2016 +0800
+
+    Merge pull request #69 from sundapeng/organize-test
+    
+    Reorganize the tests class and fix issue
+
+commit 0d153a10ae2648cc33271ea2a2e8e1729f3d25f4
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Wed Mar 9 02:26:47 2016 -0500
+
+    [SMALL-FIX] remove duplicated cases in TestData
+
+commit 0ed1ec812e1308af60323c9773c8872125fbd9ee
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Wed Mar 9 05:46:03 2016 -0500
+
+    restore some cases for different plainText with same key
+
+commit 0d725ddf208918b80ada3ea4c05e16e55339d998
+Merge: 3380458 0ed1ec8
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Thu Mar 10 09:28:58 2016 +0800
+
+    Merge pull request #74 from dongche/refine-TestData
+    
+    [SMALL-FIX] remove duplicated cases in TestData
+
+commit 7a6f15d2da8e244f2b50b378089956963963a517
+Author: Xianda Ke <kexianda@hotmail.com>
+Date:   Tue Mar 15 09:49:13 2016 +0800
+
+    Improvement: Exceptions throw from OpensslNative init #44
+
+commit a7400f9d4d3370188ab2bcd5944e5dfb38b4151f
+Author: Colin Ma <colin@apache.org>
+Date:   Tue Mar 15 23:11:59 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit 76595c7b9a6ee28d458c06ab847f75eb95761215
+Author: Uma Maheswara Rao G <uma.gangumalla@intel.com>
+Date:   Tue Mar 15 23:12:45 2016 -0700
+
+    Added initial version of Apache Commons Crypto proposal document
+
+commit 9115e69022c5f5b1510287c896b75ae3c8790444
+Merge: 0d725dd 76595c7
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Wed Mar 16 15:25:39 2016 +0800
+
+    Merge branch 'umamaheswararao-master'
+
+commit 865dff81f3756979127ad5fbde806d127d5b9c34
+Author: Chen Haifeng <jerrychenhf@yahoo.com>
+Date:   Wed Mar 16 15:53:36 2016 +0800
+
+    Update PROPOSAL.html
+    
+    Correct a typo and remove some spaces.
+
+commit a79bcedafe724a83ad14ce13dd83ce043820fe66
+Author: Uma Maheswara Rao G <uma.gangumalla@intel.com>
+Date:   Wed Mar 16 17:03:46 2016 -0700
+
+    Addressed the review comments from Aaron T.Myers and Colin
+
+commit 18ada36da004d163e9af9b48ede2c3532a74cb24
+Merge: 9115e69 a79bced
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 08:24:33 2016 +0800
+
+    Merge branch 'umamaheswararao-master'
+
+commit 32f789dbff523117223532ac8adfd5cacd1d350a
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 08:38:08 2016 +0800
+
+    JDK6 -> JDK7; and address a few of other comments.
+
+commit 4a3d1966d28f510dc067c333c85bff907b06122f
+Author: Chen Haifeng <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 09:10:08 2016 +0800
+
+    Update PROPOSAL.html
+    
+    Remove unnecessary text for context that already cleared out.
+
+commit 1ffbdfd428a70d351ad319c228ff22a014547c5e
+Author: Chen Haifeng <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 10:58:33 2016 +0800
+
+    Update PROPOSAL.html
+    
+    Add email address and additional information at the initial committer list
+
+commit 0fc148071d9da2ae4553d8d1b4bff1e0602f0bba
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Thu Mar 17 11:08:18 2016 +0800
+
+    Update PROPOSAL.html
+
+commit 9892d373e01a1380a3c850167f57ae3a34abf3de
+Merge: 32f789d 7a6f15d
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 12:29:51 2016 +0800
+
+    Merge branch 'dev' of https://github.com/kexianda/chimera into kexianda-dev
+
+commit d72deac6a535fa500272b8835d6a54adaf240617
+Merge: 32f789d 9892d37
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 12:30:44 2016 +0800
+
+    Merge branch 'kexianda-dev'
+
+commit 1246a97bc851a0b84f2fff21f010a2415536f438
+Merge: d72deac 0fc1480
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Thu Mar 17 12:34:11 2016 +0800
+
+    Merge branch 'master' of https://github.com/intel-hadoop/chimera
+
+commit 96bf95e88b30cb45c74aba5206ab2daa5a770b7c
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Thu Mar 17 06:51:18 2016 -0400
+
+    Native support for byte array
+
+commit 9798b96a5b6462b978d12d00ec97993e42df9e4d
+Author: Colin Ma <colin@apache.org>
+Date:   Fri Mar 18 13:42:04 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit b5f179ee567efffe218c2c8f28482c599ae38ef9
+Author: Colin Ma <colin@apache.org>
+Date:   Fri Mar 18 13:48:36 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit 6fc0013e363be5a6e2104642d6c7708403a122de
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Fri Mar 18 02:16:43 2016 -0400
+
+    newline if motheds have many param
+
+commit e692c566be375d6bc1da1a6befb79c73550a927b
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Fri Mar 18 06:23:53 2016 -0400
+
+    Add tests for update + doFinal
+
+commit 8d41191f588a1b2676d3265cb78192afe0f198ce
+Author: Dong Chen <dong1.chen@intel.com>
+Date:   Mon Mar 21 01:22:49 2016 -0400
+
+    Add test cases for not aligned data
+
+commit ac08b53216306a8b44ff6d7d1ae85e347fff744d
+Merge: 1246a97 8d41191
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Mar 22 10:32:23 2016 +0800
+
+    Merge branch 'dongche-byte-array'
+
+commit 4c7900e79c2eb7e8709e45478c5307b8f0b6088d
+Author: Colin Ma <colin@apache.org>
+Date:   Tue Mar 22 14:41:49 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit 17c5ab3fdd3d89bda538067788169f4f552b6735
+Author: Colin Ma <colin@apache.org>
+Date:   Wed Mar 23 23:45:55 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit 8e3c24e701f0e52399975066b0826e5d1fa32d32
+Author: Colin Ma <colin@apache.org>
+Date:   Thu Mar 24 14:46:43 2016 +0800
+
+    Add test case for PositionedCryptoInputStream
+
+commit 57f2b2e6c3611ffee5eade21c6db649975433d6a
+Merge: ac08b53 8e3c24e
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Fri Mar 25 14:22:04 2016 +0800
+
+    Merge branch 'master' of https://github.com/colinmjj/chimera into colinmjj-master
+
+commit f4bcf839774ac37cf9d905341627918bbb936574
+Merge: ac08b53 57f2b2e
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Fri Mar 25 14:23:09 2016 +0800
+
+    Merge branch 'colinmjj-master'
+
+commit 04d77b9945d4a205ca428412d89e27748f582986
+Author: Colin Ma <colin@apache.org>
+Date:   Mon Mar 28 10:59:26 2016 +0800
+
+    issue-81
+
+commit 32fe398ec9cebd4afd758b6288a2f0851cb78db6
+Author: Colin Ma <colin@apache.org>
+Date:   Mon Mar 28 16:21:12 2016 +0800
+
+    issue-81
+
+commit 81becc7e548588bcb5be3c601752a745f34cb8a6
+Author: Colin Ma <colin@apache.org>
+Date:   Tue Mar 29 06:19:49 2016 +0800
+
+    issue-81
+
+commit 15a54052199cd616891c188555748efc90ae1689
+Merge: f4bcf83 81becc7
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Mar 29 10:09:20 2016 +0800
+
+    Merge branch 'colinmjj-issue-81'
+
+commit ff4989b93e40440889dfe54a25ee911f4faf9626
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Mar 29 10:26:46 2016 +0800
+
+    Javadoc for Cipher
+
+commit 14384db07a712adfaefeaae2ec55a4f2d9c22e59
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Mar 29 11:02:25 2016 +0800
+
+    add a newline at package-info
+
+commit ed6517ae7c641311f3c32d132bc6adc2f1a83163
+Author: Colin Ma <colin@apache.org>
+Date:   Tue Mar 29 11:20:42 2016 +0800
+
+    issue-83: Remove duplicated read(byte[] b, int off, int len) in CTRCryptoInputStream
+
+commit 0c57d9e957b67f0b780415ef3a5b267cd2604feb
+Merge: 15a5405 ed6517a
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Tue Mar 29 14:42:30 2016 +0800
+
+    Merge branch 'colinmjj-issue-83'
+
+commit e733095669e7909c679dc044a78ca4b288f631ad
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Mar 29 15:15:20 2016 +0800
+
+    fix @link
+
+commit b010f88d61df1cda17138f8eea1b4c5f7e796f1d
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Tue Mar 29 15:27:02 2016 +0800
+
+    Javadoc for conf
+
+commit 7a90a6c8c60985f9c224fee3b63fc8aff094d0e7
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Tue Mar 29 15:29:12 2016 +0800
+
+    Javadoc for conf
+
+commit d4803821c9aa5f92e99c5ff746be15733671a68e
+Author: Colin Ma <colin@apache.org>
+Date:   Tue Mar 29 11:25:07 2016 +0800
+
+    issue-88: Remove unnecessary constructor in PositionedCryptoInputStream
+
+commit 9e5694d2fe6b827f7471cd23eef6ac84ed0174b7
+Merge: 0c57d9e d480382
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Wed Mar 30 10:26:06 2016 +0800
+
+    Merge branch 'colinmjj-issue-88'
+
+commit 7dc4c88c9d5d95c63d2070a2cf15c502bb083795
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Mar 30 10:51:17 2016 +0800
+
+    fix comments
+
+commit 7eb83338f7d3bcfca5d63bf37d2ac35093556bcc
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Wed Mar 30 15:27:26 2016 +0800
+
+    Add proper comments for seek and positioned read. And rename pos -> position
+
+commit acd36d667ab28f0acf5796b93ca18f191291750a
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Wed Mar 30 15:44:38 2016 +0800
+
+    Support seek method in CTRCryptoInputStream
+
+commit f82dd2e082ffc32b97fe7346c4f979c93c692c46
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Wed Mar 30 15:53:20 2016 +0800
+
+    Remove uncheck warning
+
+commit 4d9fbdc1cc79d9ed16a1f28ccfe13cb248e19961
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Thu Mar 31 13:44:45 2016 +0800
+
+    fix comments
+
+commit b1b91b7997b97538c5bb7bbfb3d5d970fc88532b
+Merge: f82dd2e 7dc4c88
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Thu Mar 31 14:02:59 2016 +0800
+
+    Merge pull request #90 from sundapeng/cipher-jd
+    
+    Javadoc for Cipher
+
+commit 39f54ca92b576bbbb25bb60a7c3e154a4905953d
+Merge: b1b91b7 4d9fbdc
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Fri Apr 1 16:51:18 2016 +0800
+
+    Merge branch 'javadoc-conf' of https://github.com/JkSelf/chimera into JkSelf-javadoc-conf
+
+commit c794dcc2b2814f2223dea904f18ddc1ba5d63438
+Merge: b1b91b7 39f54ca
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Fri Apr 1 16:51:33 2016 +0800
+
+    Merge branch 'javadoc-conf'
+
+commit 02dfa4c88756d291f3c9f2eed5eb2c17228d1b1a
+Author: Jerry Chen <jerrychenhf@yahoo.com>
+Date:   Fri Apr 1 16:58:59 2016 +0800
+
+    Format the code for consistency
+
+commit a6e2c22926744984d568fcc802d03f23bdb16463
+Author: JkSelf <ke.a.jia@intel.com>
+Date:   Thu Apr 7 15:12:55 2016 +0800
+
+    javadoc for random
+    
+    * javadoc for random
+    
+    * javadoc for random comment
+    
+    * remove StreamInput file
+
+commit b24b3a00c0e91fef84c9d00b1013db8154474dae
+Author: JkSelf <ke.a.jia@intel.com>
+Date:   Thu Apr 7 15:14:24 2016 +0800
+
+    Reorganize the packages of input,output and stream
+
+commit 8784232c8e198946cd55a9f085cc2c51cdb00574
+Author: Dapeng Sun(孙大鹏) <sdp@apache.org>
+Date:   Thu Apr 7 22:32:13 2016 -0500
+
+    Move CTRCryptoInputStream back to stream package (#102)
+
+commit 7865648f18961634d88083869978dd3d2b12901b
+Author: JkSelf <ke.a.jia@intel.com>
+Date:   Mon Apr 11 16:56:22 2016 +0800
+
+    javadoc for utils (#99)
+    
+    * javadoc for utils
+    
+    * javadoc for utils comments
+    
+    * javadoc for utils package-info
+
+commit 430a5430643fdd4d6d45a69e0a4a1506d3bc92d0
+Author: JkSelf <ke.a.jia@intel.com>
+Date:   Tue Apr 12 09:38:48 2016 +0800
+
+    Javadoc for stream output (#104)
+    
+    * javadoc for output
+    
+    * fix the comment
+
+commit de304d71f2b4f435dc57cfe241df4d32c5ace86e
+Author: JkSelf <ke.a.jia@intel.com>
+Date:   Tue Apr 12 09:39:05 2016 +0800
+
+    Javadoc for stream input (#103)
+    
+    * javadoc for input
+    
+    * javadoc for input
+
+commit 92d129aa5eefb975f1d1eaaec193d7f43297cc0a
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Apr 21 06:21:20 2016 +0800
+
+    Update mail address for Ferdinand Xu
+
+commit 4920d2729c0b3eb492c5fd9f890a463996eb2ea9
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Apr 15 08:47:50 2016 +0800
+
+    CRYPTO-7: Rename source code in Chimera to Apache name space
+    
+    Update some typos in README
+
+commit 8f888a572492e0e9bd6c48e3dec9e408d2c44d90
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Tue Apr 19 09:49:33 2016 +0800
+
+    CRYPTO-5: Create site for apache commons crypto
+    
+    add src/site to master branch
+    
+    add site
+    
+    fix comment
+    
+    delete the userguide.xml
+    
+    fix comment
+    
+    logo
+    
+    fix comments
+    
+    fix comment
+
+commit 6c6c2b0febd5623af0a07286edd4ecaf192cf131
+Author: Jia Ke <ke.a.jia@intel.com>
+Date:   Mon Apr 25 13:56:40 2016 +0800
+
+    CRYPTO-4: Update pom.xml of Crypto to use Apache commons parent
+
+commit 7cefbf2a69ec133aa327f93d40dc307ee80df8b5
+Author: Jia Ke <jia.a.ke@intel.com>
+Date:   Mon Apr 25 14:18:07 2016 +0800
+
+    CRYPTO-8: Add the package-info for input, output and stream
+
+commit 35c716304da2a1486ffc0f8c7c4bcda610e816a5
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Apr 25 09:10:33 2016 +0800
+
+    CRYPTO-9: Rename configuration name in Chimera to Apache name space
+    
+    Address comments
+
+commit f819dd404177ba13371d1a7c1b94940c6a73e220
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Mon Apr 25 07:36:34 2016 +0800
+
+    CRYPTO-10: Rename Chimera in makefile to Apache Common Crypto
+
+commit ad81d236a9e132f59486b5a73c347faabe329e9e
+Author: dianfu <dianfu@apache.org>
+Date:   Tue Apr 26 11:27:08 2016 +0800
+
+    CRYPTO-12: Rename CryptoInputStream to CipherInputStream and CryptoOutputStream to CipherOutputStream
+    (Xianda Ke via Dian Fu)
+
+commit 081284dce2be74f32502dec4a80e2fe28189dafb
+Author: dianfu <dianfu@apache.org>
+Date:   Tue Apr 26 11:36:24 2016 +0800
+
+    CRYPTO-26: Utility classes should not have public constructors
+    (Dapeng Sun via Dian Fu)
+
+commit c0df8158789327a4737b58769da2f321447ae18c
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Fri Apr 15 07:15:30 2016 +0800
+
+    CRYPTO-3: Change default cipher as OpensslCipher
+    
+    Addressing comments
+    
+    Handle the edge case at getCipherClassString and handle the null property for getInstance
+
+commit 2bcfd1b670724f72f927f7eae17d63129c3bbaa8
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Apr 26 14:09:34 2016 +0800
+
+    CRYPTO-25: Add download_crypto.cgi to exclude list of rat check
+
+commit d675a9503a8d47a6e6a73d68473896c870948543
+Author: Jia Ke <ke.a.jia@intel.com>
+Date:   Wed Apr 27 10:42:26 2016 +0800
+
+    CRYPTO-35: Update the issue-tracking.xml file (Jia Ke via Sun Dapeng)
+
+commit 811826ee2c3da39650c9380ac94ae5cfbc205785
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Apr 27 10:54:23 2016 +0800
+
+    CRYPTO-27: Javadoc of stream in stream package
+
+commit 9a1b871c88839d43cad880b916c031f78d0e21ba
+Author: Jia Ke <ke.a.jia@intel.com>
+Date:   Wed Apr 27 13:48:06 2016 +0800
+
+    CRYPTO-11: UserGuide for the site document. (Jia Ke via Sun Dapeng)
+
+commit 67d876622d7f9d4c47ff8b36b22f5cfa35f00ea4
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Apr 27 14:11:21 2016 +0800
+
+    CRYPTO-11: UserGuide for the site document.
+
+commit e99c77b93d93dec2b5fcf3fec0bbeac76ef53e19
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Apr 27 14:28:04 2016 +0800
+
+    CRYPTO-36: Fix crypto web link
+
+commit 90e67c99a5a02436622807095beab7c50a500cbf
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Apr 27 11:11:59 2016 +0800
+
+    CRYPTO-32: Add missing @Overrides
+
+commit 617318bf65cbd74fda7bab7ebedf2d2d24c680fa
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Apr 27 13:18:05 2016 +0800
+
+    CRYPTO-34: JavaSecureRandom should throw Exception if it cannot create the instance
+
+commit 9bbbe4a5792c84446ca456fca7fe8427b1ac5acd
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Wed Apr 27 09:53:08 2016 +0800
+
+    CRYPTO-13: The API differences between apache.commons.crypto and JCE
+     1.use the java Key and ParameterSpec class to pass the parameters for Cipher, CryptoInputStream and CryptoOutputStream.
+     2. While for CTRCryptoInputStream and CTRCryptoOutputStream, as it is specific to CTR mode whose parameter is known. So keep as it is.
+     3. move iv & initIV to CTRCipherInputStream/CTRCipherOutputStream
+
+commit d1fb85f7cadf0447d82d38411552584f6d9a0f25
+Author: ggregory <ggregory@apache.org>
+Date:   Thu Apr 28 14:55:08 2016 -0700
+
+    [CRYPTO-32] Add missing @Overrides.
+
+commit 98bec4c43e42ea68437d13c1137b148428562e2c
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed Apr 27 04:24:38 2016 +0800
+
+    CRYPTO-30: Mutable fields should be private
+
+commit 1baf9a840dee158844e5b98c750dc1f297dc7157
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Apr 29 10:19:56 2016 +0800
+
+    CRYPTO-38: Always use blocks
+
+commit b53228834059b6240326c56eee411b2808514956
+Author: dianfu <dianfu@apache.org>
+Date:   Fri Apr 29 10:50:13 2016 +0800
+
+    CRYPTO-29: Make sure Cypher.ENCRYPT_MODE is consistent with JDK
+
+commit ea89d8023ed7c2a88c468df15994bdd9db922242
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Thu Apr 28 11:33:43 2016 +0800
+
+    CRYPTO-33: avoid shadowing JVM class
+    renaming Cipher/Stream/Random classes
+
+commit 1e788102e18509b65d49aa42273f990f1281f3c0
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Apr 29 17:14:46 2016 +0800
+
+    CRYPTO-33: avoid shadowing JVM class (Xianda Ke via Dapeng Sun)
+
+commit 03d0ea013760a03c7b2c60b89bde13f770a96420
+Author: dianfu <dianfu@apache.org>
+Date:   Fri Apr 29 17:32:36 2016 +0800
+
+    CRYPTO-42: Remove the header files required for cross platform compilation
+
+commit b08de7798d4655d3437d7418e5e894621e26fb7e
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Apr 29 16:52:55 2016 +0800
+
+    CRYPTO-43: Add assembly for release and fix header
+
+commit c0c2e6fb98275a5b7445952ea5033c1c212e7601
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Thu Apr 28 08:08:07 2016 +0800
+
+    CRYPTO-31: Make fields final wherever possible
+    
+    Addressing further comments
+
+commit cec53815afed5807af77e60ba28f9a1bcc6de3db
+Author: Benedikt Ritter <britter@apache.org>
+Date:   Tue May 3 15:09:40 2016 +0800
+
+    CRYPTO-48: Setup site build as defined in commons-parent pom (Benedikt Ritter via Dapeng Sun)
+
+commit 9aecd37f7027866417b24e89cd0ed1403571c7ed
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Tue May 3 04:08:09 2016 +0800
+
+    CRYPTO-28: Update the README.md of Apache Commons Crypto
+
+commit 2ad69f91370a27d5fb935bfa47b7b5504eb6c051
+Author: dianfu <dianfu@apache.org>
+Date:   Tue May 3 15:29:55 2016 +0800
+
+    CRYPTO-40: Remove the full qualified package name for shadowed classes (Xianda Ke via Dian Fu)
+
+commit 24719f352f3ded737804e3a5f79b01b821cf2081
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue May 3 16:44:21 2016 +0800
+
+    CRYPTO-47: fix build of mac os
+
+commit e2cc6aeed7a18047d383e3547d618d93d6d133f8
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue May 3 14:16:16 2016 +0800
+
+    CRYPTO-46: Fix javadoc according doclint of Java 8
+
+commit 95a8d486eac81fbb84a42df35d5c00fe6d6dace8
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed May 4 04:05:27 2016 +0800
+
+    CRYPTO-37: Change all the 2 spaces indent to 4 to comply Commons code style
+
+commit f2b855cdf910c58a010e139a54196f6c03b3db45
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Tue May 3 16:17:01 2016 +0800
+
+    CRYPTO-41:Update user guide according to the renamed classes and API change
+
+commit 04fe3daf1b0dde73c76c827165909682773fc798
+Author: Dapeng Sun <sdp@apache.org>
+Date:   Tue May 3 07:38:44 2016 -0400
+
+    CRYPTO-49: Fix build of X86
+
+commit 852f4f7505ef76d3aec28c72f70ea2b69dc5e210
+Author: Ferdinand Xu <cheng.a.xu@intel.com>
+Date:   Wed May 4 06:31:08 2016 +0800
+
+    CRYPTO-50: Fix a typo in README
+
+commit 3cfaa0271042125e3bcc30b67d9ff467762526df
+Author: Dapeng Sun <sdp@apache.org>
+Date:   Tue May 3 20:17:54 2016 +0800
+
+    CRYPTO-51: Fix ci link of maven site
+
+commit d4e04f5ef925d8e168869a08dfa2e2ccc37a53ba
+Author: ggregory <ggregory@apache.org>
+Date:   Wed May 4 12:11:15 2016 -0700
+
+    [CRYPTO-52] Improve assertion message when test fails due to lack of JCE
+    Unlimited Strength Jurisdiction Policy Files. Applied patch and changed
+    @Before to @BeforeClass.
+
+commit d4c6b9fb614d449a4bb4d2622771eba220676a5b
+Author: ggregory <ggregory@apache.org>
+Date:   Wed May 4 12:14:07 2016 -0700
+
+    [CRYPTO-52] Improve assertion message when test fails due to lack of JCE
+    Unlimited Strength Jurisdiction Policy Files. Applied patch and changed
+    @Before to @BeforeClass.
+
+commit 3f835c2f567c3ecb086b6ca0db84302c2b1fc63d
+Author: dianfu <dianfu@apache.org>
+Date:   Thu May 5 09:59:30 2016 +0800
+
+    CRYPTO-45: Document how to build Commons Crypto
+
+commit 231faf3ef90527b131dd595d13d44cf89a09e022
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri May 6 13:05:08 2016 +0800
+
+    CRYPTO-53: Fix assembly, pom.xml, README, NOTICE.txt...etc
+
+commit cc35be08bb058b5010c76ec90d4139844ca9af38
+Author: Jia Ke <ke.a.jia@intel.com>
+Date:   Fri May 6 13:27:37 2016 +0800
+
+    CRYPTO-55: Add contributors to the contributors list
+
+commit 1335e165ea7a43c4172644e39d6705fded1603fa
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri May 6 13:32:52 2016 +0800
+
+    CRYPTO-53: Fix assembly, pom.xml, README, NOTICE.txt...etc
+
+commit f54e331d4a6650000bc1819d74307e963435a258
+Author: kexianda <xianda.ke@intel.com>
+Date:   Fri May 6 20:48:58 2016 +0800
+
+    CRYPTO-56: add informative error message, keep consistent with JDK JDK's error message is more informative. it would be better to keep consistent with JDK
+
+commit 1a1e3decc006bfc75989941ecbe8f772407d96c4
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue May 10 09:53:45 2016 +0200
+
+    CRYPTO-58: Generate VERSION file using maven resource filtering.
+    
+    Generating this file using maven resource filtering is less error prone.
+    Currenlty crypto uses a mix of sources for determining the version
+    number:
+    - NativeClassLoader first reads from META-INF and then from VERSION
+    - Makefile.common only uses the VERSION file
+    
+    This change makes sure the version number will be set from only one
+    source, which is maven.
+
+commit 8f9879823728d299246cb850978aa4f73b652c50
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue May 24 15:30:14 2016 +0800
+
+    CRYPTO-57: Fix build on Mac OS
+
+commit ff397177233a5e927cc2dcb41383bb626c34d56f
+Author: Stian Soiland-Reyes <stain@apache.org>
+Date:   Thu Jun 2 15:33:47 2016 +0100
+
+    US Export added to README (and pom)
+
+commit 46f2dfce52847349acf6f84dfe02a77868f5f449
+Author: Hendrik Saly <hendrikdev22@gmail.com>
+Date:   Wed May 25 20:48:20 2016 +0200
+
+    CRYPTO-61: fix possible NPE if OpensslCryptoRandomNative.nextRandBytes fails
+
+commit 0fa9f0a202f187af1c7bfa8058d64cafd91dd2c6
+Author: Hendrik Saly <hendrikdev22@gmail.com>
+Date:   Mon Jun 6 11:42:53 2016 +0800
+
+    CRYPTO-62: Add multithreaded related tests and javadoc comments
+
+commit a289ecd26257ac4ffaf1bbb686cf06b3a9ececdc
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jun 6 14:07:19 2016 +0800
+
+    Add CRYPTO-54, CRYPTO-57, CRYPTO-61, CRYPTO-62 to changelog
+
+commit 4d49af4a2148f93e6fc34b43509fd694e7edb3a7
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 17:41:29 2016 -0700
+
+    Replace old school @exception with new school @throws.
+
+commit 4ca3724bc02489b8d9ac9d49132d3a4d3fbc5ca5
+Merge: 4d49af4 a289ecd
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 17:44:21 2016 -0700
+
+    Merge branch 'master' of https://git-wip-us.apache.org/repos/asf/commons-crypto.git
+
+commit f968c27ffa40e154e7c18b2a583e51a56a24ab92
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 19:35:39 2016 -0700
+
+    Add RAT and Clirr instructions.
+
+commit 22d01746bc79f17c03ee2f3280c478501e0c0e22
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 19:51:37 2016 -0700
+
+    RAT is am acronym, so use "RAT", not "Rat".
+
+commit 5384a5d6c8631c8428f97d2bfbde84dce19e9d50
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 19:52:34 2016 -0700
+
+    Add Clirr to list of goals.
+
+commit fdd4bde429267f946b72fa33a61589f5384187f7
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 20:05:26 2016 -0700
+
+    The value of the field JavaCryptoRandom.LOG is not used.
+
+commit 23963ed81332edfa81d3e67a04503d5fc63cdb0b
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 20:05:59 2016 -0700
+
+    Add missing @Override.
+
+commit 464fa96fe3d00106e55d73460917eab7b66d3e5a
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 20:07:26 2016 -0700
+
+    Remove redundant null check: The lvar writer cannot be null.
+
+commit fbc4176e3b6b260aa60724679aea255f196e7e89
+Author: ggregory <ggregory@apache.org>
+Date:   Mon Jun 6 20:08:36 2016 -0700
+
+    Fix compiler warning.
+
+commit 02d7c6cb665de7c6328153b8beaadd30e836917a
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 7 11:25:14 2016 +0800
+
+    Add Openssl library header to BUILDING.txt
+
+commit 24e9f955df949ab24dc5597a12f95f2513fc5424
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 7 02:36:51 2016 -0700
+
+    Add 'make' debugging comment.
+
+commit 13f9c053ad985a5f6f9fa69fa5dcf10d8b586a57
+Merge: 24e9f95 02d7c6c
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 7 02:37:10 2016 -0700
+
+    Merge branch 'master' of https://git-wip-us.apache.org/repos/asf/commons-crypto.git
+
+commit 7e38041fe567a5cba6aaf452a843921ce1660069
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 7 02:42:20 2016 -0700
+
+    Get this working on Cygwin.
+
+commit f07c2bc04eed00ed321e0e682acf04130ce9e8b5
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 7 17:45:21 2016 +0200
+
+    Logger can be private
+
+commit af7272f103c889964fa3fc01482bbd68b6b5e445
+Author: ggregory <ggregory@apache.org>
+Date:   Thu Jun 9 15:07:06 2016 -0700
+
+    No need to nest in else clauses.
+
+commit e99cf911e5684212b3264f760d6953d0a2cb7ef8
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 11 10:38:03 2016 +0100
+
+    Unnecessary SuppressWarnings
+
+commit 28fc18d23f5d87e89b13d7ccc305ad96b252bf22
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 11 12:02:17 2016 +0100
+
+    Simplify (and reduce warnings)
+
+commit 715a25d9e15ea484e44dd14988bfdd221e23dd4e
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 11 12:30:42 2016 +0100
+
+    Line length
+
+commit 6b3f3b54c7c1b7201c0569e673bb0dfc12ff2041
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:32:34 2016 +0200
+
+    CRYPTO-65: Warnings compiling on MacOSX - JNIEXPORT redefined. Thanks to sebb.
+
+commit d7423f08f2908c63f37a251a72a3cee8c6a10889
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:51:29 2016 +0200
+
+    Remove redundant array creation for varargs argument
+
+commit 305b8260880a64ed3667433c996da996ef713e4c
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:52:05 2016 +0200
+
+    Remove unnecessary assignment to null. Also makes sure we're not accedentially returning null.
+
+commit 71daf8286102c117c08039a5ac24a03fca4c969e
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:56:10 2016 +0200
+
+    Remove unused methods
+
+commit 9ad42b1775885ccb6a883c6952fb142dabaa7556
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:56:56 2016 +0200
+
+    Fix JavaDoc link
+
+commit 79488c04c3ab73b97ee6d8e1d05f66df1cf9c1c9
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 13:59:58 2016 +0200
+
+    Make utility classes final
+
+commit 2d4c75cca9d2087a4c7c2b00903fdfdd82227c96
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:04:53 2016 +0200
+
+    Remove unnecessary field
+
+commit 4f48f23c46739afa238213004f25f8591e48afff
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:51:33 2016 +0200
+
+    Don't import class just for linking in JavaDoc
+
+commit 0e4d59053eccf6d39aec6ddd6435b218ba974fae
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:53:45 2016 +0200
+
+    Don't import class just for linking in JavaDoc
+
+commit 33e98871dbd93670a65187c266762d87d5653825
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:56:06 2016 +0200
+
+    Add missing braces
+
+commit f67a5d3d6788a2fb2d1ccbb55fda61d3f1206bb8
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:56:49 2016 +0200
+
+    Don't import class just for linking in JavaDoc
+
+commit 7b106a410a1ec67face3af4b90ec45268df1542a
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 15:08:59 2016 +0200
+
+    Use latest JUnit version
+
+commit 617dbfb03fc41170e37463cdb767f5a635a4f4f1
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sun Jun 12 14:38:18 2016 +0200
+
+    CRYPTO-68: Enable common code quality reports.
+    
+    This adds the following reports to the site build:
+    - findbugs (findbugs profile has been removed)
+    - checkstyle (checkstyle configuration copied from commons-lang)
+    - pmd
+    - taglist
+    - JavaNCSS
+    
+    Furthermore the RAT configuration has been moved to the reporting
+    section of pom.xml
+
+commit 35750c77b34f9cc746dd9be858636c08eaeff15d
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 15 10:02:36 2016 +0100
+
+    Typo
+
+commit 2e82a0b1c20719ec6d1cba0f2c2919a113db20ac
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 15 10:39:15 2016 +0100
+
+    Typo
+
+commit 297a968e0fb60501988a5616960aa34f39f7924d
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 15 10:48:55 2016 +0100
+
+    Javadoc
+
+commit 50e4e0fe16d7f0ec1c1f33fe1d00374f09ddcd44
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jun 13 14:10:12 2016 +0800
+
+    CRYPTO-69: Activate Travis CI
+
+commit 1cc85485736120e8920fe9dfce2410ce646ee8f4
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 14 14:01:33 2016 +0800
+
+    CRYPTO-64: Remove code uses sun classes
+
+commit f4513247a5ef176cf768c354f7099b4bc9e1373c
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 14 10:13:40 2016 +0800
+
+    CRYPTO-66: Fix compiling warning
+
+commit d6e1f3cdb2b9b40118a4690d16dc09053e63c5e8
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jun 16 13:51:50 2016 +0800
+
+    Fixing UnitTest warning
+
+commit 720b1173da04eaa08c24422a2a7c7c0fa9235bda
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jun 16 14:24:08 2016 +0800
+
+    CRYPTO-78: Upgrade JDK from 1.6 to 1.7
+
+commit 4afa1ec81b6f51df8683144f79633a392dcb9264
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Thu Jun 16 14:17:01 2016 +0800
+
+    CRYPTO-79: Fix the javadoc based on the checkstyle
+
+commit 271b37f74cd196192a50a802a6a0bfe1908775ed
+Author: kexianda <xianda.ke@intel.com>
+Date:   Thu Jun 16 15:05:11 2016 +0800
+
+    CRYPTO-71: Hide the implementation of OpensslCipher
+
+commit 09d42c60cb5e64a8672800195a1e0df24bcacc30
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Thu Jun 16 10:50:47 2016 +0800
+
+    CRYPTO-77: Hide Steam's constructor with cipher parameter
+
+commit c282329b3114a3c7039e8a4d1b89daedfce16120
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 16 15:04:24 2016 +0100
+
+    Fix some compiler warnings
+
+commit 11ba975cdcde5bc7ce0ccebf141ed0069202683f
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 16 15:09:47 2016 +0100
+
+    Don't try to instantiate class unless it is necessary
+
+commit 18ac95b5e51e54221666262d64afe24b89cd0dc5
+Author: JKSelf <ke.a.jia@intel.com>
+Date:   Thu Jun 16 16:08:24 2016 +0800
+
+    CRYPTO-80: Fix the pmd error
+
+commit 2371dcd09339d6f483f7bf6eaf44165b62257645
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 17 16:41:30 2016 +0800
+
+    CRYPTO-80: Fix the pmd error
+
+commit bccccdbfde51308a8b56ceb68063a9d9dc448f05
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 18 16:38:42 2016 +0100
+
+    Ignore package-info.java files so they don't cause unnecessary
+    recompiles
+
+commit 4117c569644cce4684528c35fdfcc2947233a680
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Jun 20 10:03:18 2016 +0800
+
+    CRYPTO-76: Remove log dependence
+
+commit f23dcb7d29cc0b1e2aa1cbc01f417580f64feaae
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 20 10:26:48 2016 +0100
+
+    Avoid unused warning
+
+commit e4156dafc347e8cb3bdc444dea6867d52f946578
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Mon Jun 20 18:50:59 2016 +0200
+
+    Use JUnit annotation for testing for expected exception
+
+commit aef15f417882fca19219e7665fc95a4e268bbeb6
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 21 09:36:00 2016 +0800
+
+    CRYPTO-76: Remove log dependence (test)
+
+commit 0304a87074d8fee26a972642bf9665771421fff7
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 21 09:52:20 2016 +0800
+
+    CRYPTO-84: Utils.getJCEProvider belongs in JceCipher class
+
+commit 2c57b118a30f91c182e8e6129fb25542ff2bdf43
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jun 21 10:46:46 2016 +0800
+
+    CRYPTO-85: CryptoCipher ENCRYPT_MODE and DECRYPT_MODE are unnecessary and confusing
+
+commit 4bbb57a05d49dad0fd493c8fabfad3cf7991215a
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Tue Jun 21 15:15:44 2016 +0800
+
+    CRYPTO-86 remove the Properties field in CryptoCipher
+
+commit 1d353753018d34a4340882030696be6d5e8c6942
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 11:13:32 2016 +0200
+
+    Method can be private
+
+commit 4a1c90234fee33392837f07464dff4f27e28c094
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 11:14:20 2016 +0200
+
+    Fix wrong link tag
+
+commit 0acc3423a36fc2fefbe14ea4ab857e6af6291e63
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 21 11:13:44 2016 +0100
+
+    CRYPTO-85 CryptoCipher ENCRYPT_MODE and DECRYPT_MODE are unnecessary and
+    confusing
+    
+    JceCipher uses the javax.crypto.Cipher modes; no need to convert the
+    input
+
+commit f8c62819aa95960a387cd9c45043d28b77022032
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 21 21:02:05 2016 +0100
+
+    Unused imports
+
+commit 82821524d725aeb0c240e5190df473cf268b01fa
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 21 21:03:48 2016 +0100
+
+    Tab police
+
+commit d0fd391d1cb4b236b6c4a1db589ebe8508f994d1
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 22 00:11:40 2016 +0100
+
+    CRYPTO-73 Create example Java source code
+    
+    Examples created.
+    TODO feed these into the user guide
+
+commit e1021d82baed3c81d65a433d35f0d21589e10677
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 22 00:14:55 2016 +0100
+
+    Simplify
+
+commit be447dbbbf6e31004ee3c604a7538d82e0673703
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 16:20:37 2016 -0700
+
+    The declared exception GeneralSecurityException is not actually thrown.
+
+commit a61d69675a6fa0db15405deb3a721e97e5beff83
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 16:21:02 2016 -0700
+
+    Statement unnecessarily nested within else clause.
+
+commit 81c6806261b87ea74543d1a8569dc519e915ea64
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 16:21:43 2016 -0700
+
+    Redundant specification of type arguments.
+
+commit 1f6e1c3e23001e9cd159a10c80704e9daa85735e
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 16:23:01 2016 -0700
+
+    The declared exception is not actually thrown.
+
+commit 5c14932be14cb1739a7405a409d90c923bb2a6c4
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 16:27:26 2016 -0700
+
+    Use try-with-resources.
+
+commit bbc4aaa06c8d3a4743ffad204ac53abd7a763e31
+Author: ggregory <ggregory@apache.org>
+Date:   Tue Jun 21 17:17:44 2016 -0700
+
+    Add missing license headers.
+
+commit 169c76e9f6c63adb4b92aec0c053e94c0ad248dc
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 22 10:14:38 2016 +0100
+
+    Fix the name to make it clearer
+
+commit 4d51ff11f0490c892d6f5a6d44acd0eb9817467c
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 13:33:08 2016 +0800
+
+    CRYPTO-86: fix checkstyle
+
+commit 8c092de42700ce3d8d11da74de07c0051157fd80
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 21:23:59 2016 +0200
+
+    Add badges for Travis CI, Maven Central and ALv2
+
+commit 7c328f25feef2c1bb3c63a6e0c377306bd01e91e
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 13:33:53 2016 +0800
+
+    CRYPTO-83: Utils.getRandomDevPath should be private method in OsCryptoRandom
+
+commit 617a8b8f108396ccf6f3b20ef3ad46486f37d079
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 20:13:51 2016 +0200
+
+    Create o.a.c.crypto.Crypto as main entry point for diagnostic information
+
+commit d94bd07944a73d9ba7d7ffc5053b7d0264818135
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 20:18:34 2016 +0200
+
+    Move NativeCodeLoader to top level package so that it can be made package private
+
+commit 363ec7404c632afaf93cf6e9290baccf99463541
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Tue Jun 21 20:22:35 2016 +0200
+
+    Move OSInfo to top level package an make it package private
+
+commit 6529207dee6a9cc72b936a5c907305ad3f70e03c
+Merge: 7c328f2 363ec74
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 15:06:33 2016 +0800
+
+    Merge branch 'CRYPTO-87'
+
+commit 9f1e2015dfe93b472e265c3feac49ea5e6d62c85
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Wed Jun 22 13:38:21 2016 +0800
+
+    CRYPTO-82: CipherTransformation is an enum which limits the possible transformations
+    delete enum getTransformation, use String type transformation.
+    And add two methods getAlgorithm() / getBlockSize for CryptoCipher, keep similar to JCE
+
+commit 6ac3e74faef0d4f0fb92786d540505bcd2a808b4
+Merge: 6529207 9f1e201
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 16:10:59 2016 +0800
+
+    Merge branch 'CRYPTO-82'
+
+commit e90580a892a75ac6350a5a96c70a6a36b696879e
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 16:12:36 2016 +0800
+
+    CRYPTO-82: Add Unit Test for InvalidTransformation
+
+commit 12988811376e69f88e1aec6ac45576c3678b0aa4
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 16:16:39 2016 +0800
+
+    CRYPTO-88: ConfigurationKeys constants could have much shorter names
+
+commit 49a264718f4511ce272260082315e223d1a4615c
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jun 24 16:32:08 2016 +0800
+
+    Fix check style
+
+commit 06b49864735720bf1e61c359cedcc50eff9b8754
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 10:41:05 2016 +0100
+
+    Docn
+
+commit d3a37f571f3a6ec373057d58a1f58c7efcf18fe0
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 11:16:16 2016 +0100
+
+    Should not be public; Javadocs
+
+commit 75895e56cdf7ce18660bb1b30b86af58d902c008
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 14:51:24 2016 +0100
+
+    Don't expose mutable fields
+
+commit eac8e4d78df38a09dd4d3a8f0294f35515f2e990
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 14:54:17 2016 +0100
+
+    Immutable private field might as well be final
+
+commit 7de4656014c5bbab973e419a8cd9b7ecba1b8dc2
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 14:59:40 2016 +0100
+
+    Don't publish mutable state outside Crypto code
+
+commit 6522a729904d5c657f07963654ee0cd5eba3ba5a
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jun 24 15:06:31 2016 +0100
+
+    getCipherClassString is only used by CryptoCipherFactory
+
+commit f0ba94cb1c6a395c478287edf0a3c6b42ccb9c49
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 13:19:50 2016 +0100
+
+    CRYPTO-87 Reduce util package API footprint
+
+commit 984ee10249aae5c1e48e929b3311aed2abfc45e4
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 13:24:02 2016 +0100
+
+    CRYPTO-87 Reduce util package API footprint
+
+commit 6a081721710309f920624d0843d912f6a2396d47
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 13:30:28 2016 +0100
+
+    CRYPTO-87 Reduce util package API footprint
+    
+    getBufferSize
+
+commit c66387b15bec3fd6d554a23148cec78b1f003c82
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 13:33:20 2016 +0100
+
+    CRYPTO-87 Reduce util package API footprint
+    
+    freeDirectBuffer only used by Stream classes
+
+commit e278580f5aa93ba385829a5dedadd06296e4df1f
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 13:37:06 2016 +0100
+
+    CRYPTO-87 Reduce util package API footprint
+    
+    calculateIV is only used by CRTCrypto classes
+
+commit 1a33867ff4579fafd0edb6485fbbb545c440836d
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:20:09 2016 +0100
+
+    CRYPTO-74 Full class names make code more difficult to update
+    
+    CIPHER_CLASSES_DEFAULT is only used by CryptoCipherFactory so move it
+    there and make it private
+
+commit 6161681ebdd2b155e61395ce86ff7f3fa555c64b
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:25:01 2016 +0100
+
+    Oops; revert accidental commit of debug line
+
+commit 7e38997261e1f4bda0fbaabcc83cc4acd2b1fec5
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:30:32 2016 +0100
+
+    These classes are not part of the public API; make them
+    package-protected
+
+commit 25455430f44637fce3cc7b4db6a9a5d4df56e27c
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:40:43 2016 +0100
+
+    Use shared constant for class names
+
+commit 7b9402712c3b8d61697a94538b41008f17d64fdc
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:47:14 2016 +0100
+
+    Use the AbstractCipherTest constants
+
+commit 2167e308f4a6646d80ed32fc4fd5aeb29981e744
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jun 25 14:48:03 2016 +0100
+
+    These classes are not part of the public API; make them package private
+
+commit 1f44456d377da9ab9c5702bca2f15ffedd2e5fdc
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jun 26 00:46:47 2016 +0100
+
+    Javadoc; unnecessary line break
+
+commit 7171e28c5c4bb9141fa4d72fcc92b129af7ad9e9
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jun 26 00:47:11 2016 +0100
+
+    Test null input
+
+commit 24e32ee97aeb6fad777fc431f8accbe4105c30aa
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jun 26 00:49:51 2016 +0100
+
+    Simplify: no need to check for null (done by splitClassNames). Drop
+    unnecessary line breaks
+
+commit d2bf645131a0b0107662779ca7d0be0a7a2f958a
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jun 26 00:51:49 2016 +0100
+
+    Simplify: split cannot return null
+
+commit d46004d52bbce0b6e15206240413b72a8f3a3054
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jun 26 00:52:39 2016 +0100
+
+    Unused
+
+commit 800c831ac90e17e214484e5e761df3ee1212a9fc
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Thu Jun 23 14:20:46 2016 +0800
+
+    CRYPTO-89: more robust native code to eliminate memory leak
+
+commit 1d40a495568de268882c267c13741864a98cf9dc
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 18:52:16 2016 +0100
+
+    Javadoc
+
+commit 49c8053f51e1e384c229ffd62c4f82c8029eabf4
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 19:11:21 2016 +0100
+
+    Javadoc
+
+commit 86ea9e1f46c50df78ed085a0da4e2b96cfe03b5a
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 19:31:46 2016 +0100
+
+    Ignore examples in Jacoco
+
+commit 1b4690e0611f9ffd77b59319ec4184367ef05b65
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 19:47:38 2016 +0100
+
+    RedundantThrows has been chucked
+
+commit d4f1a57aaa7980546925dd896ff50405710afc9c
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 19:48:06 2016 +0100
+
+    Update to latest plugins etc
+
+commit 0746a877c05c57f2edf0200e2a1fe314883bde87
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 21:45:45 2016 +0100
+
+    Check that class is instantiated correctly
+
+commit cc6233f206488d5ab9e3da2a43a83721fdae0776
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 22:56:44 2016 +0100
+
+    Fix up error messages (wrong classname was used); Javadoc
+
+commit 5b78fca1190ed6fc13d6b9d683245c9a48e8b780
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 23:07:19 2016 +0100
+
+    Correct Javadoc; detect missing classname(s)
+
+commit 896db59550516d4147290bc98a0efc305a5df270
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jun 27 23:11:04 2016 +0100
+
+    More tests
+
+commit 0ef736052aa8440243aa8c34a6da20d945e6bb3c
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 00:34:40 2016 +0100
+
+    Javadoc
+
+commit 33be50bd95a95d15d11e2ae762b9ad3060e63a40
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 01:23:54 2016 +0100
+
+    CRYPTO-73 Create example Java source code
+    
+    Link example source to user guide
+
+commit 6ea9d3d89d7ea262534c2f1c15fc18e2953a505e
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 01:33:50 2016 +0100
+
+    Tidy example docs
+
+commit 8feb4adade36c9d35fc318c10445ef71c1cab25e
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 01:34:07 2016 +0100
+
+    Javadoc
+
+commit b2953218fa273b2b58193482c30ebdb3b67736bd
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 02:21:53 2016 +0100
+
+    Tidy
+
+commit 170e51c89beae2a4c8db9b1f572217b26f776ca7
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 10:20:53 2016 +0100
+
+    Use standard naming convention
+
+commit 2a585651dfbd9dffe2a08ce05a186db7ef090533
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 13:28:47 2016 +0100
+
+    Internal class; should not be public
+
+commit b6006e563f63c745c964a87fae459200ae24573b
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 13:35:30 2016 +0100
+
+    CRYPTO-63 Add JNA binding
+    
+    Adapted from PR https://github.com/apache/commons-crypto/pull/47
+    Made classes package-protected
+    TODO benchmarking
+
+commit 24ec02c22ebd5b69c2f3c822ee99a5d8486fea26
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 14:54:16 2016 +0100
+
+    Javadoc
+
+commit 623b4dd662959df3761d960f21c334f0de3cd1d3
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 16:33:26 2016 +0100
+
+    Tests to check Cipher class re-use
+
+commit e5ddc2fedc547bac763af50d057b793e56e569c3
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 18:39:23 2016 +0100
+
+    Basic Benchmark tests
+
+commit 59389d1f2dad9fda5231f3fe33d563cf19714628
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 18:45:44 2016 +0100
+
+    Only needed temporarily
+
+commit 42f541f39d997c87df250a1029626a1c0bc431a4
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jun 28 23:17:05 2016 +0100
+
+    OpensslJnaCipher should not be public
+
+commit c8829a5142708eac5bdf2237b18d7c4badb130d0
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jun 29 11:31:26 2016 +0800
+
+    CRYPTO-74: Full class names make code more difficult to update
+
+commit 6e3f56dcf0fde6ddf8796304d5b64918a12d828e
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jun 29 13:08:57 2016 +0800
+
+    CRYPTO-74: Full class names make code more difficult to update
+
+commit 4a3baba5350fb6dd85d5f4f59656204cb810a039
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jun 29 13:37:18 2016 +0800
+
+    CRYPTO-91: Drop the fallback property and implementation
+
+commit 9e7f040b139f65ac133976e0d5c96cf963fbb226
+Merge: 4a3baba 800c831
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Jun 29 13:45:29 2016 +0800
+
+    Merge branch 'CRYPTO-89: More robust native code to eliminate memory leak '
+
+commit 8a8bcb0a3293597b306b49ea86f1e592b8b00b47
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 11:20:58 2016 +0100
+
+    Fallback no longer exists
+
+commit e22c4288cc1341c837ee213bd01697e53e1f4cac
+Author: Stian Soiland-Reyes <stain@apache.org>
+Date:   Wed Jun 29 18:02:16 2016 +0100
+
+    (doc) Updated README/CONTRIBUTING
+
+commit 6cbf4e90ee58f8ee1b64f7cb8033b987d5ca610d
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 21:35:16 2016 +0100
+
+    Javadoc fixes (fallback no longer used)
+
+commit 0226546f1b1278f30657dfb5276331d935efc2c8
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 22:01:03 2016 +0100
+
+    Add Javadoc for props to enum so appears in Javadoc and IDE
+
+commit 07fcb4b159f866073de1af6755f3f0da724bc647
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 22:02:34 2016 +0100
+
+    Random impl is not JCE
+
+commit 9182668cce2abf3081a0e2ae274b3c5b9f9edd8e
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 22:27:14 2016 +0100
+
+    CRYPTO-92 Handling default properties; allow SystemProperties to be
+    ignored
+    
+    Only use the provided property instance.
+    Fixes #64
+
+commit 7c544f698592d370934a1eb97c0f0fa5c7300674
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jun 29 23:33:10 2016 +0100
+
+    CRYPTO-90: Utils loads system properties during class loading
+    
+    Adapted from PR65
+    Fixes #65
+
+commit 69b40ed68eb6622c1161c3e6172b67f12cd96280
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:00:41 2016 -0700
+
+    Unnecessary semicolon.
+
+commit 9faf04e47dc66afc667abe85e0345565574efa09
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:02:14 2016 -0700
+
+    Statement unnecessarily nested within else clause.
+
+commit bd9dfcd71285868e0b23de3c22630cf585a9ee33
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:03:16 2016 -0700
+
+    Fix deprecation warning.
+
+commit 9ecfae271b00a66a5ca2618b32aa59e96a165473
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:07:28 2016 -0700
+
+    try-with-resources.
+
+commit b11f6ffaecef327840c3f42b880937a267ac7637
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:08:49 2016 -0700
+
+    try-with-resources.
+
+commit c6320bbf639b15102f66d77050df2cd884cc719e
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:10:52 2016 -0700
+
+    try-with-resources.
+
+commit 67e3639c4a8c9daa472864522265917303a1b228
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:21:05 2016 -0700
+
+    Revert "try-with-resources."
+    
+    This reverts commit b11f6ffaecef327840c3f42b880937a267ac7637.
+
+commit 7652bfbd67faf4db61269c01979dcb58fa87b49b
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Wed Jun 29 17:21:14 2016 -0700
+
+    Revert "try-with-resources."
+    
+    This reverts commit 9ecfae271b00a66a5ca2618b32aa59e96a165473.
+
+commit 1535b53913d502e729d47ac26e62ee0ad45d17e8
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 01:26:07 2016 +0100
+
+    Javadoc
+
+commit 6a544edcfa2c5db6f7e344e3fb37c3244d2662e2
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 01:30:22 2016 +0100
+
+    Document why not using try with resources
+
+commit 6367ae4d6344bfb21cdb98da39f2bfa91f01777d
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 01:53:15 2016 +0100
+
+    Javadoc
+
+commit 99cae9863a4159e4cd2cb9df885b197d49f14f35
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 01:53:42 2016 +0100
+
+    Initial test of enums
+
+commit 5b4c302d87b5039258fb3785c0d1e18775e4cf7d
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jun 30 13:54:44 2016 +0800
+
+    CRYPTO-63: Add JNA binding (issue fix)
+
+commit 88f3276bc8607ae306624fc54cf011dc17a9d8e4
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jun 30 13:56:13 2016 +0800
+
+    Fix pmd issues
+
+commit ed48fad6cd8a701973a05a69f29db001a2ce978f
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jun 30 14:39:39 2016 +0800
+
+    Revert "CRYPTO-63: Add JNA binding (issue fix)"
+    
+    This reverts commit 5b4c302d87b5039258fb3785c0d1e18775e4cf7d.
+
+commit 6449de7f4b4a16dc0fba4a9f1ca30fc74677564d
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 12:32:57 2016 +0100
+
+    Consistent names
+
+commit 8139303dfab60226433601a94b599b2207b6a9b4
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 12:42:35 2016 +0100
+
+    CRYPTO-95 - Code should never catch Throwable
+    
+    Replaced with Exception
+
+commit 06276c333eb40c0809d72075fba02028aa5b2ff8
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 08:44:32 2016 -0700
+
+    Javadoc: Use the usual @link instead of @Link.
+
+commit 6154eb8e074f64c235f622ce15f9c7de70a30ba0
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 08:45:37 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: IoUtils.
+
+commit 6dd20905230ebda745da1ec60c1f6a177c74e47c
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 08:46:09 2016 -0700
+
+    Javadoc: typo.
+
+commit 294d73b24a5a83d0848e7d9445acb3c03d72cd02
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 08:55:51 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: OsInfo.
+
+commit ba14d801935decdb9399d6b2f038e0d1a71609e1
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 09:03:53 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: Ctr*.
+
+commit 4f356a7e477d258b7574aa5f2971c96a5b3cc012
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 09:04:44 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: Cbc*.
+
+commit 859bdaa0489fe8e4e1e224b38975e73afceda506
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 09:17:43 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: OpenSsl* (except native,
+    that's next.)
+
+commit 4a19325fdffef571cadd05000e8a2e9c376cd6af
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 09:31:02 2016 -0700
+
+    [CRYPTO-94] Consistently camel-case type names: OpenSsl* (native and
+    more)
+
+commit af77e868e81ab01b0cb0c8782219e5040ec13798
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 17:56:55 2016 +0100
+
+    The OpenSSL library uses specific (non-camel) casing
+
+commit 0c1f06550f1dea80276abe929744514a43f940ba
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 18:11:20 2016 +0100
+
+    Don't expose internal class names
+
+commit de22a5b1e220dd0141a3f4803029d7aac378648a
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 10:39:34 2016 -0700
+
+    Format nit.
+
+commit 276b4ba2d81e4881b604725273629d066e8d982d
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 11:13:32 2016 -0700
+
+    Fix format nits.
+
+commit 2e3939f2fdefaca68ca9b00cec6266b58973fcf4
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 11:14:41 2016 -0700
+
+    Use longer lines.
+
+commit 907b4d26e27c784b4d2834232a29e861c488be36
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 20:08:41 2016 +0100
+
+    Bad line break
+
+commit cc3a0651d614807d77ef00f6110b6c1e96fca2b3
+Merge: 907b4d2 2e3939f
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 20:08:58 2016 +0100
+
+    Merge branch 'master' of
+    https://git-wip-us.apache.org/repos/asf/commons-crypto.git
+
+commit 925d5cac8e95cfe4bbaa360082b893f860ec3efc
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 20:15:03 2016 +0100
+
+    Javadoc fix
+
+commit b5e7b1b44ede8156b635726a1178e5d280e750f7
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 20:33:04 2016 +0100
+
+    Javadoc tweaks
+
+commit ae8e3506d40589962d4414b72cab53a9ca92212b
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 20:41:42 2016 +0100
+
+    CRYPTO-93 add a factory method to provide simpler API
+    
+    Added a parameterless ctor along the lines of the one in the cipher
+    factory. This will try to create the OPENSSL cipher and fall back to the
+    JAVA one.
+    
+    Fixes #63
+
+commit 1dc0e0577596b5527b6dc3befd2b793aa35ec4fd
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jun 30 21:54:08 2016 +0100
+
+    final comes last; static constants are uppercase
+
+commit 881d2b9a3762ba85cffbf5b10be7defacc138d28
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 16:29:49 2016 -0700
+
+    lvar should not hide ivar.
+
+commit f7ccb8126f6ada2823c0e953b135e0a9fe52edbe
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 16:31:21 2016 -0700
+
+    lvar should not hide ivar.
+
+commit 154e18afa3db8f3fc9b51414f5b25e79dd8dc686
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 17:01:10 2016 -0700
+
+    Don't need these parens.
+
+commit b380b8c8721f19aee3ebcffbeb53121f3178b34d
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Thu Jun 30 17:02:42 2016 -0700
+
+    Javadoc: Active voice, less wordy.
+
+commit 3e7836f2a9e4315e7f1d0429ef0558b1722eb023
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 10:25:38 2016 +0100
+
+    Move examples to test tree
+
+commit c267b98d787b8f41a73569129eeee31f02ec1de1
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 10:41:17 2016 +0100
+
+    Use the enum names where possible
+
+commit 45de8b8d33d13c351475a8a6e81dd1a0fdb93bef
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 11:08:32 2016 +0100
+
+    Split off JNA benchmark
+
+commit 10e44a4b8277260d6b0c6c2ecfdc4b828d9b2610
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 15:54:10 2016 +0100
+
+    Forgot AL header again
+
+commit 5fc066d3a6bc6d091779fb05a22d20b509c019e7
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 16:18:54 2016 +0100
+
+    Unused
+
+commit 000010af8e6337d53450cba5b123d28f9c43fedb
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 16:19:52 2016 +0100
+
+    Run all the other tests for the JNA version
+
+commit acb1a15a8c2176396b4acf39d4068f98da679ff9
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 1 16:26:54 2016 +0100
+
+    Move JNA test to own folder
+
+commit 250e9184e15b634a8d6855433012beae519f124b
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 16:10:55 2016 +0100
+
+    Separate remaining JNA tests
+
+commit 98af9d7df9dc95dc02b178691679138653d17ed2
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 16:34:54 2016 +0100
+
+    Simplify cleanup
+
+commit 139c3f3c1a073076b7f73817016067845cfeced8
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 17:59:36 2016 +0100
+
+    CRYPTO-99 Makefile clean removes too much
+
+commit 173e12382ee9e8ead2cf5ac48bce6e0e159f0080
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 18:20:57 2016 +0100
+
+    CRYPTO-100 Makefile does not need to include VERSION file
+
+commit b8a49c41d40efc3911c0fc78310954f499effc8f
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 18:31:02 2016 +0100
+
+    Javadoc
+
+commit d06cb33d6e89975a905ff1c3a1b2b7674782d6ef
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 19:22:18 2016 +0100
+
+    CRYPTO-101 Makefile does not use correct PATH separator for Windows
+
+commit 5b44a0039bd2c7f3c303511806eb773c53774974
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 19:36:46 2016 +0100
+
+    CRYPTO-102 Makefile defines JAVA/JAVAH/JAVAC incorrectly for Windows
+
+commit 26ec56a05cc041587e49bf249aac6817476b5acb
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 20:12:30 2016 +0100
+
+    CRYPTO-70 Compiling on Windows
+    
+    Fix make clean target
+
+commit 873377b3b53f5978cc7c851e1e56d930a5d978ff
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 20:22:40 2016 +0100
+
+    DEL is an internal command
+
+commit f2e5e8b6e12e2b7521f3deca6b395abc0396124e
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 22:16:39 2016 +0100
+
+    Alignment
+
+commit 678b2bfc48447a4fa88870d85668097733a98598
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 2 22:30:56 2016 +0100
+
+    CRYPTO-70 Compiling on Windows
+    
+    Needs additional include dir for jni.h
+
+commit 977d40918affc8056474f673dc7737a7e0ea598e
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 4 12:59:51 2016 +0100
+
+    CRYPTO-98 Makefile does not use MVN or TAR variables
+    
+    Fixes #68
+
+commit 521615236a312ed98757493aa297d91c3ed8b241
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 4 13:02:25 2016 +0100
+
+    CRYPTO-97 Code uses System.err/System.out
+    
+    Fixes #67
+
+commit 1531500d181f0ea767a7db1bc6b1496ee51ad6d3
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 4 13:24:50 2016 +0100
+
+    Unused import
+
+commit b4fb96bd3377b1fc3ef7b939374b1c39e5201ec2
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 4 13:40:31 2016 +0100
+
+    CRYPTO-100 Makefile does not need to include VERSION file
+    
+    VERSION file no longer exists so don't try and use it
+
+commit ad80638cc5fb3c69ff4bdb877c1970e5233422de
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 4 13:45:28 2016 +0100
+
+    Tidy up try block; code that doesn't throw IOE moved outside
+
+commit 55910b7b23250a37cde4ca4bccb1e2126c4dc78b
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 09:20:48 2016 +0100
+
+    Typo
+
+commit 7274287f3277a3e62bac8c2270ded0d82e32fef5
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 10:49:44 2016 +0100
+
+    CRYPTO-90 Utils loads system properties during class loading
+    
+    Fix up NativeCodeLoader so it still sees properties from the local file.
+    These are no longer copied into the System props, so need to use the
+    defaultProperties from Utils
+
+commit 8997a623e8608474db886e53bb8cb19d1a51b33f
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 13:41:55 2016 +0100
+
+    CRYPTO-105 Eliminate Configuration class
+
+commit 929840b3a69c6b1ad13534c5132a9772d30155ed
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 16:45:29 2016 +0100
+
+    Ensure test still works if JNI cannot be loaded
+
+commit 3cd0564517a0a460556d4421dfbab1b60aa28471
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 17:28:08 2016 +0100
+
+    CRYPTO-106 CryptoRandomFactory only handles ClassCast and ClassNotFound
+
+commit f39d7406b2325ad117a9ba7948b40223396264a0
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 17:28:53 2016 +0100
+
+    Additional instantiation tests
+
+commit 652b62a2fbc5a9504f8bfa8a76a58afaa762f90d
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 17:30:45 2016 +0100
+
+    Skip tests if the native code cannot be loaded
+
+commit b1d66b82a70f6ec68ae0604e64664c698c967fa5
+Author: Sebb <sebb@apache.org>
+Date:   Tue Jul 5 23:29:26 2016 +0100
+
+    CRYPTO-107 NativeCodeLoader fails to handle UnsatisfiedLinkError
+    
+    Catch UnsatisfiedLinkError
+    Save the cause on loading error
+    Add unit tests
+
+commit ee2136e547836f6b9c69d5636c34e0d825bcd3f9
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 00:12:35 2016 +0100
+
+    Add tests to show that IllegalArgumentException is being thrown
+    
+    Fix bug in CryptoCipherFactory - did not throw IAE because errorMessage
+    buffer is not initially empty
+    Simplify code by checking the list size
+
+commit e045c163d0a761ce0eb21376863fe1386a5a71ac
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 00:29:28 2016 +0100
+
+    Disable test for now
+
+commit 1ef0752c48876550229caca584ed5aad6f2a0e56
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 09:57:51 2016 +0100
+
+    Centralise AES_BLOCK_SIZE definition
+
+commit 670b462be96d1b78d5ddcac3fb2b05a70a4444a5
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 21:56:59 2016 +0100
+
+    Allow test to work if JNI does not load
+
+commit 44c440ed4006dc190cd7f188f48e2b86c0bb304f
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 21:57:41 2016 +0100
+
+    Also need to check if JNI code was actually loaded
+
+commit 352e89a94fa601419375e9501dbdcefa9316ebfc
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 22:02:11 2016 +0100
+
+    Typo
+
+commit 079c158968bffa8c8ab8ea4e59592056c9af100a
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 22:23:01 2016 +0100
+
+    CRYPTO-108 OpenSSL does not handle Native code loading failure
+    
+    Save load failure message, so getLoadingFailureReason == null means code
+    loaded and init OK
+    TODO prevent instantiation if init not done OK
+
+commit 93b765eca8545eac04967c34b7de4d5ce9fece44
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 22:52:35 2016 +0100
+
+    Use a class that is always available
+
+commit af71a9693cbdd303dc0c4f0e73e6c4aee800cb63
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 22:53:32 2016 +0100
+
+    Unnecessary extra check
+
+commit 80fa61edf4f7610671bc3ca390109637f58d8296
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 22:54:18 2016 +0100
+
+    Skip tests if JNI not loaded
+
+commit aaae85c8a27b94195f86b778440365141db04038
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 23:54:56 2016 +0100
+
+    Skip test if OpenSSL/JNI cannot be loaded
+
+commit edbdf9185f45ce218c5b4b6ba18324d14aa8485d
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 6 23:56:16 2016 +0100
+
+    CRYPTO-108 OpenSSL does not handle Native code loading failure
+    
+    Don't construct class if it won't work
+
+commit a3417803b05265d744125c9a6aff4df27f809bf4
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 00:04:26 2016 +0100
+
+    Windows does not have /dev/random
+
+commit 3b619e19ada1d70dfa996337ed0ee0643a122229
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 00:06:41 2016 +0100
+
+    Windows does not have /dev/random
+
+commit f9ad9cf3d3e3ec18700a7132b8a2c487d976fe8d
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 00:34:25 2016 +0100
+
+    Fix name so it agrees with the class
+
+commit a7159569f7ad9eda8871da0b0395a7663de53d9c
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 00:36:10 2016 +0100
+
+    Stupid Git
+
+commit 5c8c22dd25c9595cf2f12aaecba5e731a22cedc7
+Author: Kristian Rosenvold <krosenvold@apache.org>
+Date:   Thu Jul 7 06:35:56 2016 +0200
+
+    Added .gitattributes to fix line feed issues once and for all
+
+commit fc1d482bd2b4b9ef3be1eeea9dd6d1363106d152
+Author: Kristian Rosenvold <krosenvold@apache.org>
+Date:   Thu Jul 7 06:37:21 2016 +0200
+
+    Fixed the remaining incorrect files
+
+commit 34df73069203e8647375e072b99c9538904a0e86
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jul 7 14:37:20 2016 +0800
+
+    CRYPTO-96: OpenSSL Random implementation silently falls back to Java
+    
+    Fixes #66
+
+commit 088b2b7e88d92cfa6b249a0b42abf005c3198029
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 15:55:06 2016 +0100
+
+    More instructions
+
+commit 5f1cc557f5d24008dccb12abf38335aa4d6b6e38
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 17:31:39 2016 +0100
+
+    If JNA cannot find the correct library, ensure the details are caught
+    
+    Don't try to create classes if the JNA libray is not enabled
+
+commit d3e86ff44d2d74fe388e2fd4139fef1c8af1ad2b
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 17:32:10 2016 +0100
+
+    Skip tests if JNA cannot be enabled
+
+commit c4462318fb061ec454849f1a3beb58c4138a22c0
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 17:56:36 2016 +0100
+
+    Show version if available; warn if JNI/JNA could not be init
+
+commit d3bb874acf65b26e06417fd096496f48c4296cd9
+Author: Sebb <sebb@apache.org>
+Date:   Thu Jul 7 18:05:17 2016 +0100
+
+    Show JNA status
+
+commit 8773c328c54d3ecddfd0dc8d3654f57c8dbf5611
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:14:28 2016 -0700
+
+    Add missing '@Override' annotations.
+
+commit 72dd5bf13f1e577fcafcf22a1db8a20b9a2b237f
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:15:18 2016 -0700
+
+    The declared exception GeneralSecurityException is not actually thrown
+    by the method testDummmyRandom() from type CryptoRandomFactoryTest.
+
+commit a3128504c5a1ac1194994265db397d3858fa26c9
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:15:54 2016 -0700
+
+    Unused import: org.apache.commons.crypto.Crypto.
+
+commit 5119f8411967624382804dd96ebfb2e87d7fba96
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:16:38 2016 -0700
+
+    Statement unnecessarily nested within else clause.
+
+commit 2a9b994f77ad581595fdc9992482de5fdce448f1
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:18:00 2016 -0700
+
+    Use try-with-resources.
+
+commit 9e83ff37380517964033a183e5501a2409fea018
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:18:37 2016 -0700
+
+    Formatting: Missing spaces.
+
+commit 6f6d6b0c9c6cf3d9c991c7e50a5671210b4a74e3
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:19:01 2016 -0700
+
+    Use try-with-resources.
+
+commit 0715c6c5ff6f5d7d3b4e55dec434d3b1711492a5
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:19:46 2016 -0700
+
+    Formatting: Missing spaces.
+
+commit d3a77423a3d54c83e2c6f1ef018b2ebb06b05f12
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:20:11 2016 -0700
+
+    Use try-with-resources.
+
+commit 495b0533a3bc8d14bc9742aaa7f3d769c4a4efe2
+Author: ggregory <ggregory@apache.org>
+Date:   Fri Jul 8 09:24:39 2016 -0700
+
+    Use try-with-resources.
+
+commit c27ed6e152a260684cba48cb7d7c20ee4c3251cc
+Author: Sebb <sebb@apache.org>
+Date:   Fri Jul 8 17:55:21 2016 +0100
+
+    Classpath does not need jni-classes
+
+commit e5a6548f9c610717ffca3163638c0e59c9ea4591
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 00:19:16 2016 +0100
+
+    No point recreating the File object
+
+commit 211498ebd6e0cf795d6a62c3277cf645ab17e8b3
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 12:04:39 2016 +0100
+
+    Javadoc
+
+commit fd2b93472cc8438c17874635e674d1cf1a84864e
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 13:20:42 2016 +0100
+
+    CRYPTO-103 NativeCodeLoader.getVersion() is not needed
+
+commit d58e6f35fb77c7b5a88166b03ab82c3bba52e234
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 13:24:05 2016 +0100
+
+    Unused import
+
+commit c4db965e38b7a101b2747d845d757ac5dba17aba
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 13:42:02 2016 +0100
+
+    CRYPTO-110 Provide component version and name
+
+commit 47061e66d028cfb47ee95ad1081f40adadb490ec
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 13:53:31 2016 +0100
+
+    It works on MacOSX
+
+commit 999c0deeeb6ee34d69aed7431b5277af64c86676
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 14:45:11 2016 +0100
+
+    Already included near top of file
+
+commit 121448459fd6b6277f435ca8b9b1fec183adfc78
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 14:46:40 2016 +0100
+
+    Already included in org_apache_commons_crypto.h
+
+commit de52abeffa44dc7f4b2df9112e82c240c7ba68f8
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 15:29:29 2016 +0100
+
+    /lib/ directory contains valid source files!
+
+commit 2d38230a36503dada2aadfd430369ab47fb5f715
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 15:30:33 2016 +0100
+
+    Fix up Windows build:
+    
+    Needs config.h
+    Needs Unicode String
+
+commit a1089e1fad8a279da812725d5bb9b7f8f0dac596
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 15:45:34 2016 +0100
+
+    Syntax error: missing closing parenthesis
+
+commit f4d5737e3906350eaf7cdcd6dd188ababa79220d
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 17:39:59 2016 +0100
+
+    Also catch UnsatisfiedLinkError in case OpenSSL library cannot be found
+
+commit b17af9d959fbf653c5597369dbb83ca8545b56f3
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 17:50:40 2016 +0100
+
+    CRYPTO-112 OpenSslCipher.loadingFailureReason should be a Throwable
+
+commit 56894ba1f6770f8fd1791ecab5b8804b764cb194
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 18:07:20 2016 +0100
+
+    No need to save the libary pointer once initialised
+
+commit 5a4c8059fbc49f90d150f00f42049eadf4ac996d
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 19:00:30 2016 +0100
+
+    Undefine snprintf on MinGW
+
+commit e8fd891f329b97a89e0ded65386677d446ed1286
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 19:38:29 2016 +0100
+
+    Better fix for LoadLibrary parameter on Windows
+
+commit f880ccff6753c49b77746f9d4a37217ecf2779e1
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 19:43:51 2016 +0100
+
+    Windows uses LoadLibrary/GetLastError
+
+commit fab44563bddf4e8d5df6cf9a88bfa0e1a76495e7
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 23:32:14 2016 +0100
+
+    winutils.h not needed on Windows
+
+commit 64ad87d016e8fe28bf8a4c51c3d26272e343ce02
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 23:50:24 2016 +0100
+
+    Fix file name
+
+commit bc7c11671931745c46a9b0a5647a57f259eee7c7
+Author: Sebb <sebb@apache.org>
+Date:   Sat Jul 9 23:51:22 2016 +0100
+
+    And class name
+
+commit 79502d4544d42c020520d7f6cdb69ff9c1631554
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 00:47:59 2016 +0100
+
+    CRYPTO-113 Improve error reporting by factories
+
+commit 4ac4fedf1bbe662e8c485eee653f9dbe34f2b853
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 12:50:21 2016 +0100
+
+    CRYPTO-114 exception.c/exception.h are not used
+
+commit 403c632fb9068ee72a1cc2d5be13f837a85f3b9c
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 13:39:33 2016 +0100
+
+    CRYPTO-111 Include minimal main class to show that the code is working
+
+commit 94844c8bb4752200f441fd26edd1e74bf3aba2be
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 13:40:12 2016 +0100
+
+    Unused
+
+commit 6ed9de8acbe16298350f4a2099776b3537d0bfb4
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 14:01:56 2016 +0100
+
+    CRYPTO-63 Add JNA binding
+    
+    Work-round for JVM crash if close called more than once
+
+commit dba8b4aaf41c583eb2af5e3c061570571679ae54
+Author: Sebb <sebb@apache.org>
+Date:   Sun Jul 10 15:39:11 2016 +0100
+
+    Make compiled filename agree with source file
+
+commit eaed08d07d0d7800c48e428061d919130fba0733
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 11 00:45:55 2016 +0100
+
+    CRYPTO-104 Native code should provide getVersion() methods
+
+commit c22d7234cd86cf1ea7082b3e3bbd616c0d3206ba
+Author: Sebb <sebb@apache.org>
+Date:   Mon Jul 11 01:13:03 2016 +0100
+
+    MinGW now works
+
+commit 5e5cf6d3096b4ebee59b658bcd20fdd835718d78
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 13 10:15:47 2016 +0100
+
+    Docn
+
+commit 0c07adb081283a86376329cb531419e989b8b016
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 13 10:22:22 2016 +0100
+
+    Docn
+
+commit a82710711ea01a66fe3b65010f501a628fd1d8c4
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 13 10:23:00 2016 +0100
+
+    Initial example; changes.xml needs more work
+
+commit ffde31380017545f5dacdfa04b29b232d6690735
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 13 18:58:34 2016 +0100
+
+    Windows works
+
+commit 514dc16e98e5c38bf0640745147f54b689482c29
+Author: Sebb <sebb@apache.org>
+Date:   Wed Jul 13 19:00:31 2016 +0100
+
+    Docn
+
+commit 6488aa6e9a617b0f27af6c1c4a8febd4540f37b1
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Tue Jul 19 17:32:20 2016 +0800
+
+    CRYPTO-117: Define WINDOWS when _WIN64 and CYGWIN defined
+
+commit 7eac68da9407b31bcf318a53b928ceb835e88869
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Tue Jul 19 17:36:53 2016 +0800
+
+    CRYPTO-116: Fix compile error at 64 bits windows
+
+commit 5a3bf996afa6c7c44ed4aefd5e54b7629f56c075
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Thu Jul 21 11:03:32 2016 +0800
+
+    CRYPTO-118: Fix pmd and findbugs issues
+
+commit ed1b6097c6cfe79dc4e23ac4e9c75fa4b3ccbb04
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jul 22 14:40:55 2016 +0800
+
+    CRYPTO-119: Fix checkstyle issues
+
+commit 850e4bd6f5449c49ab5522524892b13181847ce3
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jul 22 15:12:47 2016 +0800
+
+    Update autogen documents
+
+commit 444fbe1d44cf013092ee84970990c8ea1c815c39
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Fri Jul 22 16:44:55 2016 +0800
+
+    Fix assembly
+
+commit f8795d6b714c3139ee70ccdb3f7415177f736236
+Author: Dapeng Sun <sdp@apache.org>
+Date:   Mon Jul 25 16:45:33 2016 +0800
+
+    Release Notes for 1.0.0
+
+commit 782ca06a1f9a292756fbad9eb9841e685cd34af1
+Author: Dapeng Sun <sdp@apache.org>
+Date:   Mon Jul 25 16:54:08 2016 +0800
+
+    [maven-release-plugin] prepare release CRYPTO-1.0.0-RC1
+
+commit d94c71904593dcb42d4fdd47d641c9d95a06e15d
+Author: Dapeng Sun <sdp@apache.org>
+Date:   Mon Jul 25 16:56:02 2016 +0800
+
+    [maven-release-plugin] prepare for next development iteration
+
+commit 3f6e549948fbb6584a21c2350e410cb834f28502
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Aug 17 09:37:08 2016 +0800
+
+    CRYPTO-122: Fix CRYPTO website after 1.0.0
+
+commit e230e30d51115696480f17596ab5b0f05898c287
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Sep 7 13:04:13 2016 +0800
+
+    CRYPTO-123: Clean CRYPTO build script.
+
+commit 77af2da3d2cc871fbfc3c6a75d6848e45be33794
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Wed Sep 7 13:09:56 2016 +0800
+
+    CRYPTO-124: Fix JavaCryptoRandom extend java.util.Random
+
+commit 3adc20723b823bad58a39f7952300538450d3b7c
+Author: Junjie Chen <junjie.j.chen@intel.com>
+Date:   Mon Oct 24 10:11:29 2016 +0800
+
+    CRYPTO-125: CryptoOutputStream does not call write in a loop when underlying channel works in non-block mode. (Reviewed by Sun, Dapeng and Ke, Xianda)
+    
+    Closes #71 from cjjnjust:master
+
+commit a760177b6d1b95bef512902c0b987ace614ab359
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Mon Oct 24 11:22:21 2016 +0800
+
+    CRYPTO-127: CryptoInputStream#read should handle non-block case
+    
+    Closes #72 from kexianda/inputstream
+
+commit c5297f6635032c8e184f043c3287a2e760f70a12
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Fri Nov 18 18:46:37 2016 -0800
+
+    Add Coverall badge.
+
+commit 461ac12a5fdcfd05daa9f764dd576100ff120250
+Merge: c5297f6 a760177
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Fri Nov 18 18:46:45 2016 -0800
+
+    Merge branch 'master' of https://git-wip-us.apache.org/repos/asf/commons-crypto.git
+
+commit 8fcb6e2fd5b32124660db06abf0efdd1a291c6f0
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Nov 21 09:12:55 2016 +0800
+
+    Fix Coverall badge
+
+commit dc1769ed66b762646cdc7d2f5b268f274485f6b3
+Author: Tian Jianguo <jianguo.tian@intel.com>
+Date:   Mon Nov 21 09:16:07 2016 +0800
+
+    CRYPTO-129: Change access of instance variables
+    
+    Closes #73 from jianguotian/CRYPTO-129
+
+commit 9c0a452f7607dc8f41034133693e43c43fbdca11
+Author: Sun Dapeng <sdp@apache.org>
+Date:   Mon Nov 21 09:36:55 2016 +0800
+
+    Fix travis
+
+commit 3a23ededf26a1f978d35e253074b517370af426e
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 09:56:44 2016 +0100
+
+    Fix broken JavaDoc link
+
+commit d11db42306bec6be5dfc659a66e47941d28955bd
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 10:08:49 2016 +0100
+
+    Add FAQ page
+
+commit 87586f391b6c3d8532c61d453eaac7fa0e3f403d
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 10:16:23 2016 +0100
+
+    Sort pom.xml elements
+
+commit 44301e06c576c054edc17e399f7e4fb8a90c5051
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 10:18:29 2016 +0100
+
+    Fix mess I created in last commit
+
+commit 217de983601c7de885223f3cf06f5ead54376f64
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 12:47:33 2016 +0100
+
+    CRYPTO-131: Provide FAQ page
+
+commit 632f1feed2441db48887e31acf18fb1ddb0b62e3
+Merge: 44301e0 217de98
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 12:47:52 2016 +0100
+
+    Merge branch 'CRYPTO-131'
+
+commit c480102142a22fb2bf506c51d157df22a44b700d
+Author: Benedikt Ritter <beneritter@gmail.com>
+Date:   Sat Nov 26 12:49:29 2016 +0100
+
+    Remove tailing white spaces
+
+commit 85a5ea1a30e96fc7ca5423f4e842785bd8b5aa14
+Author: Hendrik Saly <hendrikdev22@gmail.com>
+Date:   Wed Nov 30 08:54:04 2016 +0100
+
+    Fixed a typo
+
+commit 9f73f2fc1ec45d7c26cc36cd89fd5bf455d1de66
+Author: Sebb <sebb@apache.org>
+Date:   Sat Feb 11 12:14:45 2017 +0000
+
+    CRYPTO-134 CipherByteBufferExample should not truncate the string
+
+commit c24b691ac4efadb8fa4c6beac63d58cb4a9faa6e
+Author: Sebb <sebb@apache.org>
+Date:   Wed Feb 15 22:01:16 2017 +0000
+
+    CRYPTO-129 Revert unnecessary exposure of instance variables
+
+commit 158be0644c353a617427ab190a4f09082cda42ac
+Author: Sebb <sebb@apache.org>
+Date:   Wed Feb 15 22:11:02 2017 +0000
+
+    Tab police
+
+commit de542347724ec8d53268fce7e553dadc60530940
+Author: Rob Tompkins <chtompki@gmail.com>
+Date:   Sat May 27 20:28:13 2017 -0400
+
+    (chore) adding commons.module.name to pom
+
+commit aad8c55a43f72d7869d704a44b42557bb634baf2
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Mon Nov 20 07:57:14 2017 +0800
+
+    CRYPTO-60: opensslCipher support GCM mode
+    
+    Closes #70 from kexianda/gcm3
+
+commit 3466943e4552474ab681d7852dbfa62c74d8e1ce
+Author: Xianda Ke <xianda.ke@intel.com>
+Date:   Mon Nov 20 08:38:23 2017 +0800
+
+    CRYPTO-125: Add new testcases for GCM cipher
+    
+    Closes #76 from kexianda/ut_gcm
+
+commit d69ef9556f44c076034add15feef1c5513248404
+Author: Gary Gregory <ggregory@apache.org>
+Date:   Sun Jan 7 13:40:34 2018 -0700
+
+    Update commons-parent from 42 to 43.
+
+commit ccbeb2de8bfae87262a346bd6356bbc928107b73
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue May 15 12:21:00 2018 -0600
+
+    Typo: 'JavaDoc' -> 'Javadoc'.
+
+commit 6dc74c0a9ad522cbdf641b5f4395d4a9984ee86c
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 16 15:44:33 2018 -0600
+
+    The the patrol.
+
+commit 057487902aa759c4d8834252f93375d8aa46fc37
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Thu Sep 27 14:31:00 2018 -0700
+
+    Bump requirement to Java 1.8
+    
+    Closes #84
+
+commit ea5ecc369edbf4ba91986e4ede0eea170d8c94c5
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Oct 1 12:46:23 2018 -0700
+
+    Add clirr:check target to CI build.
+    
+    - add default implementations for new interface methods that were added
+    - add an excludes file with an entry to ignore the current clirr failure
+    - disable javancss plugin since it does not like java 8 default methods
+    
+    Closes #82
+
+commit 421d02a11cad214607e0d8bb6c2983f53db8ee6d
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Oct 1 12:52:02 2018 -0700
+
+    Cleanup tests to not catch exceptions unnecessarily.
+    
+    Catching exceptions and calling "Asserts.fail()" not only makes
+    the code more complicated than it should be, but it hides information
+    about the problem, since the original exception's stack trace is
+    lost.
+    
+    It's also unnecessary to catch exceptions and fail the test when the
+    test itself declares that it's expecting that exception to be thrown.
+    
+    While there I fixed a few misleading messages and some typos.
+    
+    Closes #81
+
+commit c5c6220c2509c4d12de3fc08d591f82b89f882a0
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Oct 1 12:59:54 2018 -0700
+
+    Add OS X to Travis CI matrix.
+    
+    Closes #83
+
+commit 2b6984939b78073efe2f2c079adb5ac6da47a65e
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Oct 1 13:08:24 2018 -0700
+
+    Revert to commons-parent v43.
+    
+    Seems like the newer maven-enforcer-plugin version is either buggy
+    or does not like maven 3.0 (since it seems to work fine with 3.5
+    locally). Let's revert to the previous commons-parent version for
+    now (which sets the enforcer plugin to version 1.4.1).
+    
+    Closes #85
+
+commit ec4150fe30ceb9726618e60d6557a85cc122d77b
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Mon Oct 1 18:12:13 2018 -0700
+
+    Clean up a few build warnings.
+    
+    - remove references to the javancss plugin
+    - clear up javadoc warnings from checkstyle by only requiring them for
+      methods that are protected (or more visible)
+    - remove an unused import
+    
+    Closes #86
+
+commit eee2f509cef33ff6d56dc4faaecc551b4e7ce077
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Wed Oct 3 10:48:14 2018 -0700
+
+    CRYPTO-135: Add comment about need for blocking sinks.
+    
+    Implementing non-blocking semantics in the WritableByteChannel portion
+    of CryptoOutputStream is non-trivial. The existing options require weird
+    return values and thus require the caller to know they're writing to
+    a CryptoOutputStream and not a regular byte channel. In that case, it's
+    better for the app to just not use the stream implementation and use
+    the ciphers directly, since that gives the code better control of
+    encryption.
+    
+    This change just adds comments to warn API users that the output
+    streams are expected to be used only with blocking I/O.
+    
+    Closes #87
+
+commit dc28a2b7be5cbe21403f29db99635f8887b45a61
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Thu Oct 4 12:21:07 2018 -0700
+
+    Bind clirr:check to verify phase, publish clirr report.
+    
+    I also had to disable the Mac OS CI build because of CRYPTO-142.
+    
+    Closes #88
+
+commit 9456415cd185b17782507006013556c306441a23
+Author: Marcelo Vanzin <vanzin@cloudera.com>
+Date:   Fri Oct 5 09:31:34 2018 -0700
+
+    CRYPTO-141: Avoid calling operations on an invalid context.
+    
+    There are two main changes here.
+    
+    The first one wraps the OpenSSL cipher context with some extra state
+    needed by the JNI wrapper. This allows checking whether it's safe to
+    call operations such as EVP_CipherUpdate, which can cause problems if
+    the context is not properly initialized. This more closely follows the
+    semantics of the Java interface.
+    
+    The second change avoids cleaning up the OpenSSL context when an error
+    happens. Doing that would invalidate the memory used by the context,
+    but the Java code would still have the address of the now invalid
+    context, and calling another JNI method would crash the JVM. This
+    ties the lifecycle of the OpenSSL context to the Java cipher instance.
+    
+    As part of those changes, all uses of EVP_CIPHER_CTX_cleanup were
+    removed; the remaining cleanup paths use EVP_CIPHER_CTX_free,
+    which is its replacement.
+    
+    There are a few more changes that are not required for the above but
+    helped with testing and debugging:
+    
+    - some very minor changes in Java code, especially using final fields
+      where they make sense.
+    - enable -Wall and -Werror when compiling on linux64.
+    - fixed some minor issues with error handling in the native code.
+    
+    Closes #80
+
+commit 2875340ca3f9f5b19cd14939d9c0fbba500687f1
+Author: aremily <aremily@users.noreply.github.com>
+Date:   Tue Feb 19 13:40:39 2019 -0500
+
+    OpenSSL 1.1.0 updates with backward compatibility for OpenSSL 1.0.2 and 1.0.1 (#92)
+
+commit 7b7a36d603ad943ac033469b1e889946c947a385
+Author: ossdev07 <39188636+ossdev07@users.noreply.github.com>
+Date:   Tue Feb 26 23:18:42 2019 +0530
+
+    JNA version is updated to 4.4.0 (#93)
+    
+    jvm is getting crashed patch on AARCH64 platform
+    (CentOS7) with openJDK8 with JNA version 4.2.2
+    and working fine with JNA 4.4.0
+
+commit 3d9601cdbf3708b76275a4a41049c8d362cddaa3
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Wed Apr 10 15:07:26 2019 -0400
+
+    Configure by exception.
+
+commit 5ae46fac2b32b7596eb8fb263955a4b76596a946
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Thu May 16 14:05:13 2019 -0400
+
+    Update NOTICE file for 2019.
+
+commit aeec456c7e828fdd6f9252f9bc358347fdbdfba1
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Thu May 30 15:18:12 2019 -0400
+
+    Javadoc: Use "file name" instead of "filename".
+
+commit 02e6f9efccae6ee4d57336bfb5d08271737b4e29
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Thu Jun 6 10:08:43 2019 -0400
+
+    Name "Apache Commons" in page title.
+
+commit 11a97702302ff56a84d2e8f3dd080d31f4c5b3fa
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Thu Jul 4 09:57:59 2019 -0400
+
+    Use HTTPS links to Apache.
+
+commit 59450b5743a217c8ba75ce8a39d95d976f94ce96
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Sat Jul 6 20:41:31 2019 -0400
+
+    Use HTTPS to access Apache resources.
+
+commit fac2fffe9f970ec67c6e357658d0067130572875
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Sat Jul 6 20:59:37 2019 -0400
+
+    Use HTTPS to access Apache resources.
+
+commit 271516f1b53ef067753f47e8c8197edb56cfaca1
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Sun Jul 7 10:30:59 2019 -0400
+
+    Replace SVN with GitBox URL.
+
+commit 5aa4e83770cd4c8a74a26369bd703c1c2fa6c3b9
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Sat Jul 20 20:44:12 2019 -0400
+
+    Fix the site's source repository link.
+
+commit c1c06bb62c28db94862fc8c236081eff59c8c284
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Sun Jul 21 16:50:28 2019 -0400
+
+    Fix the site's source repository link.
+
+commit ae6ebd061cf396028a3b6ef593a41b9126278092
+Author: Sebb <sebb@apache.org>
+Date:   Fri Aug 16 18:34:07 2019 +0100
+
+    git-wip-us => gitbox
+
+commit 83f1a72e3fdc5e0faed548aece394b0410456e23
+Author: aremily <aremily@users.noreply.github.com>
+Date:   Wed Aug 28 16:56:31 2019 -0400
+
+    CRYPTO-137: Fix compilation + support OpenSSL 1.1 on Windows. (#94)
+    
+    Addresses CRYPTO-137 and in the process cleans up a lot of changes introduced in the 1.1 support branch merge. Build has been tested and passes for OpenSSL versions 1.0 and 1.1 on Windows and Linux, and 1.1 on OSX. Might also address CRYPTO-139.
+
+commit 4cdf3a05e04d4ac16666ad1abefbfdac2f417170
+Author: Gary Gregory <gardgregory@gmail.com>
+Date:   Tue Oct 8 18:19:14 2019 -0400
+
+    Reduce the boilerplate with lambdas.
+
+commit 3b5c553f936b2d95100c990ea7238f62ddc9e47f
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Dec 10 00:19:00 2019 -0500
+
+    Javadoc: Replace <code></code> HTML tags with Javadoc {@code} notation.
+
+commit 836bee5cff18dbf27101adbaadb677a0ba6bfd0a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Dec 18 15:29:06 2019 -0500
+
+    Remove trailing white spaces on all lines.
+
+commit 7d5c55819bc032b036041e779e8da7c80d8ff2ef
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Jan 26 12:13:15 2020 -0500
+
+    Use Objects.requireNonNull() instead of custom check.
+    
+    Better param name.
+
+commit ca9a6bb46ba12cc130161e83a243cf6afab1dcef
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Jan 26 16:04:24 2020 -0500
+
+    Use Object.requireNotNull() instead of custom version.
+
+commit 80a90ca016e55cc3d3c6ea650f28390fd3c0e9a2
+Author: Geoffrey Blake <geoffrey.w.blake@gmail.com>
+Date:   Tue Mar 31 20:15:34 2020 -0500
+
+    [CRYPTO-139] Makefile.common support for aarch64 native libraries. (#95)
+
+commit 4c625b16973d536c1597a7a09f0107ba7c50008b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 14:15:21 2020 -0400
+
+    Add missing doc.
+
+commit 0b637236b17da461a742f6cbe90b7b0036c3b33e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 14:22:37 2020 -0400
+
+    Add missing doc (also undo mistake in POM.)
+
+commit 96e82368e0cbd51beb1347af3dd328ae952e90e1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 14:24:57 2020 -0400
+
+    Add missing doc.
+
+commit 2eed9951eb19fbad1baeef4a6fd5b6c785255517
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:33:51 2020 -0400
+
+    Update dependencies.
+    
+    - junit 4.12 -> 4.13.
+    - jna 4.4.0 -> 5.5.0.
+    - commons-parent 43 -> 50.
+    - maven-resources-plugin 3.0.1 -> 3.1.0.
+    - maven-pmd-plugin 3.6 -> 3.13.0.
+    - exec-maven-plugin 1.4.0 -> 1.6.0.
+    - jacoco-maven-plugin 0.7.7.201606060606 -> 0.8.5.
+
+commit 9067ae9e554605821b84b343cceabd1b7840b7d3
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:34:56 2020 -0400
+
+    Use final.
+
+commit 9d5cc361c60736eae3554d5306bcf80759b1bfa8
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:35:38 2020 -0400
+
+    Add missing @Override.
+
+commit b89f0430c9ce1627597c157702bdba82a2c1e331
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:36:10 2020 -0400
+
+    Remove unused imports.
+
+commit 438eb1b2f838418e739e4470c1978012e7c6308d
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:37:35 2020 -0400
+
+    Organize imports.
+
+commit 3bb06044710118b18f07ee9a56f5a91e6e11af29
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 15:38:44 2020 -0400
+
+    Remove redundant modifiers.
+
+commit b453b61548b3cf28da837bdca05014fa4635cd15
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 17:36:20 2020 -0400
+
+    Site reports.
+
+commit a4087ebb3bf0768e7658709f36496abcbf353f9e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Apr 10 17:38:38 2020 -0400
+
+    Update docs for 1.1.0 label.
+
+commit 428f8b5ec8be8d69d1d249cdc0910d6e2b992c8a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Apr 11 08:46:27 2020 -0400
+
+    Add ggregory as developer.
+    Sort tickets.
+
+commit 4cc63e3a92f87311e2e27c0746523d186ad24e2a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Apr 11 12:00:45 2020 -0400
+
+    Add missing actions.
+
+commit 4f106a388ab2ec15dcdc54298106f51f673db3d9
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Apr 12 10:00:26 2020 -0400
+
+    Docs.
+
+commit 388d2786b634cfadef68eb2e555daa0ac8c71ccd
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Apr 12 10:08:46 2020 -0400
+
+    Docs.
+
+commit 32a1ed12dd8d4c7f2d0b1fbe5bcc5f44fd440f8d
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Apr 12 10:14:37 2020 -0400
+
+    Docs.
+
+commit 2163db4c75aa57d4642ffca3dd63e440c6a093cc
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Apr 12 17:23:53 2020 -0400
+
+    Update year.
+
+commit 47b625c2bd13a101e3a7ca0c003dd78e28535a4a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Apr 12 17:24:19 2020 -0400
+
+    Use HTTPS.
+
+commit 24897862c41a504a6987a65727669268019f6f2f
+Author: Adam Retter <adam.retter@googlemail.com>
+Date:   Wed Apr 22 01:36:43 2020 +0200
+
+    CI Improvements (#96)
+    
+    * Tidies up the Travis CI configuration
+    * Adds Arm64 builds to Travis CI
+    * Adds ppc64le builds to Travis CI
+
+commit 218b3db4149a53397f1e726d37cc3928e2e2135c
+Author: Geoffrey Blake <blakgeof@amazon.com>
+Date:   Thu Apr 23 22:34:42 2020 -0500
+
+    Additional unit tests for JNA, Cipher, Random, Utils testing error inputs (#97)
+    
+    Add unit tests that exercise error paths for JNA, Cipher, Random, and Utils parts of the package. Raises coverage overall by a few percentage points. These tests touch some of the error checking deep in the library as much as possible.
+    
+    Tested on MacOS AMD64, RHEL8 x86 and RHEL8 aarch64.
+
+commit d8cbe8860d6f23548522e1bf5e8c74d5fd89122e
+Author: aremily <aremily@users.noreply.github.com>
+Date:   Wed May 6 20:37:37 2020 -0400
+
+    JaCoCo Increase for Streams (#99)
+
+commit e96285462b86798e7a76defdecf16dbbf4f4b8a8
+Author: Geoffrey Blake <blakgeof@amazon.com>
+Date:   Thu May 7 20:12:43 2020 -0500
+
+    Update pom.xml to explicitly prevent cleaning during release:prepare
+    
+    Update pom.xml to configure the maven-release-plugin to not perform and clean when doing a release:prepare to allow build artifacts from other platform builds to be incorporated into the final Jar for publishing to the maven artifact repositories.
+
+commit 02cf7834f5f16ff099e6ae878637a58caea266ea
+Author: XenoAmess <xenoamess@gmail.com>
+Date:   Tue May 26 01:42:08 2020 +0800
+
+    fix typo
+
+commit 6093c9ed4d5bbab66996201b43ff66f05f089c5f
+Merge: e962854 02cf783
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Tue May 26 08:42:58 2020 -0400
+
+    Merge pull request #101 from XenoAmess/patch-1
+    
+    fix typo
+
+commit 118ba8735383aec0e8b54211188eaaabc6f6d784
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Jun 1 09:41:18 2020 -0400
+
+    Update some info for Java version and other Windows apt help.
+
+commit 99cbed5a8f9192a32dab07d49e01daf082bed69a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 18:18:53 2020 -0400
+
+    No need to nest else.
+
+commit 0e7084d6b6bc5ed9c2b38e806bf688a6bf4f1609
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:18:46 2020 -0400
+
+    Fix Javadoc.
+
+commit b2eb1fcec0cb1db460e988dbe84344a4d47c153b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:20:31 2020 -0400
+
+    Remove unused imports.
+
+commit 98608002dc4450155b98a528a9f4bee02a493e55
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:25:51 2020 -0400
+
+    Use try-with-resources.
+
+commit f6b718a50142b2156150281d70ebc1893d30ed1b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:27:13 2020 -0400
+
+    Remove trailing white space.
+
+commit 521aac8c35241601ed70886f7f59a95ab8b02ab1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:28:03 2020 -0400
+
+    Use final.
+
+commit 4cfe1717f7d53415e146e21ae28a3b0305d98679
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 6 19:29:37 2020 -0400
+
+    Add missing annotations.
+
+commit 1ac73be93c01070fcd177d847a9077968f19d991
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 13 09:51:05 2020 -0400
+
+    Need double quote when JAVA_HOME contains  spaces.
+
+commit 11d6551e0606362943108faae2155431ce557281
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jun 13 10:40:01 2020 -0400
+
+    Add some build help.
+
+commit 76aab61525ba4690ba3d5427d998093551652642
+Author: Geoff Blake <blakgeof@amazon.com>
+Date:   Tue Jul 21 15:37:33 2020 -0500
+
+    Change #include<Windows.h> to #include<windows.h> to allow mingw builds
+    on Ubuntu as well as Windows.  Error comes from fact Windows filenames
+    are case-insensitive, but Linux is.
+
+commit 3a66d88de61698598d79f4f1584f19d4a097447d
+Author: Geoff Blake <blakgeof@amazon.com>
+Date:   Tue Jul 21 15:51:15 2020 -0500
+
+    Enable i386 TravisCI builds, enable win32 and win64 TravisCI builds (but not tests), fix aarch64
+    missing OpenJDK packages in TravisCI.
+
+commit 58124c9345df18e221206b1ebf26db1246788f3e
+Merge: 11d6551 3a66d88
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Fri Jul 24 18:52:08 2020 -0400
+
+    Merge pull request #102 from geoffreyblake/windows_fixes
+    
+    Update build to allow cross-builds of Windows DLLs on Ubuntu 14.04, and enable TravisCI to verify Windows builds work
+
+commit 27b4f8003a16f75880861cbdf11463193d12abb1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Jul 27 14:02:03 2020 -0400
+
+    Update commons-parent from 50 to 51.
+
+commit 51fa279fd5f1168e10f299b3c079da6069843cb7
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Jul 31 11:41:49 2020 -0400
+
+    Javadoc fix (Java 11): Replace <tt>Foo</tt> with {@code Foo}
+
+commit a37a96f83b239f0084ce1107c0438f8161d99622
+Author: Geoff Blake <blakgeof@amazon.com>
+Date:   Tue Aug 4 12:29:52 2020 -0500
+
+    Set JAVA_HOME properly for aarch64 and ppcle builds.  Turn off
+    maven-enforcer checking on the mvn command line for Xenial builds.
+
+commit eaa7b454e06341dfa7fc8acabcc79771a24550b3
+Merge: 51fa279 a37a96f
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Tue Aug 4 17:53:29 2020 -0400
+
+    Merge pull request #104 from geoffreyblake/travis_fixes
+    
+    Reset JAVA_HOME for aarch64 and ppc builds.  Turn off maven-enforcer for Xenial builds
+
+commit cd0f4463133afb5fbb124593146bcf122b356c6e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Aug 4 17:55:42 2020 -0400
+
+    Document PR merge.
+    
+    Reset JAVA_HOME for aarch64 and ppc builds.
+    Turn off maven-enforcer for Xenial builds #104.
+
+commit c2b0e6e736c3d7f8379671ddfb9175f7c7f68283
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Aug 4 19:28:46 2020 -0400
+
+    Update maven-checkstyle-plugin 3.0.0 -> 3.1.1.
+
+commit b740e738056f3dd5279ef3b2a445cbbc3acb0f97
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Aug 4 19:42:46 2020 -0400
+
+    Update commons-parent 51 -> 52.
+
+commit ddc8d46a8c8d063fac980006bc7484ad545362d2
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Aug 4 19:46:58 2020 -0400
+
+    Document empty blocks.
+
+commit ffe81a34834387592cdde9e88d8e84379b8d1ae7
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 09:26:49 2020 -0400
+
+    Add --no-transfer-progress to CI builds.
+
+commit 4d6b04da5d11cad4011e73542aa1536334684cb1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:11:20 2020 -0400
+
+    Use try-with-resources.
+
+commit c479c5249fcea07fcec172d1b527d3c439c4b58b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:17:18 2020 -0400
+
+    No need to override stock methods and implement them exactly the same
+    way.
+
+commit 5a3dab19d63dd2a89bfb51faf142a91a72141ded
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:17:55 2020 -0400
+
+    Remove compiler warning and document.
+
+commit 7d5ce81abec1585c72e89660b7698e1096b00603
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:20:28 2020 -0400
+
+    Remove compiler warning and document.
+
+commit 6918f5a8e0145eaed057b0dae0f45ec21ced74ab
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:24:49 2020 -0400
+
+    Remove compiler warning and document.
+
+commit 7c11f8281349cae2bad76fbd53ee04b6d8c95107
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:33:12 2020 -0400
+
+    Refactor org.apache.commons.crypto.utils.IoUtils.cleanup(Closeable...)
+    to delegate array elements to the new method
+    org.apache.commons.crypto.utils.IoUtils.closeQuietly(Closeable).
+    
+    Use imports instead of fully qualified class names.
+
+commit b1daaed27442ccdb8e41808a69fdffeeb4ea60c0
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 12:36:22 2020 -0400
+
+    Use try-with-resources.
+
+commit 4f2b74b7dcb439ae323b12b87682557910890947
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 17:04:30 2020 -0400
+
+    Lots of clean ups.
+    
+    - Make the private inner class CipherState static.
+    - Better method names in tests.
+    - Use try-with-resources.
+    - Don't use deprecated methods.
+    - Better param names.
+    - Use transient where needed.
+
+commit 7415453d050726b97fc1e4593e42254f07c79f16
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 17:52:23 2020 -0400
+
+    Display Maven version early on.
+
+commit a2bc3a41e10fb367d6d5e3a16a29c18d1b7bb3f9
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 5 21:07:27 2020 -0400
+
+    Can't use --no-transfer-progress before Maven 3.6.1.
+
+commit 470fa02c3b0e27bfa74247ded793f8ab0758f799
+Author: Alex Remily <alex.remily@gmail.com>
+Date:   Sun Aug 9 09:25:03 2020 -0400
+
+    Addresses https://issues.apache.org/jira/browse/CRYPTO-149
+
+commit 71ebefb2e2f6b98dcffd1692bfe25d992bacb6c2
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 16 13:02:04 2020 -0400
+
+    Fix Homebrew docs.
+
+commit 0eb9d8437e1631403aec7ecb05602c48e63eac20
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 13:44:58 2020 -0400
+
+    Replace Apache CLIRR with JApiCmp.
+
+commit c2dda68559f327dd6f2cad49d96c295569e50053
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 13:52:26 2020 -0400
+
+    Drop unused property commons-logging.version.
+
+commit 47f5eb36b4fa70203ea8720bf40a08abcda6e274
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 13:57:28 2020 -0400
+
+    Drop commons.changes.onlyCurrentVersion.
+
+commit 9ae201a1cf7f5602d25c7045bb5a72cc31ff1167
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 14:06:58 2020 -0400
+
+    Replace Apache CLIRR with JApiCmp.
+
+commit b0e36d973d5eb98f8acdebaf645ed813e0428ea5
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 14:09:10 2020 -0400
+
+    Sort in AB order.
+
+commit 9b1b14c87a300ab3d6ee55e1a2e6efd179f64808
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 16 14:22:39 2020 -0400
+
+    SpotBugs replaced FindBugs which is configured feom the site resources
+    folder.
+
+commit f74b5af96863182d695f55c3a9911413f8ab98b5
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 16 14:25:04 2020 -0400
+
+    Don't override newer version of plugin managed by parent with older
+    version.
+
+commit fabffa0e8d592539247b860ba29afdbc8823c982
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 16 14:33:15 2020 -0400
+
+    Drop unused property slf4j-api.version.
+
+commit e9a9cfb7a35f754e74668f62e8ab8c05bd8f4eca
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 14:35:51 2020 -0400
+
+    maven-resources-plugin 3.1.0 -> 3.2.0.
+
+commit 70d74150d695a061a579984d9f1ecc20fe31f456
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 16 14:37:35 2020 -0400
+
+    Document build and site changes.
+
+commit 742b20f197f58f55bbf66bb71999221be21903cf
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Aug 22 17:26:00 2020 -0400
+
+    Update instructions.
+
+commit 0731b9011432c8288ba996aa4047b3313714ff68
+Merge: 742b20f 470fa02
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Sun Aug 23 08:46:16 2020 -0400
+
+    Merge pull request #105 from aremily/gcmtestfix
+    
+    Addresses https://issues.apache.org/jira/browse/CRYPTO-149
+
+commit 07024b7537198eeac6d4bf787d1acecb083ce0ce
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 08:52:07 2020 -0400
+
+    Intermittent Failure in GCMCipherTest#testGcmTamperedData() #105.
+
+commit ee590ed9191c2ce541eac159b0043cb3e2a64513
+Author: Gary D. Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 13:04:14 2020 +0000
+
+    Fix ARM and ARM hard-float builds
+
+commit 4066619f484b040cb6f436e901dce3f5480471a3
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 09:36:12 2020 -0400
+
+    Clean up main output; close Javadoc tags; formatting.
+
+commit 1041ddfd5680fa0a9fb6706b6dfb2e1c6c912372
+Merge: 4066619 ee590ed
+Author: garydgregory <garydgregory@192.168.1.7>
+Date:   Sun Aug 23 09:36:24 2020 -0400
+
+    Merge branch 'master' of https://gitbox.apache.org/repos/asf/commons-crypto.git
+
+commit 88b8c25cbd8c704f985a5f3a3a13887b4ad91762
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 10:05:06 2020 -0400
+
+    Format method for longer lines.
+
+commit 0ecd5fec80f63b6e533fed9f0c9763b7cfdee621
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 10:10:39 2020 -0400
+
+    Sort methods in AB order.
+
+commit 07a9746cab567397751f4a0357320f2ad6d80737
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 10:45:01 2020 -0400
+
+    Javadoc. Better logging.
+
+commit 44339bf06b4c9178f28c27eeb8426cd12d641828
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 11:00:42 2020 -0400
+
+    Better logging.
+
+commit 5f89b041fcdd3cec4db4a96ed344a0ba103f18ef
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:01:44 2020 -0400
+
+    Remove reference to svn.
+
+commit d430d92f059895b7857af9327cc65ae9068243d6
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:08:20 2020 -0400
+
+    Javadoc: Fix spelling.
+
+commit 7c723beaffd7c9cfe0296f7f4ddcf6330a99051f
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:11:35 2020 -0400
+
+    Use final.
+
+commit d1503dce71ba608ba76b22cb5ce27ae8eb19fee8
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:15:41 2020 -0400
+
+    Make package private instance variable private: output:
+    org.apache.commons.crypto.stream.CryptoOutputStream.output.
+
+commit bdded363375875b7c8652aff461f79f75ebc7a23
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:50:13 2020 -0400
+
+    - Make org.apache.commons.crypto.stream.input.Input extend Closeable.
+    - Make org.apache.commons.crypto.stream.output.Output extend Closeable.
+    - Add new and missing tests.
+    - Code coverage 100% for StreamOutput.
+    - Code coverage 100% for ChannelInput.
+
+commit 37f7378a6a589a444a10a6ef27265eb73105cf12
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 14:53:05 2020 -0400
+
+    Don't hide useful comments.
+
+commit bd3e9d38d7e200d9d31fdddaa5d0a1f1d275044e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 15:06:20 2020 -0400
+
+    Simpler property loading. More tests.
+
+commit 0fb231f10ea77e2c84175bb0cfb33795ae227140
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 15:20:20 2020 -0400
+
+    - Simplify exception handling.
+    - Add missing Javadoc.
+
+commit d36d2fcb0f29f583ec12618feb82b1c36e4cb9af
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 16:00:17 2020 -0400
+
+    - Bullet-proof internal initialization.
+    - Throw IllegalArgumentException and IllegalStateException instead of
+    RuntimeException.
+    - Checkstyle: tabs -> spaces.
+    - Formatting.
+
+commit 283f9da2406c2145e3136af85284e7f49c2f5927
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 16:29:41 2020 -0400
+
+    Use Java NIO to copy bytes instead of custom loop. Better debug logging.
+
+commit cd3937d35fca488967ce745b7157c91f9b0a1453
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 16:30:44 2020 -0400
+
+    Attribution.
+
+commit 13adbb9cdfd7c16159a7a1ab03d5639a151b66cf
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 18:22:39 2020 -0400
+
+    Fix broken Javadoc @see tags.
+
+commit 5db117874df938c950fecfdc7848c23a0bb78179
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 23 18:29:58 2020 -0400
+
+    Fix letter case in Javadoc and change docs.
+
+commit 209dfc5474ba9be57f855deac0ff9ea213684915
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 26 19:56:12 2020 -0400
+
+    Better output for JNA error conditions like "** WARN: Could not enable
+    JNA; detected lib VERSION 0x10000000: Error looking up function
+    'ENGINE_load_rdrand': dlsym(0x7fdd8643b6d0, ENGINE_load_rdrand): symbol
+    not found".
+
+commit 27f789636e63a62320aea6659480ad97e1f7876b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Aug 26 20:18:21 2020 -0400
+
+    Standardize on US English spelling.
+
+commit dfe383c39506d3c57f16565eb522f0614f1543ba
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 09:54:36 2020 -0400
+
+    Fix mesage in test.
+
+commit 54c9028c0afaab235d020e858d1caf2b5863ed5e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 10:52:10 2020 -0400
+
+    More startup debug logging.
+
+commit b4b6bb3ebd5e3c853aacc831205cb4d062ed3812
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 16:59:44 2020 -0400
+
+    Formatting.
+
+commit 186944d8622570272767c032d3e233285c56b370
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 17:01:36 2020 -0400
+
+    Fix spelling 'Itenium' -> 'Itanium'.
+
+commit fddc51e7357290a262c3f0d5c2acce881cb46e4e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 17:13:16 2020 -0400
+
+    More debug loging.
+
+commit d8f9087ee7ac27e9033b5176cd4b6d28cd147bf2
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 17:22:24 2020 -0400
+
+    Remove extra blank lines.
+
+commit 91fa1501bdcde157777e6937c96e363d1d8e8190
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 18:51:14 2020 -0400
+
+    Sort in AB order.
+
+commit 83305e94c4bc0e338bdbc10299b5ca862f2a3563
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 18:51:49 2020 -0400
+
+    Add macos dylib file to gitignore.
+
+commit 6d6a7d1ea4fcdd190994a960d2df045e5d9ab3af
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 18:58:15 2020 -0400
+
+    Remove reference to subversion.
+
+commit 4454014ca82cc5ed14fb01ca812d71637295d1a1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Aug 27 19:51:41 2020 -0400
+
+    Prepare for 1.1.0 RC1.
+
+commit 9dfba2f1dd8ef8f5d78f5269288aa8ab9a20251c
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Aug 28 10:45:27 2020 -0400
+
+    Add a testing section to the release notes.
+
+commit 4eed1d4f786128984e0260be59edf0ab1f16b2af
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Aug 28 11:02:31 2020 -0400
+
+    Add thanks to testing section entries.
+
+commit c0e2028434c3df3f3f8da38155f539f00548da4b
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Aug 28 14:18:21 2020 -0400
+
+    Prepare for 1.1.0 RC1.
+
+commit 3b2561bcdd9a428d01235a3d646cd08fbb6e597a
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Aug 28 14:23:38 2020 -0400
+
+    Update POM version numbers for Apache release 1.1.0
+
+commit 446a69d9f828adeb9d79d4f64bf5e9a22daa45a3
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Wed Sep 2 20:47:30 2020 -0400
+
+    Bump to next development version
+
+commit 58cbe18cffe5aa30cd90b046a21f562bd71c5703
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Sep 4 21:16:34 2020 -0400
+
+    Update site front page with what was tested for the 1.1.0 release.
+
+commit 46f49dec496429e4c6a56038762f90afa3db0a67
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Sep 4 21:23:17 2020 -0400
+
+    Update release notes with download link.
+
+commit a57cc78495577611c9309957e059973158f5bdd8
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Sep 5 11:41:39 2020 -0400
+
+    Fix download link.
+
+commit a79bf2287778b2050403c1b8668d4a154cb5e724
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Sep 19 16:04:32 2020 -0400
+
+    Update commons.jacoco.version 0.8.5 to 0.8.6 (Fixes Java 15 builds).
+
+commit a746c59a2b7ac4e9700aa0e873024c5a98298a23
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Sep 20 15:21:47 2020 -0400
+
+    A Dockerfile for Linux and Windows.
+
+commit 9427d196868f4b1c4fd06ffa13be1f6e366bfa0e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Oct 25 14:35:11 2020 -0400
+
+    Add SECURITY.MD.
+
+commit 908dd3f2bd4dcc92f0f49ff333c689f2d7d7f95c
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Oct 30 09:24:43 2020 -0400
+
+    Typo.
+
+commit f46eef153fc8402b68897f83ef4cd0ef4e550570
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Nov 20 22:08:50 2020 -0500
+
+    Use final.
+
+commit ad899847020955d90c084823598555117254e49c
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Nov 21 12:30:57 2020 -0500
+
+    Remove redundant modifiers like private on enum constructors.
+
+commit 5f2cf91fd666c8e68a39a453d5ab1893179b4989
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Nov 21 12:54:44 2020 -0500
+
+    Use final.
+
+commit fc8d058febda4e5d517e9a2d2119eef48b9164e1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Nov 21 13:55:32 2020 -0500
+
+    Add missing '@Override' annotations.
+
+commit 49fe627f5b0d404a70c07697a8a645272c3bafe3
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Sun Dec 6 08:33:28 2020 +0100
+
+    CRYPTO-154 - Dangling Javadoc comment
+
+commit 982e3179cbb8c114cb50731ffb0cad9ed0155582
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Fri Dec 4 06:53:35 2020 +0100
+
+    CRYPTO-153 - Bump coveralls-maven-plugin from 3.1.0 to 4.3.0
+
+commit e1bcf3016e5baa5f323e2c27efdf4ff39b11509a
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Sun Dec 6 08:51:18 2020 -0500
+
+    Update Dockerfile-luw
+
+commit baa2a746c2bae2af94f8468742ff1fc16df57d31
+Merge: fc8d058 e1bcf30
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Sun Dec 6 08:54:01 2020 -0500
+
+    Merge pull request #113 from arturobernalg/feature/CRYPTO-154
+    
+    [CRYPTO-154] - License header should be plain comment
+
+commit 049c03867e34bf11847a96f03d46a2fa54eec3f8
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Dec 6 08:56:58 2020 -0500
+
+    [CRYPTO-154] License header should be a plain comment #113.
+
+commit 3c9c78d6185402108ac7ffb2b77d85e555eba5c1
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Dec 6 08:57:17 2020 -0500
+
+    [CRYPTO-154] License header should be a plain comment #113.
+
+commit ca96d52303aa28a01a174a28fc4f699b813064de
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Tue Dec 8 12:08:14 2020 +0100
+
+    CRYPTO-155 - Minor improvement
+
+commit f62fd27134471625b2a180189a489e4b7f6c617f
+Merge: 3c9c78d ca96d52
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Fri Dec 11 16:23:21 2020 -0500
+
+    Merge pull request #115 from arturobernalg/feature/CRYPTO-155
+    
+    [CRYPTO-155] - Minor improvement
+
+commit faa474d2f5cc878e64a41339b764881c79c60cb3
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Dec 11 16:25:43 2020 -0500
+
+    [CRYPTO-155] Minor improvement #115.
+
+commit 9208d1ef0c25b6c133d50507b87ac3e79f8267df
+Merge: faa474d 982e317
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Thu Dec 24 19:54:35 2020 -0500
+
+    Merge pull request #112 from arturobernalg/feature/CRYPTO-153
+    
+    [CRYPTO-153] - Bump coveralls-maven-plugin from 3.1.0 to 4.3.0
+
+commit 5871348d4782022ae1cfe83ee2f0eedf2dbbf66e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Dec 24 19:56:38 2020 -0500
+
+    Bump coveralls-maven-plugin from 3.1.0 to 4.3.0 #112.
+
+commit d108b1d8ad036efe9d418ea9d1a6555190472822
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Dec 24 19:57:30 2020 -0500
+
+    Add GitHub Dependabot.
+
+commit 83492cedb394b792879c5237e5b21ae2d9d407db
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Dec 25 00:58:14 2020 +0000
+
+    Bump maven-pmd-plugin from 3.13.0 to 3.14.0
+    
+    Bumps [maven-pmd-plugin](https://github.com/apache/maven-pmd-plugin) from 3.13.0 to 3.14.0.
+    - [Release notes](https://github.com/apache/maven-pmd-plugin/releases)
+    - [Commits](https://github.com/apache/maven-pmd-plugin/compare/maven-pmd-plugin-3.13.0...maven-pmd-plugin-3.14.0)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 1192d374e0f5ce1f87138546824c5a116e86e9c0
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Dec 25 00:58:15 2020 +0000
+
+    Bump jna from 5.5.0 to 5.6.0
+    
+    Bumps [jna](https://github.com/java-native-access/jna) from 5.5.0 to 5.6.0.
+    - [Release notes](https://github.com/java-native-access/jna/releases)
+    - [Changelog](https://github.com/java-native-access/jna/blob/master/CHANGES.md)
+    - [Commits](https://github.com/java-native-access/jna/compare/5.5.0...5.6.0)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 91650c2770aea4ee09c39bdc7ae81234b79912b0
+Merge: d108b1d 83492ce
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Thu Dec 24 19:59:21 2020 -0500
+
+    Merge pull request #122 from apache/dependabot/maven/org.apache.maven.plugins-maven-pmd-plugin-3.14.0
+    
+    Bump maven-pmd-plugin from 3.13.0 to 3.14.0
+
+commit 2ed0f2bdc537fafba18f27e26422f3d24aae7716
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Dec 26 12:11:38 2020 -0500
+
+    Define and use a default goal for Maven builds.
+
+commit 2ed4f9b3f4276274b6e5a2f8e13ec3398fe3b5f9
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Sun Nov 22 14:20:22 2020 +0100
+
+    CRYPTO-151 - Migrate to Junit 5
+
+commit 8f45c6a0878d38f7cc596796500d4e9ccc702643
+Merge: 2ed0f2b 2ed4f9b
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Sun Dec 27 12:11:22 2020 -0500
+
+    Merge pull request #114 from arturobernalg/feature/CRYPTO-151
+    
+    [CRYPTO-151] Migrate to Junit 5
+
+commit 4a4773fa3b54624b054b7b82a572605fbd5992dc
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Dec 27 12:15:28 2020 -0500
+
+    [CRYPTO-151] Migrate to Junit 5 #114.
+
+commit 3d9116aa5956d3962d1ae877eba5eb9c26aeb928
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Mon Dec 28 10:02:45 2020 +0100
+
+    More minor improvement:
+    
+    * Add final
+
+commit 661d2a21fc6227453a0e9cd3c82244718aeb6fb9
+Merge: 4a4773f 3d9116a
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Mon Dec 28 10:15:00 2020 -0500
+
+    Merge pull request #125 from arturobernalg/feature/minor_improvement
+    
+    More minor improvements
+
+commit 5c04600aa078a32c0412289e9f5f4bd1350aad71
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Dec 28 10:15:44 2020 -0500
+
+    More minor improvements #125.
+
+commit 8c4be700372129b254eb7009ed41a493e65d2f76
+Merge: 5c04600 1192d37
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Mon Dec 28 10:36:21 2020 -0500
+
+    Merge pull request #123 from apache/dependabot/maven/net.java.dev.jna-jna-5.6.0
+    
+    Bump jna from 5.5.0 to 5.6.0
+
+commit 52d2baf470df71dba9b6fc46fd7b52e900665061
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Dec 28 10:41:20 2020 -0500
+
+    Bump jna from 5.5.0 to 5.6.0 #123.
+
+commit 5e5b0f2b2950bfe3ae54d97d1550fe6e81259213
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Tue Dec 29 18:49:31 2020 -0500
+
+    Update commons.japicmp.version 0.14.3 -> 0.14.4.
+
+commit 9c76b2c2499ca30c4e3ed84c86afed0bd82e4a1e
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Dec 31 00:38:16 2020 -0500
+
+    Update commons.japicmp.version 0.14.4 -> 0.15.1.
+
+commit b8fe6f907441e03b4021d87ba8a124c26b867304
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Thu Jan 7 08:48:23 2021 -0500
+
+    Update README.md
+    
+    Better contrib docs.
+
+commit f17af10ba3b921642dca6ce1ad5e8c8ef7b06e59
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Thu Jan 7 08:50:49 2021 -0500
+
+    Update README.md
+    
+    Better contrib docs.
+
+commit 5d3a3fd9c84b0629da3865ee26f902590daf56de
+Author: Arturo Bernal <arturobernalg@gmail.com>
+Date:   Thu Jan 7 10:55:11 2021 +0100
+
+    Minor Performances Improvement:
+    
+    * Remove Redundant Field Initializer
+    * Use Files.newInputStream(Paths.get(fileName))
+    * Remove Instantiating Objects In Loops
+
+commit d76cdc7152b09588608dae9dec1261d76fa1cfc7
+Merge: f17af10 5d3a3fd
+Author: Gary Gregory <garydgregory@users.noreply.github.com>
+Date:   Thu Jan 7 15:23:14 2021 -0500
+
+    Merge pull request #128 from arturobernalg/feature/minor_performances_improvement
+    
+    Fix PMD warning and don't init to defaults
+
+commit 00e59413edd168a6ca2c070b6197efc0b3089bf6
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Jan 7 15:24:34 2021 -0500
+
+    Fix PMD warning and don't init to defaults #128
+
+commit a6f0160275c56bd124725f88c0da34cbac475ca5
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Jan 8 09:28:59 2021 -0500
+
+    Collapse multiple identical catch clauses into one.
+
+commit a88bf197630a36d8e8737d6ff9c709933c99f9c5
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Fri Jan 8 11:28:00 2021 -0500
+
+    Update com.github.siom79.japicmp:japicmp-maven-plugin 0.15.1 -> 0.15.2.
+
+commit 05e4acb2e490b3d4692d42d22f08ded294d3eb07
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Jan 11 12:08:22 2021 -0500
+
+    Fix Checkstyle configuration DTD link.
+
+commit cca4d8d650d7c5397cb2d04053292c46a0903280
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sat Jan 16 20:57:47 2021 -0500
+
+    Use isEmpty().
+
+commit 6b1a6968c68930e970ab4a9c21885e4872318bab
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Mon Feb 15 11:13:03 2021 -0500
+
+    Remove trailing whitepsace.
+
+commit baa0d8fd73ee4756f1ae397afbdce8db0a9a2580
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Feb 28 12:30:26 2021 -0500
+
+    Raise embedded if into parent if.
+
+commit a9fe614a0d6cd998b3a9e6df5f49f73a1b69b840
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun May 16 17:02:44 2021 -0400
+
+    Add GitHub code of conduct page that points to the Apache page.
+
+commit 1bd7b85dcef8d48e4be54e73bd23046a0b7987fe
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Thu Jul 1 11:31:26 2021 -0400
+
+    Update my developer entry.

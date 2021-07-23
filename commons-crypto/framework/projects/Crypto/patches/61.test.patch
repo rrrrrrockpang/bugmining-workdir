@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/crypto/random/OsCryptoRandomTest.java b/src/test/java/org/apache/commons/crypto/random/OsCryptoRandomTest.java
+index 4b6e922..6382771 100644
+--- a/src/test/java/org/apache/commons/crypto/random/OsCryptoRandomTest.java
++++ b/src/test/java/org/apache/commons/crypto/random/OsCryptoRandomTest.java
+@@ -17,15 +17,17 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
++import static org.junit.Assert.fail;
++
+ import java.io.FileNotFoundException;
+ import java.lang.reflect.InvocationTargetException;
+ import java.security.GeneralSecurityException;
+ import java.util.Properties;
+ 
+-import org.junit.Assert;
+ import org.junit.Assume;
+ import org.junit.Test;
+-import static org.junit.Assert.fail;
++
++import junit.framework.Assert;
+ 
+ public class OsCryptoRandomTest extends AbstractRandomTest {
+ 

@@ -1,0 +1,75 @@
+diff --git a/src/main/java/org/apache/commons/crypto/random/JavaSecureRandom.java b/src/main/java/org/apache/commons/crypto/random/JavaSecureRandom.java
+index 60b8448..86333bc 100644
+--- a/src/main/java/org/apache/commons/crypto/random/JavaSecureRandom.java
++++ b/src/main/java/org/apache/commons/crypto/random/JavaSecureRandom.java
+@@ -38,10 +38,8 @@ public class JavaSecureRandom implements SecureRandom {
+    * Constructs a {@link org.apache.commons.crypto.random.JavaSecureRandom}.
+    *
+    * @param properties the configuration properties.
+-   * @throws NoSuchAlgorithmException if no Provider supports a SecureRandomSpi implementation for
+-   *         the specified algorithm.
+    */
+-  public JavaSecureRandom(Properties properties) throws NoSuchAlgorithmException {
++  public JavaSecureRandom(Properties properties) {
+     try {
+       instance = java.security.SecureRandom
+           .getInstance(properties.getProperty(
+@@ -49,7 +47,6 @@ public class JavaSecureRandom implements SecureRandom {
+               ConfigurationKeys.COMMONS_CRYPTO_SECURE_RANDOM_JAVA_ALGORITHM_DEFAULT));
+     } catch (NoSuchAlgorithmException e) {
+       LOG.error("Failed to create java secure random due to error: " + e);
+-      throw e;
+     }
+   }
+ 
+diff --git a/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandom.java b/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandom.java
+index 2ad3244..3794fde 100644
+--- a/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandom.java
++++ b/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandom.java
+@@ -17,7 +17,6 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
+-import java.security.NoSuchAlgorithmException;
+ import java.util.Properties;
+ import java.util.Random;
+ 
+@@ -73,10 +72,8 @@ public class OpensslSecureRandom extends Random implements SecureRandom {
+    * Constructs a {@link org.apache.commons.crypto.random.OpensslSecureRandom}.
+    *
+    * @param props the configuration properties.
+-   * @throws NoSuchAlgorithmException if no Provider supports a SecureRandomSpi implementation for
+-   *         the specified algorithm.
+    */
+-  public OpensslSecureRandom(Properties props) throws NoSuchAlgorithmException {
++  public OpensslSecureRandom(Properties props) {
+     if (!nativeEnabled) {
+       fallback = new JavaSecureRandom(props);
+     }
+diff --git a/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java b/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
+index 3e42857..47d4fa8 100644
+--- a/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
++++ b/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
+@@ -17,7 +17,6 @@
+  */
+ package org.apache.commons.crypto.random;
+ 
+-import java.security.GeneralSecurityException;
+ import java.util.Properties;
+ 
+ import org.slf4j.Logger;
+@@ -42,11 +41,10 @@ public class SecureRandomFactory {
+    * Gets a SecureRandom instance for specified props.
+    *
+    * @param props the configuration properties.
+-   * @return SecureRandom the secureRandom object.Null value will be returned if no SecureRandom
+-   *         classes with props.
+-   * @throws GeneralSecurityException if fail to create the {@link SecureRandom}.
++   * @return SecureRandom the secureRandom object.Null value will be returned if no
++   *         SecureRandom classes with props.
+    */
+-  public static SecureRandom getSecureRandom(Properties props) throws GeneralSecurityException {
++  public static SecureRandom getSecureRandom(Properties props) {
+     String secureRandomClasses = props.getProperty(
+         COMMONS_CRYPTO_SECURE_RANDOM_CLASSES_KEY);
+     if (secureRandomClasses == null) {

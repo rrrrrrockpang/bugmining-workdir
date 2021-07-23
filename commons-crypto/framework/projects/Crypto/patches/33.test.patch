@@ -1,0 +1,26 @@
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+index 0adf826..aeb4be0 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/CryptoCipherFactoryTest.java
+@@ -52,8 +52,8 @@ public class CryptoCipherFactoryTest {
+                 "InvalidCipherName");
+         CryptoCipher defaultCipher = CryptoCipherFactory.getInstance(
+                 "AES/CBC/NoPadding", properties);
+-        Assert.assertEquals(JceCipher.class.getName(),
+-            defaultCipher.getClass().getName());
++        Assert.assertEquals(JceCipher.class.getName(), defaultCipher.getClass()
++                .getName());
+     }
+ 
+     @Test(expected = GeneralSecurityException.class)
+@@ -67,10 +67,4 @@ public class CryptoCipherFactoryTest {
+ 
+         CryptoCipherFactory.getInstance("AES/CBC/NoPadding", properties);
+     }
+-
+-    @Test(expected = GeneralSecurityException.class)
+-    public void testInvalidTransformation() throws GeneralSecurityException {
+-      Properties properties = new Properties();
+-      CryptoCipherFactory.getInstance("AES/Invalid/NoPadding", properties);
+-    }
+ }

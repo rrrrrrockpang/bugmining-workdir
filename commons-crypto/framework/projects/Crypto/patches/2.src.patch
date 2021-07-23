@@ -1,0 +1,129 @@
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/CipherFactory.java b/src/main/java/org/apache/commons/crypto/cipher/CipherFactory.java
+index fb712d2..51ade86 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/CipherFactory.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/CipherFactory.java
+@@ -35,8 +35,6 @@ public class CipherFactory {
+   /** LOG instance for {@CipherFactory} */
+   public final static Logger LOG = LoggerFactory.getLogger(CipherFactory.class);
+ 
+-  private CipherFactory() {}
+-
+   /**
+    * Gets a cipher instance for specified algorithm/mode/padding.
+    *
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java b/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
+index c3f7593..57a8cc7 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
+@@ -25,8 +25,6 @@ import java.nio.ByteBuffer;
+  */
+ public class OpensslNative {
+ 
+-  private OpensslNative() {}
+-
+   /**
+    * Declares a native method to initialize JNI field and method IDs.
+    */
+diff --git a/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java b/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
+index 494c28d..24136a3 100644
+--- a/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
++++ b/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
+@@ -130,6 +130,4 @@ public class ConfigurationKeys {
+    */
+   public static final String COMMONS_CRYPTO_LIB_TEMPDIR_KEY =
+       CONF_PREFIX + "lib.tempdir";
+-
+-  private ConfigurationKeys() {}
+ }
+diff --git a/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandomNative.java b/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandomNative.java
+index c36083f..d80cf89 100644
+--- a/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandomNative.java
++++ b/src/main/java/org/apache/commons/crypto/random/OpensslSecureRandomNative.java
+@@ -23,9 +23,6 @@ package org.apache.commons.crypto.random;
+  * OpensslSecureRandomNative.h(genereted by javah).
+  */
+ public class OpensslSecureRandomNative {
+-
+-  private OpensslSecureRandomNative() {}
+-
+   /**
+    * Declares a native method to initialize SR.
+    */
+diff --git a/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java b/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
+index 47d4fa8..ed416ea 100644
+--- a/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
++++ b/src/main/java/org/apache/commons/crypto/random/SecureRandomFactory.java
+@@ -35,8 +35,6 @@ public class SecureRandomFactory {
+   public final static Logger LOG = LoggerFactory
+       .getLogger(SecureRandomFactory.class);
+ 
+-  private SecureRandomFactory() {}
+-
+   /**
+    * Gets a SecureRandom instance for specified props.
+    *
+diff --git a/src/main/java/org/apache/commons/crypto/utils/IOUtils.java b/src/main/java/org/apache/commons/crypto/utils/IOUtils.java
+index a3ecda4..58a20a5 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/IOUtils.java
++++ b/src/main/java/org/apache/commons/crypto/utils/IOUtils.java
+@@ -28,8 +28,6 @@ import org.apache.commons.logging.Log;
+  */
+ public class IOUtils {
+ 
+-  private IOUtils() {}
+-
+   /**
+    * Does the readFully based on the Input read.
+    *
+diff --git a/src/main/java/org/apache/commons/crypto/utils/NativeCodeLoader.java b/src/main/java/org/apache/commons/crypto/utils/NativeCodeLoader.java
+index 92f4dba..17c5528 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/NativeCodeLoader.java
++++ b/src/main/java/org/apache/commons/crypto/utils/NativeCodeLoader.java
+@@ -43,8 +43,6 @@ public class NativeCodeLoader {
+ 
+   private static boolean nativeCodeLoaded = false;
+ 
+-  private NativeCodeLoader() {}
+-
+   static {
+     // Try to load native library and set fallback flag appropriately
+     if(LOG.isDebugEnabled()) {
+diff --git a/src/main/java/org/apache/commons/crypto/utils/OSInfo.java b/src/main/java/org/apache/commons/crypto/utils/OSInfo.java
+index 4cf7420..67f7d56 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/OSInfo.java
++++ b/src/main/java/org/apache/commons/crypto/utils/OSInfo.java
+@@ -51,8 +51,6 @@ public class OSInfo {
+    * The constant string represents for PPC64 architecture, the value is:{@value #PPC64}.*/
+   public static final String PPC64 = "ppc64";
+ 
+-  private OSInfo() {}
+-
+   static {
+     // x86 mappings
+     archMapping.put(X86, X86);
+diff --git a/src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java b/src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java
+index cff9406..9ffd7e8 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java
++++ b/src/main/java/org/apache/commons/crypto/utils/ReflectionUtils.java
+@@ -47,8 +47,6 @@ public class ReflectionUtils {
+   private static final Class<?> NEGATIVE_CACHE_SENTINEL =
+     NegativeCacheSentinel.class;
+ 
+-  private ReflectionUtils() {}
+-
+   /**
+    * A unique class which is used as a sentinel value in the caching
+    * for getClassByName. {@link Cipher#getClassByNameOrNull(String)}.
+diff --git a/src/main/java/org/apache/commons/crypto/utils/Utils.java b/src/main/java/org/apache/commons/crypto/utils/Utils.java
+index ec2a1e4..5b78be8 100644
+--- a/src/main/java/org/apache/commons/crypto/utils/Utils.java
++++ b/src/main/java/org/apache/commons/crypto/utils/Utils.java
+@@ -57,8 +57,6 @@ public class Utils {
+    */
+   private static final int AES_BLOCK_SIZE = AES_CTR_NOPADDING.getAlgorithmBlockSize();
+ 
+-  private Utils() {}
+-
+   static {
+     loadSystemProperties();
+   }

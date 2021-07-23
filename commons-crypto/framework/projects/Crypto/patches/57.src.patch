@@ -1,0 +1,64 @@
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
+index c34753a..7f63376 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
+@@ -148,7 +148,6 @@ public class CryptoCipherFactory {
+             throw new IllegalArgumentException("No classname(s) provided");            
+         }
+         CryptoCipher cipher = null;
+-        Exception lastException = null;
+ 
+         StringBuilder errorMessage = new StringBuilder("CryptoCipher ");
+         for (String klass : names) {
+@@ -160,7 +159,6 @@ public class CryptoCipherFactory {
+                     break;
+                 }
+             } catch (Exception e) {
+-                lastException = e;
+                 errorMessage.append("{" + klass + "}");
+             }
+         }
+@@ -170,7 +168,7 @@ public class CryptoCipherFactory {
+         }
+         errorMessage.append(" is not available or transformation " +
+                 transformation + " is not supported.");
+-        throw new GeneralSecurityException(errorMessage.toString(), lastException);
++        throw new GeneralSecurityException(errorMessage.toString());
+     }
+ 
+     /**
+diff --git a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+index 853a079..aa046ec 100644
+--- a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
++++ b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+@@ -188,7 +188,6 @@ public class CryptoRandomFactory {
+         }
+         StringBuilder errorMessage = new StringBuilder();
+         CryptoRandom random = null;
+-        Exception lastException = null;
+         for (String klassName : names) {
+             try {
+                 final Class<?> klass = ReflectionUtils.getClassByName(klassName);
+@@ -197,13 +196,10 @@ public class CryptoRandomFactory {
+                     break;
+                 }
+             } catch (ClassCastException e) {
+-                lastException = e;
+                 errorMessage.append("Class: [" + klassName + "] is not a CryptoRandom.");
+             } catch (ClassNotFoundException e) {
+-                lastException = e;
+                 errorMessage.append("CryptoRandom: [" + klassName + "] not found.");
+             } catch (Exception e) {
+-                lastException = e;
+                 errorMessage.append("CryptoRandom: [" + klassName + "] failed with " + e.getMessage());
+             }
+         }
+@@ -211,7 +207,7 @@ public class CryptoRandomFactory {
+         if (random != null) {
+             return random;
+         }
+-        throw new GeneralSecurityException(errorMessage.toString(), lastException);
++        throw new GeneralSecurityException(errorMessage.toString());
+     }
+ 
+     /**

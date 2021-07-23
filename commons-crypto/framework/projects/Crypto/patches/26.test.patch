@@ -1,0 +1,46 @@
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+index 857d681..00d1505 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+@@ -23,7 +23,6 @@ import java.security.GeneralSecurityException;
+ import java.security.SecureRandom;
+ import java.util.Properties;
+ import java.util.Random;
+-import javax.crypto.Cipher;
+ import javax.crypto.spec.IvParameterSpec;
+ import javax.crypto.spec.SecretKeySpec;
+ import javax.xml.bind.DatatypeConverter;
+@@ -108,14 +107,14 @@ public abstract class AbstractCipherTest {
+         dec = getCipher(transformation);
+ 
+         try {
+-            enc.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"),
++            enc.init(CryptoCipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"),
+                     new IvParameterSpec(iv));
+         } catch (Exception e) {
+             Assert.fail("AES failed initialisation - " + e.toString());
+         }
+ 
+         try {
+-            dec.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"),
++            dec.init(CryptoCipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"),
+                     new IvParameterSpec(iv));
+         } catch (Exception e) {
+             Assert.fail("AES failed initialisation - " + e.toString());
+@@ -238,14 +237,14 @@ public abstract class AbstractCipherTest {
+         dec = getCipher(transformation);
+ 
+         try {
+-            enc.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"),
++            enc.init(CryptoCipher.ENCRYPT_MODE, new SecretKeySpec(key, "AES"),
+                     new IvParameterSpec(iv));
+         } catch (Exception e) {
+             Assert.fail("AES failed initialisation - " + e.toString());
+         }
+ 
+         try {
+-            dec.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"),
++            dec.init(CryptoCipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"),
+                     new IvParameterSpec(iv));
+         } catch (Exception e) {
+             Assert.fail("AES failed initialisation - " + e.toString());

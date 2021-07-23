@@ -1,0 +1,40 @@
+diff --git a/src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java b/src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java
+index 1921bdb..ed2b680 100644
+--- a/src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java
++++ b/src/main/java/org/apache/commons/crypto/random/JavaCryptoRandom.java
+@@ -20,14 +20,13 @@ package org.apache.commons.crypto.random;
+ import java.security.NoSuchAlgorithmException;
+ import java.security.SecureRandom;
+ import java.util.Properties;
+-import java.util.Random;
+ 
+ /**
+  * A CryptoRandom of Java implementation.
+  */
+-class JavaCryptoRandom extends Random implements CryptoRandom {
++class JavaCryptoRandom implements CryptoRandom {
+ 
+-    private SecureRandom instance;
++    private final SecureRandom instance;
+ 
+     /**
+      * Constructs a {@link JavaCryptoRandom}.
+@@ -41,16 +40,13 @@ class JavaCryptoRandom extends Random implements CryptoRandom {
+      */
+     // N.B. this class is not public/protected so does not appear in the main Javadoc
+     // Please ensure that property use is documented in the enum CryptoRandomFactory.RandomProvider
+-    public JavaCryptoRandom(Properties properties) {
+-      try {
++    public JavaCryptoRandom(Properties properties)
++            throws NoSuchAlgorithmException {
+         instance = SecureRandom
+                 .getInstance(properties
+                         .getProperty(
+                                 CryptoRandomFactory.JAVA_ALGORITHM_KEY,
+                                 CryptoRandomFactory.JAVA_ALGORITHM_DEFAULT));
+-      } catch (NoSuchAlgorithmException e) {
+-        instance = new SecureRandom();
+-      }
+     }
+ 
+     /**

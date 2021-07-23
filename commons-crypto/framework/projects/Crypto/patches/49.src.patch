@@ -1,0 +1,22 @@
+diff --git a/src/main/java/org/apache/commons/crypto/NativeCodeLoader.java b/src/main/java/org/apache/commons/crypto/NativeCodeLoader.java
+index 21e5772..5308e0b 100644
+--- a/src/main/java/org/apache/commons/crypto/NativeCodeLoader.java
++++ b/src/main/java/org/apache/commons/crypto/NativeCodeLoader.java
+@@ -194,6 +194,7 @@ final class NativeCodeLoader {
+ 
+             return new File(targetFolder, extractedLibFileName);
+         } catch (IOException e) {
++            e.printStackTrace(System.err);
+             return null;
+         } finally {
+             IoUtils.cleanup(reader);
+@@ -224,7 +225,8 @@ final class NativeCodeLoader {
+                 }
+                 version = version.trim().replaceAll("[^0-9M\\.]", "");
+             }
+-        } catch (IOException e) { // NOPMD
++        } catch (IOException e) {
++            System.err.println(e);
+         }
+         return version;
+     }

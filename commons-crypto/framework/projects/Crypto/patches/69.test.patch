@@ -1,0 +1,48 @@
+diff --git a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+index 785fd15..0c422f2 100644
+--- a/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
++++ b/src/test/java/org/apache/commons/crypto/cipher/AbstractCipherTest.java
+@@ -46,16 +46,16 @@ public abstract class AbstractCipherTest {
+     public static final int BYTEBUFFER_SIZE = 1000;
+ 
+     public String[] cipherTests = null;
+-    private Properties props = null;
++    Properties props = null;
+     protected String cipherClass = null;
+     protected String[] transformations = null;
+ 
+     // cipher
+-    protected static final byte[] KEY = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
++    static final byte[] KEY = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+             0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
+-    protected static final byte[] IV = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
++    static final byte[] IV = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+             0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
+-    private CryptoCipher enc, dec;
++    CryptoCipher enc, dec;
+ 
+     @Before
+     public void setup() {
+diff --git a/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java b/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
+index 7ac7e89..0d6ce16 100644
+--- a/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
++++ b/src/test/java/org/apache/commons/crypto/stream/PositionedCryptoInputStreamTest.java
+@@ -47,12 +47,12 @@ public class PositionedCryptoInputStreamTest {
+     private Properties props = new Properties();
+     private byte[] key = new byte[16];
+     private byte[] iv = new byte[16];
+-    private int bufferSize = 2048;
+-    private int bufferSizeLess = bufferSize - 1;
+-    private int bufferSizeMore = bufferSize + 1;
+-    private int length = 1024;
+-    private int lengthLess = length - 1;
+-    private int lengthMore = length + 1;
++    int bufferSize = 2048;
++    int bufferSizeLess = bufferSize - 1;
++    int bufferSizeMore = bufferSize + 1;
++    int length = 1024;
++    int lengthLess = length - 1;
++    int lengthMore = length + 1;
+ 
+     private String transformation = "AES/CTR/NoPadding";
+ 

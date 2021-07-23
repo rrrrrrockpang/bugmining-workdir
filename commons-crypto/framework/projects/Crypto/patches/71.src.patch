@@ -1,0 +1,83 @@
+diff --git a/src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java b/src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java
+index a7f7622..5c2bb14 100644
+--- a/src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java
++++ b/src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java
+@@ -58,13 +58,13 @@ public class CryptoInputStream extends InputStream implements
+             + "stream.buffer.size";
+ 
+     /** The CryptoCipher instance. */
+-    final CryptoCipher cipher; // package protected for access by crypto classes; do not expose futher
++    protected final CryptoCipher cipher;
+ 
+     /** The buffer size. */
+     private final int bufferSize;
+ 
+     /** Crypto key for the cipher. */
+-    final Key key; // package protected for access by crypto classes; do not expose futher
++    protected final Key key;
+ 
+     /** the algorithm parameters */
+     private final AlgorithmParameterSpec params;
+@@ -78,19 +78,19 @@ public class CryptoInputStream extends InputStream implements
+     private boolean finalDone = false;
+ 
+     /** The input data. */
+-    Input input; // package protected for access by crypto classes; do not expose futher
++    protected Input input;
+ 
+     /**
+      * Input data buffer. The data starts at inBuffer.position() and ends at to
+      * inBuffer.limit().
+      */
+-    ByteBuffer inBuffer; // package protected for access by crypto classes; do not expose futher
++    protected ByteBuffer inBuffer;
+ 
+     /**
+      * The decrypted data buffer. The data starts at outBuffer.position() and
+      * ends at outBuffer.limit().
+      */
+-    ByteBuffer outBuffer; // package protected for access by crypto classes; do not expose futher
++    protected ByteBuffer outBuffer;
+ 
+     // stream related configuration keys
+     /**
+diff --git a/src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java b/src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java
+index 4246713..7e86809 100644
+--- a/src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java
++++ b/src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java
+@@ -50,16 +50,16 @@ public class CryptoOutputStream extends OutputStream implements
+     private final byte[] oneByteBuf = new byte[1];
+ 
+     /** The output. */
+-    Output output; // package protected for access by crypto classes; do not expose futher
++    protected Output output;
+ 
+     /** the CryptoCipher instance */
+-    final CryptoCipher cipher; // package protected for access by crypto classes; do not expose futher
++    protected final CryptoCipher cipher;
+ 
+     /** The buffer size. */
+     private final int bufferSize;
+ 
+     /** Crypto key for the cipher. */
+-    final Key key; // package protected for access by crypto classes; do not expose futher
++    protected final Key key;
+ 
+     /** the algorithm parameters */
+     private final AlgorithmParameterSpec params;
+@@ -71,13 +71,13 @@ public class CryptoOutputStream extends OutputStream implements
+      * Input data buffer. The data starts at inBuffer.position() and ends at
+      * inBuffer.limit().
+      */
+-    ByteBuffer inBuffer; // package protected for access by crypto classes; do not expose futher
++    protected ByteBuffer inBuffer;
+ 
+     /**
+      * Encrypted data buffer. The data starts at outBuffer.position() and ends
+      * at outBuffer.limit().
+      */
+-    ByteBuffer outBuffer; // package protected for access by crypto classes; do not expose futher
++    protected ByteBuffer outBuffer;
+ 
+     /**
+      * Constructs a {@link CryptoOutputStream}.

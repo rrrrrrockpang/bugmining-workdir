@@ -1,0 +1,13 @@
+org/apache/commons/crypto/cipher/CipherFactoryTest.java
+org/apache/commons/crypto/cipher/JceCipherTest.java
+org/apache/commons/crypto/cipher/OpensslCipherTest.java
+org/apache/commons/crypto/cipher/TestData.java
+org/apache/commons/crypto/random/TestJavaSecureRandom.java
+org/apache/commons/crypto/random/TestOpensslSecureRandom.java
+org/apache/commons/crypto/random/TestOsSecureRandom.java
+org/apache/commons/crypto/stream/CBCNoPaddingCipherStreamTest.java
+org/apache/commons/crypto/stream/CBCPKCS5PaddingCipherStreamTest.java
+org/apache/commons/crypto/stream/CTRCipherStreamTest.java
+org/apache/commons/crypto/stream/CTRNoPaddingCipherStreamTest.java
+org/apache/commons/crypto/stream/PositionedCipherInputStreamTest.java
+org/apache/commons/crypto/utils/UtilsTest.java

@@ -1,0 +1,403 @@
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
+index 12aa797..c05be6d 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/CryptoCipherFactory.java
+@@ -47,7 +47,7 @@ public class CryptoCipherFactory {
+          * <p>
+          * This implementation does not use any properties
+          */
+-        OPENSSL(OpenSslCipher.class),
++        OPENSSL(OpensslCipher.class),
+         
+         /**
+          * The JCE cipher implementation from the JVM
+@@ -91,7 +91,7 @@ public class CryptoCipherFactory {
+     }
+ 
+     /**
+-     * The default value (OpenSslCipher,JceCipher) for crypto cipher.
++     * The default value (OpensslCipher,JceCipher) for crypto cipher.
+      */
+     private static final String CIPHER_CLASSES_DEFAULT = 
+             CipherProvider.OPENSSL.getClassName()
+@@ -109,7 +109,7 @@ public class CryptoCipherFactory {
+      *
+      * @param props  the configuration properties (uses ConfigurationKeys.CIPHER_CLASSES_KEY)
+      * @param transformation  algorithm/mode/padding
+-     * @return CryptoCipher  the cipher  (defaults to OpenSslCipher)
++     * @return CryptoCipher  the cipher  (defaults to OpensslCipher)
+      * @throws GeneralSecurityException if cipher initialize failed
+      * @throws IllegalArgumentException if no classname(s)
+      */
+@@ -151,7 +151,7 @@ public class CryptoCipherFactory {
+      * <i>AES/CBC/PKCS5Padding</i>.
+      * See the Java Cryptography Architecture Standard Algorithm Name Documentation
+      * for information about standard transformation names.
+-     * @return CryptoCipher the cipher object (defaults to OpenSslCipher if available, else JceCipher)
++     * @return CryptoCipher the cipher object (defaults to OpensslCipher if available, else JceCipher)
+      * @throws GeneralSecurityException if JCE cipher initialize failed
+      */
+     public static CryptoCipher getCryptoCipher(String transformation)
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/OpenSsl.java b/src/main/java/org/apache/commons/crypto/cipher/Openssl.java
+similarity index 95%
+rename from src/main/java/org/apache/commons/crypto/cipher/OpenSsl.java
+rename to src/main/java/org/apache/commons/crypto/cipher/Openssl.java
+index 6c72ea5..3a9b146 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/OpenSsl.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/Openssl.java
+@@ -32,9 +32,9 @@ import org.apache.commons.crypto.utils.Utils;
+  * OpenSSL cryptographic wrapper using JNI. Currently only AES-CTR is supported.
+  * It's flexible to add other crypto algorithms/modes.
+  */
+-final class OpenSsl {
++final class Openssl {
+ 
+-    // Mode constant defined by OpenSsl JNI
++    // Mode constant defined by Openssl JNI
+     public static final int ENCRYPT_MODE = 1;
+     public static final int DECRYPT_MODE = 0;
+ 
+@@ -102,7 +102,7 @@ final class OpenSsl {
+     }
+ 
+     /**
+-     * Gets the failure reason when loading OpenSsl native.
++     * Gets the failure reason when loading Openssl native.
+      *
+      * @return the failure reason.
+      */
+@@ -111,39 +111,39 @@ final class OpenSsl {
+     }
+ 
+     /**
+-     * Constructs a {@link OpenSsl} instance based on context, algorithm and padding.
++     * Constructs a {@link Openssl} instance based on context, algorithm and padding.
+      *
+      * @param context the context.
+      * @param algorithm the algorithm.
+      * @param padding the padding.
+      */
+-    private OpenSsl(long context, int algorithm, int padding) {
++    private Openssl(long context, int algorithm, int padding) {
+         this.context = context;
+         this.algorithm = algorithm;
+         this.padding = padding;
+     }
+ 
+     /**
+-     * Return an <code>OpenSslCipher</code> object that implements the specified
++     * Return an <code>OpensslCipher</code> object that implements the specified
+      * transformation.
+      *
+      * @param transformation the name of the transformation, e.g.,
+      *        AES/CTR/NoPadding.
+-     * @return OpenSslCipher an <code>OpenSslCipher</code> object
++     * @return OpensslCipher an <code>OpensslCipher</code> object
+      * @throws NoSuchAlgorithmException if <code>transformation</code> is null,
+-     *         empty, in an invalid format, or if OpenSsl doesn't implement the
++     *         empty, in an invalid format, or if Openssl doesn't implement the
+      *         specified algorithm.
+      * @throws NoSuchPaddingException if <code>transformation</code> contains a
+      *         padding scheme that is not available.
+      */
+-    public static OpenSsl getInstance(String transformation)
++    public static Openssl getInstance(String transformation)
+             throws NoSuchAlgorithmException, NoSuchPaddingException {
+         Transform transform = tokenizeTransformation(transformation);
+         int algorithmMode = AlgorithmMode.get(transform.algorithm,
+                 transform.mode);
+         int padding = Padding.get(transform.padding);
+         long context = OpensslNative.initContext(algorithmMode, padding);
+-        return new OpenSsl(context, algorithmMode, padding);
++        return new Openssl(context, algorithmMode, padding);
+     }
+ 
+     /** Nested class for algorithm, mode and padding. */
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/OpenSslCipher.java b/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
+similarity index 95%
+rename from src/main/java/org/apache/commons/crypto/cipher/OpenSslCipher.java
+rename to src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
+index af25df3..06e3798 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/OpenSslCipher.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/OpensslCipher.java
+@@ -35,9 +35,9 @@ import org.apache.commons.crypto.utils.Utils;
+ /**
+  * Implements the CryptoCipher using JNI into OpenSSL.
+  */
+-class OpenSslCipher implements CryptoCipher {
++class OpensslCipher implements CryptoCipher {
+ 
+-    private final OpenSsl cipher;
++    private final Openssl cipher;
+ 
+     private final String transformation;
+ 
+@@ -52,16 +52,16 @@ class OpenSslCipher implements CryptoCipher {
+      */
+     // N.B. this class is not public/protected so does not appear in the main Javadoc
+     // Please ensure that property use is documented in the enum CryptoRandomFactory.RandomProvider
+-    public OpenSslCipher(Properties props, String transformation) // NOPMD
++    public OpensslCipher(Properties props, String transformation) // NOPMD
+             throws GeneralSecurityException {
+         this.transformation = transformation;
+ 
+-        String loadingFailureReason = OpenSsl.getLoadingFailureReason();
++        String loadingFailureReason = Openssl.getLoadingFailureReason();
+         if (loadingFailureReason != null) {
+             throw new RuntimeException(loadingFailureReason);
+         }
+ 
+-        cipher = OpenSsl.getInstance(transformation);
++        cipher = Openssl.getInstance(transformation);
+     }
+ 
+     /**
+@@ -104,9 +104,9 @@ class OpenSslCipher implements CryptoCipher {
+         Utils.checkNotNull(key);
+         Utils.checkNotNull(params);
+ 
+-        int cipherMode = OpenSsl.DECRYPT_MODE;
++        int cipherMode = Openssl.DECRYPT_MODE;
+         if (mode == Cipher.ENCRYPT_MODE) {
+-            cipherMode = OpenSsl.ENCRYPT_MODE;
++            cipherMode = Openssl.ENCRYPT_MODE;
+         }
+         byte[] iv;
+         if (params instanceof IvParameterSpec) {
+@@ -213,7 +213,7 @@ class OpenSslCipher implements CryptoCipher {
+     }
+ 
+     /**
+-     * Closes the OpenSSL cipher. Clean the OpenSsl native context.
++     * Closes the OpenSSL cipher. Clean the Openssl native context.
+      */
+     @Override
+     public void close() {
+diff --git a/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java b/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
+index 9bac6dd..2db91e5 100644
+--- a/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
++++ b/src/main/java/org/apache/commons/crypto/cipher/OpensslNative.java
+@@ -20,7 +20,7 @@ package org.apache.commons.crypto.cipher;
+ import java.nio.ByteBuffer;
+ 
+ /**
+- * JNI interface of {@link OpenSsl} implementation. The native method in this
++ * JNI interface of {@link Openssl} implementation. The native method in this
+  * class is defined in OpensslNative.h (generated by javah).
+  */
+ class OpensslNative {
+@@ -50,8 +50,8 @@ class OpensslNative {
+      *
+      * @param context The cipher context address
+      * @param mode ENCRYPT_MODE or DECRYPT_MODE
+-     * @param alg Algorithm Mode of OpenSsl
+-     * @param padding the padding mode of OpenSsl cipher
++     * @param alg Algorithm Mode of Openssl
++     * @param padding the padding mode of Openssl cipher
+      * @param key crypto key
+      * @param iv crypto iv
+      * @return the context address of cipher
+diff --git a/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java b/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
+index d5c19a4..875d113 100644
+--- a/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
++++ b/src/main/java/org/apache/commons/crypto/conf/ConfigurationKeys.java
+@@ -37,10 +37,10 @@ public class ConfigurationKeys {
+      * The configuration key of implementation class for crypto cipher. The
+      * values of CIPHER_CLASSES_KEY can be
+      * "org.apache.commons.crypto.cipher.JceCipher" or
+-     * "org.apache.commons.crypto.cipher.OpenSslCipher". Or it can be a comma
++     * "org.apache.commons.crypto.cipher.OpensslCipher". Or it can be a comma
+      * separated list. The "org.apache.commons.crypto.cipher.JceCipher" use jce
+      * provider to implement CryptoCipher and the
+-     * "org.apache.commons.crypto.cipher.OpenSslCipher" use jni into openssl to
++     * "org.apache.commons.crypto.cipher.OpensslCipher" use jni into openssl to
+      * implement. Note that for each value,the first value which can be created
+      * without exception will be used (priority by order).
+      */
+@@ -80,11 +80,11 @@ public class ConfigurationKeys {
+      * The configuration key of the implementation class for secure random. The
+      * values of SECURE_RANDOM_CLASSES_KEY can be
+      * "org.apache.commons.crypto.random.JavaCryptoRandom" or
+-     * "org.apache.commons.crypto.random.OpenSslCryptoRandom". Or it takes a
++     * "org.apache.commons.crypto.random.OpensslCryptoRandom". Or it takes a
+      * comma separated list. The
+      * "org.apache.commons.crypto.random.JavaCryptoRandom" use java to implement
+      * {@link org.apache.commons.crypto.random.CryptoRandom} and the
+-     * "org.apache.commons.crypto.random.OpenSslCryptoRandom" use jni into
++     * "org.apache.commons.crypto.random.OpensslCryptoRandom" use jni into
+      * openssl to implement. Note that for each value,the first value which can
+      * be created without exception will be used (priority by order).
+      */
+diff --git a/src/main/java/org/apache/commons/crypto/jna/OpensslJna.java b/src/main/java/org/apache/commons/crypto/jna/OpensslJna.java
+index 2d255ab..e27f96c 100644
+--- a/src/main/java/org/apache/commons/crypto/jna/OpensslJna.java
++++ b/src/main/java/org/apache/commons/crypto/jna/OpensslJna.java
+@@ -26,10 +26,10 @@ import org.apache.commons.crypto.random.CryptoRandom;
+ public final class OpensslJna {
+ 
+     public static Class<? extends CryptoCipher> getCipherClass() {
+-        return OpenSslJnaCipher.class;
++        return OpensslJnaCipher.class;
+     }
+ 
+     public static Class<? extends CryptoRandom> getRandomClass() {
+-        return OpenSslJnaCryptoRandom.class;
++        return OpensslJnaCryptoRandom.class;
+     }
+ }
+diff --git a/src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCipher.java b/src/main/java/org/apache/commons/crypto/jna/OpensslJnaCipher.java
+similarity index 98%
+rename from src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCipher.java
+rename to src/main/java/org/apache/commons/crypto/jna/OpensslJnaCipher.java
+index adef3cf..05ee367 100644
+--- a/src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCipher.java
++++ b/src/main/java/org/apache/commons/crypto/jna/OpensslJnaCipher.java
+@@ -43,7 +43,7 @@ import com.sun.jna.ptr.PointerByReference;
+ /**
+  * Implements the CryptoCipher using JNA into OpenSSL.
+  */
+-class OpenSslJnaCipher implements CryptoCipher {
++class OpensslJnaCipher implements CryptoCipher {
+ 
+     private final static int AES_BLOCK_SIZE = 16;
+     
+@@ -60,7 +60,7 @@ class OpenSslJnaCipher implements CryptoCipher {
+      * @param transformation transformation for OpenSSL cipher
+      * @throws GeneralSecurityException if OpenSSL cipher initialize failed
+      */
+-    public OpenSslJnaCipher(Properties props, String transformation)
++    public OpensslJnaCipher(Properties props, String transformation)
+             throws GeneralSecurityException {
+         this.transformation = transformation;
+         Transform transform = tokenizeTransformation(transformation);
+@@ -229,7 +229,7 @@ class OpenSslJnaCipher implements CryptoCipher {
+     }
+ 
+     /**
+-     * Closes the OpenSSL cipher. Clean the OpenSsl native context.
++     * Closes the OpenSSL cipher. Clean the Openssl native context.
+      */
+     @Override
+     public void close() {
+diff --git a/src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java b/src/main/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandom.java
+similarity index 95%
+rename from src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java
+rename to src/main/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandom.java
+index 1f4e971..7915d86 100644
+--- a/src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java
++++ b/src/main/java/org/apache/commons/crypto/jna/OpensslJnaCryptoRandom.java
+@@ -45,19 +45,19 @@ import com.sun.jna.ptr.PointerByReference;
+  * @see <a href="http://en.wikipedia.org/wiki/RdRand">
+  *      http://en.wikipedia.org/wiki/RdRand</a>
+  */
+-class OpenSslJnaCryptoRandom extends Random implements CryptoRandom {
++class OpensslJnaCryptoRandom extends Random implements CryptoRandom {
+     private static final long serialVersionUID = -7128193502768749585L;
+     private final boolean rdrandEnabled;
+     private PointerByReference rdrandEngine;
+ 
+     /**
+-     * Constructs a {@link OpenSslJnaCryptoRandom}.
++     * Constructs a {@link OpensslJnaCryptoRandom}.
+      *
+      * @param props the configuration properties (not used)
+      * @throws NoSuchAlgorithmException if no Provider supports a
+      *         SecureRandomSpi implementation for the specified algorithm.
+      */
+-    public OpenSslJnaCryptoRandom(Properties props)
++    public OpensslJnaCryptoRandom(Properties props)
+             throws NoSuchAlgorithmException {
+ 
+         boolean rdrandLoaded = false;
+@@ -95,7 +95,7 @@ class OpenSslJnaCryptoRandom extends Random implements CryptoRandom {
+     @Override
+     public void nextBytes(byte[] bytes) {
+         
+-        synchronized (OpenSslJnaCryptoRandom.class) {
++        synchronized (OpensslJnaCryptoRandom.class) {
+             //this method is synchronized for now
+             //to support multithreading https://wiki.openssl.org/index.php/Manual:Threads(3) needs to be done
+             
+@@ -113,7 +113,7 @@ class OpenSslJnaCryptoRandom extends Random implements CryptoRandom {
+     }
+ 
+     /**
+-     * Overrides {@link OpenSslJnaCryptoRandom}. For {@link OpenSslJnaCryptoRandom},
++     * Overrides {@link OpensslJnaCryptoRandom}. For {@link OpensslJnaCryptoRandom},
+      * we don't need to set seed.
+      *
+      * @param seed the initial seed.
+diff --git a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+index 5490830..b27b1ef 100644
+--- a/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
++++ b/src/main/java/org/apache/commons/crypto/random/CryptoRandomFactory.java
+@@ -48,7 +48,7 @@ public class CryptoRandomFactory {
+          * No properties are used for configuration, but they
+          * are passed to the JCE backup implementation (q.v.)
+          */
+-        OPENSSL(OpenSslCryptoRandom.class),
++        OPENSSL(OpensslCryptoRandom.class),
+ 
+         /**
+          * The SecureRandom implementation from the JVM
+@@ -103,7 +103,7 @@ public class CryptoRandomFactory {
+     }
+ 
+     /**
+-     * The default value (OpenSslCryptoRandom,JavaCryptoRandom) for crypto cipher.
++     * The default value (OpensslCryptoRandom,JavaCryptoRandom) for crypto cipher.
+      */
+     private static final String SECURE_RANDOM_CLASSES_DEFAULT = RandomProvider
+         .OPENSSL.getClassName().concat(",").concat(RandomProvider.JAVA
+@@ -120,7 +120,7 @@ public class CryptoRandomFactory {
+      * Uses the SECURE_RANDOM_CLASSES_KEY from the provided
+      * properties.
+      * If it is not set, then it checks the System properties.
+-     * Failing that, it defaults to OpenSslCryptoRandom,JavaCryptoRandom
++     * Failing that, it defaults to OpensslCryptoRandom,JavaCryptoRandom
+      * The properties are passed to the generated class.
+      *
+      * @param props the configuration properties.
+diff --git a/src/main/java/org/apache/commons/crypto/random/OpenSslCryptoRandom.java b/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
+similarity index 95%
+rename from src/main/java/org/apache/commons/crypto/random/OpenSslCryptoRandom.java
+rename to src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
+index 15a85ab..6bae4c0 100644
+--- a/src/main/java/org/apache/commons/crypto/random/OpenSslCryptoRandom.java
++++ b/src/main/java/org/apache/commons/crypto/random/OpensslCryptoRandom.java
+@@ -41,7 +41,7 @@ import org.apache.commons.crypto.utils.Utils;
+  * @see <a href="http://en.wikipedia.org/wiki/RdRand">
+  *      http://en.wikipedia.org/wiki/RdRand</a>
+  */
+-class OpenSslCryptoRandom extends Random implements CryptoRandom {
++class OpensslCryptoRandom extends Random implements CryptoRandom {
+     private static final long serialVersionUID = -7828193502768789584L;
+ 
+     /** If native SecureRandom unavailable, use java SecureRandom */
+@@ -70,7 +70,7 @@ class OpenSslCryptoRandom extends Random implements CryptoRandom {
+     }
+ 
+     /**
+-     * Constructs a {@link OpenSslCryptoRandom}.
++     * Constructs a {@link OpensslCryptoRandom}.
+      *
+      * @param props the configuration properties
+      * Only used to construct the fallback {@link JavaCryptoRandom} instance
+@@ -79,7 +79,7 @@ class OpenSslCryptoRandom extends Random implements CryptoRandom {
+      */
+     // N.B. this class is not public/protected so does not appear in the main Javadoc
+     // Please ensure that property use is documented in the enum CryptoRandomFactory.RandomProvider
+-    public OpenSslCryptoRandom(Properties props)
++    public OpensslCryptoRandom(Properties props)
+             throws NoSuchAlgorithmException {
+         //fallback needs to be initialized here in any case cause even if
+         //nativeEnabled is true OpensslCryptoRandomNative.nextRandBytes may fail
+@@ -99,7 +99,7 @@ class OpenSslCryptoRandom extends Random implements CryptoRandom {
+     }
+ 
+     /**
+-     * Overrides {@link OpenSslCryptoRandom}. For {@link OpenSslCryptoRandom},
++     * Overrides {@link OpensslCryptoRandom}. For {@link OpensslCryptoRandom},
+      * we don't need to set seed.
+      *
+      * @param seed the initial seed.

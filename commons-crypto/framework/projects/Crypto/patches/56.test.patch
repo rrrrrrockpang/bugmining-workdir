@@ -1,0 +1,17 @@
+diff --git a/src/test/java/org/apache/commons/crypto/NativeCodeLoaderTest.java b/src/test/java/org/apache/commons/crypto/NativeCodeLoaderTest.java
+index 02b60de..ff871de 100644
+--- a/src/test/java/org/apache/commons/crypto/NativeCodeLoaderTest.java
++++ b/src/test/java/org/apache/commons/crypto/NativeCodeLoaderTest.java
+@@ -39,6 +39,12 @@ public class NativeCodeLoaderTest {
+             System.out.println("** WARN: Native (JNI) code was not loaded: " 
+                 + NativeCodeLoader.getLoadingError());
+         }
++        assertNotNull(NativeCodeLoader.getVersion());
++    }
++
++    @Test
++    public void testGetVersion() {
++        assertNotNull(NativeCodeLoader.getVersion());
+     }
+ 
+     @Test
