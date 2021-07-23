@@ -39,14 +39,14 @@ of the checked-out project version.
     <!-- Do not download maven dependencies -->
     <property name="maven.settings.offline" value="true" />
     <property name="maven.repo.local" value="${d4j.dir.projects}/Email/lib/" />
+    
+
+    <!-- Scripts that solve "maven.build.srcDir.0" error in analyze-project.pl -->
     <!-- <property name="maven.build.srcDir.0" value="src/java" />
     <property name="maven.build.testDir.0" value="src/test" />
     <property name="maven.build.dir" value="target" />
     <property name="maven.build.testOutputDir" value="${maven.build.dir}/test-classes" />
-
-    <path id="build.test.classpath">
-        <fileset dir="${maven.repo.local}">   </fileset>
-    </path> -->
+     -->
 
 
     <!-- Generate all debugging information -->
@@ -55,6 +55,7 @@ of the checked-out project version.
     <!-- Include existing project build file -->
     <import file="${d4j.workdir}/build.xml"/>
 
+    <!-- Scripts that solve "compile.tests" errors in initialize-revision.pl -->
     <!-- <scriptdef name="hastarget" language="javascript">
           <attribute name="targetname"/>
           <attribute name="property"/>
@@ -66,7 +67,6 @@ of the checked-out project version.
             ]]>
     </scriptdef>
 
-    
     <hastarget targetname="compile.tests" property="newLayout" />
     <target name="compile.tests" depends="compile-tests" unless="newLayout"/> -->
 
