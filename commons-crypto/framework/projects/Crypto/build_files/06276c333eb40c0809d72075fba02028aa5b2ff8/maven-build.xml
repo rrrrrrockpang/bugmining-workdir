@@ -229,7 +229,7 @@
     <jar jarfile="${maven.build.dir}/${maven.build.finalName}.jar" 
          compress="true" 
          index="false" 
-         manifest="/private/tmp/initialize-revisions.pl_29750_1627068417/41b/target/osgi/MANIFEST.MF" 
+         manifest="/private/tmp/initialize-revisions.pl_29264_1627068390/38b/target/osgi/MANIFEST.MF" 
          basedir="${maven.build.outputDir}" 
          excludes="**/package.html">
       <manifest>

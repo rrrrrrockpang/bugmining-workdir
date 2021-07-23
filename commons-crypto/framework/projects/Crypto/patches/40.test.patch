@@ -1,0 +1,63 @@
+diff --git a/src/test/java/org/apache/commons/crypto/stream/CtrCryptoStreamTest.java b/src/test/java/org/apache/commons/crypto/stream/CTRCryptoStreamTest.java
+similarity index 79%
+rename from src/test/java/org/apache/commons/crypto/stream/CtrCryptoStreamTest.java
+rename to src/test/java/org/apache/commons/crypto/stream/CTRCryptoStreamTest.java
+index 7b9c12b..3ba55ec 100644
+--- a/src/test/java/org/apache/commons/crypto/stream/CtrCryptoStreamTest.java
++++ b/src/test/java/org/apache/commons/crypto/stream/CTRCryptoStreamTest.java
+@@ -24,7 +24,7 @@ import java.nio.channels.Channels;
+ 
+ import org.apache.commons.crypto.cipher.CryptoCipher;
+ 
+-public class CtrCryptoStreamTest extends AbstractCipherStreamTest {
++public class CTRCryptoStreamTest extends AbstractCipherStreamTest {
+ 
+     @Override
+     public void setUp() throws IOException {
+@@ -32,24 +32,24 @@ public class CtrCryptoStreamTest extends AbstractCipherStreamTest {
+     }
+ 
+     @Override
+-    protected CtrCryptoInputStream getCryptoInputStream(
++    protected CTRCryptoInputStream getCryptoInputStream(
+             ByteArrayInputStream bais, CryptoCipher cipher, int bufferSize,
+             byte[] iv, boolean withChannel) throws IOException {
+         if (withChannel) {
+-            return new CtrCryptoInputStream(Channels.newChannel(bais), cipher,
++            return new CTRCryptoInputStream(Channels.newChannel(bais), cipher,
+                     bufferSize, key, iv);
+         }
+-        return new CtrCryptoInputStream(bais, cipher, bufferSize, key, iv);
++        return new CTRCryptoInputStream(bais, cipher, bufferSize, key, iv);
+     }
+ 
+     @Override
+-    protected CtrCryptoOutputStream getCryptoOutputStream(
++    protected CTRCryptoOutputStream getCryptoOutputStream(
+             ByteArrayOutputStream baos, CryptoCipher cipher, int bufferSize,
+             byte[] iv, boolean withChannel) throws IOException {
+         if (withChannel) {
+-            return new CtrCryptoOutputStream(Channels.newChannel(baos), cipher,
++            return new CTRCryptoOutputStream(Channels.newChannel(baos), cipher,
+                     bufferSize, key, iv);
+         }
+-        return new CtrCryptoOutputStream(baos, cipher, bufferSize, key, iv);
++        return new CTRCryptoOutputStream(baos, cipher, bufferSize, key, iv);
+     }
+ }
+diff --git a/src/test/java/org/apache/commons/crypto/stream/CtrNoPaddingCipherStreamTest.java b/src/test/java/org/apache/commons/crypto/stream/CTRNoPaddingCipherStreamTest.java
+similarity index 94%
+rename from src/test/java/org/apache/commons/crypto/stream/CtrNoPaddingCipherStreamTest.java
+rename to src/test/java/org/apache/commons/crypto/stream/CTRNoPaddingCipherStreamTest.java
+index 376a56b..76b8a7e 100644
+--- a/src/test/java/org/apache/commons/crypto/stream/CtrNoPaddingCipherStreamTest.java
++++ b/src/test/java/org/apache/commons/crypto/stream/CTRNoPaddingCipherStreamTest.java
+@@ -19,7 +19,7 @@ package org.apache.commons.crypto.stream;
+ 
+ import java.io.IOException;
+ 
+-public class CtrNoPaddingCipherStreamTest extends AbstractCipherStreamTest {
++public class CTRNoPaddingCipherStreamTest extends AbstractCipherStreamTest {
+ 
+     @Override
+     public void setUp() throws IOException {
