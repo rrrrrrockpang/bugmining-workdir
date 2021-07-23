@@ -1,0 +1,34 @@
+diff --git a/src/test/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSetTest.java b/src/test/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSetTest.java
+index 6728b94..9b8f657 100644
+--- a/src/test/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSetTest.java
++++ b/src/test/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSetTest.java
+@@ -877,14 +877,6 @@ class SqlNullCheckedResultSetMockBlob implements Blob {
+         return null;
+     }
+ 
+-    public void free() throws SQLException {
+-      
+-    }
+-
+-    public InputStream getBinaryStream(long pos, long length) throws SQLException {
+-      return null;
+-    }
+-
+ }
+ 
+ class SqlNullCheckedResultSetMockClob implements Clob {
+@@ -934,14 +926,6 @@ class SqlNullCheckedResultSetMockClob implements Clob {
+         return 0;
+     }
+ 
+-    public void free() throws SQLException {
+-
+-    }
+-
+-    public Reader getCharacterStream(long pos, long length) throws SQLException {
+-      return null;
+-    }
+-
+ }
+ 
+ class SqlNullCheckedResultSetMockRef implements Ref {

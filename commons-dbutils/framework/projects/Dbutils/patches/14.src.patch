@@ -1,0 +1,129 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+index 943af8c..f51b486 100644
+--- a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+@@ -56,8 +56,8 @@ public abstract class AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor to control the use of <code>ParameterMetaData</code>.
+-     * @param pmdKnownBroken Some drivers don't support {@link ParameterMetaData#getParameterType(int) };
++     * Constructor to allow workaround for Oracle drivers
++     * @param pmdKnownBroken Oracle drivers don't support {@link ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      */
+@@ -78,12 +78,12 @@ public abstract class AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor to provide a <code>DataSource</code> and control the use of <code>ParameterMetaData</code>.
+-     * Methods that do not take a <code>Connection</code> parameter will retrieve connections from this
++     * Constructor to allow workaround for Oracle drivers.  Methods that do not take a
++     * <code>Connection</code> parameter will retrieve connections from this
+      * <code>DataSource</code>.
+      *
+      * @param ds The <code>DataSource</code> to retrieve connections from.
+-     * @param pmdKnownBroken Some drivers don't support {@link ParameterMetaData#getParameterType(int) };
++     * @param pmdKnownBroken Oracle drivers don't support {@link ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      */
+@@ -105,7 +105,7 @@ public abstract class AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Some drivers don't support {@link ParameterMetaData#getParameterType(int) };
++     * Oracle drivers don't support {@link ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      *
+diff --git a/src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java b/src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java
+index 600015f..c4e7de8 100644
+--- a/src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java
+@@ -47,9 +47,8 @@ public class AsyncQueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for AsyncQueryRunner that controls the use of <code>ParameterMetaData</code>.
+-     * 
+-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
++     * Constructor for AsyncQueryRunner, allows workaround for Oracle drivers
++     * @param pmdKnownBroken Oracle drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      * @param executorService the {@code ExecutorService} instance used to run JDBC invocations concurrently.
+@@ -59,9 +58,8 @@ public class AsyncQueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for AsyncQueryRunner that takes a <code>DataSource</code>.
+-     * 
+-     * Methods that do not take a <code>Connection</code> parameter will retrieve connections from this
++     * Constructor for AsyncQueryRunner which takes a <code>DataSource</code>.  Methods that do not take a
++     * <code>Connection</code> parameter will retrieve connections from this
+      * <code>DataSource</code>.
+      *
+      * @param ds The <code>DataSource</code> to retrieve connections from.
+@@ -72,12 +70,12 @@ public class AsyncQueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for AsyncQueryRunner that take a <code>DataSource</code> to use and controls the use of <code>ParameterMetaData</code>.
+-     * Methods that do not take a <code>Connection</code> parameter will retrieve connections from this
++     * Constructor for QueryRunner, allows workaround for Oracle drivers.  Methods that do not take a
++     * <code>Connection</code> parameter will retrieve connections from this
+      * <code>DataSource</code>.
+      *
+      * @param ds The <code>DataSource</code> to retrieve connections from.
+-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
++     * @param pmdKnownBroken Oracle drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      * @param executorService the {@code ExecutorService} instance used to run JDBC invocations concurrently.
+diff --git a/src/main/java/org/apache/commons/dbutils/QueryRunner.java b/src/main/java/org/apache/commons/dbutils/QueryRunner.java
+index e29000a..ecd2d0a 100644
+--- a/src/main/java/org/apache/commons/dbutils/QueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/QueryRunner.java
+@@ -39,9 +39,9 @@ public class QueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for QueryRunner that controls the use of <code>ParameterMetaData</code>.
+-     * 
+-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
++     * Constructor for QueryRunner, allows workaround for Oracle drivers
++     * @param pmdKnownBroken Oracle drivers don't support
++     *        {@link java.sql.ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      */
+@@ -50,9 +50,8 @@ public class QueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for QueryRunner that takes a <code>DataSource</code> to use.
+-     * 
+-     * Methods that do not take a <code>Connection</code> parameter will retrieve connections from this
++     * Constructor for QueryRunner which takes a <code>DataSource</code>.  Methods that do not take a
++     * <code>Connection</code> parameter will retrieve connections from this
+      * <code>DataSource</code>.
+      *
+      * @param ds The <code>DataSource</code> to retrieve connections from.
+@@ -62,12 +61,12 @@ public class QueryRunner extends AbstractQueryRunner {
+     }
+ 
+     /**
+-     * Constructor for QueryRunner that takes a <code>DataSource</code> to use and controls the use of <code>ParameterMetaData</code>.
+-     * Methods that do not take a <code>Connection</code> parameter will retrieve connections from this
++     * Constructor for QueryRunner, allows workaround for Oracle drivers.  Methods that do not take a
++     * <code>Connection</code> parameter will retrieve connections from this
+      * <code>DataSource</code>.
+      *
+      * @param ds The <code>DataSource</code> to retrieve connections from.
+-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
++     * @param pmdKnownBroken Oracle drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
+      * if <code>pmdKnownBroken</code> is set to true, we won't even try it; if false, we'll try it,
+      * and if it breaks, we'll remember not to use it again.
+      */

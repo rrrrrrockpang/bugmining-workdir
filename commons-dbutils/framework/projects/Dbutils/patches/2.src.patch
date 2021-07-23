@@ -1,0 +1,27 @@
+diff --git a/src/java/org/apache/commons/dbutils/BeanProcessor.java b/src/java/org/apache/commons/dbutils/BeanProcessor.java
+index 2770f59..53ee93b 100644
+--- a/src/java/org/apache/commons/dbutils/BeanProcessor.java
++++ b/src/java/org/apache/commons/dbutils/BeanProcessor.java
+@@ -225,9 +225,6 @@ public class BeanProcessor {
+             // Don't call setter if the value object isn't the right type 
+             if (this.isCompatibleType(value, params[0])) {
+                 setter.invoke(target, new Object[] { value });
+-            } else {
+-              throw new SQLException(
+-                  "Cannot set " + prop.getName() + ": incompatible types.");
+             }
+ 
+         } catch (IllegalArgumentException e) {
+diff --git a/src/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java b/src/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java
+index a5e1594..97f4132 100644
+--- a/src/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java
++++ b/src/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java
+@@ -369,7 +369,7 @@ public class SqlNullCheckedResultSet implements InvocationHandler {
+         // Check nullMethod != null first so that we don't call wasNull()
+         // before a true getter method was invoked on the ResultSet.
+         return (nullMethod != null && this.rs.wasNull())
+-            ? nullMethod.invoke(this, (Object[]) null)
++            ? nullMethod.invoke(this, null)
+             : result;
+     }
+ 

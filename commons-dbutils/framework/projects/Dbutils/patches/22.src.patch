@@ -1,0 +1,27 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+index dcf2cef..7319496 100644
+--- a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+@@ -223,16 +223,12 @@ public abstract class AbstractQueryRunner {
+         ParameterMetaData pmd = null;
+         if (!pmdKnownBroken) {
+             pmd = stmt.getParameterMetaData();
+-            if (pmd == null) { // can be returned by implementations that don't support the method
+-                pmdKnownBroken = true;
+-            } else {
+-                int stmtCount = pmd.getParameterCount();
+-                int paramsCount = params == null ? 0 : params.length;
+-    
+-                if (stmtCount != paramsCount) {
+-                    throw new SQLException("Wrong number of parameters: expected "
+-                            + stmtCount + ", was given " + paramsCount);
+-                }
++            int stmtCount = pmd.getParameterCount();
++            int paramsCount = params == null ? 0 : params.length;
++
++            if (stmtCount != paramsCount) {
++                throw new SQLException("Wrong number of parameters: expected "
++                        + stmtCount + ", was given " + paramsCount);
+             }
+         }
+ 

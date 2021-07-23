@@ -1,0 +1,32 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java b/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
+index f5a5bc8..c596a8c 100644
+--- a/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
++++ b/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
+@@ -47,10 +47,6 @@ public class BasicRowProcessor implements RowProcessor {
+      */
+     private static final BasicRowProcessor instance = new BasicRowProcessor();
+ 
+-    protected static LinkedHashMap<String, Object> createCaseInsensitiveHashMap(int cols) {
+-        return new CaseInsensitiveHashMap(cols);
+-    }
+-
+     /**
+      * Returns the Singleton instance of this class.
+      *
+@@ -163,7 +159,7 @@ public class BasicRowProcessor implements RowProcessor {
+     public Map<String, Object> toMap(ResultSet rs) throws SQLException {
+         ResultSetMetaData rsmd = rs.getMetaData();
+         int cols = rsmd.getColumnCount();
+-        Map<String, Object> result = createCaseInsensitiveHashMap(cols);
++        Map<String, Object> result = new CaseInsensitiveHashMap(cols);
+ 
+         for (int i = 1; i <= cols; i++) {
+             String columnName = rsmd.getColumnLabel(i);
+@@ -176,7 +172,6 @@ public class BasicRowProcessor implements RowProcessor {
+         return result;
+     }
+ 
+-
+     /**
+      * A Map that converts all keys to lowercase Strings for case insensitive
+      * lookups.  This is needed for the toMap() implementation because

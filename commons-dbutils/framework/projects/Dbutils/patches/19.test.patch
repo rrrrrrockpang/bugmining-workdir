@@ -1,0 +1,90 @@
+diff --git a/src/test/java/org/apache/commons/dbutils/BaseTestCase.java b/src/test/java/org/apache/commons/dbutils/BaseTestCase.java
+index 913397f..b099d8c 100644
+--- a/src/test/java/org/apache/commons/dbutils/BaseTestCase.java
++++ b/src/test/java/org/apache/commons/dbutils/BaseTestCase.java
+@@ -19,7 +19,6 @@ package org.apache.commons.dbutils;
+ import java.math.BigInteger;
+ import java.sql.ResultSet;
+ import java.sql.ResultSetMetaData;
+-import java.sql.Timestamp;
+ import java.util.Date;
+ 
+ import junit.framework.TestCase;
+@@ -51,16 +50,6 @@ public class BaseTestCase extends TestCase {
+     protected static final ResultSetMetaData metaData =
+         MockResultSetMetaData.create(columnNames);
+ 
+-    /**
+-     * A Timestamp for test purposes having 9 decimals
+-     */
+-    static final Timestamp ts789456123;
+-
+-    static {
+-        ts789456123 = new Timestamp(new Date().getTime());
+-        ts789456123.setNanos(789456123);
+-    }
+-    
+     private static final Object[] row1 =
+         new Object[] {
+             "1",
+@@ -84,7 +73,7 @@ public class BaseTestCase extends TestCase {
+             Integer.valueOf(4),
+             null,
+             null,
+-            ts789456123,
++            new Date(),
+             BigInteger.valueOf(13)};
+ 
+     private static final Object[][] rows = new Object[][] { row1, row2 };
+diff --git a/src/test/java/org/apache/commons/dbutils/BasicRowProcessorTest.java b/src/test/java/org/apache/commons/dbutils/BasicRowProcessorTest.java
+index 55cb80f..567f4f6 100644
+--- a/src/test/java/org/apache/commons/dbutils/BasicRowProcessorTest.java
++++ b/src/test/java/org/apache/commons/dbutils/BasicRowProcessorTest.java
+@@ -83,7 +83,7 @@ public class BasicRowProcessorTest extends BaseTestCase {
+         // test date -> string handling
+         assertNotNull(row.getNotDate());
+         assertTrue(!"not a date".equals(row.getNotDate()));
+-        assertTrue(row.getNotDate().endsWith("789456123"));
++        datef.parse(row.getNotDate());
+ 
+         assertFalse(this.rs.next());
+ 
+@@ -100,7 +100,6 @@ public class BasicRowProcessorTest extends BaseTestCase {
+         assertEquals("2", b.getTwo());
+         assertEquals(TestBean.Ordinal.THREE, b.getThree());
+         assertEquals("not set", b.getDoNotSet());
+-        datef.parse(b.getNotDate());
+ 
+         b = list.get(1);
+         assertEquals("4", b.getOne());
+@@ -114,7 +113,7 @@ public class BasicRowProcessorTest extends BaseTestCase {
+         // test date -> string handling
+         assertNotNull(b.getNotDate());
+         assertTrue(!"not a date".equals(b.getNotDate()));
+-        assertTrue(b.getNotDate().endsWith("789456123"));
++        datef.parse(b.getNotDate());
+     }
+ 
+     public void testToMap() throws SQLException {
+diff --git a/src/test/java/org/apache/commons/dbutils/TestBean.java b/src/test/java/org/apache/commons/dbutils/TestBean.java
+index b47b921..98ad226 100644
+--- a/src/test/java/org/apache/commons/dbutils/TestBean.java
++++ b/src/test/java/org/apache/commons/dbutils/TestBean.java
+@@ -16,8 +16,6 @@
+  */
+ package org.apache.commons.dbutils;
+ 
+-import java.sql.Timestamp;
+-
+ /**
+  * A bean to use in testing toBean() and toBeanList().
+  */
+@@ -39,8 +37,6 @@ public class TestBean {
+ 
+     private Integer integerTest = Integer.valueOf(0);
+ 
+-    private Timestamp timestamp = null;
+-
+     private String doNotSet = "not set";
+ 
+     /**

@@ -1,0 +1,63 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+index 472ed32..f0c3590 100644
+--- a/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java
+@@ -203,36 +203,6 @@ public abstract class AbstractQueryRunner {
+         DbUtils.close(stmt);
+     }
+ 
+-    /**
+-     * Calls {@link DbUtils#closeQuietly(Connection)}.
+-     * 
+-     * @param conn Connection to close.
+-     * @since 2.0
+-     */
+-    protected void closeQuietly(Connection conn) {
+-        DbUtils.closeQuietly(conn);
+-    }
+-
+-    /**
+-     * Calls {@link DbUtils#closeQuietly(ResultSet)}.
+-     * 
+-     * @param rs ResultSet to close.
+-     * @since 2.0
+-     */
+-    protected void closeQuietly(ResultSet rs) {
+-        DbUtils.closeQuietly(rs);
+-    }
+-
+-    /**
+-     * Calls {@link DbUtils#closeQuietly(Statement)}.
+-     * 
+-     * @param statement ResultSet to close.
+-     * @since 2.0
+-     */
+-    protected void closeQuietly(Statement statement) {
+-        DbUtils.closeQuietly(statement);
+-    }
+-
+     private void configureStatement(Statement stmt) throws SQLException {
+ 
+         if (stmtConfig != null) {
+diff --git a/src/main/java/org/apache/commons/dbutils/QueryRunner.java b/src/main/java/org/apache/commons/dbutils/QueryRunner.java
+index 4a8dc2d..710b629 100644
+--- a/src/main/java/org/apache/commons/dbutils/QueryRunner.java
++++ b/src/main/java/org/apache/commons/dbutils/QueryRunner.java
+@@ -391,10 +391,13 @@ public class QueryRunner extends AbstractQueryRunner {
+             this.rethrow(e, sql, params);
+ 
+         } finally {
+-            closeQuietly(rs);
+-            closeQuietly(stmt);
+-            if (closeConn) {
+-                close(conn);
++            try {
++                close(rs);
++            } finally {
++                close(stmt);
++                if (closeConn) {
++                    close(conn);
++                }
+             }
+         }
+ 

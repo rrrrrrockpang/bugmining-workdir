@@ -1,0 +1,15 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/handlers/BeanMapHandler.java b/src/main/java/org/apache/commons/dbutils/handlers/BeanMapHandler.java
+index 4f5ba48..32a1e1c 100644
+--- a/src/main/java/org/apache/commons/dbutils/handlers/BeanMapHandler.java
++++ b/src/main/java/org/apache/commons/dbutils/handlers/BeanMapHandler.java
+@@ -32,8 +32,8 @@ import org.apache.commons.dbutils.RowProcessor;
+  * retrieve rows from the table like this:
+  *
+  * <pre>
+- * ResultSetHandler&lt;Map&lt;Long, Person&gt;&gt; h = new BeanMapHandler&lt;Long, Person&gt;(Person.class, &quot;id&quot;);
+- * Map&lt;Long, Person&gt; found = queryRunner.query(&quot;select id, name, age from person&quot;, h);
++ * ResultSetHandler&lt;Map&lt;Long, Person&gt;&gt; h = new BeanMapdHandler&lt;Long, Person&gt;(Person.class, &quot;id&quot;);
++ * Map&amp;ltLong, Person&gt; found = queryRunner.query(&quot;select id, name, age from person&quot;, h);
+  * Person jane = found.get(1L); // jane's id is 1
+  * String janesName = jane.getName();
+  * Integer janesAge = jane.getAge();

@@ -1,0 +1,24 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/DbUtils.java b/src/main/java/org/apache/commons/dbutils/DbUtils.java
+index 62ce3b9..f1ecfe5 100644
+--- a/src/main/java/org/apache/commons/dbutils/DbUtils.java
++++ b/src/main/java/org/apache/commons/dbutils/DbUtils.java
+@@ -180,13 +180,18 @@ public final class DbUtils {
+             Class.forName(driverClassName).newInstance();
+             return true;
+ 
++        } catch (ClassNotFoundException e) {
++            return false;
++
+         } catch (IllegalAccessException e) {
+             // Constructor is private, OK for DriverManager contract
+             return true;
+ 
+-        } catch (Exception e) {
++        } catch (InstantiationException e) {
+             return false;
+ 
++        } catch (Throwable e) {
++            return false;
+         }
+     }
+ 

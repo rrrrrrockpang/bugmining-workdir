@@ -1,0 +1,15 @@
+diff --git a/src/java/org/apache/commons/dbutils/BeanProcessor.java b/src/java/org/apache/commons/dbutils/BeanProcessor.java
+index d16ac5b..66bd58f 100644
+--- a/src/java/org/apache/commons/dbutils/BeanProcessor.java
++++ b/src/java/org/apache/commons/dbutils/BeanProcessor.java
+@@ -436,6 +436,10 @@ public class BeanProcessor {
+     protected Object processColumn(ResultSet rs, int index, Class<?> propType)
+         throws SQLException {
+         
++        if ( !propType.isPrimitive() && rs.getObject(index) == null ) {
++            return null;
++        }
++        
+         if ( !propType.isPrimitive() && rs.getObject(index) == null ) {
+             return null;
+         }
