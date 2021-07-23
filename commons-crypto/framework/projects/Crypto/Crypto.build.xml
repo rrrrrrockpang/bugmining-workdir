@@ -46,6 +46,15 @@ of the checked-out project version.
     <!-- Include existing project build file -->
     <import file="${d4j.workdir}/build.xml"/>
 
+    <!-- Fixing dependency issue -->
+    <path id="build.test.classpath">
+        <pathelement location="${maven.repo.local}/junit/junit/4.12/junit-4.12.jar"/>
+        <pathelement location="${maven.repo.local}/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+        <pathelement location="${maven.repo.local}/net/java/dev/jna/jna/4.2.2/jna-4.2.2.jar"/>
+        <!-- Manually downloaded jmh-core library that's not included in their build file -->
+        <pathelement location="${maven.repo.local}/org/jmh/jmh-core/1.32/jmh-core-1.32.jar" />
+    </path>
+
     <!-- Project properties targets -->
     <if> <isset property="ant.refid:compile.classpath" />
           <then>
