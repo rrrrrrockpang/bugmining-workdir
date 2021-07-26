@@ -103,7 +103,11 @@ sub initialize_revision {
     $self->SUPER::initialize_revision($rev_id);
 
     my $work_dir = $self->{prog_root};
-    my $result = determine_layout($self, $rev_id);
+    my $result = _ant_layout($work_dir) // _maven_layout($work_dir);
+    if (!(defined $result)) {
+        # print "Result not defined: $result";
+        $result = determine_layout($self, $rev_id);
+    }
     die "Unknown layout for revision: ${rev_id}" unless defined $result;
 
     $self->_add_to_layout_map($rev_id, $result->{src}, $result->{test});

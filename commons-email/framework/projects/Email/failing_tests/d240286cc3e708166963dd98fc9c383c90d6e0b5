@@ -1,6 +1,6 @@
 ## commons-email: d240286cc3e708166963dd98fc9c383c90d6e0b5 ##
 --- org.apache.commons.mail.HtmlEmailTest::testEmbedFileWithCID
-junit.framework.ComparisonFailure: didn't get same CID when embedding with a specified CID expected:<[Test CID]> but was:<[zyrptdvsbl]>
+junit.framework.ComparisonFailure: didn't get same CID when embedding with a specified CID expected:<[Test CID]> but was:<[thmmymbbej]>
 	at junit.framework.Assert.assertEquals(Assert.java:100)
 	at junit.framework.TestCase.assertEquals(TestCase.java:261)
 	at org.apache.commons.mail.HtmlEmailTest.testEmbedFileWithCID(HtmlEmailTest.java:638)
@@ -78,7 +78,7 @@ junit.framework.AssertionFailedError: Should have thrown an exception
 	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:280)
 	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:109)
 --- org.apache.commons.mail.ImageHtmlEmailTest::testEmbedFileWithCID
-junit.framework.ComparisonFailure: didn't get same CID when embedding with a specified CID expected:<[Test CID]> but was:<[upizbuwghn]>
+junit.framework.ComparisonFailure: didn't get same CID when embedding with a specified CID expected:<[Test CID]> but was:<[ujveqaplyp]>
 	at junit.framework.Assert.assertEquals(Assert.java:100)
 	at junit.framework.TestCase.assertEquals(TestCase.java:261)
 	at org.apache.commons.mail.HtmlEmailTest.testEmbedFileWithCID(HtmlEmailTest.java:638)
