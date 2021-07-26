@@ -1,0 +1,16 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/BeanProcessor.java b/src/main/java/org/apache/commons/dbutils/BeanProcessor.java
+index 0b0cd7f..e90ca5d 100644
+--- a/src/main/java/org/apache/commons/dbutils/BeanProcessor.java
++++ b/src/main/java/org/apache/commons/dbutils/BeanProcessor.java
+@@ -262,10 +262,7 @@ public class BeanProcessor {
+                     value = new java.sql.Time(((java.util.Date) value).getTime());
+                 } else
+                 if ("java.sql.Timestamp".equals(targetType)) {
+-                    Timestamp tsValue = (Timestamp) value;
+-                    int nanos = tsValue.getNanos();
+-                    value = new java.sql.Timestamp(tsValue.getTime());
+-                    ((Timestamp) value).setNanos(nanos);
++                    value = new java.sql.Timestamp(((java.util.Date) value).getTime());
+                 }
+             } else
+             if (value instanceof String && params[0].isEnum()) {

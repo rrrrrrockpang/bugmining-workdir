@@ -1,0 +1,27 @@
+diff --git a/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java b/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
+index c596a8c..5533f94 100644
+--- a/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
++++ b/src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java
+@@ -157,9 +157,9 @@ public class BasicRowProcessor implements RowProcessor {
+      */
+     @Override
+     public Map<String, Object> toMap(ResultSet rs) throws SQLException {
++        Map<String, Object> result = new CaseInsensitiveHashMap();
+         ResultSetMetaData rsmd = rs.getMetaData();
+         int cols = rsmd.getColumnCount();
+-        Map<String, Object> result = new CaseInsensitiveHashMap(cols);
+ 
+         for (int i = 1; i <= cols; i++) {
+             String columnName = rsmd.getColumnLabel(i);
+@@ -188,11 +188,6 @@ public class BasicRowProcessor implements RowProcessor {
+      * </pre>
+      */
+     private static class CaseInsensitiveHashMap extends LinkedHashMap<String, Object> {
+-
+-        private CaseInsensitiveHashMap(int initialCapacity) {
+-            super(initialCapacity);
+-        }
+-
+         /**
+          * The internal mapping from lowercase keys to the real keys.
+          *

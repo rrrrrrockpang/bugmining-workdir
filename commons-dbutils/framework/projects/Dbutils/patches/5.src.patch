@@ -1,0 +1,65 @@
+diff --git a/src/java/org/apache/commons/dbutils/QueryRunner.java b/src/java/org/apache/commons/dbutils/QueryRunner.java
+index e5d2457..51dfb82 100644
+--- a/src/java/org/apache/commons/dbutils/QueryRunner.java
++++ b/src/java/org/apache/commons/dbutils/QueryRunner.java
+@@ -48,14 +48,13 @@ public class QueryRunner {
+     /**
+      * The DataSource to retrieve connections from.
+      */
+-    protected final DataSource ds;
++    protected DataSource ds = null;
+ 
+     /**
+      * Constructor for QueryRunner.
+      */
+     public QueryRunner() {
+         super();
+-        ds = null;
+     }
+ 
+     /**
+@@ -67,7 +66,6 @@ public class QueryRunner {
+     public QueryRunner(boolean pmdKnownBroken) {
+         super();
+         this.pmdKnownBroken = pmdKnownBroken; 
+-        ds = null;
+     }
+     
+     /**
+@@ -79,7 +77,7 @@ public class QueryRunner {
+      */
+     public QueryRunner(DataSource ds) {
+         super();
+-        this.ds = ds;
++        setDataSource(ds);
+     }
+     
+     /**
+@@ -95,7 +93,7 @@ public class QueryRunner {
+     public QueryRunner(DataSource ds, boolean pmdKnownBroken) {
+         super();
+         this.pmdKnownBroken = pmdKnownBroken;
+-        this.ds = ds;
++        setDataSource(ds);
+     }
+     
+     /**
+@@ -544,6 +542,18 @@ public class QueryRunner {
+         throw e;
+     }
+ 
++    /**
++     * Sets the <code>DataSource</code> this runner will use to get
++     * database connections from.  This should be called after creating a
++     * runner with the default constructor if you intend to use the
++     * execute methods without passing in a <code>Connection</code>.
++     * 
++     * @param dataSource The DataSource to use.
++     */
++    public void setDataSource(DataSource dataSource) {
++        this.ds = dataSource;
++    }
++
+     /**
+      * Execute an SQL INSERT, UPDATE, or DELETE query without replacement
+      * parameters.
