@@ -19,3 +19,5 @@ flagging for manual inspection.
 2. bug 42, 48 appears to just change comments
 3. Not sure why bug 43, 48 is not here
 4. All other bugs are consistent
+
+5. can't run get-metadata.pl on bug 31, 32, 33
