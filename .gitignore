@@ -2,4 +2,4 @@ check_failing_tests.*
 venv
 .DS_Store
 
-/**/project_repos/
+/**/project_repos/*.git
