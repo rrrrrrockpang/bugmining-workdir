@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java b/src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java
+index 1f33c1e8..4f76875c 100644
+--- a/src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java
+@@ -27,7 +27,7 @@ import java.util.ArrayList;
+  * Perform credit card validations.
+  *
+  * <p>
+- * By default, AMEX + VISA + MASTERCARD + DISCOVER card types are allowed.  You can specify which
++ * By default, all supported card types are allowed.  You can specify which
+  * cards should pass validation by configuring the validation options. For
+  * example,
+  * </p>

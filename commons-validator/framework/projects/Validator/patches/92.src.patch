@@ -1,0 +1,32 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+index 1457a37e..28a9f3bd 100644
+--- a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+@@ -156,7 +156,8 @@ public class UrlValidator implements Serializable {
+ 
+     private static final int PARSE_AUTHORITY_HOST_IP = 2; // excludes userinfo, if present
+ 
+-    private static final int PARSE_AUTHORITY_PORT = 3; // excludes leading colon
++    // Not needed, because it is validated by AUTHORITY_REGEX
++//    private static final int PARSE_AUTHORITY_PORT = 3;
+ 
+     /**
+      * Should always be empty. The code currently allows spaces.
+@@ -412,17 +413,6 @@ public class UrlValidator implements Serializable {
+                     return false;
+                 }
+             }
+-            String port = authorityMatcher.group(PARSE_AUTHORITY_PORT);
+-            if (port != null && port.length() > 0) {
+-            	try {
+-            		long iPort = Integer.parseInt(port);
+-            		if (iPort < 0 || iPort > 0xFFFF) {
+-            			return false;
+-            		}
+-            	} catch (NumberFormatException nfe) {
+-            		return false; // this can happen for big numbers
+-            	}
+-            }
+         }
+ 
+         String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);

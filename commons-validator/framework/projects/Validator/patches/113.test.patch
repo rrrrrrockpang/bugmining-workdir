@@ -1,0 +1,12 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+index 599dbd7b..b34a030b 100644
+--- a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+@@ -511,7 +511,6 @@ public class UrlValidatorTest extends TestCase {
+       assertTrue(validator.isValid("https://example.com/some_path/path/"));
+       assertTrue(validator.isValid("https://example.com//somepath/path/"));
+       assertTrue(validator.isValid("https://example.com//some_path/path/"));
+-      assertTrue(validator.isValid("http://example.com//_test")); // VALIDATOR-429
+   }
+ 
+   //-------------------- Test data for creating a composite URL

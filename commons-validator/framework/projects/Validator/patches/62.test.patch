@@ -1,0 +1,13 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+index 16b36d00..67f386d6 100644
+--- a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+@@ -153,8 +153,6 @@ public class UrlValidatorTest extends TestCase {
+        assertTrue("президент.рф should validate", validator.isValid("http://президент.рф"));
+        assertTrue("www.b\u00fccher.ch should validate", validator.isValid("http://www.b\u00fccher.ch"));
+        assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("http://www.\uFFFD.ch"));
+-       assertTrue("www.b\u00fccher.ch should validate", validator.isValid("ftp://www.b\u00fccher.ch"));
+-       assertFalse("www.\uFFFD.ch FFFD should fail", validator.isValid("ftp://www.\uFFFD.ch"));
+    }
+ 
+     public void testValidator248() {

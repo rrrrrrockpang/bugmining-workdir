@@ -1,0 +1,36 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/DomainValidator.java b/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
+index 74fbee96..6cf8968d 100644
+--- a/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
+@@ -206,27 +206,21 @@ public class DomainValidator implements Serializable {
+ 
+         // apply the instance overrides
+         for(Item item: items) {
+-            String [] copy = new String[item.values.length];
+-            // Comparisons are always done with lower-case entries
+-            for (int i = 0; i < item.values.length; i++) {
+-                copy[i] = item.values[i].toLowerCase(Locale.ENGLISH);
+-            }
+-            Arrays.sort(copy);
+             switch(item.type) {
+             case COUNTRY_CODE_MINUS: {
+-                ccMinus = copy;
++                ccMinus = item.values.clone();
+                 break;
+             }
+             case COUNTRY_CODE_PLUS: {
+-                ccPlus = copy;
++                ccPlus = item.values.clone();
+                 break;
+             }
+             case GENERIC_MINUS: {
+-                genMinus = copy;
++                genMinus = item.values.clone();
+                 break;
+             }
+             case GENERIC_PLUS: {
+-                genPlus = copy;
++                genPlus = item.values.clone();
+                 break;
+             }
+             default:

@@ -1,0 +1,12 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
+index 24d2b5ca..d228e265 100644
+--- a/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
+@@ -367,7 +367,6 @@ public class EmailValidatorTest extends TestCase {
+ 
+         assertTrue(validator.isValid("\"..\"@apache.org"));
+ 
+-        assertFalse(validator.isValid("john56789.john56789.john56789.john56789.john56789.john56789.john5@example.com"));
+     }
+ 
+     /**

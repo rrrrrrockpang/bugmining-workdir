@@ -1,0 +1,14 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+index 29baa471..f28be2dc 100644
+--- a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+@@ -138,8 +138,7 @@ public class UrlValidator implements Serializable {
+     // TODO does not allow for optional userinfo. 
+     // Validation of character set is done by isValidAuthority
+     private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
+-    // Allow for IPv4 mapped addresses: ::FFF:123.123.123.123
+-    private static final String IPV6_REGEX = "::FFFF:(?:\\d{1,3}\\.){3}\\d{1,3}|[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
++    private static final String IPV6_REGEX = "[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
+ 
+     // userinfo    = *( unreserved / pct-encoded / sub-delims / ":" )
+     // unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"

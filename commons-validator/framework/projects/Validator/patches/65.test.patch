@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
+index d228e265..8339b77d 100644
+--- a/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/EmailValidatorTest.java
+@@ -468,6 +468,6 @@ public class EmailValidatorTest extends TestCase {
+         assertTrue(validator.isValid("abc_@abc.com"));
+         assertTrue(validator.isValid("abc-def@abc.com"));
+         assertTrue(validator.isValid("abc_def@abc.com"));
+-        assertFalse(validator.isValid("abc@abc_def.com"));
++        assertTrue(validator.isValid("abc@abc_def.com"));
+     }
+ }
+diff --git a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+index 19882b32..1d32230f 100644
+--- a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+@@ -441,6 +441,7 @@ public class UrlValidatorTest extends TestCase {
+                                new ResultPair("", true)};
+ 
+    ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
++		   						  new ResultPair("my_domain.s3.amazonaws.com", true),
+                                   new ResultPair("go.com", true),
+                                   new ResultPair("go.au", true),
+                                   new ResultPair("0.0.0.0", true),

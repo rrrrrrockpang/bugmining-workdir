@@ -1,0 +1,16 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/EmailValidator.java b/src/main/java/org/apache/commons/validator/routines/EmailValidator.java
+index ec864d53..2ddef409 100644
+--- a/src/main/java/org/apache/commons/validator/routines/EmailValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/EmailValidator.java
+@@ -159,11 +159,6 @@ public class EmailValidator implements Serializable {
+      * @return true if the user name is valid.
+      */
+     protected boolean isValidUser(String user) {
+-        
+-        if (user == null || user.length() > 64) {
+-            return false;
+-        }
+-        
+         return USER_PATTERN.matcher(user).matches();
+     }
+ 

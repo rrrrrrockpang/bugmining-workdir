@@ -1,0 +1,18 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/checkdigit/SedolCheckDigit.java b/src/main/java/org/apache/commons/validator/routines/checkdigit/SedolCheckDigit.java
+index 544e9229..3fb4c79a 100644
+--- a/src/main/java/org/apache/commons/validator/routines/checkdigit/SedolCheckDigit.java
++++ b/src/main/java/org/apache/commons/validator/routines/checkdigit/SedolCheckDigit.java
+@@ -97,11 +97,9 @@ public final class SedolCheckDigit extends ModulusCheckDigit {
+     protected int toInt(char character, int leftPos, int rightPos)
+             throws CheckDigitException {
+         int charValue = Character.getNumericValue(character);
+-        // the check digit is only allowed to reach 9
+-        final int charMax = rightPos == 1 ? 9 : 35;
+-        if (charValue < 0 || charValue > charMax) {
++        if (charValue < 0 || charValue > 35) {
+             throw new CheckDigitException("Invalid Character[" +
+-                    leftPos + "," + rightPos + "] = '" + charValue + "' out of range 0 to " + charMax);
++                    leftPos + "] = '" + charValue + "'");
+         }
+         return charValue;
+     }

@@ -1,0 +1,14 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/checkdigit/package.html b/src/main/java/org/apache/commons/validator/routines/checkdigit/package.html
+index ffaf91bf..d715b41d 100644
+--- a/src/main/java/org/apache/commons/validator/routines/checkdigit/package.html
++++ b/src/main/java/org/apache/commons/validator/routines/checkdigit/package.html
+@@ -21,9 +21,6 @@
+ <body bgcolor="white">
+ 
+     <p>This package contains <i>Check Digit</i> validation/calculation routines.</p>
+-    <p>Note that these <b>do not validate</b> the input for length or syntax.<br>
+-       Such validation is performed by the org.apache.commons.validator.routines.XYZValidator classes.
+-    </p>
+ 
+ </body>
+ </html>

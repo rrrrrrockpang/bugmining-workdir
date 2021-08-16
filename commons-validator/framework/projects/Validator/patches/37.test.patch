@@ -1,0 +1,13 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/DomainValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/DomainValidatorTest.java
+index 252a0c2a..32733112 100644
+--- a/src/test/java/org/apache/commons/validator/routines/DomainValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/DomainValidatorTest.java
+@@ -143,7 +143,7 @@ public class DomainValidatorTest extends TestCase {
+         System.out.println("Entries missing from TLD List\n");
+         String line;
+         while((line = br.readLine()) != null) {
+-            if (!line.startsWith("#") && !line.startsWith("XN--")) {
++            if (!line.startsWith("#")) {
+                 if (!dv.isValidTld(line)) {
+                     System.out.println("        \""+line.toLowerCase(Locale.ENGLISH)+"\",");
+                 }

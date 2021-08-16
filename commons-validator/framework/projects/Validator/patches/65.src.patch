@@ -1,0 +1,26 @@
+diff --git a/src/main/java/org/apache/commons/validator/routines/DomainValidator.java b/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
+index ef1691c4..fac45f5a 100644
+--- a/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/DomainValidator.java
+@@ -69,7 +69,7 @@ public class DomainValidator implements Serializable {
+ 
+     // RFC2396: domainlabel   = alphanum | alphanum *( alphanum | "-" ) alphanum
+     // Max 63 characters
+-    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-]{0,61}\\p{Alnum})?";
++    private static final String DOMAIN_LABEL_REGEX = "\\p{Alnum}(?>[\\p{Alnum}-_]{0,61}\\p{Alnum})?";
+ 
+     // RFC2396 toplabel = alpha | alpha *( alphanum | "-" ) alphanum
+     // Max 63 characters
+diff --git a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+index 62901af8..3e7f7f63 100644
+--- a/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
++++ b/src/main/java/org/apache/commons/validator/routines/UrlValidator.java
+@@ -133,7 +133,7 @@ public class UrlValidator implements Serializable {
+     // Drop numeric, and  "+-." for now
+     // TODO does not allow for optional userinfo. 
+     // Validation of character set is done by isValidAuthority
+-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\.";
++    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\._";
+ 
+     private static final String AUTHORITY_REGEX =
+             "^([" + AUTHORITY_CHARS_REGEX + "]*)(:\\d*)?(.*)?";

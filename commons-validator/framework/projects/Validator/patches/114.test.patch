@@ -1,0 +1,16 @@
+diff --git a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+index c67926d2..130c902c 100644
+--- a/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
++++ b/src/test/java/org/apache/commons/validator/routines/UrlValidatorTest.java
+@@ -339,11 +339,6 @@ public class UrlValidatorTest extends TestCase {
+         assertFalse(fileNAK, urlValidator.isValid(fileNAK));
+     }
+ 
+-    public void testValidator452(){
+-      UrlValidator urlValidator = new UrlValidator();
+-      assertTrue(urlValidator.isValid("http://[::FFFF:129.144.52.38]:80/index.html"));
+-    }
+-
+     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
+       boolean carry = true;  //add 1 to lowest order part.
+       boolean maxIndex = true;
