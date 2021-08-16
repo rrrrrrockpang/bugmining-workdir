@@ -80,8 +80,7 @@ of the checked-out project version.
     </path>
 
     <!-- Solve the encoding issue -->
-    <!-- <target name="compile.tests" depends="compile"
-    description="Compile unit test cases">
+    <target name="compile.tests" depends="compile" description="Compile unit test cases">
       <javac encoding="iso-8859-1" srcdir="${test.home}/java"
             destdir="${build.home}/tests"
               debug="${compile.debug}"
@@ -89,11 +88,10 @@ of the checked-out project version.
             optimize="${compile.optimize}">
         <classpath refid="test.classpath"/>
       </javac>
-      <echo message="message: ${test.dir}" />
       <copy    todir="${build.home}/tests" filtering="on">
         <fileset dir="${test.home}/resources"/>
       </copy>
-    </target> -->
+    </target>
 
     <if><isset property="ant.refid:build.test.classpath"/>
             <else>
@@ -130,8 +128,6 @@ of the checked-out project version.
     <condition property="test.classes.dir" value="${maven.build.testOutputDir}" else="${build.tests}">
         <isset property="maven.build.testOutputDir" />
     </condition>
-
-    <echo message="eada: ${test.dir}, ${classes.dir}, ${test.classpath}" />
 
 
     <property name="build.home" value="${classes.dir}/.." />

@@ -1,6 +1,5 @@
 project_id,version_id,num_fail_t2v2,num_fail_classes_t2v1,num_fail_methods_t2v1,pass_iso_t2v2,fail_iso_t2v1
 Validator,31,0,0,0,-,-
-Validator,32,0,0,1,1,1
 Validator,33,0,0,0,-,-
 Validator,34,0,0,0,-,-
 Validator,35,0,0,0,-,-
@@ -52,3 +51,4 @@ Validator,110,0,0,2,2,2
 Validator,111,0,0,0,-,-
 Validator,114,1,-,-,-,-
 Validator,116,1,-,-,-,-
+Validator,32,0,0,1,1,1
