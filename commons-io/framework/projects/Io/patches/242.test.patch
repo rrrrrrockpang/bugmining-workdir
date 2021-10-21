@@ -1,0 +1,323 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsCleanDirectoryTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsCleanDirectoryTestCase.java
+index 6abee2d7..2586da35 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsCleanDirectoryTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsCleanDirectoryTestCase.java
+@@ -85,8 +85,11 @@ public class FileUtilsCleanDirectoryTestCase {
+         assumeTrue(chmod(top, 0, false));
+ 
+         try {
+-            // cleanDirectory calls forceDelete
+             FileUtils.cleanDirectory(top);
++            fail("expected IOException");
++        } catch (final IOException e) {
++            assertEquals("Failed to list contents of " +
++                    top.getAbsolutePath(), e.getMessage());
+         } finally {
+             chmod(top, 755, false);
+         }
+@@ -101,16 +104,19 @@ public class FileUtilsCleanDirectoryTestCase {
+         assumeTrue(chmod(top, 500, false));
+ 
+         try {
+-            // cleanDirectory calls forceDelete
+             FileUtils.cleanDirectory(top);
++            fail("expected IOException");
++        } catch (final IOException e) {
++            assertEquals("Unable to delete file: " +
++                    file.getAbsolutePath(), e.getMessage());
+         } finally {
+             chmod(top, 755, false);
+         }
+     }
+ 
+-    /** Only runs on Linux. */
+     private boolean chmod(final File file, final int mode, final boolean recurse)
+             throws InterruptedException {
++        // TODO: Refactor this to FileSystemUtils
+         final List<String> args = new ArrayList<>();
+         args.add("chmod");
+ 
+diff --git a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteDirectoryTest.java b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteDirectoryTest.java
+index f126f0ad..8caf5ec6 100644
+--- a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteDirectoryTest.java
++++ b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteDirectoryTest.java
+@@ -20,7 +20,6 @@ package org.apache.commons.io.file;
+ import static org.apache.commons.io.file.CounterAssertions.assertCounts;
+ 
+ import java.io.IOException;
+-import java.nio.file.FileVisitOption;
+ import java.nio.file.Files;
+ import java.nio.file.Path;
+ import java.nio.file.Paths;
+@@ -60,27 +59,6 @@ public class PathUtilsDeleteDirectoryTest {
+         Files.deleteIfExists(tempDir);
+     }
+ 
+-    /**
+-     * Tests a directory with one file of size 0.
+-     */
+-    private void testDeleteDirectory1FileSize0(final DeleteOption... options) throws IOException {
+-        // TODO Setup the test to use FileVisitOption.
+-        PathUtils.copyDirectory(Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-0"), tempDir);
+-        assertCounts(1, 1, 0, PathUtils.deleteDirectory(tempDir, options));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize0NoOptions() throws IOException {
+-        testDeleteDirectory1FileSize0(PathUtils.EMPTY_DELETE_OPTION_ARRAY);
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize0OverrideReadOnly() throws IOException {
+-        testDeleteDirectory1FileSize0(StandardDeleteOption.OVERRIDE_READ_ONLY);
+-    }
+-
+     /**
+      * Tests a directory with one file of size 1.
+      */
+diff --git a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteFileTest.java b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteFileTest.java
+index fa2375d6..32710f9c 100644
+--- a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteFileTest.java
++++ b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteFileTest.java
+@@ -18,15 +18,14 @@
+ package org.apache.commons.io.file;
+ 
+ import static org.apache.commons.io.file.CounterAssertions.assertCounts;
+-import static org.junit.jupiter.api.Assertions.assertFalse;
+-import static org.junit.jupiter.api.Assertions.assertThrows;
++
+ import java.io.IOException;
+ import java.nio.file.Files;
+-import java.nio.file.NoSuchFileException;
++import java.nio.file.NotDirectoryException;
+ import java.nio.file.Path;
+ import java.nio.file.Paths;
++
+ import org.apache.commons.io.file.Counters.PathCounters;
+-import org.apache.commons.lang3.SystemUtils;
+ import org.junit.jupiter.api.AfterEach;
+ import org.junit.jupiter.api.Assertions;
+ import org.junit.jupiter.api.BeforeEach;
+@@ -97,48 +96,7 @@ public class PathUtilsDeleteFileTest {
+      */
+     @Test
+     public void testDeleteFileEmptyDirectory() throws IOException {
+-        Assertions.assertThrows(NoSuchFileException.class, () -> testDeleteFileEmpty(PathUtils.deleteFile(tempDir)));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+-    /**
+-     * Tests a directory with one file of size 1.
+-     */
+-    @Test
+-    public void testDeleteReadOnlyFileDirectory1FileSize1() throws IOException {
+-        final String fileName = "file-size-1.bin";
+-        PathUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-1/" + fileName), tempDir);
+-        final Path resolved = tempDir.resolve(fileName);
+-        PathUtils.setReadOnly(resolved, true);
+-        if (SystemUtils.IS_OS_WINDOWS) {
+-            // Fails on Windows's Ubuntu subsystem.
+-            assertFalse(Files.isWritable(resolved));
+-            assertThrows(IOException.class, () -> PathUtils.deleteFile(resolved));
+-        }
+-        assertCounts(0, 1, 1, PathUtils.deleteFile(resolved, StandardDeleteOption.OVERRIDE_READ_ONLY));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+-    /**
+-     * Tests a directory with one file of size 1.
+-     */
+-    @Test
+-    public void testSetReadOnlyFileDirectory1FileSize1() throws IOException {
+-        final String fileName = "file-size-1.bin";
+-        PathUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-1/" + fileName), tempDir);
+-        final Path resolved = tempDir.resolve(fileName);
+-        PathUtils.setReadOnly(resolved, true);
+-        if (SystemUtils.IS_OS_WINDOWS) {
+-            // Fails on Windows's Ubuntu subsystem.
+-            assertFalse(Files.isWritable(resolved));
+-            assertThrows(IOException.class, () -> PathUtils.deleteFile(resolved));
+-        }
+-        PathUtils.setReadOnly(resolved, false);
+-        PathUtils.deleteFile(resolved);
++        Assertions.assertThrows(NotDirectoryException.class, () -> testDeleteFileEmpty(PathUtils.deleteFile(tempDir)));
+         // This will throw if not empty.
+         Files.deleteIfExists(tempDir);
+     }
+diff --git a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteTest.java b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteTest.java
+index b509a492..ef56b727 100644
+--- a/src/test/java/org/apache/commons/io/file/PathUtilsDeleteTest.java
++++ b/src/test/java/org/apache/commons/io/file/PathUtilsDeleteTest.java
+@@ -19,10 +19,8 @@ package org.apache.commons.io.file;
+ 
+ import static org.apache.commons.io.file.CounterAssertions.assertCounts;
+ 
+-import java.awt.geom.PathIterator;
+ import java.io.IOException;
+ import java.nio.file.Files;
+-import java.nio.file.LinkOption;
+ import java.nio.file.Path;
+ import java.nio.file.Paths;
+ 
+@@ -52,101 +50,34 @@ public class PathUtilsDeleteTest {
+         tempDir = Files.createTempDirectory(getClass().getCanonicalName());
+     }
+ 
++    /**
++     * Tests a directory with one file of size 0.
++     */
+     @Test
+     public void testDeleteDirectory1FileSize0() throws IOException {
+         final String fileName = "file-size-0.bin";
+         FileUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-0/" + fileName).toFile(),
+-            tempDir.toFile());
++                Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-0/" + fileName).toFile(),
++                tempDir.toFile());
+         assertCounts(0, 1, 0, PathUtils.delete(tempDir.resolve(fileName)));
+         // This will throw if not empty.
+         Files.deleteIfExists(tempDir);
+     }
+ 
+-    private void testDeleteDirectory1FileSize0(final DeleteOption... options) throws IOException {
+-        final String fileName = "file-size-0.bin";
+-        FileUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-0/" + fileName).toFile(),
+-            tempDir.toFile());
+-        assertCounts(0, 1, 0, PathUtils.delete(tempDir.resolve(fileName), options));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+     /**
+-     * Tests a directory with one file of size 0.
+-     */
+-    @Test
+-    public void testDeleteDirectory1FileSize0ForceOff() throws IOException {
+-        testDeleteDirectory1FileSize0();
+-    }
+-
+-    /**
+-     * Tests a directory with one file of size 0.
++     * Tests a directory with one file of size 1.
+      */
+-    @Test
+-    public void testDeleteDirectory1FileSize0ForceOn() throws IOException {
+-        testDeleteDirectory1FileSize0();
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize0NoOption() throws IOException {
+-        testDeleteDirectory1FileSize0(PathUtils.EMPTY_DELETE_OPTION_ARRAY);
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize0OverrideReadonly() throws IOException {
+-        testDeleteDirectory1FileSize0(StandardDeleteOption.OVERRIDE_READ_ONLY);
+-    }
+-
+     @Test
+     public void testDeleteDirectory1FileSize1() throws IOException {
+         final String fileName = "file-size-1.bin";
+         FileUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-1/" + fileName).toFile(),
+-            tempDir.toFile());
++                Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-1/" + fileName).toFile(),
++                tempDir.toFile());
+         assertCounts(0, 1, 1, PathUtils.delete(tempDir.resolve(fileName)));
+         // This will throw if not empty.
+         Files.deleteIfExists(tempDir);
+     }
+ 
+-    private void testDeleteDirectory1FileSize1(final DeleteOption... options) throws IOException {
+-        // TODO Setup the test to use LinkOption.
+-        final String fileName = "file-size-1.bin";
+-        FileUtils.copyFileToDirectory(
+-            Paths.get("src/test/resources/org/apache/commons/io/dirs-1-file-size-1/" + fileName).toFile(),
+-            tempDir.toFile());
+-        assertCounts(0, 1, 1, PathUtils.delete(tempDir.resolve(fileName), options));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+-    /**
+-     * Tests a directory with one file of size 1.
+-     */
+-    @Test
+-    public void testDeleteDirectory1FileSize1ForceOff() throws IOException {
+-        testDeleteDirectory1FileSize1();
+-    }
+-
+-    /**
+-     * Tests a directory with one file of size 1.
+-     */
+-    @Test
+-    public void testDeleteDirectory1FileSize1ForceOn() throws IOException {
+-        testDeleteDirectory1FileSize1();
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize1NoOption() throws IOException {
+-        testDeleteDirectory1FileSize1(PathUtils.EMPTY_DELETE_OPTION_ARRAY);
+-    }
+-
+-    @Test
+-    public void testDeleteDirectory1FileSize1OverrideReadOnly() throws IOException {
+-        testDeleteDirectory1FileSize1(StandardDeleteOption.OVERRIDE_READ_ONLY);
+-    }
+-
+     /**
+      * Tests an empty folder.
+      */
+@@ -157,45 +88,10 @@ public class PathUtilsDeleteTest {
+         Files.deleteIfExists(tempDir);
+     }
+ 
+-    /**
+-     * Tests an empty folder.
+-     */
+-    private void testDeleteEmptyDirectory(final DeleteOption... options) throws IOException {
+-        testDeleteEmptyDirectory(PathUtils.delete(tempDir, options));
+-        // This will throw if not empty.
+-        Files.deleteIfExists(tempDir);
+-    }
+-
+     private void testDeleteEmptyDirectory(final PathCounters pathCounts) {
+         assertCounts(1, 0, 0, pathCounts);
+     }
+ 
+-    /**
+-     * Tests an empty folder.
+-     */
+-    @Test
+-    public void testDeleteEmptyDirectoryForceOff() throws IOException {
+-        testDeleteEmptyDirectory();
+-    }
+-
+-    /**
+-     * Tests an empty folder.
+-     */
+-    @Test
+-    public void testDeleteEmptyDirectoryForceOn() throws IOException {
+-        testDeleteEmptyDirectory();
+-    }
+-
+-    @Test
+-    public void testDeleteEmptyDirectoryNoOption() throws IOException {
+-        testDeleteEmptyDirectory(PathUtils.EMPTY_DELETE_OPTION_ARRAY);
+-    }
+-
+-    @Test
+-    public void testDeleteEmptyDirectoryOverrideReadOnly() throws IOException {
+-        testDeleteEmptyDirectory(StandardDeleteOption.OVERRIDE_READ_ONLY);
+-    }
+-
+     /**
+      * Tests a file that does not exist.
+      */

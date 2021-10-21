@@ -1,0 +1,23 @@
+diff --git a/src/java/org/apache/commons/io/FileUtils.java b/src/java/org/apache/commons/io/FileUtils.java
+index bc7d9fb6..2d96b446 100644
+--- a/src/java/org/apache/commons/io/FileUtils.java
++++ b/src/java/org/apache/commons/io/FileUtils.java
+@@ -133,9 +133,6 @@ public class FileUtils {
+      * Implements the same behaviour as the "touch" utility on Unix. It creates
+      * a new file with size 0 or, if the file exists already, it is opened and
+      * closed without modifying it, but updating the file date and time.
+-     * <p>
+-     * NOTE: As from v1.3, this method throws an IOException if the last
+-     * modified date of the file cannot be set
+      *
+      * @param file  the File to touch
+      * @throws IOException If an I/O problem occurs
+@@ -146,7 +143,7 @@ public class FileUtils {
+             IOUtils.closeQuietly(out);
+         }
+         boolean success = file.setLastModified(System.currentTimeMillis());
+-        if (!success) {
++        if(!success) {
+             throw new IOException("Unable to set the last modification time for " + file);
+         }
+     }

@@ -1,6 +1,6 @@
 compile target: compile
-compile test target: compile.tests
-source dir: ${source.home}
-test dir: ${test.home}/java
-src output dir: ${build.home}/classes
-test output dir: ${build.home}/tests
+compile test target: compile-tests
+source dir: ${maven.build.srcDir.0}
+test dir: ${maven.build.testDir.0}
+src output dir: ${maven.build.outputDir}
+test output dir: ${maven.build.testOutputDir}

@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/DirectoryWalker.java b/src/main/java/org/apache/commons/io/DirectoryWalker.java
+index 1a8725bc..98d1bfb1 100644
+--- a/src/main/java/org/apache/commons/io/DirectoryWalker.java
++++ b/src/main/java/org/apache/commons/io/DirectoryWalker.java
+@@ -203,7 +203,7 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
+  *        cancelled = true;
+  *    }
+  *
+- *    protected boolean handleIsCancelled(File file, int depth, Collection results) {
++ *    private void handleIsCancelled(File file, int depth, Collection results) {
+  *        return cancelled;
+  *    }
+  *

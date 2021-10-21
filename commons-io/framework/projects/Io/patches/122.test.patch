@@ -1,0 +1,428 @@
+diff --git a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+index 6fd16c07..b9b94dd4 100644
+--- a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
++++ b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+@@ -31,6 +31,7 @@ import java.util.HashMap;
+ import java.util.Map;
+ 
+ import org.apache.commons.io.IOUtils;
++import org.junit.Ignore;
+ import org.junit.Test;
+ 
+ /**
+@@ -95,11 +96,13 @@ public class XmlStreamReaderTest {
+     }
+ 
+     @Test
++    @Ignore
+     public void testRawNoBomUtf32BE() throws Exception {
+         _testRawNoBomValid("UTF-32BE");
+     }
+ 
+     @Test
++    @Ignore
+     public void testRawNoBomUtf32LE() throws Exception {
+         _testRawNoBomValid("UTF-32LE");
+     }
+@@ -118,7 +121,7 @@ public class XmlStreamReaderTest {
+         InputStream is = getXmlStream(encoding + "-bom", XML3, encoding,
+                 encoding);
+         XmlStreamReader xmlReader = new XmlStreamReader(is, false);
+-        if (!encoding.equals("UTF-16") && !encoding.equals("UTF-32")) {
++        if (!encoding.equals("UTF-16")) {
+             assertEquals(xmlReader.getEncoding(), encoding);
+         } else {
+             assertEquals(xmlReader.getEncoding()
+@@ -132,7 +135,7 @@ public class XmlStreamReaderTest {
+         try {
+             XmlStreamReader xmlReader = new XmlStreamReader(is, false);
+             String foundEnc = xmlReader.getEncoding();
+-            fail("Expected IOException for BOM " + bomEnc + ", streamEnc "
++            fail("It should have failed for BOM " + bomEnc + ", streamEnc "
+                     + streamEnc + " and prologEnc " + prologEnc + ": found "
+                     + foundEnc);
+         } catch (IOException ex) {
+@@ -151,9 +154,6 @@ public class XmlStreamReaderTest {
+         _testRawBomInvalid("UTF-16BE-bom", "UTF-16BE", "UTF-16LE");
+         _testRawBomInvalid("UTF-16LE-bom", "UTF-16LE", "UTF-16BE");
+         _testRawBomInvalid("UTF-16LE-bom", "UTF-16LE", "UTF-8");
+-        _testRawBomInvalid("UTF-32BE-bom", "UTF-32BE", "UTF-32LE");
+-        _testRawBomInvalid("UTF-32LE-bom", "UTF-32LE", "UTF-32BE");
+-        _testRawBomInvalid("UTF-32LE-bom", "UTF-32LE", "UTF-8");
+     }
+ 
+     @Test
+@@ -168,105 +168,114 @@ public class XmlStreamReaderTest {
+     }
+ 
+     @Test
++    @Ignore
+     public void testRawBomUtf32() throws Exception {
+         _testRawBomValid("UTF-32BE");
+         _testRawBomValid("UTF-32LE");
+         _testRawBomValid("UTF-32");
+-
+-        _testRawBomInvalid("UTF-32BE-bom", "UTF-32BE", "UTF-32LE");
+-        _testRawBomInvalid("UTF-32LE-bom", "UTF-32LE", "UTF-32BE");
+-        _testRawBomInvalid("UTF-32LE-bom", "UTF-32LE", "UTF-8");
+-}
++    }
+ 
+ 
+     @Test
+     public void testHttp() throws Exception {
+         // niallp 2010-10-06 - remove following 2 tests - I reinstated
+-        // checks for non-UTF-16 encodings (18 tests) and these failed
+-        // _testHttpValid("application/xml", "no-bom", "US-ASCII", null);
+-        // _testHttpValid("application/xml", "UTF-8-bom", "US-ASCII", null);
++        // checks for non-UTF-16 encodings (18 tests) and these failed 
++        //_testHttpValid("application/xml", "no-bom", "US-ASCII", null);
++        //_testHttpValid("application/xml", "UTF-8-bom", "US-ASCII", null);
+         _testHttpValid("application/xml", "UTF-8-bom", "UTF-8", null);
+         _testHttpValid("application/xml", "UTF-8-bom", "UTF-8", "UTF-8");
+-        _testHttpValid("application/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", null);
+-        _testHttpValid("application/xml;charset=\"UTF-8\"", "UTF-8-bom", "UTF-8", null);
+-        _testHttpValid("application/xml;charset='UTF-8'", "UTF-8-bom", "UTF-8", null);
+-        _testHttpValid("application/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", "UTF-8");
+-        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", null);
+-        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16");
+-        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE");
+-
+-        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", null);
+-        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16");
+-        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE");
+-        
+-        _testHttpInvalid("application/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", null);
+-        _testHttpInvalid("application/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32");
+-        _testHttpInvalid("application/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32BE");
+-
++        _testHttpValid("application/xml;charset=UTF-8", "UTF-8-bom", "UTF-8",
++                null);
++        _testHttpValid("application/xml;charset=\"UTF-8\"", "UTF-8-bom",
++                "UTF-8", null);
++        _testHttpValid("application/xml;charset='UTF-8'", "UTF-8-bom", "UTF-8",
++                null);
++        _testHttpValid("application/xml;charset=UTF-8", "UTF-8-bom", "UTF-8",
++                "UTF-8");
++        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom",
++                "UTF-16BE", null);
++        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16");
++        _testHttpValid("application/xml;charset=UTF-16", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16BE");
++
++        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", null);
++        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16");
++        _testHttpInvalid("application/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16BE");
+         _testHttpInvalid("application/xml", "UTF-8-bom", "US-ASCII", "US-ASCII");
+-        _testHttpInvalid("application/xml;charset=UTF-16", "UTF-16LE", "UTF-8", "UTF-8");
+-        _testHttpInvalid("application/xml;charset=UTF-16", "no-bom", "UTF-16BE", "UTF-16BE");
+-        _testHttpInvalid("application/xml;charset=UTF-32", "UTF-32LE", "UTF-8", "UTF-8");
+-        _testHttpInvalid("application/xml;charset=UTF-32", "no-bom", "UTF-32BE", "UTF-32BE");
++        _testHttpInvalid("application/xml;charset=UTF-16", "UTF-16LE", "UTF-8",
++                "UTF-8");
++        _testHttpInvalid("application/xml;charset=UTF-16", "no-bom",
++                "UTF-16BE", "UTF-16BE");
+ 
+         _testHttpValid("text/xml", "no-bom", "US-ASCII", null);
+         _testHttpValid("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", "UTF-8");
+         _testHttpValid("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", null);
+-        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", null);
+-        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16");
+-        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE");
+-        _testHttpValid("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", null);
+-        _testHttpValid("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", "UTF-32");
+-        _testHttpValid("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", "UTF-32BE");
++        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                null);
++        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                "UTF-16");
++        _testHttpValid("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                "UTF-16BE");
+         _testHttpValid("text/xml", "UTF-8-bom", "US-ASCII", null);
+ 
+-        _testAlternateDefaultEncoding("application/xml", "UTF-8-bom", "UTF-8", null, null);
+-        _testAlternateDefaultEncoding("application/xml", "no-bom", "US-ASCII", null, "US-ASCII");
+-        _testAlternateDefaultEncoding("application/xml", "UTF-8-bom", "UTF-8", null, "UTF-8");
+-        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null, null);
+-        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null, "US-ASCII");
+-        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null, "UTF-8");
+-
+-        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", null);
+-        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16");
+-        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE");
+-        _testHttpInvalid("text/xml;charset=UTF-16", "no-bom", "UTF-16BE", "UTF-16BE");
++        _testAlternateDefaultEncoding("application/xml", "UTF-8-bom", "UTF-8",
++                null, null);
++        _testAlternateDefaultEncoding("application/xml", "no-bom", "US-ASCII",
++                null, "US-ASCII");
++        _testAlternateDefaultEncoding("application/xml", "UTF-8-bom", "UTF-8",
++                null, "UTF-8");
++        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null,
++                null);
++        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null,
++                "US-ASCII");
++        _testAlternateDefaultEncoding("text/xml", "no-bom", "US-ASCII", null,
++                "UTF-8");
++
++        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", null);
++        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16");
++        _testHttpInvalid("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16BE");
++        _testHttpInvalid("text/xml;charset=UTF-16", "no-bom", "UTF-16BE",
++                "UTF-16BE");
+         _testHttpInvalid("text/xml;charset=UTF-16", "no-bom", "UTF-16BE", null);
+ 
+-        _testHttpInvalid("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", null);
+-        _testHttpInvalid("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32");
+-        _testHttpInvalid("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32BE");
+-        _testHttpInvalid("text/xml;charset=UTF-32", "no-bom", "UTF-32BE", "UTF-32BE");
+-        _testHttpInvalid("text/xml;charset=UTF-32", "no-bom", "UTF-32BE", null);
+-
+         _testHttpLenient("text/xml", "no-bom", "US-ASCII", null, "US-ASCII");
+-        _testHttpLenient("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", "UTF-8", "UTF-8");
+-        _testHttpLenient("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", null, "UTF-8");
+-        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", null, "UTF-16BE");
+-        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16", "UTF-16");
+-        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE", "UTF-16BE");
+-        _testHttpLenient("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", null, "UTF-32BE");
+-        _testHttpLenient("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", "UTF-32", "UTF-32");
+-        _testHttpLenient("text/xml;charset=UTF-32", "UTF-32BE-bom", "UTF-32BE", "UTF-32BE", "UTF-32BE");
++        _testHttpLenient("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8",
++                "UTF-8", "UTF-8");
++        _testHttpLenient("text/xml;charset=UTF-8", "UTF-8-bom", "UTF-8", null,
++                "UTF-8");
++        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                null, "UTF-16BE");
++        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                "UTF-16", "UTF-16");
++        _testHttpLenient("text/xml;charset=UTF-16", "UTF-16BE-bom", "UTF-16BE",
++                "UTF-16BE", "UTF-16BE");
+         _testHttpLenient("text/xml", "UTF-8-bom", "US-ASCII", null, "US-ASCII");
+ 
+-        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", null, "UTF-16BE");
+-        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16", "UTF-16");
+-        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom", "UTF-16BE", "UTF-16BE", "UTF-16BE");
+-        _testHttpLenient("text/xml;charset=UTF-16", "no-bom", "UTF-16BE", "UTF-16BE", "UTF-16BE");
+-        _testHttpLenient("text/xml;charset=UTF-16", "no-bom", "UTF-16BE", null, "UTF-16");
+-
+-        _testHttpLenient("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", null, "UTF-32BE");
+-        _testHttpLenient("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32", "UTF-32");
+-        _testHttpLenient("text/xml;charset=UTF-32BE", "UTF-32BE-bom", "UTF-32BE", "UTF-32BE", "UTF-32BE");
+-        _testHttpLenient("text/xml;charset=UTF-32", "no-bom", "UTF-32BE", "UTF-32BE", "UTF-32BE");
+-        _testHttpLenient("text/xml;charset=UTF-32", "no-bom", "UTF-32BE", null, "UTF-32");
+-
+-        _testHttpLenient("text/html", "no-bom", "US-ASCII", "US-ASCII", "US-ASCII");
++        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", null, "UTF-16BE");
++        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16", "UTF-16");
++        _testHttpLenient("text/xml;charset=UTF-16BE", "UTF-16BE-bom",
++                "UTF-16BE", "UTF-16BE", "UTF-16BE");
++        _testHttpLenient("text/xml;charset=UTF-16", "no-bom", "UTF-16BE",
++                "UTF-16BE", "UTF-16BE");
++        _testHttpLenient("text/xml;charset=UTF-16", "no-bom", "UTF-16BE", null,
++                "UTF-16");
++
++        _testHttpLenient("text/html", "no-bom", "US-ASCII", "US-ASCII",
++                "US-ASCII");
+         _testHttpLenient("text/html", "no-bom", "US-ASCII", null, "US-ASCII");
+-        _testHttpLenient("text/html;charset=UTF-8", "no-bom", "US-ASCII", "UTF-8", "UTF-8");
+-        _testHttpLenient("text/html;charset=UTF-16BE", "no-bom", "US-ASCII", "UTF-8", "UTF-8");
+-        _testHttpLenient("text/html;charset=UTF-32BE", "no-bom", "US-ASCII", "UTF-8", "UTF-8");
++        _testHttpLenient("text/html;charset=UTF-8", "no-bom", "US-ASCII",
++                "UTF-8", "UTF-8");
++        _testHttpLenient("text/html;charset=UTF-16BE", "no-bom", "US-ASCII",
++                "UTF-8", "UTF-8");
+     }
+     
+     @Test
+diff --git a/src/test/java/org/apache/commons/io/input/XmlStreamReaderUtilitiesTest.java b/src/test/java/org/apache/commons/io/input/XmlStreamReaderUtilitiesTest.java
+index c0f9a40a..f945fddd 100644
+--- a/src/test/java/org/apache/commons/io/input/XmlStreamReaderUtilitiesTest.java
++++ b/src/test/java/org/apache/commons/io/input/XmlStreamReaderUtilitiesTest.java
+@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
+ import java.io.ByteArrayInputStream;
+ import java.io.IOException;
+ 
++import org.junit.Ignore;
+ import org.junit.Test;
+ 
+ /**
+@@ -155,13 +156,12 @@ public class XmlStreamReaderUtilitiesTest {
+     
+     /** BOM calculateRawEncoding() Test */
+     @Test
+-    //@Ignore
++    @Ignore
+     public void testCalculateRawEncodingStandardUtf32() throws IOException {
+         // Standard BOM Checks           BOM         Other       Default
+-        testCalculateRawEncodingStandard("UTF-8",    "UTF-32BE", "UTF-32LE");
+         testCalculateRawEncodingStandard("UTF-32BE", "UTF-8",    "UTF-32LE");
+         testCalculateRawEncodingStandard("UTF-32LE", "UTF-8",    "UTF-32BE");
+-}
++    }
+     
+     private void testCalculateRawEncodingStandard(String bomEnc, String otherEnc, String defaultEnc) throws IOException {
+         //               Expected   BOM        Guess     XMLEnc    Default
+@@ -178,7 +178,7 @@ public class XmlStreamReaderUtilitiesTest {
+ 
+     /** Additional UTF-16 calculateRawEncoding() Test */
+     @Test
+-    public void testCalculateRawEncodingAdditonalUTF16() throws IOException {
++    public void testCalculateRawEncodingAdditonalkUTF16() throws IOException {
+         //                           BOM         Guess       XML         Default
+         checkRawError(RAWMGS1,       "UTF-16BE", "UTF-16",   null,       null);
+         checkRawEncoding("UTF-16BE", "UTF-16BE", null,       "UTF-16",   null);
+@@ -192,22 +192,6 @@ public class XmlStreamReaderUtilitiesTest {
+         checkRawError(RAWMGS1,       "UTF-16LE", "UTF-16LE", "UTF-16BE", null);
+     }
+     
+-    /** Additional UTF-32 calculateRawEncoding() Test */
+-    @Test
+-    public void testCalculateRawEncodingAdditonalUTF32() throws IOException {
+-        //                           BOM         Guess       XML         Default
+-        checkRawError(RAWMGS1,       "UTF-32BE", "UTF-32",   null,       null);
+-        checkRawEncoding("UTF-32BE", "UTF-32BE", null,       "UTF-32",   null);
+-        checkRawEncoding("UTF-32BE", "UTF-32BE", "UTF-32BE", "UTF-32",   null);
+-        checkRawError(RAWMGS1,       "UTF-32BE", null,       "UTF-32LE", null);
+-        checkRawError(RAWMGS1,       "UTF-32BE", "UTF-32BE", "UTF-32LE", null);
+-        checkRawError(RAWMGS1,       "UTF-32LE", "UTF-32",   null,       null);
+-        checkRawEncoding("UTF-32LE", "UTF-32LE", null,       "UTF-32",   null);
+-        checkRawEncoding("UTF-32LE", "UTF-32LE", "UTF-32LE", "UTF-32",   null);
+-        checkRawError(RAWMGS1,       "UTF-32LE", null,       "UTF-32BE", null);
+-        checkRawError(RAWMGS1,       "UTF-32LE", "UTF-32LE", "UTF-32BE", null);
+-    }
+-    
+     private void checkRawEncoding(String expected,
+             String bomEnc, String xmlGuessEnc, String xmlEnc, String defaultEncoding) throws IOException {
+         StringBuilder builder = new StringBuilder();
+@@ -223,7 +207,8 @@ public class XmlStreamReaderUtilitiesTest {
+     protected String calculateRawEncoding(String bomEnc, String xmlGuessEnc, String xmlEnc,
+             String defaultEncoding) throws IOException {
+         MockXmlStreamReader mock = new MockXmlStreamReader(defaultEncoding);
+-        return mock.calculateRawEncoding(bomEnc, xmlGuessEnc, xmlEnc);
++        String encoding = mock.calculateRawEncoding(bomEnc, xmlGuessEnc, xmlEnc);
++        return encoding;
+     }
+     
+     private void checkRawError(String msgSuffix,
+@@ -272,7 +257,7 @@ public class XmlStreamReaderUtilitiesTest {
+     
+     /** Test calculate HTTP Encoding */
+     @Test
+-    //@Ignore
++    @Ignore
+     public void testCalculateHttpEncodingUtf32() throws IOException {
+         // No BOM        Expected     Lenient cType           BOM         Guess       XML         Default
+         checkHttpEncoding("UTF-32LE", true,   null,           null,       null,       "UTF-32LE", null);
+@@ -292,7 +277,7 @@ public class XmlStreamReaderUtilitiesTest {
+     private void checkHttpEncoding(String expected, boolean lenient, String httpContentType,
+             String bomEnc, String xmlGuessEnc, String xmlEnc, String defaultEncoding) throws IOException {
+         StringBuilder builder = new StringBuilder();
+-        builder.append("HttpEncoding=[").append(bomEnc).append("], ");
++        builder.append("HttpEncoding: ").append(bomEnc).append("], ");
+         builder.append("lenient=[").append(lenient).append("], ");
+         builder.append("httpContentType=[").append(httpContentType).append("], ");
+         builder.append("bomEnc=[").append(bomEnc).append("], ");
+@@ -306,7 +291,8 @@ public class XmlStreamReaderUtilitiesTest {
+     protected String calculateHttpEncoding(String httpContentType, String bomEnc, String xmlGuessEnc,
+             String xmlEnc, boolean lenient, String defaultEncoding) throws IOException {
+         MockXmlStreamReader mock = new MockXmlStreamReader(defaultEncoding);
+-        return mock.calculateHttpEncoding(httpContentType, bomEnc, xmlGuessEnc, xmlEnc, lenient);
++        String encoding = mock.calculateHttpEncoding(httpContentType, bomEnc, xmlGuessEnc, xmlEnc, lenient);
++        return encoding;
+     }
+     
+     private void checkHttpError(String msgSuffix, boolean lenient, String httpContentType,
+diff --git a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
+index b59c22b2..851ef31c 100644
+--- a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
++++ b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
+@@ -74,12 +74,6 @@ public class XmlStreamReader extends Reader {
+ 
+     private static final String UTF_16 = "UTF-16";
+ 
+-    private static final String UTF_32BE = "UTF-32BE";
+-
+-    private static final String UTF_32LE = "UTF-32LE";
+-
+-    private static final String UTF_32 = "UTF-32";
+-
+     private static final String EBCDIC = "CP1047";
+ 
+     private static String staticDefaultEncoding = null;
+@@ -453,10 +447,6 @@ public class XmlStreamReader extends Reader {
+                     && (xmlGuessEnc.equals(UTF_16BE) || xmlGuessEnc
+                             .equals(UTF_16LE))) {
+                 encoding = xmlGuessEnc;
+-            } else if (xmlEnc.equals(UTF_32)
+-                    && (xmlGuessEnc.equals(UTF_32BE) || xmlGuessEnc
+-                            .equals(UTF_32LE))) {
+-                encoding = xmlGuessEnc;
+             } else {
+                 encoding = xmlEnc;
+             }
+@@ -484,18 +474,6 @@ public class XmlStreamReader extends Reader {
+                         bomEnc, xmlGuessEnc, xmlEnc, is);
+             }
+             encoding = bomEnc;
+-        } else if (bomEnc.equals(UTF_32BE) || bomEnc.equals(UTF_32LE)) {
+-            if (xmlGuessEnc != null && !xmlGuessEnc.equals(bomEnc)) {
+-                throw new XmlStreamReaderException(RAW_EX_1.format(new Object[] { bomEnc,
+-                        xmlGuessEnc, xmlEnc }), bomEnc, xmlGuessEnc, xmlEnc, is);
+-            }
+-            if (xmlEnc != null && !xmlEnc.equals(UTF_32)
+-                    && !xmlEnc.equals(bomEnc)) {
+-                throw new XmlStreamReaderException(RAW_EX_1
+-                        .format(new Object[] { bomEnc, xmlGuessEnc, xmlEnc }),
+-                        bomEnc, xmlGuessEnc, xmlEnc, is);
+-            }
+-            encoding = bomEnc;
+         } else {
+             throw new XmlStreamReaderException(RAW_EX_2.format(new Object[] {
+                     bomEnc, xmlGuessEnc, xmlEnc }), bomEnc, xmlGuessEnc,
+@@ -538,21 +516,6 @@ public class XmlStreamReader extends Reader {
+                                         xmlGuessEnc, xmlEnc }), cTMime, cTEnc,
+                                 bomEnc, xmlGuessEnc, xmlEnc, is);
+                     }
+-                } else if (bomEnc != null
+-                        && (cTEnc.equals(UTF_32BE) || cTEnc.equals(UTF_32LE))) {
+-                    throw new XmlStreamReaderException(HTTP_EX_1
+-                            .format(new Object[] { cTMime, cTEnc, bomEnc,
+-                                    xmlGuessEnc, xmlEnc }), cTMime, cTEnc,
+-                            bomEnc, xmlGuessEnc, xmlEnc, is);
+-                } else if (cTEnc.equals(UTF_32)) {
+-                    if (bomEnc != null && bomEnc.startsWith(UTF_32)) {
+-                        encoding = bomEnc;
+-                    } else {
+-                        throw new XmlStreamReaderException(HTTP_EX_2
+-                                .format(new Object[] { cTMime, cTEnc, bomEnc,
+-                                        xmlGuessEnc, xmlEnc }), cTMime, cTEnc,
+-                                bomEnc, xmlGuessEnc, xmlEnc, is);
+-                    }
+                 } else {
+                     encoding = cTEnc;
+                 }
+diff --git a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReaderUtilitiesCompatibilityTest.java b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReaderUtilitiesCompatibilityTest.java
+index 9d4a632b..6e0b7eae 100644
+--- a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReaderUtilitiesCompatibilityTest.java
++++ b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReaderUtilitiesCompatibilityTest.java
+@@ -36,10 +36,11 @@ public class XmlStreamReaderUtilitiesCompatibilityTest extends XmlStreamReaderUt
+     protected String calculateHttpEncoding(String httpContentType, String bomEnc, String xmlGuessEnc,
+             String xmlEnc, boolean lenient, String defaultEncoding) throws IOException {
+         MockXmlStreamReader mock = new MockXmlStreamReader(defaultEncoding);
+-        return mock.calculateHttpEncoding(
++        String encoding = mock.calculateHttpEncoding(
+                 XmlStreamReader.getContentTypeMime(httpContentType),
+                 XmlStreamReader.getContentTypeEncoding(httpContentType),
+                 bomEnc, xmlGuessEnc, xmlEnc, null, lenient);
++        return encoding;
+     }
+ 
+     /** Mock {@link XmlStreamReader} implementation */

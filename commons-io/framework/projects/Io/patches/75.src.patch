@@ -1,0 +1,15 @@
+diff --git a/src/main/java/org/apache/commons/io/FileCleaningTracker.java b/src/main/java/org/apache/commons/io/FileCleaningTracker.java
+index fdeb491b..cb2d7834 100644
+--- a/src/main/java/org/apache/commons/io/FileCleaningTracker.java
++++ b/src/main/java/org/apache/commons/io/FileCleaningTracker.java
+@@ -204,9 +204,9 @@ public class FileCleaningTracker {
+                 try {
+                     // Wait for a tracker to remove.
+                     Tracker tracker = (Tracker) q.remove(); // cannot return null
+-                    trackers.remove(tracker);
+                     tracker.delete();
+                     tracker.clear();
++                    trackers.remove(tracker);
+                 } catch (InterruptedException e) {
+                     continue;
+                 }

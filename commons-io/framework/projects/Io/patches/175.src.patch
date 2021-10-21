@@ -1,0 +1,105 @@
+diff --git a/src/main/java/org/apache/commons/io/FilenameUtils.java b/src/main/java/org/apache/commons/io/FilenameUtils.java
+index 2035622d..8dd9cf2e 100644
+--- a/src/main/java/org/apache/commons/io/FilenameUtils.java
++++ b/src/main/java/org/apache/commons/io/FilenameUtils.java
+@@ -351,19 +351,19 @@ public class FilenameUtils {
+             return null;
+         }
+ 
+-        failIfNullBytePresent(filename);
++        String cleanFileName = filterNullBytes(filename);
+ 
+-        int size = filename.length();
++        int size = cleanFileName.length();
+         if (size == 0) {
+-            return filename;
++            return cleanFileName;
+         }
+-        final int prefix = getPrefixLength(filename);
++        final int prefix = getPrefixLength(cleanFileName);
+         if (prefix < 0) {
+             return null;
+         }
+ 
+         final char[] array = new char[size + 2];  // +1 for possible extra slash, +2 for arraycopy
+-        filename.getChars(0, filename.length(), array, 0);
++        cleanFileName.getChars(0, cleanFileName.length(), array, 0);
+ 
+         // fix separators throughout
+         final char otherSeparator = separator == SYSTEM_SEPARATOR ? OTHER_SEPARATOR : SYSTEM_SEPARATOR;
+@@ -768,12 +768,9 @@ public class FilenameUtils {
+             return null;
+         }
+         if (len > filename.length()) {
+-            failIfNullBytePresent(filename + UNIX_SEPARATOR);
+-            return filename + UNIX_SEPARATOR;
++            return filterNullBytes(filename + UNIX_SEPARATOR);  // we know this only happens for unix
+         }
+-        String path = filename.substring(0, len);
+-        failIfNullBytePresent(path);
+-        return path;
++        return filterNullBytes(filename.substring(0, len));
+     }
+ 
+     /**
+@@ -851,9 +848,7 @@ public class FilenameUtils {
+         if (prefix >= filename.length() || index < 0 || prefix >= endIndex) {
+             return "";
+         }
+-        String path = filename.substring(prefix, endIndex);
+-        failIfNullBytePresent(path);
+-        return path;
++        return filterNullBytes(filename.substring(prefix, endIndex));
+     }
+ 
+     /**
+@@ -970,9 +965,9 @@ public class FilenameUtils {
+         if (filename == null) {
+             return null;
+         }
+-        failIfNullBytePresent(filename);
+-        final int index = indexOfLastSeparator(filename);
+-        return filename.substring(index + 1);
++        String cleanFileName = filterNullBytes(filename);
++        final int index = indexOfLastSeparator(cleanFileName);
++        return cleanFileName.substring(index + 1);
+     }
+ 
+     /**
+@@ -991,6 +986,18 @@ public class FilenameUtils {
+         }
+     }
+ 
++    /**
++     * Filters the supplied path for null byte characters. Can be used for normalizations to avoid poison byte attacks.
++     *
++     * This mimicks behaviour of 1.7u40+. Once minimum java requirement is above this version, this code can be removed.
++     *
++     * @param path the path
++     * @return the supplied string without any embedded null characters
++     */
++    private static String filterNullBytes(String path) {
++        return path.contains("\u0000") ? path.replace("\u0000", "") : path;
++    }
++
+     /**
+      * Gets the base name, minus the full path and extension, from a full filename.
+      * <p>
+@@ -1065,13 +1072,13 @@ public class FilenameUtils {
+         if (filename == null) {
+             return null;
+         }
+-        failIfNullBytePresent(filename);
++        String cleanFileName = filterNullBytes(filename);
+ 
+-        final int index = indexOfExtension(filename);
++        final int index = indexOfExtension(cleanFileName);
+         if (index == NOT_FOUND) {
+-            return filename;
++            return cleanFileName;
+         } else {
+-            return filename.substring(0, index);
++            return cleanFileName.substring(0, index);
+         }
+     }
+ 

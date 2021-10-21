@@ -1,0 +1,92 @@
+diff --git a/src/main/java/org/apache/commons/io/FilenameUtils.java b/src/main/java/org/apache/commons/io/FilenameUtils.java
+index 71bd4d40..382df413 100644
+--- a/src/main/java/org/apache/commons/io/FilenameUtils.java
++++ b/src/main/java/org/apache/commons/io/FilenameUtils.java
+@@ -714,22 +714,20 @@ public class FilenameUtils {
+      * {@link #indexOfLastSeparator(String)} which will handle a file in either Unix or Windows format.
+      * </p>
+      * <p>
+-     * The output will be the same irrespective of the machine that the code is running on, with the
+-     * exception of a possible {@link IllegalArgumentException} on Windows (see below).
++     * The output will be the same irrespective of the machine that the code is running on.
+      * </p>
+      * <b>Note:</b> This method used to have a hidden problem for names like "foo.exe:bar.txt".
+      * In this case, the name wouldn't be the name of a file, but the identifier of an
+      * alternate data stream (bar.txt) on the file foo.exe. The method used to return
+      * ".txt" here, which would be misleading. Commons IO 2.7, and later versions, are throwing
+-     * an {@link IllegalArgumentException} for names like this.
++     * at {@link NtfsAdsNameException} for names like this.
+      *
+      * @param filename
+      *            the filename to find the last extension separator in, null returns -1
+      * @return the index of the last extension separator character, or -1 if there is no such character
+-     * @throws IllegalArgumentException <b>Windows only:/b> The filename parameter is, in fact,
+-     * the identifier of an Alternate Data Stream, for example "foo.exe:bar.txt".
++     * @throws NtfsAdsNameException The filename argument 
+      */
+-    public static int indexOfExtension(final String filename) throws IllegalArgumentException {
++    public static int indexOfExtension(final String filename) throws NtfsAdsNameException {
+         if (filename == null) {
+             return NOT_FOUND;
+         }
+@@ -737,7 +735,7 @@ public class FilenameUtils {
+         	// Special handling for NTFS ADS: Don't accept colon in the filename.
+         	final int offset = filename.indexOf(':', getAdsCriticalOffset(filename));
+         	if (offset != -1) {
+-        		throw new IllegalArgumentException("NTFS ADS separator (':') in filename is forbidden.");
++        		throw new NtfsAdsNameException("NTFS ADS separator (':') in filename is forbidden.");
+         	}
+         }
+         final int extensionPos = filename.lastIndexOf(EXTENSION_SEPARATOR);
+@@ -1041,23 +1039,20 @@ public class FilenameUtils {
+      * a/b/c        --&gt; ""
+      * </pre>
+      * <p>
+-     * The output will be the same irrespective of the machine that the code is running on, with the
+-     * exception of a possible {@link IllegalArgumentException} on Windows (see below).
+-     * </p>
+-     * <p>
++     * The output will be the same irrespective of the machine that the code is running on.
+      * <b>Note:</b> This method used to have a hidden problem for names like "foo.exe:bar.txt".
+      * In this case, the name wouldn't be the name of a file, but the identifier of an
+      * alternate data stream (bar.txt) on the file foo.exe. The method used to return
+      * ".txt" here, which would be misleading. Commons IO 2.7, and later versions, are throwing
+-     * an {@link IllegalArgumentException} for names like this.
++     * at {@link NtfsAdsNameException} for names like this.
+      *
+      * @param filename the filename to retrieve the extension of.
+      * @return the extension of the file or an empty string if none exists or {@code null}
+      * if the filename is {@code null}.
+-     * @throws IllegalArgumentException <b>Windows only:/b> The filename parameter is, in fact,
++     * @throws NtfsAdsNameException <b>Windows only:/b> The filename parameter is, in fact,
+      * the identifier of an Alternate Data Stream, for example "foo.exe:bar.txt".
+      */
+-    public static String getExtension(final String filename) throws IllegalArgumentException {
++    public static String getExtension(final String filename) throws NtfsAdsNameException {
+         if (filename == null) {
+             return null;
+         }
+diff --git a/src/main/java/org/apache/commons/io/NtfsAdsNameException.java b/src/main/java/org/apache/commons/io/NtfsAdsNameException.java
+new file mode 100644
+index 00000000..2ca9ab1b
+--- /dev/null
++++ b/src/main/java/org/apache/commons/io/NtfsAdsNameException.java
+@@ -0,0 +1,18 @@
++package org.apache.commons.io;
++
++
++/**
++ * This exception is thrown, if an NTFS ADS name is passed to certain methods,
++ * where it might affect the result. For example, if you pass a name like
++ * "foo.exe:bar.txt" to {@link FilenameUtils#getExtension(String)}, then it
++ * might return ".txt", which would be misleading, because the actual extension
++ * would be ".txt".
++ */
++public class NtfsAdsNameException extends IllegalArgumentException {
++
++	private static final long serialVersionUID = -9158109384797441214L;
++
++	public NtfsAdsNameException(String pMessage) {
++		super(pMessage);
++	}
++}

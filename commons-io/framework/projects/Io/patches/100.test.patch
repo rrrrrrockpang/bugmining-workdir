@@ -1,0 +1,38 @@
+diff --git a/src/test/java/org/apache/commons/io/input/BOMInputStreamTest.java b/src/test/java/org/apache/commons/io/input/BOMInputStreamTest.java
+index af1c0f4e..577494ed 100644
+--- a/src/test/java/org/apache/commons/io/input/BOMInputStreamTest.java
++++ b/src/test/java/org/apache/commons/io/input/BOMInputStreamTest.java
+@@ -23,7 +23,6 @@ import java.io.InputStream;
+ import junit.framework.TestCase;
+ 
+ import org.apache.commons.io.ByteOrderMark;
+-import org.junit.Assert;
+ 
+ /**
+  * Test case for {@link BOMInputStream}.
+@@ -360,25 +359,6 @@ public class BOMInputStreamTest extends TestCase {
+             // expected
+         }
+     }
+-    
+-    public void testReadTwiceWithoutBOM() throws Exception {
+-    	InputStream inputStream = this.getClass().getResourceAsStream("/org/apache/commons/io/testfileNoBOM.xml");
+-    	Assert.assertNotNull(inputStream);
+-    	BOMInputStream bomInputStream = new BOMInputStream(inputStream);
+-    	bomInputStream.mark(1000000);
+-
+-    	this.readFile(bomInputStream);
+-    	bomInputStream.reset();
+-    	this.readFile(bomInputStream);
+-    }
+-
+-    private void readFile(BOMInputStream bomInputStream) throws Exception {
+-        int bytes = 0;
+-        byte[] bytesFromStream = new byte[100];
+-        do {
+-            bytes = bomInputStream.read(bytesFromStream);
+-        } while (bytes > 0);
+-    }
+ 
+     // this is here for coverage
+     public void testClose() throws Exception {

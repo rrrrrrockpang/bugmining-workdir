@@ -1,0 +1,12 @@
+diff --git a/src/java/org/apache/commons/io/FileSystemUtils.java b/src/java/org/apache/commons/io/FileSystemUtils.java
+index b08e35fa..ac26225d 100644
+--- a/src/java/org/apache/commons/io/FileSystemUtils.java
++++ b/src/java/org/apache/commons/io/FileSystemUtils.java
+@@ -316,6 +316,7 @@ public class FileSystemUtils {
+         if (path.length() == 0) {
+             throw new IllegalArgumentException("Path must not be empty");
+         }
++        path = FilenameUtils.normalize(path);
+ 
+         // build and run the 'dir' command
+         String flags = "-";

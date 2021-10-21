@@ -1,0 +1,26 @@
+diff --git a/src/test/java/org/apache/commons/io/input/TailerTest.java b/src/test/java/org/apache/commons/io/input/TailerTest.java
+index 0a37ded9..cd28dfd1 100644
+--- a/src/test/java/org/apache/commons/io/input/TailerTest.java
++++ b/src/test/java/org/apache/commons/io/input/TailerTest.java
+@@ -146,9 +146,7 @@ public class TailerTest extends FileBasedTestCase {
+         final File file = new File(getTestDirectory(), "tailer1-test.txt");
+         createFile(file, 0);
+         final TestTailerListener listener = new TestTailerListener();
+-        String osname = System.getProperty("os.name");
+-        boolean isWindows = osname.startsWith("Windows");
+-        tailer = new Tailer(file, listener, delayMillis, false, isWindows);
++        tailer = new Tailer(file, listener, delayMillis, false);
+         final Thread thread = new Thread(tailer);
+         thread.start();
+ 
+@@ -180,7 +178,9 @@ public class TailerTest extends FileBasedTestCase {
+         // Delete & re-create
+         file.delete();
+         boolean exists = file.exists();
+-        assertFalse("File should not exist", exists);
++        String osname = System.getProperty("os.name");
++        boolean isWindows = osname.startsWith("Windows");
++        assertFalse("File should not exist (except on Windows)", exists && !isWindows);
+         createFile(file, 0);
+         Thread.sleep(testDelayMillis);
+ 

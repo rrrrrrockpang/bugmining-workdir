@@ -1,0 +1,14 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index f1fea572..932d89ed 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -574,8 +574,7 @@ public class FileUtils {
+      * Finds files within a given directory (and optionally its
+      * subdirectories). All files found are filtered by an IOFileFilter.
+      * <p>
+-     * The resulting collection includes the starting directory and 
+-     * any subdirectories that match the directory filter.
++     * The resulting collection includes the subdirectories themselves.
+      * <p>
+      * @see org.apache.commons.io.FileUtils#listFiles  
+      *

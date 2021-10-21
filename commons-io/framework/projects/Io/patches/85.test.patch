@@ -1,0 +1,70 @@
+diff --git a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+index 3f941fd3..8e25ff76 100644
+--- a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
++++ b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+@@ -26,8 +26,6 @@ import java.text.MessageFormat;
+ import java.util.HashMap;
+ import java.util.Map;
+ 
+-import org.apache.commons.io.IOUtils;
+-
+ import junit.framework.TestCase;
+ 
+ /**
+@@ -222,25 +220,6 @@ public class XmlStreamReaderTest extends TestCase {
+                 "UTF-8", "UTF-8");
+     }
+ 
+-    
+-    public void testRawContent() throws Exception {
+-        String encoding = "UTF-8";
+-        String xml = getXML("no-bom", XML3, encoding, encoding);
+-        ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes(encoding));
+-        XmlStreamReader xmlReader = new XmlStreamReader(is);
+-        assertEquals("Check encoding", xmlReader.getEncoding(), encoding);
+-        assertEquals("Check content", xml, IOUtils.toString(xmlReader));
+-    }
+-
+-    public void testHttpContent() throws Exception {
+-        String encoding = "UTF-8";
+-        String xml = getXML("no-bom", XML3, encoding, encoding);
+-        ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes(encoding));
+-        XmlStreamReader xmlReader = new XmlStreamReader(is, encoding);
+-        assertEquals("Check encoding", xmlReader.getEncoding(), encoding);
+-        assertEquals("Check content", xml, IOUtils.toString(xmlReader));
+-    }
+-
+     public void _testAlternateDefaultEncoding(String cT, String bomEnc,
+             String streamEnc, String prologEnc, String alternateEnc)
+             throws Exception {
+@@ -366,11 +345,13 @@ public class XmlStreamReaderTest extends TestCase {
+         if (bom == null) {
+             bom = new int[0];
+         }
++        MessageFormat xml = XMLs.get(xmlType);
+         for (int i = 0; i < bom.length; i++) {
+             baos.write(bom[i]);
+         }
+         Writer writer = new OutputStreamWriter(baos, streamEnc);
+-        String xmlDoc = getXML(bomType, xmlType, streamEnc, prologEnc);
++        String info = INFO.format(new Object[] { bomType, xmlType, prologEnc });
++        String xmlDoc = xml.format(new Object[] { streamEnc, prologEnc, info });
+         writer.write(xmlDoc);
+ 
+         // PADDDING TO TEST THINGS WORK BEYOND PUSHBACK_SIZE
+@@ -383,15 +364,4 @@ public class XmlStreamReaderTest extends TestCase {
+         writer.close();
+         return new ByteArrayInputStream(baos.toByteArray());
+     }
+-
+-    /**
+-     * Create the XML.
+-     */
+-    private String getXML(String bomType, String xmlType,
+-            String streamEnc, String prologEnc) {
+-        MessageFormat xml = XMLs.get(xmlType);
+-        String info = INFO.format(new Object[] { bomType, xmlType, prologEnc });
+-        String xmlDoc = xml.format(new Object[] { streamEnc, prologEnc, info });
+-        return xmlDoc;
+-    }
+ }

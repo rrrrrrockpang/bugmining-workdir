@@ -1,0 +1,25 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index d65f1567..79cf4b1e 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -100,9 +100,9 @@ public class FileUtils {
+     public static final long ONE_MB = ONE_KB * ONE_KB;
+ 
+     /**
+-     * The file copy buffer size (30 MB)
++     * The number of bytes in a 50 MB.
+      */
+-    private static final long FILE_COPY_BUFFER_SIZE = ONE_MB * 30;
++    private static final long FIFTY_MB = ONE_MB * 50;
+ 
+     /**
+      * The number of bytes in a gigabyte.
+@@ -880,7 +880,7 @@ public class FileUtils {
+             long pos = 0;
+             long count = 0;
+             while (pos < size) {
+-                count = (size - pos) > FILE_COPY_BUFFER_SIZE ? FILE_COPY_BUFFER_SIZE : (size - pos);
++                count = (size - pos) > FIFTY_MB ? FIFTY_MB : (size - pos);
+                 pos += output.transferFrom(input, pos, count);
+             }
+         } finally {

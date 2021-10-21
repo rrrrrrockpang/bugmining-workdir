@@ -1,0 +1,22 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 00a02cbe..99b33868 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -631,7 +631,7 @@ public class FileUtils {
+      * {@code true} tries to preserve the files' last modified
+      * date/times using {@link File#setLastModified(long)}, however it is
+      * not guaranteed that those operations will succeed.
+-     * If the modification operation fails, the methods throws IOException.
++     * If the modification operation fails, no indication is provided.
+      * </p>
+      * <b>Example: Copy directories only</b>
+      * <pre>
+@@ -806,7 +806,7 @@ public class FileUtils {
+      * {@code true} tries to preserve the file's last modified
+      * date/times using {@link File#setLastModified(long)}, however it is
+      * not guaranteed that the operation will succeed.
+-     * If the modification operation fails, the methods throws IOException.
++     * If the modification operation fails, no indication is provided.
+      * </p>
+      *
+      * @param srcFile          an existing file to copy, must not be {@code null}

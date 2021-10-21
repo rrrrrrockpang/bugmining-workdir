@@ -1,0 +1,33 @@
+diff --git a/src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java b/src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java
+index e2955326..8095970a 100644
+--- a/src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java
+@@ -55,7 +55,7 @@ public class CharSequenceInputStream extends InputStream {
+         this.encoder = charset.newEncoder()
+             .onMalformedInput(CodingErrorAction.REPLACE)
+             .onUnmappableCharacter(CodingErrorAction.REPLACE);
+-        this.bbuf = ByteBuffer.allocate(bufferSize);
++        this.bbuf = ByteBuffer.allocate(124);
+         this.bbuf.flip();
+         this.cbuf = CharBuffer.wrap(s);
+         this.mark = -1;
+@@ -181,17 +181,13 @@ public class CharSequenceInputStream extends InputStream {
+     public void close() throws IOException {
+     }
+ 
+-    /**
+-     * {@inheritDoc}
+-     * @param readlimit max read limit (ignored)
+-     */
+     @Override
+-    public synchronized void mark(@SuppressWarnings("unused") int readlimit) {
++    public void mark(int readlimit) {
+         this.mark = this.cbuf.position();
+     }
+ 
+     @Override
+-    public synchronized void reset() throws IOException {
++    public void reset() throws IOException {
+         if (this.mark != -1) {
+             this.cbuf.position(this.mark);
+             this.mark = -1;

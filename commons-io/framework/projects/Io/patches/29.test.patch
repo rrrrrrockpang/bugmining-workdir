@@ -1,0 +1,29 @@
+diff --git a/src/test/org/apache/commons/io/FileUtilsTestCase.java b/src/test/org/apache/commons/io/FileUtilsTestCase.java
+index be4b776f..f4019ff2 100644
+--- a/src/test/org/apache/commons/io/FileUtilsTestCase.java
++++ b/src/test/org/apache/commons/io/FileUtilsTestCase.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io;
+ 
+ import java.io.File;
+ import java.io.FileInputStream;
+-import java.io.FileNotFoundException;
+ import java.io.FileOutputStream;
+ import java.io.IOException;
+ import java.io.OutputStream;
+@@ -781,16 +780,6 @@ public class FileUtilsTestCase extends FileBasedTestCase {
+         assertTrue("Check No Exist", !destination.exists());
+     }
+ 
+-    public void testForceDeleteAFile3() throws Exception {
+-        File destination = new File(getTestDirectory(), "no_such_file");
+-        assertTrue("Check No Exist", !destination.exists());
+-        try {
+-            FileUtils.forceDelete(destination);
+-            fail("Should generate FileNotFoundException");
+-        } catch (FileNotFoundException ignored){
+-        }
+-    }
+-
+     // copyFileToDirectory
+ 
+     public void testCopyFile1ToDir() throws Exception {

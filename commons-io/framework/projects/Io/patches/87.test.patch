@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/io/input/ClassLoaderObjectInputStreamTest.java b/src/test/java/org/apache/commons/io/input/ClassLoaderObjectInputStreamTest.java
+index 7ef79f6c..725dc31b 100644
+--- a/src/test/java/org/apache/commons/io/input/ClassLoaderObjectInputStreamTest.java
++++ b/src/test/java/org/apache/commons/io/input/ClassLoaderObjectInputStreamTest.java
+@@ -54,19 +54,5 @@ public class ClassLoaderObjectInputStreamTest extends TestCase {
+ 
+         assertTrue( !result.booleanValue() );
+     }
+-
+-    public void testResolveProxyClass() throws Exception {
+-
+-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+-        ObjectOutputStream oos = new ObjectOutputStream(baos);
+-        oos.writeObject( Boolean.FALSE );
+-        InputStream bais = new ByteArrayInputStream(baos.toByteArray());
+-
+-        ClassLoaderObjectInputStream clois = 
+-            new ClassLoaderObjectInputStream(getClass().getClassLoader(), bais);
+-        String[] interfaces = new String[] { Comparable.class.getName() };
+-        Class<?> result = clois.resolveProxyClass(interfaces);
+-        assertTrue("Assignable", Comparable.class.isAssignableFrom(result));
+-    }
+     
+ }

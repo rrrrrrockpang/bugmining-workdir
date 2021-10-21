@@ -1,0 +1,22 @@
+diff --git a/src/main/java/org/apache/commons/io/FileSystem.java b/src/main/java/org/apache/commons/io/FileSystem.java
+index f3e07a1d..1c52935b 100644
+--- a/src/main/java/org/apache/commons/io/FileSystem.java
++++ b/src/main/java/org/apache/commons/io/FileSystem.java
+@@ -116,6 +116,8 @@ public enum FileSystem {
+      */
+     private static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);
+ 
++    private static final String OS_NAME = getSystemProperty("os.name");
++
+     /**
+      * Gets the current file system.
+      *
+@@ -142,7 +144,7 @@ public enum FileSystem {
+      * @return true if matches, or false if not or can't determine
+      */
+     private static boolean getOsMatchesName(final String osNamePrefix) {
+-        return isOsNameMatch(getSystemProperty("os.name"), osNamePrefix);
++        return isOsNameMatch(OS_NAME, osNamePrefix);
+     }
+ 
+     /**

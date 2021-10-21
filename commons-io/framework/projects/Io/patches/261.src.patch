@@ -1,0 +1,14 @@
+diff --git a/src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java b/src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java
+index 206aaa95..e11379ea 100644
+--- a/src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java
++++ b/src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java
+@@ -66,8 +66,7 @@ public class DeletingPathVisitor extends CountingPathVisitor {
+      * @param skip The files to skip deleting.
+      * @since 2.8.0
+      */
+-    public DeletingPathVisitor(final PathCounters pathCounter, final DeleteOption[] deleteOption,
+-        final String... skip) {
++    public DeletingPathVisitor(final PathCounters pathCounter, final DeleteOption[] deleteOption, final String... skip) {
+         this(pathCounter, PathUtils.NOFOLLOW_LINK_OPTION_ARRAY, deleteOption, skip);
+     }
+ 

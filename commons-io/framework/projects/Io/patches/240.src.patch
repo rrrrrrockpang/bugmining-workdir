@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/input/buffer/CircularBufferInputStream.java b/src/main/java/org/apache/commons/io/input/buffer/CircularBufferInputStream.java
+index f797f3df..8438a156 100644
+--- a/src/main/java/org/apache/commons/io/input/buffer/CircularBufferInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/buffer/CircularBufferInputStream.java
+@@ -104,7 +104,7 @@ public class CircularBufferInputStream extends InputStream {
+         if (!haveBytes(1)) {
+             return -1;
+         }
+-        return buffer.read() & 0xFF; // return unsigned byte
++        return buffer.read();
+     }
+ 
+     @Override

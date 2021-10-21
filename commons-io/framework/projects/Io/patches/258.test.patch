@@ -1,0 +1,17 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
+index 6678a6c1..5ae31718 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
+@@ -25,11 +25,8 @@ import java.util.List;
+ import org.junit.jupiter.api.condition.EnabledOnOs;
+ import org.junit.jupiter.api.condition.OS;
+ 
+-/**
+- * Requires Windows admin karma.
+- */
+ @EnabledOnOs(OS.WINDOWS)
+-public class FileUtilsDeleteDirectoryWindowsTestCase extends FileUtilsDeleteDirectoryBaseTestCase {
++public class FileUtilsDeleteDirectoryWinTestCase extends FileUtilsDeleteDirectoryBaseTestCase {
+ 
+     @Override
+     protected boolean setupSymlink(final File res, final File link) throws Exception {

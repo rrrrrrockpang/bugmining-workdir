@@ -1,0 +1,18 @@
+diff --git a/src/main/java/org/apache/commons/io/input/BOMInputStream.java b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+index 94308478..3bd323ba 100644
+--- a/src/main/java/org/apache/commons/io/input/BOMInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+@@ -399,10 +399,9 @@ public class BOMInputStream extends ProxyInputStream {
+      */
+     @Override
+     public long skip(long n) throws IOException {
+-        int skipped = 0;
+-        while ((n > skipped) && (readFirstBytes() >= 0)) {
+-            skipped++;
++        while (n > 0 && readFirstBytes() >= 0) {
++            n--;
+         }
+-        return in.skip(n - skipped) + skipped;
++        return in.skip(n);
+     }
+ }

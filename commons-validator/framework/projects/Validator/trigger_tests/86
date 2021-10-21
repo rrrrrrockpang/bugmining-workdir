@@ -5,7 +5,7 @@ junit.framework.AssertionFailedError
 	at junit.framework.Assert.assertFalse(Assert.java:39)
 	at junit.framework.Assert.assertFalse(Assert.java:47)
 	at junit.framework.TestCase.assertFalse(TestCase.java:219)
-	at org.apache.commons.validator.routines.EmailValidatorTest.testValidator359(EmailValidatorTest.java:528)
+	at org.apache.commons.validator.routines.EmailValidatorTest.testValidator359(EmailValidatorTest.java:526)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

@@ -1,0 +1,50 @@
+diff --git a/src/java/org/apache/commons/io/FileUtils.java b/src/java/org/apache/commons/io/FileUtils.java
+index a5852202..c4d582b9 100644
+--- a/src/java/org/apache/commons/io/FileUtils.java
++++ b/src/java/org/apache/commons/io/FileUtils.java
+@@ -97,11 +97,6 @@ public class FileUtils {
+      */
+     public static final long ONE_MB = ONE_KB * ONE_KB;
+ 
+-    /**
+-     * The number of bytes in a 50 MB.
+-     */
+-    private static final long FIFTY_MB = ONE_MB * 50;
+-
+     /**
+      * The number of bytes in a gigabyte.
+      */
+@@ -676,27 +671,16 @@ public class FileUtils {
+             throw new IOException("Destination '" + destFile + "' exists but is a directory");
+         }
+ 
+-        FileInputStream fis = null;
+-        FileOutputStream fos = null;
+-        FileChannel input = null;
+-        FileChannel output = null;
++        FileChannel input = new FileInputStream(srcFile).getChannel();
+         try {
+-            fis = new FileInputStream(srcFile);
+-            fos = new FileOutputStream(destFile);
+-            input  = fis.getChannel();
+-            output = fos.getChannel();
+-            long size = input.size();
+-            long pos = 0;
+-            long count = 0;
+-            while (pos < size) {
+-                count = (size - pos) > FIFTY_MB ? FIFTY_MB : (size - pos);
+-                pos += output.transferFrom(input, pos, count);
++            FileChannel output = new FileOutputStream(destFile).getChannel();
++            try {
++                output.transferFrom(input, 0, input.size());
++            } finally {
++                IOUtils.closeQuietly(output);
+             }
+         } finally {
+-            IOUtils.closeQuietly(output);
+-            IOUtils.closeQuietly(fos);
+             IOUtils.closeQuietly(input);
+-            IOUtils.closeQuietly(fis);
+         }
+ 
+         if (srcFile.length() != destFile.length()) {

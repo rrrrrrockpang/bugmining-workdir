@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 12cea67a..6590f0f1 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2812,7 +2812,7 @@ public class FileUtils {
+         }
+         final boolean rename = srcDir.renameTo(destDir);
+         if (!rename) {
+-            if (destDir.getCanonicalPath().startsWith(srcDir.getCanonicalPath() + File.separator)) {
++            if (destDir.getCanonicalPath().startsWith(srcDir.getCanonicalPath() + File.pathSeparator)) {
+                 throw new IOException("Cannot move directory: "+srcDir+" to a subdirectory of itself: "+destDir);
+             }
+             copyDirectory( srcDir, destDir );

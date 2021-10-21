@@ -6431,3 +6431,10 @@ Author: Gary Gregory <garydgregory@gmail.com>
 Date:   Sat Jul 10 09:46:44 2021 -0400
 
     Use StringBuilder instead of StringBuffer.
+
+commit 12fa402375a562c8242ddf8af8ed60d556002913
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 29 00:26:13 2021 -0400
+
+    AdoptOpenJDK is moving to the Eclipse Foundation and rebranding as
+    Eclipse Temurin.

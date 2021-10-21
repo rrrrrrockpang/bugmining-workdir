@@ -1,0 +1,44 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 46edb0c3..64ea505b 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2006,7 +2006,6 @@ public class FileUtils {
+      * @param srcDir the directory to be moved
+      * @param destDir the destination directory
+      * @throws NullPointerException if source or destination is <code>null</code>
+-     * @throws FileExistsException if the destination directory exists
+      * @throws IOException if source or destination is invalid
+      * @throws IOException if an IO error occurs moving the file
+      * @since Commons IO 1.4
+@@ -2046,7 +2045,6 @@ public class FileUtils {
+      * @param createDestDir If <code>true</code> create the destination directory,
+      * otherwise if <code>false</code> throw an IOException
+      * @throws NullPointerException if source or destination is <code>null</code>
+-     * @throws FileExistsException if the directory exists in the destination directory
+      * @throws IOException if source or destination is invalid
+      * @throws IOException if an IO error occurs moving the file
+      * @since Commons IO 1.4
+@@ -2080,7 +2078,6 @@ public class FileUtils {
+      * @param srcFile the file to be moved
+      * @param destFile the destination file
+      * @throws NullPointerException if source or destination is <code>null</code>
+-     * @throws FileExistsException if the destination file exists
+      * @throws IOException if source or destination is invalid
+      * @throws IOException if an IO error occurs moving the file
+      * @since Commons IO 1.4
+@@ -2123,7 +2120,6 @@ public class FileUtils {
+      * @param createDestDir If <code>true</code> create the destination directory,
+      * otherwise if <code>false</code> throw an IOException
+      * @throws NullPointerException if source or destination is <code>null</code>
+-     * @throws FileExistsException if the destination file exists
+      * @throws IOException if source or destination is invalid
+      * @throws IOException if an IO error occurs moving the file
+      * @since Commons IO 1.4
+@@ -2158,7 +2154,6 @@ public class FileUtils {
+      * @param createDestDir If <code>true</code> create the destination directory,
+      * otherwise if <code>false</code> throw an IOException
+      * @throws NullPointerException if source or destination is <code>null</code>
+-     * @throws FileExistsException if the directory or file exists in the destination directory
+      * @throws IOException if source or destination is invalid
+      * @throws IOException if an IO error occurs moving the file
+      * @since Commons IO 1.4

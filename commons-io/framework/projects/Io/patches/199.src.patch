@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/io/input/Tailer.java b/src/main/java/org/apache/commons/io/input/Tailer.java
+index 9cb3887c..999d397c 100644
+--- a/src/main/java/org/apache/commons/io/input/Tailer.java
++++ b/src/main/java/org/apache/commons/io/input/Tailer.java
+@@ -446,7 +446,6 @@ public class Tailer implements Runnable {
+                     } catch (final FileNotFoundException e) {
+                         // in this case we continue to use the previous reader and position values
+                         listener.fileNotFound();
+-                        Thread.sleep(delayMillis);
+                     }
+                     continue;
+                 } else {

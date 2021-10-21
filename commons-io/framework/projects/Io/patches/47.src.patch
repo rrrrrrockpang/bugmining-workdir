@@ -1,0 +1,22 @@
+diff --git a/src/java/org/apache/commons/io/FileUtils.java b/src/java/org/apache/commons/io/FileUtils.java
+index d89202cf..9ca6f836 100644
+--- a/src/java/org/apache/commons/io/FileUtils.java
++++ b/src/java/org/apache/commons/io/FileUtils.java
+@@ -1539,14 +1539,9 @@ public class FileUtils {
+             }
+         } else {
+             if (!directory.mkdirs()) {
+-                // Double-check that some other thread or process hasn't made
+-                // the directory in the background
+-                if (!directory.isDirectory())
+-                {
+-                    String message =
+-                        "Unable to create directory " + directory;
+-                    throw new IOException(message);
+-                }
++                String message =
++                    "Unable to create directory " + directory;
++                throw new IOException(message);
+             }
+         }
+     }

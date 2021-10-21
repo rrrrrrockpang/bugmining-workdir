@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/input/Tailer.java b/src/main/java/org/apache/commons/io/input/Tailer.java
+index dd8986e5..b79a9ed1 100644
+--- a/src/main/java/org/apache/commons/io/input/Tailer.java
++++ b/src/main/java/org/apache/commons/io/input/Tailer.java
+@@ -147,7 +147,7 @@ public class Tailer implements Runnable {
+      * @param delay the delay between checks of the file for new content in milliseconds.
+      */
+     public Tailer(File file, TailerListener listener, long delay) {
+-        this(file, listener, delay, false);
++        this(file, listener, 1000, false);
+     }
+ 
+     /**

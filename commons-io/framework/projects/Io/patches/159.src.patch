@@ -1,0 +1,37 @@
+diff --git a/src/main/java/org/apache/commons/io/FileCleaner.java b/src/main/java/org/apache/commons/io/FileCleaner.java
+index cf6e7d28..d22f1224 100644
+--- a/src/main/java/org/apache/commons/io/FileCleaner.java
++++ b/src/main/java/org/apache/commons/io/FileCleaner.java
+@@ -30,7 +30,7 @@ import java.io.File;
+  * example), you should consider stopping the background thread if it is no
+  * longer needed. This is done by invoking the method
+  * {@link #exitWhenFinished}, typically in
+- * {@link javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)} or similar.
++ * {@link javax.servlet.ServletContextListener#contextDestroyed} or similar.
+  *
+  * @version $Id$
+  * @deprecated Use {@link FileCleaningTracker}
+@@ -136,8 +136,7 @@ public class FileCleaner {
+      * posing a memory leak.
+      * <p>
+      * This method allows the thread to be terminated. Simply call this method
+-     * in the resource cleanup code, such as 
+-     * {@link javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)}.
++     * in the resource cleanup code, such as {@link javax.servlet.ServletContextListener#contextDestroyed}.
+      * One called, no new objects can be tracked by the file cleaner.
+      * @deprecated Use {@link FileCleaningTracker#exitWhenFinished()}.
+      */
+diff --git a/src/main/java/org/apache/commons/io/FileCleaningTracker.java b/src/main/java/org/apache/commons/io/FileCleaningTracker.java
+index 3768220a..79ebae46 100644
+--- a/src/main/java/org/apache/commons/io/FileCleaningTracker.java
++++ b/src/main/java/org/apache/commons/io/FileCleaningTracker.java
+@@ -182,8 +182,7 @@ public class FileCleaningTracker {
+      * posing a memory leak.
+      * <p>
+      * This method allows the thread to be terminated. Simply call this method
+-     * in the resource cleanup code, such as 
+-     * {@link javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)}.
++     * in the resource cleanup code, such as {@link javax.servlet.ServletContextListener#contextDestroyed}.
+      * Once called, no new objects can be tracked by the file cleaner.
+      */
+     public synchronized void exitWhenFinished() {

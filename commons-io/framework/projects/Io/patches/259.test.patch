@@ -1,0 +1,21 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
+index 11452063..6678a6c1 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWindowsTestCase.java
+@@ -26,7 +26,7 @@ import org.junit.jupiter.api.condition.EnabledOnOs;
+ import org.junit.jupiter.api.condition.OS;
+ 
+ /**
+- * Requires Windows admin karma or you get "You do not have sufficient privilege to perform this operation."
++ * Requires Windows admin karma.
+  */
+ @EnabledOnOs(OS.WINDOWS)
+ public class FileUtilsDeleteDirectoryWindowsTestCase extends FileUtilsDeleteDirectoryBaseTestCase {
+@@ -37,7 +37,6 @@ public class FileUtilsDeleteDirectoryWindowsTestCase extends FileUtilsDeleteDire
+         final List<String> args = new ArrayList<>();
+         args.add("cmd");
+         args.add("/C");
+-        // Requires Windows admin karma or you get "You do not have sufficient privilege to perform this operation."
+         args.add("mklink");
+ 
+         if (res.isDirectory()) {

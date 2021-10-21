@@ -1,0 +1,40 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 35e423da..4dff56b9 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -324,9 +324,9 @@ public class FileUtils {
+             }
+         } else {
+             File parent = file.getParentFile();
+-            if (parent != null) {
+-                if (!parent.mkdirs() && !parent.isDirectory()) {
+-                    throw new IOException("Directory '" + parent + "' could not be created");
++            if (parent != null && parent.exists() == false) {
++                if (parent.mkdirs() == false) {
++                    throw new IOException("File '" + file + "' could not be created");
+                 }
+             }
+         }
+@@ -876,10 +876,9 @@ public class FileUtils {
+         if (srcFile.getCanonicalPath().equals(destFile.getCanonicalPath())) {
+             throw new IOException("Source '" + srcFile + "' and destination '" + destFile + "' are the same");
+         }
+-        File parentFile = destFile.getParentFile();
+-        if (parentFile != null) {
+-            if (!parentFile.mkdirs() && !parentFile.isDirectory()) {
+-                throw new IOException("Destination '" + parentFile + "' directory cannot be created");
++        if (destFile.getParentFile() != null && destFile.getParentFile().exists() == false) {
++            if (destFile.getParentFile().mkdirs() == false) {
++                throw new IOException("Destination '" + destFile + "' directory cannot be created");
+             }
+         }
+         if (destFile.exists() && destFile.canWrite() == false) {
+@@ -1183,7 +1182,7 @@ public class FileUtils {
+                 throw new IOException("Destination '" + destDir + "' exists but is not a directory");
+             }
+         } else {
+-            if (!destDir.mkdirs() && !destDir.isDirectory()) {
++            if (destDir.mkdirs() == false) {
+                 throw new IOException("Destination '" + destDir + "' directory cannot be created");
+             }
+         }

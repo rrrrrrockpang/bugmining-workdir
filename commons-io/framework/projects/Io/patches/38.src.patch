@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/io/LineIterator.java b/src/java/org/apache/commons/io/LineIterator.java
+index eb9a6240..3489582c 100644
+--- a/src/java/org/apache/commons/io/LineIterator.java
++++ b/src/java/org/apache/commons/io/LineIterator.java
+@@ -40,7 +40,7 @@ import java.util.NoSuchElementException;
+  *     /// do something with line
+  *   }
+  * } finally {
+- *   LineIterator.closeQuietly(it);
++ *   LineIterator.closeQuietly(iterator);
+  * }
+  * </pre>
+  *

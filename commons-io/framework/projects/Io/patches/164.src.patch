@@ -1,0 +1,35 @@
+diff --git a/src/main/java/org/apache/commons/io/FileSystemUtils.java b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+index 4d2e084a..0205cec2 100644
+--- a/src/main/java/org/apache/commons/io/FileSystemUtils.java
++++ b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+@@ -444,7 +444,7 @@ public class FileSystemUtils {
+             return bytes;
+ 
+         } catch (final NumberFormatException ex) {
+-            throw new IOException(
++            throw new IOExceptionWithCause(
+                     "Command line '" + DF + "' did not return numeric data as expected " +
+                     "for path '" + path + "'- check path is valid", ex);
+         }
+@@ -512,7 +512,7 @@ public class FileSystemUtils {
+             return lines;
+ 
+         } catch (final InterruptedException ex) {
+-            throw new IOException(
++            throw new IOExceptionWithCause(
+                     "Command line threw an InterruptedException " +
+                     "for command " + Arrays.asList(cmdAttribs) + " timeout=" + timeout, ex);
+         } finally {
+diff --git a/src/main/java/org/apache/commons/io/TaggedIOException.java b/src/main/java/org/apache/commons/io/TaggedIOException.java
+index 8b119ffb..90380d9e 100644
+--- a/src/main/java/org/apache/commons/io/TaggedIOException.java
++++ b/src/main/java/org/apache/commons/io/TaggedIOException.java
+@@ -26,7 +26,7 @@ import java.io.Serializable;
+  *
+  * @since 2.0
+  */
+-public class TaggedIOException extends IOException {
++public class TaggedIOException extends IOExceptionWithCause {
+ 
+     /**
+      * Generated serial version UID.

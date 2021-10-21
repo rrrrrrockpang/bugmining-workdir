@@ -1,0 +1,15 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index c3b41036..240c20db 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2206,9 +2206,7 @@ public class FileUtils {
+         FileOutputStream out = null;
+         try {
+             out = openOutputStream(file, append);
+-            final BufferedOutputStream buffer = new BufferedOutputStream(out);
+-            IOUtils.writeLines(lines, lineEnding, buffer, encoding);
+-            buffer.flush();
++            IOUtils.writeLines(lines, lineEnding, new BufferedOutputStream(out), encoding);
+             out.close(); // don't swallow close Exception if copy completes normally
+         } finally {
+             IOUtils.closeQuietly(out);

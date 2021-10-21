@@ -1,3 +1,0 @@
-org.apache.commons.mail.ByteArrayDataSource
-org.apache.commons.mail.ImageHtmlEmail
-org.apache.commons.mail.resolver.DataSourceClassPathResolver

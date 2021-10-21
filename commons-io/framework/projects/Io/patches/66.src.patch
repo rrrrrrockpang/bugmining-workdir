@@ -1,0 +1,15 @@
+diff --git a/src/java/org/apache/commons/io/output/ByteArrayOutputStream.java b/src/java/org/apache/commons/io/output/ByteArrayOutputStream.java
+index bcf90e9b..347037e0 100644
+--- a/src/java/org/apache/commons/io/output/ByteArrayOutputStream.java
++++ b/src/java/org/apache/commons/io/output/ByteArrayOutputStream.java
+@@ -88,9 +88,7 @@ public class ByteArrayOutputStream extends OutputStream {
+             throw new IllegalArgumentException(
+                 "Negative initial size: " + size);
+         }
+-        synchronized (this) {
+-            needNewBuffer(size);
+-        }
++        needNewBuffer(size);
+     }
+ 
+     /**

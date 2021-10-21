@@ -1,0 +1,41 @@
+diff --git a/src/test/java/org/apache/commons/io/input/buffer/CircularBufferInputStreamTest.java b/src/test/java/org/apache/commons/io/input/buffer/CircularBufferInputStreamTest.java
+index 66b13aa5..2022cbab 100644
+--- a/src/test/java/org/apache/commons/io/input/buffer/CircularBufferInputStreamTest.java
++++ b/src/test/java/org/apache/commons/io/input/buffer/CircularBufferInputStreamTest.java
+@@ -16,11 +16,7 @@
+  */
+ package org.apache.commons.io.input.buffer;
+ 
+-import static org.junit.jupiter.api.Assertions.assertEquals;
+-import static org.junit.jupiter.api.Assertions.assertTrue;
+-
+ import java.io.ByteArrayInputStream;
+-import java.io.IOException;
+ import java.util.Random;
+ 
+ import org.junit.jupiter.api.Test;
+@@ -74,24 +70,6 @@ public class CircularBufferInputStreamTest {
+ 				throw new IllegalStateException("Unexpected random choice value");
+ 			}
+ 		}
+-		assertTrue(true, "Test finished OK");
+-	}
+-
+-	@Test
+-  public void testIO683() throws IOException {
+-		final byte[] buffer = new byte[]{0,1,-2,-2,-1,4};
+-		try (
+-			final ByteArrayInputStream bais = new ByteArrayInputStream(buffer);
+-			final CircularBufferInputStream cbis = new CircularBufferInputStream(bais);
+-		){
+-			int b;
+-			int i = 0;
+-			while((b = cbis.read()) != -1) {
+-				assertEquals(buffer[i] & 0xFF,b, "byte at index " + i + " should be equal");
+-				i++;
+-			}
+-			assertEquals(buffer.length, i, "Should have read all the bytes");
+-		}
+ 	}
+ 
+ 	/**

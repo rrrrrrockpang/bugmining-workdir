@@ -1,0 +1,101 @@
+diff --git a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+index a968c56b..183e1a45 100644
+--- a/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
++++ b/src/test/java/org/apache/commons/io/input/XmlStreamReaderTest.java
+@@ -276,25 +276,6 @@ public class XmlStreamReaderTest {
+         _testHttpLenient("text/html;charset=UTF-16BE", "no-bom", "US-ASCII", "UTF-8", "UTF-8");
+         _testHttpLenient("text/html;charset=UTF-32BE", "no-bom", "US-ASCII", "UTF-8", "UTF-8");
+     }
+-    
+-    /**
+-     * Check lower case encoding names are properly handled. Should be successfull
+-     * with any system default locale, notably with Turkish language
+-     * (-Duser.language=tr JVM parameter), which has specific rules to convert dotted and dottless
+-     * i character.
+-     */
+-    @Test
+-    public void testLowerCaseEncoding() throws Exception {
+-        final String[] encodings = { "iso8859-1", "us-ascii", "utf-8" };
+-        for (final String encoding : encodings) {
+-            final String xml = getXML("no-bom", XML3, encoding, encoding);
+-            try (final ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes(encoding));
+-                    final XmlStreamReader xmlReader = new XmlStreamReader(is);) {
+-                assertTrue("Check encoding : " + encoding, encoding.equalsIgnoreCase(xmlReader.getEncoding()));
+-                assertEquals("Check content", xml, IOUtils.toString(xmlReader));
+-            }
+-        }
+-    }
+ 
+     @Test
+     public void testRawContent() throws Exception {
+diff --git a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
+index 54423151..be5b1214 100644
+--- a/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
++++ b/src/test/java/org/apache/commons/io/input/compatibility/XmlStreamReader.java
+@@ -29,7 +29,6 @@ import java.net.HttpURLConnection;
+ import java.net.URL;
+ import java.net.URLConnection;
+ import java.text.MessageFormat;
+-import java.util.Locale;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
+@@ -591,7 +590,7 @@ public class XmlStreamReader extends Reader {
+                 final String postMime = httpContentType.substring(i + 1);
+                 final Matcher m = CHARSET_PATTERN.matcher(postMime);
+                 encoding = m.find() ? m.group(1) : null;
+-                encoding = encoding != null ? encoding.toUpperCase(Locale.ROOT) : null;
++                encoding = encoding != null ? encoding.toUpperCase() : null;
+             }
+         }
+         return encoding;
+@@ -700,7 +699,7 @@ public class XmlStreamReader extends Reader {
+                 }
+                 final Matcher m = ENCODING_PATTERN.matcher(prolog);
+                 if (m.find()) {
+-                    encoding = m.group(1).toUpperCase(Locale.ROOT);
++                    encoding = m.group(1).toUpperCase();
+                     encoding = encoding.substring(1, encoding.length() - 1);
+                 }
+             }
+diff --git a/src/test/java/org/apache/commons/io/output/XmlStreamWriterTest.java b/src/test/java/org/apache/commons/io/output/XmlStreamWriterTest.java
+index b8f578c6..0ee25074 100644
+--- a/src/test/java/org/apache/commons/io/output/XmlStreamWriterTest.java
++++ b/src/test/java/org/apache/commons/io/output/XmlStreamWriterTest.java
+@@ -16,6 +16,7 @@
+  */
+ package org.apache.commons.io.output;
+ 
++import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertTrue;
+ 
+ import java.io.ByteArrayOutputStream;
+@@ -55,7 +56,7 @@ public class XmlStreamWriterTest {
+         writer.write(xml);
+         writer.close();
+         final byte[] xmlContent = out.toByteArray();
+-        assertTrue(encoding.equalsIgnoreCase(writer.getEncoding()));
++        assertEquals(encoding, writer.getEncoding());
+         assertTrue(Arrays.equals(xml.getBytes(encoding), xmlContent));
+ 
+     }
+@@ -101,19 +102,6 @@ public class XmlStreamWriterTest {
+         checkXmlWriter(TEXT_UNICODE, null, "UTF-16BE");
+         checkXmlWriter(TEXT_UNICODE, null, "ISO-8859-1");
+     }
+-    
+-    /**
+-     * Check lower case encoding names are properly handled. Should be successfull
+-     * with any system default locale, notably with Turkish language
+-     * (-Duser.language=tr JVM parameter), which has specific rules to convert
+-     * dotted and dottless i character.
+-     */
+-    @Test
+-    public void testLowerCaseEncoding() throws IOException {
+-        checkXmlWriter(TEXT_UNICODE, "utf-8");
+-        checkXmlWriter(TEXT_LATIN1, "iso-8859-1");
+-        checkXmlWriter(TEXT_LATIN7, "iso-8859-7");
+-    }
+ 
+     @Test
+     public void testUTF8Encoding() throws IOException {

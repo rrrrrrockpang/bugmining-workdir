@@ -1,0 +1,244 @@
+diff --git a/src/main/java/org/apache/commons/io/comparator/DefaultFileComparator.java b/src/main/java/org/apache/commons/io/comparator/DefaultFileComparator.java
+index 1277a792..39016ff5 100644
+--- a/src/main/java/org/apache/commons/io/comparator/DefaultFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/DefaultFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ /**
+  * Compare two files using the <b>default</b> {@link File#compareTo(File)} method.
+@@ -46,11 +45,11 @@ import java.util.Comparator;
+  */
+ public class DefaultFileComparator extends AbstractFileComparator implements Serializable {
+ 
+-    /** Singleton default comparator instance */
+-    public static final Comparator<File> DEFAULT_COMPARATOR = new DefaultFileComparator();
++	/** Singleton default comparator instance */
++    public static final DefaultFileComparator DEFAULT_COMPARATOR = new DefaultFileComparator();
+ 
+     /** Singleton reverse default comparator instance */
+-    public static final Comparator<File> DEFAULT_REVERSE = new ReverseComparator(DEFAULT_COMPARATOR);
++    public static final ReverseComparator DEFAULT_REVERSE = new ReverseComparator(DEFAULT_COMPARATOR);
+ 
+     /**
+      * Compare the two files using the {@link File#compareTo(File)} method.
+diff --git a/src/main/java/org/apache/commons/io/comparator/DirectoryFileComparator.java b/src/main/java/org/apache/commons/io/comparator/DirectoryFileComparator.java
+index 65eec10f..53e03fe4 100644
+--- a/src/main/java/org/apache/commons/io/comparator/DirectoryFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/DirectoryFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ /**
+  * Compare two files using the {@link File#isDirectory()} method.
+@@ -45,11 +44,12 @@ import java.util.Comparator;
+  */
+ public class DirectoryFileComparator extends AbstractFileComparator implements Serializable {
+ 
+-    /** Singleton default comparator instance */
+-    public static final Comparator<File> DIRECTORY_COMPARATOR = new DirectoryFileComparator();
++
++	/** Singleton default comparator instance */
++    public static final DirectoryFileComparator DIRECTORY_COMPARATOR = new DirectoryFileComparator();
+ 
+     /** Singleton reverse default comparator instance */
+-    public static final Comparator<File> DIRECTORY_REVERSE = new ReverseComparator(DIRECTORY_COMPARATOR);
++    public static final ReverseComparator DIRECTORY_REVERSE = new ReverseComparator(DIRECTORY_COMPARATOR);
+ 
+     /**
+      * Compare the two files using the {@link File#isDirectory()} method.
+diff --git a/src/main/java/org/apache/commons/io/comparator/ExtensionFileComparator.java b/src/main/java/org/apache/commons/io/comparator/ExtensionFileComparator.java
+index d5fd3d7a..3623fa11 100644
+--- a/src/main/java/org/apache/commons/io/comparator/ExtensionFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/ExtensionFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ import org.apache.commons.io.FilenameUtils;
+ import org.apache.commons.io.IOCase;
+@@ -54,24 +53,24 @@ import org.apache.commons.io.IOCase;
+ public class ExtensionFileComparator extends AbstractFileComparator implements Serializable {
+ 
+     /** Case-sensitive extension comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> EXTENSION_COMPARATOR = new ExtensionFileComparator();
++    public static final ExtensionFileComparator EXTENSION_COMPARATOR = new ExtensionFileComparator();
+ 
+     /** Reverse case-sensitive extension comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> EXTENSION_REVERSE = new ReverseComparator(EXTENSION_COMPARATOR);
++    public static final ReverseComparator EXTENSION_REVERSE = new ReverseComparator(EXTENSION_COMPARATOR);
+ 
+     /** Case-insensitive extension comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> EXTENSION_INSENSITIVE_COMPARATOR
++    public static final ExtensionFileComparator EXTENSION_INSENSITIVE_COMPARATOR
+                                                 = new ExtensionFileComparator(IOCase.INSENSITIVE);
+ 
+     /** Reverse case-insensitive extension comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> EXTENSION_INSENSITIVE_REVERSE
++    public static final ReverseComparator EXTENSION_INSENSITIVE_REVERSE
+                                                 = new ReverseComparator(EXTENSION_INSENSITIVE_COMPARATOR);
+ 
+     /** System sensitive extension comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> EXTENSION_SYSTEM_COMPARATOR = new ExtensionFileComparator(IOCase.SYSTEM);
++    public static final ExtensionFileComparator EXTENSION_SYSTEM_COMPARATOR = new ExtensionFileComparator(IOCase.SYSTEM);
+ 
+     /** Reverse system sensitive path comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> EXTENSION_SYSTEM_REVERSE = new ReverseComparator(EXTENSION_SYSTEM_COMPARATOR);
++    public static final ReverseComparator EXTENSION_SYSTEM_REVERSE = new ReverseComparator(EXTENSION_SYSTEM_COMPARATOR);
+ 
+     /** Whether the comparison is case sensitive. */
+     private final IOCase caseSensitivity;
+diff --git a/src/main/java/org/apache/commons/io/comparator/LastModifiedFileComparator.java b/src/main/java/org/apache/commons/io/comparator/LastModifiedFileComparator.java
+index 230ef495..964490b7 100644
+--- a/src/main/java/org/apache/commons/io/comparator/LastModifiedFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/LastModifiedFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ /**
+  * Compare the <b>last modified date/time</b> of two files for order 
+@@ -48,10 +47,10 @@ import java.util.Comparator;
+ public class LastModifiedFileComparator extends AbstractFileComparator implements Serializable {
+ 
+     /** Last modified comparator instance */
+-    public static final Comparator<File> LASTMODIFIED_COMPARATOR = new LastModifiedFileComparator();
++    public static final LastModifiedFileComparator LASTMODIFIED_COMPARATOR = new LastModifiedFileComparator();
+ 
+     /** Reverse last modified comparator instance */
+-    public static final Comparator<File> LASTMODIFIED_REVERSE = new ReverseComparator(LASTMODIFIED_COMPARATOR);
++    public static final ReverseComparator LASTMODIFIED_REVERSE = new ReverseComparator(LASTMODIFIED_COMPARATOR);
+ 
+     /**
+      * Compare the last the last modified date/time of two files.
+diff --git a/src/main/java/org/apache/commons/io/comparator/NameFileComparator.java b/src/main/java/org/apache/commons/io/comparator/NameFileComparator.java
+index a0df96e7..ce9cacb7 100644
+--- a/src/main/java/org/apache/commons/io/comparator/NameFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/NameFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ import org.apache.commons.io.IOCase;
+ 
+@@ -52,22 +51,22 @@ import org.apache.commons.io.IOCase;
+ public class NameFileComparator extends AbstractFileComparator implements Serializable {
+ 
+     /** Case-sensitive name comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> NAME_COMPARATOR = new NameFileComparator();
++    public static final NameFileComparator NAME_COMPARATOR = new NameFileComparator();
+ 
+     /** Reverse case-sensitive name comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> NAME_REVERSE = new ReverseComparator(NAME_COMPARATOR);
++    public static final ReverseComparator NAME_REVERSE = new ReverseComparator(NAME_COMPARATOR);
+ 
+     /** Case-insensitive name comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> NAME_INSENSITIVE_COMPARATOR = new NameFileComparator(IOCase.INSENSITIVE);
++    public static final NameFileComparator NAME_INSENSITIVE_COMPARATOR = new NameFileComparator(IOCase.INSENSITIVE);
+ 
+     /** Reverse case-insensitive name comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> NAME_INSENSITIVE_REVERSE = new ReverseComparator(NAME_INSENSITIVE_COMPARATOR);
++    public static final ReverseComparator NAME_INSENSITIVE_REVERSE = new ReverseComparator(NAME_INSENSITIVE_COMPARATOR);
+ 
+     /** System sensitive name comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> NAME_SYSTEM_COMPARATOR = new NameFileComparator(IOCase.SYSTEM);
++    public static final NameFileComparator NAME_SYSTEM_COMPARATOR = new NameFileComparator(IOCase.SYSTEM);
+ 
+     /** Reverse system sensitive name comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> NAME_SYSTEM_REVERSE = new ReverseComparator(NAME_SYSTEM_COMPARATOR);
++    public static final ReverseComparator NAME_SYSTEM_REVERSE = new ReverseComparator(NAME_SYSTEM_COMPARATOR);
+ 
+     /** Whether the comparison is case sensitive. */
+     private final IOCase caseSensitivity;
+diff --git a/src/main/java/org/apache/commons/io/comparator/PathFileComparator.java b/src/main/java/org/apache/commons/io/comparator/PathFileComparator.java
+index 590c11f6..0c86d955 100644
+--- a/src/main/java/org/apache/commons/io/comparator/PathFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/PathFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ import org.apache.commons.io.IOCase;
+ 
+@@ -52,22 +51,22 @@ import org.apache.commons.io.IOCase;
+ public class PathFileComparator extends AbstractFileComparator implements Serializable {
+ 
+     /** Case-sensitive path comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> PATH_COMPARATOR = new PathFileComparator();
++    public static final PathFileComparator PATH_COMPARATOR = new PathFileComparator();
+ 
+     /** Reverse case-sensitive path comparator instance (see {@link IOCase#SENSITIVE}) */
+-    public static final Comparator<File> PATH_REVERSE = new ReverseComparator(PATH_COMPARATOR);
++    public static final ReverseComparator PATH_REVERSE = new ReverseComparator(PATH_COMPARATOR);
+ 
+     /** Case-insensitive path comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> PATH_INSENSITIVE_COMPARATOR = new PathFileComparator(IOCase.INSENSITIVE);
++    public static final PathFileComparator PATH_INSENSITIVE_COMPARATOR = new PathFileComparator(IOCase.INSENSITIVE);
+ 
+     /** Reverse case-insensitive path comparator instance (see {@link IOCase#INSENSITIVE}) */
+-    public static final Comparator<File> PATH_INSENSITIVE_REVERSE = new ReverseComparator(PATH_INSENSITIVE_COMPARATOR);
++    public static final ReverseComparator PATH_INSENSITIVE_REVERSE = new ReverseComparator(PATH_INSENSITIVE_COMPARATOR);
+ 
+     /** System sensitive path comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> PATH_SYSTEM_COMPARATOR = new PathFileComparator(IOCase.SYSTEM);
++    public static final PathFileComparator PATH_SYSTEM_COMPARATOR = new PathFileComparator(IOCase.SYSTEM);
+ 
+     /** Reverse system sensitive path comparator instance (see {@link IOCase#SYSTEM}) */
+-    public static final Comparator<File> PATH_SYSTEM_REVERSE = new ReverseComparator(PATH_SYSTEM_COMPARATOR);
++    public static final ReverseComparator PATH_SYSTEM_REVERSE = new ReverseComparator(PATH_SYSTEM_COMPARATOR);
+ 
+     /** Whether the comparison is case sensitive. */
+     private final IOCase caseSensitivity;
+diff --git a/src/main/java/org/apache/commons/io/comparator/SizeFileComparator.java b/src/main/java/org/apache/commons/io/comparator/SizeFileComparator.java
+index e3716158..382bd93b 100644
+--- a/src/main/java/org/apache/commons/io/comparator/SizeFileComparator.java
++++ b/src/main/java/org/apache/commons/io/comparator/SizeFileComparator.java
+@@ -18,7 +18,6 @@ package org.apache.commons.io.comparator;
+ 
+ import java.io.File;
+ import java.io.Serializable;
+-import java.util.Comparator;
+ 
+ import org.apache.commons.io.FileUtils;
+ 
+@@ -52,22 +51,22 @@ import org.apache.commons.io.FileUtils;
+ public class SizeFileComparator extends AbstractFileComparator implements Serializable {
+ 
+     /** Size comparator instance - directories are treated as zero size */
+-    public static final Comparator<File> SIZE_COMPARATOR = new SizeFileComparator();
++    public static final SizeFileComparator SIZE_COMPARATOR = new SizeFileComparator();
+ 
+     /** Reverse size comparator instance - directories are treated as zero size */
+-    public static final Comparator<File> SIZE_REVERSE = new ReverseComparator(SIZE_COMPARATOR);
++    public static final ReverseComparator SIZE_REVERSE = new ReverseComparator(SIZE_COMPARATOR);
+ 
+     /**
+      * Size comparator instance which sums the size of a directory's contents
+      * using {@link FileUtils#sizeOfDirectory(File)}
+      */
+-    public static final Comparator<File> SIZE_SUMDIR_COMPARATOR = new SizeFileComparator(true);
++    public static final SizeFileComparator SIZE_SUMDIR_COMPARATOR = new SizeFileComparator(true);
+ 
+     /**
+      * Reverse size comparator instance which sums the size of a directory's contents
+      * using {@link FileUtils#sizeOfDirectory(File)}
+      */
+-    public static final Comparator<File> SIZE_SUMDIR_REVERSE = new ReverseComparator(SIZE_SUMDIR_COMPARATOR);
++    public static final ReverseComparator SIZE_SUMDIR_REVERSE = new ReverseComparator(SIZE_SUMDIR_COMPARATOR);
+ 
+     /** Whether the sum of the directory's contents should be calculated. */
+     private final boolean sumDirectoryContents;

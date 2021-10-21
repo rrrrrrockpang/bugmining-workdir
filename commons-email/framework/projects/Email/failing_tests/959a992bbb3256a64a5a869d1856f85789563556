@@ -2,23 +2,23 @@
 --- org.apache.commons.mail.SendWithAttachmentsTest::testSendWAttachments
 junit.framework.AssertionFailedError: didn't find expected message content in message body
 Expected: a string containing "=?UTF-8?Q?Test_Attachment_-_a>=C3=A4,_o>=C3=B6,_u>=C3=BC,_au>=C3=A4u?="
-     but: was "------=_Part_0_819553500.1627320893280
+     but: was "------=_Part_0_392690851.1631759704954
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1_1994136298.1627320893280"
+	boundary="----=_Part_1_148093490.1631759704955"
 
-------=_Part_1_1994136298.1627320893280
+------=_Part_1_148093490.1631759704955
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
 Your email client does not support HTML emails
-------=_Part_1_1994136298.1627320893280
+------=_Part_1_148093490.1631759704955
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
 <html>Test Message<html>
-------=_Part_1_1994136298.1627320893280--
+------=_Part_1_148093490.1631759704955--
 
-------=_Part_0_819553500.1627320893280
+------=_Part_0_392690851.1631759704954
 Content-Type: text/plain; charset=us-ascii; 
 	name*0="=?UTF-8?Q?Test_Attachment_-_a>=C3=A4,_o>=C3=B6,_u>=C3=BC,_au"; 
 	name*1=">=C3=A4u?="
@@ -29,7 +29,7 @@ Content-Disposition: attachment;
 Content-Description: Test Attachment Desc
 
 
-------=_Part_0_819553500.1627320893280--
+------=_Part_0_392690851.1631759704954--
 "
 	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
 	at org.junit.Assert.assertThat(Assert.java:865)

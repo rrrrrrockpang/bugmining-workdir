@@ -1,0 +1,13 @@
+diff --git a/src/share/org/apache/commons/validator/ValidatorAction.java b/src/share/org/apache/commons/validator/ValidatorAction.java
+index 9fb1beb1..4ab98121 100644
+--- a/src/share/org/apache/commons/validator/ValidatorAction.java
++++ b/src/share/org/apache/commons/validator/ValidatorAction.java
+@@ -624,7 +624,7 @@ public class ValidatorAction implements Serializable {
+         try {
+             this.validationClass = loader.loadClass(this.classname);
+         } catch (ClassNotFoundException e) {
+-            throw new ValidatorException(e.toString());
++            throw new ValidatorException(e.getMessage());
+         }
+     }
+     

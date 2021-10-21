@@ -1,0 +1,14 @@
+diff --git a/src/java/org/apache/commons/io/FilenameUtils.java b/src/java/org/apache/commons/io/FilenameUtils.java
+index 8cbc9ca1..509524be 100644
+--- a/src/java/org/apache/commons/io/FilenameUtils.java
++++ b/src/java/org/apache/commons/io/FilenameUtils.java
+@@ -1264,9 +1264,6 @@ public class FilenameUtils {
+                 if (wcs[wcsIdx].equals("?")) {
+                     // ? so move to next text char
+                     textIdx++;
+-                    if (textIdx > filename.length()) {
+-                        break;
+-                    }
+                     anyChars = false;
+                     
+                 } else if (wcs[wcsIdx].equals("*")) {

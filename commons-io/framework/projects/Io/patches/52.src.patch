@@ -1,0 +1,23 @@
+diff --git a/src/java/org/apache/commons/io/FileCleaningTracker.java b/src/java/org/apache/commons/io/FileCleaningTracker.java
+index cb2d7834..b6da4db0 100644
+--- a/src/java/org/apache/commons/io/FileCleaningTracker.java
++++ b/src/java/org/apache/commons/io/FileCleaningTracker.java
+@@ -20,8 +20,7 @@ import java.io.File;
+ import java.lang.ref.PhantomReference;
+ import java.lang.ref.ReferenceQueue;
+ import java.util.Collection;
+-import java.util.Collections;
+-import java.util.HashSet;
++import java.util.Vector;
+ 
+ /**
+  * Keeps track of files awaiting deletion, and deletes them when an associated
+@@ -49,7 +48,7 @@ public class FileCleaningTracker {
+     /**
+      * Collection of <code>Tracker</code> instances in existence.
+      */
+-    final Collection<Tracker> trackers = Collections.synchronizedSet(new HashSet<Tracker>()); // synchronized
++    final Collection<Tracker> trackers = new Vector<Tracker>();  // synchronized
+     /**
+      * Whether to terminate the thread when the tracking is complete.
+      */

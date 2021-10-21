@@ -1,0 +1,40 @@
+diff --git a/src/java/org/apache/commons/io/EndianUtils.java b/src/java/org/apache/commons/io/EndianUtils.java
+index bb41bca5..1b838368 100644
+--- a/src/java/org/apache/commons/io/EndianUtils.java
++++ b/src/java/org/apache/commons/io/EndianUtils.java
+@@ -182,13 +182,10 @@ public class EndianUtils {
+      * @return the value read
+      */
+     public static long readSwappedUnsignedInteger(byte[] data, int offset) {
+-        long low = ( ( ( data[ offset + 0 ] & 0xff ) << 0 ) +
+-                     ( ( data[ offset + 1 ] & 0xff ) << 8 ) +
+-                     ( ( data[ offset + 2 ] & 0xff ) << 16 ) );
+-
+-        long high = data[ offset + 3 ] & 0xff;
+-
+-        return (high << 24) + (0xffffffffL & low); 
++        return ( ( ( data[ offset + 0 ] & 0xff ) << 0 ) +
++            ( ( data[ offset + 1 ] & 0xff ) << 8 ) +
++            ( ( data[ offset + 2 ] & 0xff ) << 16 ) +
++            ( ( data[ offset + 3 ] & 0xff ) << 24 ) );
+     }
+ 
+     /**
+@@ -371,13 +368,10 @@ public class EndianUtils {
+         int value3 = read( input );
+         int value4 = read( input );
+ 
+-        long low = ( ( ( value1 & 0xff ) << 0 ) +
+-                     ( ( value2 & 0xff ) << 8 ) +
+-                     ( ( value3 & 0xff ) << 16 ) );
+-
+-        long high = value4 & 0xff;
+-
+-        return (high << 24) + (0xffffffffL & low); 
++        return ( ( value1 & 0xff ) << 0 ) +
++            ( ( value2 & 0xff ) << 8 ) +
++            ( ( value3 & 0xff ) << 16 ) +
++            ( ( value4 & 0xff ) << 24 );
+     }
+ 
+     /**

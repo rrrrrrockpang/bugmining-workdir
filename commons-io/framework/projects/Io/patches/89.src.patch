@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/FileSystemUtils.java b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+index 49eef97c..11cf20aa 100644
+--- a/src/main/java/org/apache/commons/io/FileSystemUtils.java
++++ b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+@@ -297,7 +297,7 @@ public class FileSystemUtils {
+         }
+         
+         // build and run the 'dir' command
+-        String[] cmdAttribs = new String[] {"cmd.exe", "/C", "dir /a /-c " + path};
++        String[] cmdAttribs = new String[] {"cmd.exe", "/C", "dir /-c " + path};
+         
+         // read in the output of the command to an ArrayList
+         List<String> lines = performCommand(cmdAttribs, Integer.MAX_VALUE, timeout);

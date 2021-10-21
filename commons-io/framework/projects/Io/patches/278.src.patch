@@ -1,0 +1,23 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index ae132fce..de35e63b 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2302,7 +2302,7 @@ public class FileUtils {
+             throws IOException {
+         validateMoveParameters(srcFile, destFile);
+         requireFile(srcFile, "srcFile");
+-        requireAbsent(destFile, "destFile");
++        requireAbsent(destFile, null);
+         final boolean rename = srcFile.renameTo(destFile);
+         if (!rename) {
+             copyFile(srcFile, destFile, copyOptions);
+@@ -2599,7 +2599,8 @@ public class FileUtils {
+ 
+     private static void requireAbsent(final File file, final String name) throws FileExistsException {
+         if (file.exists()) {
+-            throw new FileExistsException(String.format("File element in parameter '%s' already exists: '%s'", name, file));
++            throw new FileExistsException(
++                String.format("File element in parameter '%s' already exists: '%s'", name, file));
+         }
+     }
+ 

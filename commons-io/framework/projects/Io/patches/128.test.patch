@@ -1,0 +1,104 @@
+diff --git a/src/test/java/org/apache/commons/io/comparator/ComparatorAbstractTestCase.java b/src/test/java/org/apache/commons/io/comparator/ComparatorAbstractTestCase.java
+index 89d45171..fab84a8f 100644
+--- a/src/test/java/org/apache/commons/io/comparator/ComparatorAbstractTestCase.java
++++ b/src/test/java/org/apache/commons/io/comparator/ComparatorAbstractTestCase.java
+@@ -58,7 +58,7 @@ public abstract class ComparatorAbstractTestCase extends FileBasedTestCase {
+     /** @see junit.framework.TestCase#setUp() */
+     @Override
+     protected void setUp() throws Exception {
+-        comparator = DefaultFileComparator.DEFAULT_COMPARATOR;
++        comparator = (AbstractFileComparator)DefaultFileComparator.DEFAULT_COMPARATOR;
+         reverse = DefaultFileComparator.DEFAULT_REVERSE;
+     }
+ 
+diff --git a/src/test/java/org/apache/commons/io/comparator/DefaultFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/DefaultFileComparatorTest.java
+index 9859843c..ca0c1546 100644
+--- a/src/test/java/org/apache/commons/io/comparator/DefaultFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/DefaultFileComparatorTest.java
+@@ -36,7 +36,7 @@ public class DefaultFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = DefaultFileComparator.DEFAULT_COMPARATOR;
++        comparator = (AbstractFileComparator)DefaultFileComparator.DEFAULT_COMPARATOR;
+         reverse = DefaultFileComparator.DEFAULT_REVERSE;
+         equalFile1 = new File("foo");
+         equalFile2 = new File("foo");
+diff --git a/src/test/java/org/apache/commons/io/comparator/DirectoryFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/DirectoryFileComparatorTest.java
+index 3f6ba80b..f9152a99 100644
+--- a/src/test/java/org/apache/commons/io/comparator/DirectoryFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/DirectoryFileComparatorTest.java
+@@ -36,7 +36,7 @@ public class DirectoryFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = DirectoryFileComparator.DIRECTORY_COMPARATOR;
++        comparator = (AbstractFileComparator)DirectoryFileComparator.DIRECTORY_COMPARATOR;
+         reverse = DirectoryFileComparator.DIRECTORY_REVERSE;
+         File currentDir = new File(".");
+         equalFile1 = new File(currentDir, "src");
+diff --git a/src/test/java/org/apache/commons/io/comparator/ExtensionFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/ExtensionFileComparatorTest.java
+index a0a1f2c4..820b0296 100644
+--- a/src/test/java/org/apache/commons/io/comparator/ExtensionFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/ExtensionFileComparatorTest.java
+@@ -37,7 +37,7 @@ public class ExtensionFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = ExtensionFileComparator.EXTENSION_COMPARATOR;
++        comparator = (AbstractFileComparator)ExtensionFileComparator.EXTENSION_COMPARATOR;
+         reverse = ExtensionFileComparator.EXTENSION_REVERSE;
+         equalFile1 = new File("abc.foo");
+         equalFile2 = new File("def.foo");
+diff --git a/src/test/java/org/apache/commons/io/comparator/LastModifiedFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/LastModifiedFileComparatorTest.java
+index 3be9a20c..1af60014 100644
+--- a/src/test/java/org/apache/commons/io/comparator/LastModifiedFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/LastModifiedFileComparatorTest.java
+@@ -36,7 +36,7 @@ public class LastModifiedFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = LastModifiedFileComparator.LASTMODIFIED_COMPARATOR;
++        comparator = (AbstractFileComparator)LastModifiedFileComparator.LASTMODIFIED_COMPARATOR;
+         reverse = LastModifiedFileComparator.LASTMODIFIED_REVERSE;
+         File dir = getTestDirectory();
+         File olderFile = new File(dir, "older.txt");
+diff --git a/src/test/java/org/apache/commons/io/comparator/NameFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/NameFileComparatorTest.java
+index 3b63cb33..079e42ac 100644
+--- a/src/test/java/org/apache/commons/io/comparator/NameFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/NameFileComparatorTest.java
+@@ -37,7 +37,7 @@ public class NameFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = NameFileComparator.NAME_INSENSITIVE_COMPARATOR;
++        comparator = (AbstractFileComparator)NameFileComparator.NAME_INSENSITIVE_COMPARATOR;
+         reverse = NameFileComparator.NAME_REVERSE;
+         equalFile1 = new File("a/foo.txt");
+         equalFile2 = new File("b/foo.txt");
+diff --git a/src/test/java/org/apache/commons/io/comparator/PathFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/PathFileComparatorTest.java
+index 1699b4ff..a28273a3 100644
+--- a/src/test/java/org/apache/commons/io/comparator/PathFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/PathFileComparatorTest.java
+@@ -37,7 +37,7 @@ public class PathFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = PathFileComparator.PATH_COMPARATOR;
++        comparator = (AbstractFileComparator)PathFileComparator.PATH_COMPARATOR;
+         reverse = PathFileComparator.PATH_REVERSE;
+         equalFile1 = new File("foo/file.txt");
+         equalFile2 = new File("foo/file.txt");
+diff --git a/src/test/java/org/apache/commons/io/comparator/SizeFileComparatorTest.java b/src/test/java/org/apache/commons/io/comparator/SizeFileComparatorTest.java
+index 19e16cf7..d2a493c5 100644
+--- a/src/test/java/org/apache/commons/io/comparator/SizeFileComparatorTest.java
++++ b/src/test/java/org/apache/commons/io/comparator/SizeFileComparatorTest.java
+@@ -41,7 +41,7 @@ public class SizeFileComparatorTest extends ComparatorAbstractTestCase {
+     @Override
+     protected void setUp() throws Exception {
+         super.setUp();
+-        comparator = SizeFileComparator.SIZE_COMPARATOR;
++        comparator = (AbstractFileComparator)SizeFileComparator.SIZE_COMPARATOR;
+         reverse = SizeFileComparator.SIZE_REVERSE;
+         File dir = getTestDirectory();
+         smallerDir = new File(dir, "smallerdir");

@@ -1,0 +1,159 @@
+diff --git a/src/java/org/apache/commons/io/input/CountingInputStream.java b/src/java/org/apache/commons/io/input/CountingInputStream.java
+index bf048320..1d86fcc9 100644
+--- a/src/java/org/apache/commons/io/input/CountingInputStream.java
++++ b/src/java/org/apache/commons/io/input/CountingInputStream.java
+@@ -110,57 +110,49 @@ public class CountingInputStream extends ProxyInputStream {
+     /**
+      * The number of bytes that have passed through this stream.
+      * <p>
+-     * NOTE: From v1.3 this method throws an ArithmeticException if the
+-     * count is greater than can be expressed by an <code>int</code>.
+-     * See {@link #getByteCount()} for a method using a <code>long</code>.
++     * <strong>WARNING</strong> This method will return an
++     * incorrect count for files over 2GB - use
++     * <code>getByteCount()</code> instead.
+      *
+      * @return the number of bytes accumulated
+-     * @throws ArithmeticException if the byte count is too large
++     * @deprecated use <code>getByteCount()</code> - see issue IO-84
+      */
+-    public synchronized int getCount() {
+-        long result = getByteCount();
+-        if (result > Integer.MAX_VALUE) {
+-            throw new ArithmeticException("The byte count " + result + " is too large to be converted to an int");
+-        }
+-        return (int) result;
++    public int getCount() {
++        return (int) getByteCount();
+     }
+ 
+     /** 
+-     * Set the byte count back to 0. 
++     * Set the count back to 0. 
+      * <p>
+-     * NOTE: From v1.3 this method throws an ArithmeticException if the
+-     * count is greater than can be expressed by an <code>int</code>.
+-     * See {@link #resetByteCount()} for a method using a <code>long</code>.
++     * <strong>WARNING</strong> This method will return an
++     * incorrect count for files over 2GB - use
++     * <code>resetByteCount()</code> instead.
+      *
+-     * @return the count previous to resetting
+-     * @throws ArithmeticException if the byte count is too large
++     * @return the count previous to resetting.
++     * @deprecated use <code>resetByteCount()</code> - see issue IO-84
+      */
+     public synchronized int resetCount() {
+-        long result = resetByteCount();
+-        if (result > Integer.MAX_VALUE) {
+-            throw new ArithmeticException("The byte count " + result + " is too large to be converted to an int");
+-        }
+-        return (int) result;
++        return (int) resetByteCount();
+     }
+ 
+     /**
+      * The number of bytes that have passed through this stream.
+      * <p>
+-     * NOTE: This method is an alternative for <code>getCount()</code>
++     * NOTE: This method is a replacement for <code>getCount()</code>
+      * and was added because that method returns an integer which will
+      * result in incorrect count for files over 2GB.
+      *
+      * @return the number of bytes accumulated
+      * @since Commons IO 1.3
+      */
+-    public synchronized long getByteCount() {
++    public long getByteCount() {
+         return this.count;
+     }
+ 
+     /** 
+      * Set the byte count back to 0. 
+      * <p>
+-     * NOTE: This method is an alternative for <code>resetCount()</code>
++     * NOTE: This method is a replacement for <code>resetCount()</code>
+      * and was added because that method returns an integer which will
+      * result in incorrect count for files over 2GB.
+      *
+diff --git a/src/java/org/apache/commons/io/output/CountingOutputStream.java b/src/java/org/apache/commons/io/output/CountingOutputStream.java
+index 3fe25402..28799e4e 100644
+--- a/src/java/org/apache/commons/io/output/CountingOutputStream.java
++++ b/src/java/org/apache/commons/io/output/CountingOutputStream.java
+@@ -88,57 +88,49 @@ public class CountingOutputStream extends ProxyOutputStream {
+     /**
+      * The number of bytes that have passed through this stream.
+      * <p>
+-     * NOTE: From v1.3 this method throws an ArithmeticException if the
+-     * count is greater than can be expressed by an <code>int</code>.
+-     * See {@link #getByteCount()} for a method using a <code>long</code>.
++     * <strong>WARNING</strong> This method will return an
++     * incorrect count for files over 2GB - use
++     * <code>getByteCount()</code> instead.
+      *
+      * @return the number of bytes accumulated
+-     * @throws ArithmeticException if the byte count is too large
++     * @deprecated use <code>getByteCount()</code> - see issue IO-84
+      */
+-    public synchronized int getCount() {
+-        long result = getByteCount();
+-        if (result > Integer.MAX_VALUE) {
+-            throw new ArithmeticException("The byte count " + result + " is too large to be converted to an int");
+-        }
+-        return (int) result;
++    public int getCount() {
++        return (int) getByteCount();
+     }
+ 
+     /** 
+-     * Set the byte count back to 0. 
+-     * <p>
+-     * NOTE: From v1.3 this method throws an ArithmeticException if the
+-     * count is greater than can be expressed by an <code>int</code>.
+-     * See {@link #resetByteCount()} for a method using a <code>long</code>.
+-     *
+-     * @return the count previous to resetting
+-     * @throws ArithmeticException if the byte count is too large
+-     */
++      * Set the count back to 0. 
++      * <p>
++      * <strong>WARNING</strong> This method will return an
++      * incorrect count for files over 2GB - use
++      * <code>resetByteCount()</code> instead.
++      *
++      * @return the count previous to resetting.
++      * @deprecated use <code>resetByteCount()</code> - see issue IO-84
++      */
+     public synchronized int resetCount() {
+-        long result = resetByteCount();
+-        if (result > Integer.MAX_VALUE) {
+-            throw new ArithmeticException("The byte count " + result + " is too large to be converted to an int");
+-        }
+-        return (int) result;
++        return (int) resetByteCount();
+     }
+ 
+     /**
+      * The number of bytes that have passed through this stream.
+      * <p>
+-     * NOTE: This method is an alternative for <code>getCount()</code>.
++     * NOTE: This method is a replacement for <code>getCount()</code>.
+      * It was added because that method returns an integer which will
+      * result in incorrect count for files over 2GB.
+      *
+      * @return the number of bytes accumulated
+      * @since Commons IO 1.3
+      */
+-    public synchronized long getByteCount() {
++    public long getByteCount() {
+         return this.count;
+     }
+ 
+     /** 
+      * Set the byte count back to 0. 
+      * <p>
+-     * NOTE: This method is an alternative for <code>resetCount()</code>.
++     * NOTE: This method is a replacement for <code>resetCount()</code>.
+      * It was added because that method returns an integer which will
+      * result in incorrect count for files over 2GB.
+      *

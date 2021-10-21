@@ -2,11 +2,11 @@
 31deec7a232bacb1204c86788939afaac101b0ef refs/heads/2_0
 39520d49247616dc7a3ccc30c7b3b3ca315bb351 refs/heads/dependabot/github_actions/actions/cache-2.1.5
 25ab52adb711e46106fc428524d318aab5554829 refs/heads/dependabot/maven/com.github.spotbugs-spotbugs-maven-plugin-4.3.0
-6f260d131b000fdf160459fb72a7f0f077400afe refs/heads/dependabot/maven/com.puppycrawl.tools-checkstyle-8.44
+eb48d28284867497fed606a5dfb85b018613adc7 refs/heads/dependabot/maven/com.puppycrawl.tools-checkstyle-9.0
 7d6da621ce64c302bfd9c5905b9e9b7e107b72b8 refs/heads/dependabot/maven/junit-junit-4.13.2
 624b72676b5b2679379cafff2842e51abd3a0c5e refs/heads/dependabot/maven/org.apache.maven.plugins-maven-checkstyle-plugin-3.1.2
-7afc90f38337ef98cb3f6c3345d6fd2ae499263f refs/heads/dependabot/maven/org.mockito-mockito-core-3.11.2
-0ec111e38a4f4458d16d4b0299cfe0f6ae86464a refs/heads/master
+849b56b205bd0796c3b72c20aabb456f5aa58461 refs/heads/dependabot/maven/org.mockito-mockito-core-3.12.4
+12fa402375a562c8242ddf8af8ed60d556002913 refs/heads/master
 9be04e5cc990deee3ba672aa8060c523db897b7a refs/heads/release
 653d384acd6b09e22c21bb01a0fa0aff7ce5c708 refs/tags/DBUTILS_1_0
 ^de4cb838f7b55e07b36459552e1bebf154fe52cd

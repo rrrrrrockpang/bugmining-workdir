@@ -1,0 +1,44 @@
+diff --git a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+index 7ed36c92..51e8e09f 100644
+--- a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+@@ -216,8 +216,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals(null, FilenameUtils.normalize("//server/../a"));
+         assertEquals(null, FilenameUtils.normalize("//server/.."));
+         assertEquals(SEP + SEP + "server" + SEP + "", FilenameUtils.normalize("//server/"));
+-        assertEquals("a" + SEP + "b" + SEP + "c.txt", FilenameUtils.normalize("a\\b/c\u0000.txt"));
+-        assertEquals("a" + SEP + "b" + SEP + "c.txt", FilenameUtils.normalize("\u0000a\\b/c.txt"));
+     }
+ 
+     public void testNormalizeUnixWin() throws Exception {
+@@ -732,7 +730,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals("c", FilenameUtils.getName("a/b/c"));
+         assertEquals("", FilenameUtils.getName("a/b/c/"));
+         assertEquals("c", FilenameUtils.getName("a\\b\\c"));
+-        assertEquals("c", FilenameUtils.getName("a\\b\\\u0000c"));
+     }
+ 
+     public void testGetBaseName() {
+@@ -743,7 +740,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals("", FilenameUtils.getBaseName("a/b/c/"));
+         assertEquals("c", FilenameUtils.getBaseName("a\\b\\c"));
+         assertEquals("file.txt", FilenameUtils.getBaseName("file.txt.bak"));
+-        assertEquals("file.txt", FilenameUtils.getBaseName("fil\u0000e.txt.bak"));
+     }
+ 
+     public void testGetExtension() {
+@@ -886,14 +882,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertFalse(FilenameUtils.isExtension("a.b\\file.txt", "TXT"));
+     }
+ 
+-    public void testIsExtension_injection() {
+-        try {
+-            FilenameUtils.isExtension("a.b\\fi\u0000le.txt", "TXT");
+-            fail("Should throw IAE");
+-        } catch (IllegalArgumentException ignore) {
+-        }
+-    }
+-
+     public void testIsExtensionArray() {
+         assertFalse(FilenameUtils.isExtension(null, (String[]) null));
+         assertFalse(FilenameUtils.isExtension("file.txt", (String[]) null));

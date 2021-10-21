@@ -1,0 +1,34 @@
+diff --git a/src/test/java/org/apache/commons/io/output/FileWriterWithEncodingTest.java b/src/test/java/org/apache/commons/io/output/FileWriterWithEncodingTest.java
+index d20ed2df..d9885928 100644
+--- a/src/test/java/org/apache/commons/io/output/FileWriterWithEncodingTest.java
++++ b/src/test/java/org/apache/commons/io/output/FileWriterWithEncodingTest.java
+@@ -59,7 +59,7 @@ public class FileWriterWithEncodingTest {
+         });
+         assertFalse(file1.exists());
+     }
+-    
++
+     @Test
+     public void constructor_File_encoding_badEncoding() {
+         assertThrows(IOException.class, () -> {
+@@ -105,20 +105,6 @@ public class FileWriterWithEncodingTest {
+         assertFalse(file1.exists());
+     }
+ 
+-    @Test
+-    public void constructorAppend_File_existingFile_withContent() throws Exception {
+-        try (FileWriter fw1 = new FileWriter(file1)) {
+-            fw1.write("ABcd");
+-        }
+-        assertEquals(4, file1.length());
+-
+-        try (FileWriterWithEncoding fw1 = new FileWriterWithEncoding(file1, defaultEncoding, true)) {
+-            fw1.write("XyZ");
+-        }
+-
+-        assertEquals(7, file1.length());
+-    }
+-
+     @Test
+     public void sameEncoding_Charset_constructor() throws Exception {
+         try (final FileWriterWithEncoding writer = new FileWriterWithEncoding(file2, Charset.defaultCharset())) {

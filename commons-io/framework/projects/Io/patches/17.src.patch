@@ -1,0 +1,15 @@
+diff --git a/src/java/org/apache/commons/io/EndianUtils.java b/src/java/org/apache/commons/io/EndianUtils.java
+index ee487a5f..83a701e9 100644
+--- a/src/java/org/apache/commons/io/EndianUtils.java
++++ b/src/java/org/apache/commons/io/EndianUtils.java
+@@ -405,9 +405,7 @@ public class EndianUtils {
+         throws IOException
+     {
+         byte[] bytes = new byte[8];
+-        for ( int i=0; i<8; i++ ) {
+-            bytes[i] = (byte) read( input );
+-        }
++        input.read( bytes );
+         return readSwappedLong( bytes, 0 );
+     }
+ 

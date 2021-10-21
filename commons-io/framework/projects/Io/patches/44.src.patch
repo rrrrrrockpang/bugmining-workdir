@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/io/input/ProxyInputStream.java b/src/java/org/apache/commons/io/input/ProxyInputStream.java
+index 852f07f4..fbcb3545 100644
+--- a/src/java/org/apache/commons/io/input/ProxyInputStream.java
++++ b/src/java/org/apache/commons/io/input/ProxyInputStream.java
+@@ -108,7 +108,7 @@ public abstract class ProxyInputStream extends FilterInputStream {
+     /**
+      * Invokes the delegate's <code>skip(long)</code> method.
+      * @param ln the number of bytes to skip
+-     * @return the actual number of bytes skipped
++     * @return the number of bytes to skipped or -1 if the end of stream
+      * @throws IOException if an I/O error occurs
+      */
+     @Override

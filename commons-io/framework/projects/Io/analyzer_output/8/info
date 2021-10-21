@@ -1,0 +1,6 @@
+compile target: compile
+compile test target: compile-tests
+source dir: ${basedir}/src/java
+test dir: ${basedir}/src/test
+src output dir: ${classesdir}
+test output dir: ${testclassesdir}

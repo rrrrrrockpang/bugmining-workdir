@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
+index 851c3c03..619e49ea 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
+@@ -711,19 +711,6 @@ public class FileUtilsTestCase extends FileBasedTestCase {
+         file.delete();
+         file.mkdir();
+ 
+-        // Create a cyclic symlink
+-        if(!FilenameUtils.isSystemWindows()) {
+-            Runtime.getRuntime()
+-                .exec("ln -s " + file + "/.. " + file + "/cycle");
+-        } else {
+-            try {
+-                Runtime.getRuntime()
+-                    .exec("mklink /D " + file + "/cycle" + file + "/.. ");
+-            } catch(IOException ioe) { // So that tests run in FAT filesystems
+-              //don't fail
+-            }
+-        }
+-
+         assertEquals(
+             "Unexpected directory size",
+             TEST_DIRECTORY_SIZE,

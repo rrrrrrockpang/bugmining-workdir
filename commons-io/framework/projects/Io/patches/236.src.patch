@@ -1,0 +1,22 @@
+diff --git a/src/main/java/org/apache/commons/io/input/CircularInputStream.java b/src/main/java/org/apache/commons/io/input/CircularInputStream.java
+index d755dee5..5166b381 100644
+--- a/src/main/java/org/apache/commons/io/input/CircularInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/CircularInputStream.java
+@@ -50,7 +50,6 @@ public class CircularInputStream extends InputStream {
+         }
+         return repeatContent;
+     }
+-
+     private long byteCount;
+     private int position = -1;
+     private final byte[] repeatedContent;
+@@ -72,6 +71,9 @@ public class CircularInputStream extends InputStream {
+ 
+     @Override
+     public int read() {
++        if (repeatedContent.length == 0) {
++            return IOUtils.EOF;
++        }
+         if (targetByteCount >= 0) {
+             if (byteCount == targetByteCount) {
+                 return IOUtils.EOF;

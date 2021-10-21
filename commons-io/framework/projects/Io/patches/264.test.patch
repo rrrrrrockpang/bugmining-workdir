@@ -1,0 +1,22 @@
+diff --git a/src/test/java/org/apache/commons/io/input/MarkShieldInputStreamTest.java b/src/test/java/org/apache/commons/io/input/MarkShieldInputStreamTest.java
+index 1c3e4a07..55a0b166 100644
+--- a/src/test/java/org/apache/commons/io/input/MarkShieldInputStreamTest.java
++++ b/src/test/java/org/apache/commons/io/input/MarkShieldInputStreamTest.java
+@@ -78,7 +78,7 @@ public class MarkShieldInputStreamTest {
+         // test wrapping an underlying stream which does NOT support marking
+         try (final MarkShieldInputStream msis = new MarkShieldInputStream(
+                 new NullInputStream(64, false, false))) {
+-            assertThrows(UnsupportedOperationException.class, () -> msis.reset());
++            assertThrows(IOException.class, () -> msis.reset());
+         }
+     }
+ 
+@@ -87,7 +87,7 @@ public class MarkShieldInputStreamTest {
+         // test wrapping an underlying stream which supports marking
+         try (final MarkShieldInputStream msis = new MarkShieldInputStream(
+                 new NullInputStream(64, true, false))) {
+-            assertThrows(UnsupportedOperationException.class, () -> msis.reset());
++            assertThrows(IOException.class, () -> msis.reset());
+         }
+     }
+ 

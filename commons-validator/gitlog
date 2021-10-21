@@ -13136,3 +13136,10 @@ Author: Gary Gregory <garydgregory@gmail.com>
 Date:   Thu Jul 1 11:42:34 2021 -0400
 
     Update my developer entry.
+
+commit 07ed229304f6fcbd744ffdad0712c0b52d92d303
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 29 00:28:28 2021 -0400
+
+    AdoptOpenJDK is moving to the Eclipse Foundation and rebranding as
+    Eclipse Temurin.

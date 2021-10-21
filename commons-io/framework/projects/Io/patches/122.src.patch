@@ -1,0 +1,547 @@
+diff --git a/src/main/java/org/apache/commons/io/input/BOMInputStream.java b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+index 0326eeee..9a09bbda 100644
+--- a/src/main/java/org/apache/commons/io/input/BOMInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+@@ -19,66 +19,54 @@ package org.apache.commons.io.input;
+ import java.io.IOException;
+ import java.io.InputStream;
+ import java.util.Arrays;
+-import java.util.Comparator;
+ import java.util.List;
+ 
+ import org.apache.commons.io.ByteOrderMark;
+ 
+ /**
+- * This class is used to wrap a stream that includes an encoded {@link ByteOrderMark} as its first bytes.
+- * 
+- * This class detects these bytes and, if required, can automatically skip them and return the subsequent byte as the
+- * first byte in the stream.
+- * 
++ * This class is used to wrap a stream that includes an encoded
++ * {@link ByteOrderMark} as its first bytes.
++ *
++ * This class detects these bytes and, if required, can automatically skip them
++ * and return the subsequent byte as the first byte in the stream.
++ *
+  * The {@link ByteOrderMark} implementation has the following pre-defined BOMs:
+  * <ul>
+- * <li>UTF-8 - {@link ByteOrderMark#UTF_8}</li>
+- * <li>UTF-16BE - {@link ByteOrderMark#UTF_16LE}</li>
+- * <li>UTF-16LE - {@link ByteOrderMark#UTF_16BE}</li>
+- * <li>UTF-32BE - {@link ByteOrderMark#UTF_32LE}</li>
+- * <li>UTF-32LE - {@link ByteOrderMark#UTF_32BE}</li>
++ *   <li>UTF-8 - {@link ByteOrderMark#UTF_8}</li>
++ *   <li>UTF-16BE - {@link ByteOrderMark#UTF_16LE}</li>
++ *   <li>UTF-16LE - {@link ByteOrderMark#UTF_16BE}</li>
+  * </ul>
+- * 
+- * 
++ *
++ *
+  * <h3>Example 1 - Detect and exclude a UTF-8 BOM</h3>
+- * 
+  * <pre>
+- * BOMInputStream bomIn = new BOMInputStream(in);
+- * if (bomIn.hasBOM()) {
+- *     // has a UTF-8 BOM
+- * }
++ *      BOMInputStream bomIn = new BOMInputStream(in);
++ *      if (bomIn.hasBOM()) {
++ *          // has a UTF-8 BOM
++ *      }
+  * </pre>
+- * 
++ *
+  * <h3>Example 2 - Detect a UTF-8 BOM (but don't exclude it)</h3>
+- * 
+  * <pre>
+- * boolean include = true;
+- * BOMInputStream bomIn = new BOMInputStream(in, include);
+- * if (bomIn.hasBOM()) {
+- *     // has a UTF-8 BOM
+- * }
++ *      boolean include = true;
++ *      BOMInputStream bomIn = new BOMInputStream(in, include);
++ *      if (bomIn.hasBOM()) {
++ *          // has a UTF-8 BOM
++ *      }
+  * </pre>
+- * 
++ *
+  * <h3>Example 3 - Detect Multiple BOMs</h3>
+- * 
+  * <pre>
+- * BOMInputStream bomIn = new BOMInputStream(in, 
+- *   ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+- *   ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE
+- *   );
+- * if (bomIn.hasBOM() == false) {
+- *     // No BOM found
+- * } else if (bomIn.hasBOM(ByteOrderMark.UTF_16LE)) {
+- *     // has a UTF-16LE BOM
+- * } else if (bomIn.hasBOM(ByteOrderMark.UTF_16BE)) {
+- *     // has a UTF-16BE BOM
+- * } else if (bomIn.hasBOM(ByteOrderMark.UTF_32LE)) {
+- *     // has a UTF-32LE BOM
+- * } else if (bomIn.hasBOM(ByteOrderMark.UTF_32BE)) {
+- *     // has a UTF-32BE BOM
+- * }
++ *      BOMInputStream bomIn = new BOMInputStream(in, ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE);
++ *      if (bomIn.hasBOM() == false) {
++ *          // No BOM found
++ *      } else if (bomIn.hasBOM(ByteOrderMark.UTF_16LE)) {
++ *          // has a UTF-16LE BOM
++ *      } else if (bomIn.hasBOM(ByteOrderMark.UTF_16BE)) {
++ *          // has a UTF-16BE BOM
++ *      }
+  * </pre>
+- * 
++ *
+  * @see org.apache.commons.io.ByteOrderMark
+  * @see <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Wikipedia - Byte Order Mark</a>
+  * @version $Id$
+@@ -86,9 +74,6 @@ import org.apache.commons.io.ByteOrderMark;
+  */
+ public class BOMInputStream extends ProxyInputStream {
+     private final boolean include;
+-    /**
+-     * BOMs are sorted from longest to shortest.
+-     */
+     private final List<ByteOrderMark> boms;
+     private ByteOrderMark byteOrderMark;
+     private int[] firstBytes;
+@@ -98,66 +83,42 @@ public class BOMInputStream extends ProxyInputStream {
+     private boolean markedAtStart;
+ 
+     /**
+-     * Constructs a new BOM InputStream that excludes a {@link ByteOrderMark#UTF_8} BOM.
+-     * 
+-     * @param delegate
+-     *            the InputStream to delegate to
++     * Constructs a new BOM InputStream that excludes
++     * a {@link ByteOrderMark#UTF_8} BOM.
++     * @param delegate the InputStream to delegate to
+      */
+     public BOMInputStream(InputStream delegate) {
+         this(delegate, false, ByteOrderMark.UTF_8);
+     }
+ 
+     /**
+-     * Constructs a new BOM InputStream that detects a a {@link ByteOrderMark#UTF_8} and optionally includes it.
+-     * 
+-     * @param delegate
+-     *            the InputStream to delegate to
+-     * @param include
+-     *            true to include the UTF-8 BOM or false to exclude it
++     * Constructs a new BOM InputStream that detects a
++     * a {@link ByteOrderMark#UTF_8} and optionally includes it.
++     * @param delegate the InputStream to delegate to
++     * @param include true to include the UTF-8 BOM or
++     * false to exclude it
+      */
+     public BOMInputStream(InputStream delegate, boolean include) {
+         this(delegate, include, ByteOrderMark.UTF_8);
+     }
+ 
+     /**
+-     * Constructs a new BOM InputStream that excludes the specified BOMs.
+-     * 
+-     * @param delegate
+-     *            the InputStream to delegate to
+-     * @param boms
+-     *            The BOMs to detect and exclude
++     * Constructs a new BOM InputStream that excludes
++     * the specified BOMs.
++     * @param delegate the InputStream to delegate to
++     * @param boms The BOMs to detect and exclude
+      */
+     public BOMInputStream(InputStream delegate, ByteOrderMark... boms) {
+         this(delegate, false, boms);
+     }
+ 
+     /**
+-     * Compares ByteOrderMark objects in descending length order.
+-     */
+-    private static final Comparator<ByteOrderMark> ByteOrderMarkLengthComparator = new Comparator<ByteOrderMark>() {
+-
+-        public int compare(ByteOrderMark bom1, ByteOrderMark bom2) {
+-            int len1 = bom1.length();
+-            int len2 = bom2.length();
+-            if (len1 > len2) {
+-                return -1;
+-            }
+-            if (len2 > len1) {
+-                return 1;
+-            }
+-            return 0;
+-        }
+-    };
+-
+-    /**
+-     * Constructs a new BOM InputStream that detects the specified BOMs and optionally includes them.
+-     * 
+-     * @param delegate
+-     *            the InputStream to delegate to
+-     * @param include
+-     *            true to include the specified BOMs or false to exclude them
+-     * @param boms
+-     *            The BOMs to detect and optionally exclude
++     * Constructs a new BOM InputStream that detects the
++     * specified BOMs and optionally includes them.
++     * @param delegate the InputStream to delegate to
++     * @param include true to include the specified BOMs or
++     * false to exclude them
++     * @param boms The BOMs to detect and optionally exclude
+      */
+     public BOMInputStream(InputStream delegate, boolean include, ByteOrderMark... boms) {
+         super(delegate);
+@@ -165,18 +126,15 @@ public class BOMInputStream extends ProxyInputStream {
+             throw new IllegalArgumentException("No BOMs specified");
+         }
+         this.include = include;
+-        // Sort the BOMs to match the longest BOM first because some BOMs have the same starting two bytes.
+-        Arrays.sort(boms, ByteOrderMarkLengthComparator);
+         this.boms = Arrays.asList(boms);
+-
+     }
+ 
+     /**
+      * Indicates whether the stream contains one of the specified BOMs.
+-     * 
+-     * @return true if the stream has one of the specified BOMs, otherwise false if it does not
+-     * @throws IOException
+-     *             if an error reading the first bytes of the stream occurs
++     *
++     * @return true if the stream has one of the specified BOMs, otherwise false
++     * if it does not
++     * @throws IOException if an error reading the first bytes of the stream occurs
+      */
+     public boolean hasBOM() throws IOException {
+         return getBOM() != null;
+@@ -184,14 +142,13 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Indicates whether the stream contains the specified BOM.
+-     * 
+-     * @param bom
+-     *            The BOM to check for
+-     * @return true if the stream has the specified BOM, otherwise false if it does not
+-     * @throws IllegalArgumentException
+-     *             if the BOM is not one the stream is configured to detect
+-     * @throws IOException
+-     *             if an error reading the first bytes of the stream occurs
++     *
++     * @param bom The BOM to check for
++     * @return true if the stream has the specified BOM, otherwise false
++     * if it does not
++     * @throws IllegalArgumentException if the BOM is not one the stream
++     * is configured to detect
++     * @throws IOException if an error reading the first bytes of the stream occurs
+      */
+     public boolean hasBOM(ByteOrderMark bom) throws IOException {
+         if (!boms.contains(bom)) {
+@@ -202,34 +159,31 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Return the BOM (Byte Order Mark).
+-     * 
++     *
+      * @return The BOM or null if none
+-     * @throws IOException
+-     *             if an error reading the first bytes of the stream occurs
++     * @throws IOException if an error reading the first bytes of the stream occurs
+      */
+     public ByteOrderMark getBOM() throws IOException {
+         if (firstBytes == null) {
+             fbLength = 0;
+-            // BOMs are sorted from longest to shortest
+-            final int maxBomSize = boms.get(0).length();
+-            firstBytes = new int[maxBomSize];
+-            // Read first maxBomSize bytes
++            int max = 0;
++            for (ByteOrderMark bom : boms) {
++                max = Math.max(max, bom.length());
++            }
++            firstBytes = new int[max];
+             for (int i = 0; i < firstBytes.length; i++) {
+                 firstBytes[i] = in.read();
+                 fbLength++;
+                 if (firstBytes[i] < 0) {
+                     break;
+                 }
+-            }
+-            // match BOM in firstBytes
+-            byteOrderMark = find();
+-            if (byteOrderMark != null) {
+-                if (!include) {
+-                    if (byteOrderMark.length() < firstBytes.length) {
+-                        fbIndex = byteOrderMark.length();
+-                    } else {
++
++                byteOrderMark = find();
++                if (byteOrderMark != null) {
++                    if (!include) {
+                         fbLength = 0;
+                     }
++                    break;
+                 }
+             }
+         }
+@@ -238,10 +192,9 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Return the BOM charset Name - {@link ByteOrderMark#getCharsetName()}.
+-     * 
++     *
+      * @return The BOM charset Name or null if no BOM found
+-     * @throws IOException
+-     *             if an error reading the first bytes of the stream occurs
++     * @throws IOException if an error reading the first bytes of the stream occurs
+      * 
+      */
+     public String getBOMCharsetName() throws IOException {
+@@ -250,13 +203,12 @@ public class BOMInputStream extends ProxyInputStream {
+     }
+ 
+     /**
+-     * This method reads and either preserves or skips the first bytes in the stream. It behaves like the single-byte
+-     * <code>read()</code> method, either returning a valid byte or -1 to indicate that the initial bytes have been
+-     * processed already.
+-     * 
++     * This method reads and either preserves or skips the first bytes in the
++     * stream. It behaves like the single-byte <code>read()</code> method,
++     * either returning a valid byte or -1 to indicate that the initial bytes
++     * have been processed already.
+      * @return the byte read (excluding BOM) or -1 if the end of stream
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * @throws IOException if an I/O error occurs
+      */
+     private int readFirstBytes() throws IOException {
+         getBOM();
+@@ -265,7 +217,7 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Find a BOM with the specified bytes.
+-     * 
++     *
+      * @return The matched BOM or null if none matched
+      */
+     private ByteOrderMark find() {
+@@ -279,16 +231,14 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Check if the bytes match a BOM.
+-     * 
+-     * @param bom
+-     *            The BOM
++     *
++     * @param bom The BOM
+      * @return true if the bytes match the bom, otherwise false
+      */
+     private boolean matches(ByteOrderMark bom) {
+-        // if (bom.length() != fbLength) {
+-        // return false;
+-        // }
+-        // firstBytes may be bigger than the BOM bytes
++        if (bom.length() != fbLength) {
++            return false;
++        }
+         for (int i = 0; i < bom.length(); i++) {
+             if (bom.get(i) != firstBytes[i]) {
+                 return false;
+@@ -297,16 +247,15 @@ public class BOMInputStream extends ProxyInputStream {
+         return true;
+     }
+ 
+-    // ----------------------------------------------------------------------------
+-    // Implementation of InputStream
+-    // ----------------------------------------------------------------------------
++    //----------------------------------------------------------------------------
++    //  Implementation of InputStream
++    //----------------------------------------------------------------------------
+ 
+     /**
+-     * Invokes the delegate's <code>read()</code> method, detecting and optionally skipping BOM.
+-     * 
++     * Invokes the delegate's <code>read()</code> method, detecting and
++     * optionally skipping BOM.
+      * @return the byte read (excluding BOM) or -1 if the end of stream
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * @throws IOException if an I/O error occurs
+      */
+     @Override
+     public int read() throws IOException {
+@@ -315,17 +264,13 @@ public class BOMInputStream extends ProxyInputStream {
+     }
+ 
+     /**
+-     * Invokes the delegate's <code>read(byte[], int, int)</code> method, detecting and optionally skipping BOM.
+-     * 
+-     * @param buf
+-     *            the buffer to read the bytes into
+-     * @param off
+-     *            The start offset
+-     * @param len
+-     *            The number of bytes to read (excluding BOM)
++     * Invokes the delegate's <code>read(byte[], int, int)</code> method, detecting
++     * and optionally skipping BOM.
++     * @param buf the buffer to read the bytes into
++     * @param off The start offset
++     * @param len The number of bytes to read (excluding BOM)
+      * @return the number of bytes read or -1 if the end of stream
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * @throws IOException if an I/O error occurs
+      */
+     @Override
+     public int read(byte[] buf, int off, int len) throws IOException {
+@@ -344,13 +289,12 @@ public class BOMInputStream extends ProxyInputStream {
+     }
+ 
+     /**
+-     * Invokes the delegate's <code>read(byte[])</code> method, detecting and optionally skipping BOM.
+-     * 
+-     * @param buf
+-     *            the buffer to read the bytes into
+-     * @return the number of bytes read (excluding BOM) or -1 if the end of stream
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * Invokes the delegate's <code>read(byte[])</code> method, detecting and
++     * optionally skipping BOM.
++     * @param buf the buffer to read the bytes into
++     * @return the number of bytes read (excluding BOM)
++     * or -1 if the end of stream
++     * @throws IOException if an I/O error occurs
+      */
+     @Override
+     public int read(byte[] buf) throws IOException {
+@@ -359,9 +303,7 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Invokes the delegate's <code>mark(int)</code> method.
+-     * 
+-     * @param readlimit
+-     *            read ahead limit
++     * @param readlimit read ahead limit
+      */
+     @Override
+     public synchronized void mark(int readlimit) {
+@@ -372,9 +314,7 @@ public class BOMInputStream extends ProxyInputStream {
+ 
+     /**
+      * Invokes the delegate's <code>reset()</code> method.
+-     * 
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * @throws IOException if an I/O error occurs
+      */
+     @Override
+     public synchronized void reset() throws IOException {
+@@ -387,13 +327,11 @@ public class BOMInputStream extends ProxyInputStream {
+     }
+ 
+     /**
+-     * Invokes the delegate's <code>skip(long)</code> method, detecting and optionallyskipping BOM.
+-     * 
+-     * @param n
+-     *            the number of bytes to skip
++     * Invokes the delegate's <code>skip(long)</code> method, detecting
++     * and optionallyskipping BOM.
++     * @param n the number of bytes to skip
+      * @return the number of bytes to skipped or -1 if the end of stream
+-     * @throws IOException
+-     *             if an I/O error occurs
++     * @throws IOException if an I/O error occurs
+      */
+     @Override
+     public long skip(long n) throws IOException {
+diff --git a/src/main/java/org/apache/commons/io/input/XmlStreamReader.java b/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
+index 525a6d15..e0184386 100644
+--- a/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
++++ b/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
+@@ -74,36 +74,23 @@ public class XmlStreamReader extends Reader {
+ 
+     private static final String UTF_16LE = "UTF-16LE";
+ 
+-    private static final String UTF_32BE = "UTF-32BE";
+-
+-    private static final String UTF_32LE = "UTF-32LE";
+-
+     private static final String UTF_16 = "UTF-16";
+ 
+-    private static final String UTF_32 = "UTF-32";
+-
+     private static final String EBCDIC = "CP1047";
+ 
+     private static final ByteOrderMark[] BOMS = new ByteOrderMark[] {
+         ByteOrderMark.UTF_8,
+         ByteOrderMark.UTF_16BE,
+-        ByteOrderMark.UTF_16LE,
+-        ByteOrderMark.UTF_32BE,
+-        ByteOrderMark.UTF_32LE
++        ByteOrderMark.UTF_16LE
+     };
+-    
+-    // UTF_16LE and UTF_32LE have the same two starting BOM bytes.
+     private static final ByteOrderMark[] XML_GUESS_BYTES = new ByteOrderMark[] {
+         new ByteOrderMark(UTF_8,    0x3C, 0x3F, 0x78, 0x6D),
+         new ByteOrderMark(UTF_16BE, 0x00, 0x3C, 0x00, 0x3F),
+         new ByteOrderMark(UTF_16LE, 0x3C, 0x00, 0x3F, 0x00),
+-        new ByteOrderMark(UTF_32BE, 0x00, 0x00, 0x00, 0x3C, 
+-                0x00, 0x00, 0x00, 0x3F, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x6D),
+-        new ByteOrderMark(UTF_32LE, 0x3C, 0x00, 0x00, 0x00, 
+-                0x3F, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x6D, 0x00, 0x00, 0x00),
+         new ByteOrderMark(EBCDIC,   0x4C, 0x6F, 0xA7, 0x94)
+     };
+ 
++
+     private final Reader reader;
+ 
+     private final String encoding;
+@@ -545,19 +532,6 @@ public class XmlStreamReader extends Reader {
+             return bomEnc;
+         }
+ 
+-        // BOM is UTF-32BE or UTF-32LE
+-        if (bomEnc.equals(UTF_32BE) || bomEnc.equals(UTF_32LE)) {
+-            if (xmlGuessEnc != null && !xmlGuessEnc.equals(bomEnc)) {
+-                String msg = MessageFormat.format(RAW_EX_1, new Object[] { bomEnc, xmlGuessEnc, xmlEnc });
+-                throw new XmlStreamReaderException(msg, bomEnc, xmlGuessEnc, xmlEnc);
+-            }
+-            if (xmlEnc != null && !xmlEnc.equals(UTF_32) && !xmlEnc.equals(bomEnc)) {
+-                String msg = MessageFormat.format(RAW_EX_1, new Object[] { bomEnc, xmlGuessEnc, xmlEnc });
+-                throw new XmlStreamReaderException(msg, bomEnc, xmlGuessEnc, xmlEnc);
+-            }
+-            return bomEnc;
+-        }
+-
+         // BOM is something else
+         String msg = MessageFormat.format(RAW_EX_2, new Object[] { bomEnc, xmlGuessEnc, xmlEnc });
+         throw new XmlStreamReaderException(msg, bomEnc, xmlGuessEnc, xmlEnc);
+@@ -624,24 +598,6 @@ public class XmlStreamReader extends Reader {
+             throw new XmlStreamReaderException(msg, cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc);
+         }
+ 
+-        // UTF-32BE or UTF-132E content type encoding
+-        if (cTEnc.equals(UTF_32BE) || cTEnc.equals(UTF_32LE)) {
+-            if (bomEnc != null) {
+-                String msg = MessageFormat.format(HTTP_EX_1, cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc);
+-                throw new XmlStreamReaderException(msg, cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc);
+-            }
+-            return cTEnc;
+-        }
+-
+-        // UTF-32 content type encoding
+-        if (cTEnc.equals(UTF_32)) {
+-            if (bomEnc != null && bomEnc.startsWith(UTF_32)) {
+-                return bomEnc;
+-            }
+-            String msg = MessageFormat.format(HTTP_EX_2, cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc);
+-            throw new XmlStreamReaderException(msg, cTMime, cTEnc, bomEnc, xmlGuessEnc, xmlEnc);
+-        }
+-
+         return cTEnc;
+     }
+ 

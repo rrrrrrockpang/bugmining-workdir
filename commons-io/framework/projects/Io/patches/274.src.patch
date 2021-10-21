@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java b/src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java
+index d3b9d3bd..ce8c2079 100644
+--- a/src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java
++++ b/src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java
+@@ -227,7 +227,7 @@ public class FileWriterWithEncoding extends Writer {
+         OutputStream stream = null;
+         final boolean fileExistedAlready = file.exists();
+         try {
+-            stream = Files.newOutputStream(file.toPath(),  append ? StandardOpenOption.APPEND : StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
++            stream = Files.newOutputStream(file.toPath(),  append ? StandardOpenOption.APPEND : StandardOpenOption.CREATE);
+             if (encoding instanceof Charset) {
+                 return new OutputStreamWriter(stream, (Charset)encoding);
+             }

@@ -1,0 +1,24 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 7bee5bf9..1586ead2 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -1394,6 +1394,7 @@ public class FileUtils {
+ 
+         final Path srcPath = srcFile.toPath();
+         final Path destPath = destFile.toPath();
++        final long newLastModifed = preserveFileDate ? srcFile.lastModified() : destFile.lastModified();
+         Files.copy(srcPath, destPath, copyOptions);
+ 
+         // TODO IO-386: Do we still need this check?
+@@ -1401,10 +1402,7 @@ public class FileUtils {
+         // TODO IO-386: Do we still need this check?
+         checkEqualSizes(srcFile, destFile, srcFile.length(), destFile.length());
+ 
+-        if (preserveFileDate) {
+-            return destFile.setLastModified(srcFile.lastModified());
+-        }
+-        return true;
++        return destFile.setLastModified(newLastModifed);
+     }
+ 
+     //-----------------------------------------------------------------------

@@ -1,0 +1,28 @@
+diff --git a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+index 552129f1..7ed36c92 100644
+--- a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+@@ -565,7 +565,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals("\\", FilenameUtils.getPrefix("\\a\\b\\c.txt"));
+         assertEquals("~\\", FilenameUtils.getPrefix("~\\a\\b\\c.txt"));
+         assertEquals("~user\\", FilenameUtils.getPrefix("~user\\a\\b\\c.txt"));
+-        assertEquals("~user\\", FilenameUtils.getPrefix("~u\u0000ser\\a\\b\\c.txt"));
+     }
+ 
+     public void testGetPath() {
+@@ -602,7 +601,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals("a/b/", FilenameUtils.getPath("//server/a/b/c.txt"));
+         assertEquals("a/b/", FilenameUtils.getPath("~/a/b/c.txt"));
+         assertEquals("a/b/", FilenameUtils.getPath("~user/a/b/c.txt"));
+-        assertEquals("a/b/", FilenameUtils.getPath("~user/a/\u0000b/c.txt"));
+     }
+ 
+     public void testGetPathNoEndSeparator() {
+@@ -639,7 +637,6 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals("a/b", FilenameUtils.getPathNoEndSeparator("//server/a/b/c.txt"));
+         assertEquals("a/b", FilenameUtils.getPathNoEndSeparator("~/a/b/c.txt"));
+         assertEquals("a/b", FilenameUtils.getPathNoEndSeparator("~user/a/b/c.txt"));
+-        assertEquals("a/b", FilenameUtils.getPathNoEndSeparator("~user/a\u0000/b/c.txt"));
+     }
+ 
+     public void testGetFullPath() {

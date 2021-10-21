@@ -1,0 +1,36 @@
+diff --git a/src/main/java/org/apache/commons/io/input/Tailer.java b/src/main/java/org/apache/commons/io/input/Tailer.java
+index 3cc4f559..4f959477 100644
+--- a/src/main/java/org/apache/commons/io/input/Tailer.java
++++ b/src/main/java/org/apache/commons/io/input/Tailer.java
+@@ -297,8 +297,6 @@ public class Tailer implements Runnable {
+ 
+             while (run) {
+ 
+-                boolean newer = FileUtils.isFileNewer(file, last); // IO-279, must be done first
+-
+                 // Check the file length to see if it was rotated
+                 long length = file.length();
+ 
+@@ -328,10 +326,10 @@ public class Tailer implements Runnable {
+                     if (length > position) {
+ 
+                         // The file has more content than it did last time
+-                        position = readLines(reader);
+                         last = System.currentTimeMillis();
++                        position = readLines(reader);
+ 
+-                    } else if (newer) {
++                    } else if (FileUtils.isFileNewer(file, last)) {
+ 
+                         /*
+                          * This can happen if the file is truncated or overwritten with the exact same length of
+@@ -341,8 +339,8 @@ public class Tailer implements Runnable {
+                         reader.seek(position); // cannot be null here
+ 
+                         // Now we can read new lines
+-                        position = readLines(reader);
+                         last = System.currentTimeMillis();
++                        position = readLines(reader);
+                     }
+                 }
+                 try {

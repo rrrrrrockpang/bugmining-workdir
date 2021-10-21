@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/io/input/BOMInputStream.java b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+index 8b48119a..5963ea0a 100644
+--- a/src/main/java/org/apache/commons/io/input/BOMInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/BOMInputStream.java
+@@ -165,7 +165,6 @@ public class BOMInputStream extends ProxyInputStream {
+      */
+     public ByteOrderMark getBOM() throws IOException {
+         if (firstBytes == null) {
+-            fbLength = 0;
+             int max = 0;
+             for (ByteOrderMark bom : boms) {
+                 max = Math.max(max, bom.length());

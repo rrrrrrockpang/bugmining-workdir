@@ -1,0 +1,30 @@
+diff --git a/src/test/java/org/apache/commons/io/input/ReaderInputStreamTest.java b/src/test/java/org/apache/commons/io/input/ReaderInputStreamTest.java
+index 7ec1986c..14ecb0d3 100644
+--- a/src/test/java/org/apache/commons/io/input/ReaderInputStreamTest.java
++++ b/src/test/java/org/apache/commons/io/input/ReaderInputStreamTest.java
+@@ -105,24 +105,9 @@ public class ReaderInputStreamTest {
+     
+     @Test
+     public void testReadZero() throws Exception {
+-        final String inStr = "test";
+-        ReaderInputStream r = new ReaderInputStream(new StringReader(inStr));
++        ReaderInputStream r = new ReaderInputStream(new StringReader("test"));
+         byte[] bytes = new byte[30];
+         assertEquals(0, r.read(bytes, 0, 0));
+-        assertEquals(inStr.length(), r.read(bytes, 0, inStr.length()+1));
+-        // Should always return 0 for length == 0
+-        assertEquals(0, r.read(bytes, 0, 0));
+-    }
+-    
+-    @Test
+-    public void testReadZeroEmptyString() throws Exception {
+-        ReaderInputStream r = new ReaderInputStream(new StringReader(""));
+-        byte[] bytes = new byte[30];
+-        // Should always return 0 for length == 0
+-        assertEquals(0, r.read(bytes, 0, 0));
+-        assertEquals(-1, r.read(bytes, 0, 1));
+-        assertEquals(0, r.read(bytes, 0, 0));
+-        assertEquals(-1, r.read(bytes, 0, 1));
+     }
+     
+     /**

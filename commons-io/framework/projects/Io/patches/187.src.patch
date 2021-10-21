@@ -1,0 +1,28 @@
+diff --git a/src/main/java/org/apache/commons/io/FileSystemUtils.java b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+index d4fbea67..ee52f1e3 100644
+--- a/src/main/java/org/apache/commons/io/FileSystemUtils.java
++++ b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+@@ -510,23 +510,6 @@ public class FileSystemUtils {
+                         "Command line did not return any info " +
+                         "for command " + Arrays.asList(cmdAttribs));
+             }
+-
+-            inr.close();
+-            inr = null;
+-
+-            in.close();
+-            in = null;
+-
+-            if (out != null) {
+-                out.close();
+-                out = null;
+-            }
+-
+-            if (err != null) {
+-                err.close();
+-                err = null;
+-            }
+-
+             return lines;
+ 
+         } catch (final InterruptedException ex) {

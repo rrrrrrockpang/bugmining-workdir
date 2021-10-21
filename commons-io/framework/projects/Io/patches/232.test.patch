@@ -1,0 +1,14 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
+index 95f53431..924a3dff 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsTestCase.java
+@@ -630,9 +630,6 @@ public class FileUtilsTestCase {
+         // Non-existent files
+         final File file1 = new File(temporaryFolder, getName());
+         final File file2 = new File(temporaryFolder, getName() + "2");
+-        assertTrue(FileUtils.contentEqualsIgnoreEOL(null, null, null));
+-        assertFalse(FileUtils.contentEqualsIgnoreEOL(null, file1, null));
+-        assertFalse(FileUtils.contentEqualsIgnoreEOL(file1, null, null));
+         // both don't  exist
+         assertTrue(FileUtils.contentEqualsIgnoreEOL(file1, file1, null));
+         assertTrue(FileUtils.contentEqualsIgnoreEOL(file1, file2, null));

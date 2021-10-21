@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/io/IOUtils.java b/src/main/java/org/apache/commons/io/IOUtils.java
+index 9bfe142a..d5593c6b 100644
+--- a/src/main/java/org/apache/commons/io/IOUtils.java
++++ b/src/main/java/org/apache/commons/io/IOUtils.java
+@@ -2232,6 +2232,7 @@ public class IOUtils {
+      *
+      * @param input the <code>InputStream</code> to read from
+      * @return the requested byte array
++     * @throws NullPointerException if the input is null
+      * @throws IOException          if an I/O error occurs
+      */
+     public static byte[] toByteArray(final InputStream input) throws IOException {

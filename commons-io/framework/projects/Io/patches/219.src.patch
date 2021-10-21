@@ -1,0 +1,62 @@
+diff --git a/src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStream.java b/src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStream.java
+index 257adceb..d24e8283 100644
+--- a/src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStream.java
+@@ -46,13 +46,11 @@ public class MessageDigestCalculatingInputStream extends ObservableInputStream {
+         }
+ 
+         @Override
+-		public
+         void data(final int pByte) throws IOException {
+             md.update((byte) pByte);
+         }
+ 
+         @Override
+-		public
+         void data(final byte[] pBuffer, final int pOffset, final int pLength) throws IOException {
+             md.update(pBuffer, pOffset, pLength);
+         }
+diff --git a/src/main/java/org/apache/commons/io/input/ObservableInputStream.java b/src/main/java/org/apache/commons/io/input/ObservableInputStream.java
+index 9c12c4ba..03e8292d 100644
+--- a/src/main/java/org/apache/commons/io/input/ObservableInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/ObservableInputStream.java
+@@ -44,7 +44,7 @@ public class ObservableInputStream extends ProxyInputStream {
+          *    because, in that case, {@link #finished()} will be invoked instead.
+          * @throws IOException if an i/o-error occurs
+          */
+-        public void data(final int pByte) throws IOException {}
++        void data(final int pByte) throws IOException {}
+ 
+         /** Called to indicate, that {@link InputStream#read(byte[])}, or
+          * {@link InputStream#read(byte[], int, int)} have been called, and are about to
+@@ -55,7 +55,7 @@ public class ObservableInputStream extends ProxyInputStream {
+          * @param pLength The number of bytes, which have been stored in the byte array.
+          * @throws IOException if an i/o-error occurs
+          */
+-        public void data(final byte[] pBuffer, final int pOffset, final int pLength) throws IOException {}
++        void data(final byte[] pBuffer, final int pOffset, final int pLength) throws IOException {}
+ 
+         /** Called to indicate, that EOF has been seen on the underlying stream.
+          * This method may be called multiple times, if the reader keeps invoking
+@@ -63,18 +63,18 @@ public class ObservableInputStream extends ProxyInputStream {
+          * EOF.
+          * @throws IOException if an i/o-error occurs
+          */
+-        public void finished() throws IOException {}
++        void finished() throws IOException {}
+ 
+         /** Called to indicate, that the {@link ObservableInputStream} has been closed.
+          * @throws IOException if an i/o-error occurs
+          */
+-        public void closed() throws IOException {}
++        void closed() throws IOException {}
+ 
+         /**
+          * Called to indicate, that an error occurred on the underlying stream.
+          * @throws IOException if an i/o-error occurs
+          */
+-        public void error(final IOException pException) throws IOException { throw pException; }
++        void error(final IOException pException) throws IOException { throw pException; }
+     }
+ 
+     private final List<Observer> observers = new ArrayList<>();

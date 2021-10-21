@@ -1,0 +1,31 @@
+diff --git a/src/test/java/org/apache/commons/io/IOExceptionWithCauseTestCase.java b/src/test/java/org/apache/commons/io/IOExceptionWithCauseTestCase.java
+index 6103eba9..4e34a56d 100644
+--- a/src/test/java/org/apache/commons/io/IOExceptionWithCauseTestCase.java
++++ b/src/test/java/org/apache/commons/io/IOExceptionWithCauseTestCase.java
+@@ -17,8 +17,6 @@
+ 
+ package org.apache.commons.io;
+ 
+-import java.io.IOException;
+-
+ import junit.framework.TestCase;
+ 
+ /**
+@@ -33,7 +31,7 @@ public class IOExceptionWithCauseTestCase extends TestCase {
+      */
+     public void testIOExceptionStringThrowable() {
+         final Throwable cause = new IllegalArgumentException("cause");
+-        final IOException exception = new IOException("message", cause);
++        final IOExceptionWithCause exception = new IOExceptionWithCause("message", cause);
+         this.validate(exception, cause, "message");
+     }
+ 
+@@ -42,7 +40,7 @@ public class IOExceptionWithCauseTestCase extends TestCase {
+      */
+     public void testIOExceptionThrowable() {
+         final Throwable cause = new IllegalArgumentException("cause");
+-        final IOException exception = new IOException(cause);
++        final IOExceptionWithCause exception = new IOExceptionWithCause(cause);
+         this.validate(exception, cause, "java.lang.IllegalArgumentException: cause");
+     }
+ 

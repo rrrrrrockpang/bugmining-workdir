@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/file/PathUtils.java b/src/main/java/org/apache/commons/io/file/PathUtils.java
+index c850d814..2ccd609a 100644
+--- a/src/main/java/org/apache/commons/io/file/PathUtils.java
++++ b/src/main/java/org/apache/commons/io/file/PathUtils.java
+@@ -481,7 +481,7 @@ public final class PathUtils {
+         }
+         final PathCounters pathCounts = Counters.longPathCounters();
+         final boolean exists = Files.exists(file, linkOptions);
+-        final long size = exists && !Files.isSymbolicLink(file) ? Files.size(file) : 0;
++        final long size = exists ? Files.size(file) : 0;
+         if (overrideReadOnly(deleteOptions) && exists) {
+             setReadOnly(file, false, linkOptions);
+         }

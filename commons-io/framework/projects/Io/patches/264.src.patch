@@ -1,0 +1,25 @@
+diff --git a/src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java b/src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java
+index b8725bd6..cb025a34 100644
+--- a/src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java
+@@ -59,6 +59,6 @@ public class MarkShieldInputStream extends ProxyInputStream {
+     @SuppressWarnings("sync-override")
+     @Override
+     public void reset() throws IOException {
+-        throw UnsupportedOperationExceptions.reset();
++        throw new IOException("mark/reset not supported");
+     }
+ }
+diff --git a/src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java b/src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java
+index 3b922002..acc213d9 100644
+--- a/src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java
++++ b/src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java
+@@ -20,7 +20,7 @@ package org.apache.commons.io.input;
+ /**
+  * Package-private factory for {@link UnsupportedOperationException} to provide messages with consistent formatting.
+  *
+- * TODO Consider making this public and use from LineIterator but this feels like it belongs in LANG rather than IO.
++ * TODO Consider making this public and use from LineIterator.
+  */
+ class UnsupportedOperationExceptions {
+ 

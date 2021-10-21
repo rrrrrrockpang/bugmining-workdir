@@ -1,0 +1,16 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index ed45d548..c3b41036 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -936,10 +936,9 @@ public class FileUtils {
+      * <p>
+      * Returns an array of the same size as the input.
+      *
+-     * @param files  the files to convert, must not be {@code null}
++     * @param files  the files to convert
+      * @return an array of URLs matching the input
+      * @throws IOException if a file cannot be converted
+-     * @throws NullPointerException if the parameter is null
+      */
+     public static URL[] toURLs(File[] files) throws IOException {
+         URL[] urls = new URL[files.length];

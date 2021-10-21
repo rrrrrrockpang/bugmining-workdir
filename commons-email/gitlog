@@ -7704,3 +7704,10 @@ Author: Gary Gregory <garydgregory@gmail.com>
 Date:   Tue Jul 13 18:03:08 2021 -0400
 
     Bump actions/cache from 2.1.4 to 2.1.6 #48.
+
+commit ed1019cd20377413b39078c696394ba1656eddf2
+Author: Gary Gregory <garydgregory@gmail.com>
+Date:   Sun Aug 29 00:26:31 2021 -0400
+
+    AdoptOpenJDK is moving to the Eclipse Foundation and rebranding as
+    Eclipse Temurin.

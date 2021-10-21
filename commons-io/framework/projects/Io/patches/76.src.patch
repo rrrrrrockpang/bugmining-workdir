@@ -1,0 +1,91 @@
+diff --git a/src/main/java/org/apache/commons/io/monitor/FilesystemEntry.java b/src/main/java/org/apache/commons/io/monitor/FilesystemEntry.java
+index 2b9bedd5..15ad5813 100644
+--- a/src/main/java/org/apache/commons/io/monitor/FilesystemEntry.java
++++ b/src/main/java/org/apache/commons/io/monitor/FilesystemEntry.java
+@@ -43,7 +43,7 @@ public class FilesystemEntry implements Serializable {
+ 
+     private final FilesystemEntry parent;
+     private FilesystemEntry[] children;
+-    private final File file;
++    private File file;
+     private String name;
+     private boolean exists;
+     private boolean directory;
+@@ -79,7 +79,7 @@ public class FilesystemEntry implements Serializable {
+      * This implementation refreshes the <code>name</code>, <code>exists</code>
+      * <code>directory</code> and <code>lastModified</code> properties.
+      */
+-    public void refresh(File file) {
++    public void refresh() {
+         name = file.getName();
+         exists = file.exists();
+         if (exists) {
+@@ -109,7 +109,7 @@ public class FilesystemEntry implements Serializable {
+      *
+      * @return whether the file has changed or not
+      */
+-    public boolean hasChanged(File file) {
++    public boolean hasChanged() {
+         return (lastModified != file.lastModified());
+     }
+ 
+@@ -160,6 +160,15 @@ public class FilesystemEntry implements Serializable {
+         return file;
+     }
+ 
++    /**
++     * Set the file being monitored.
++     *
++     * @param file the file being monitored
++     */
++    public void setFile(File file) {
++        this.file = file;
++    }
++
+     /**
+      * Return the file name.
+      *
+diff --git a/src/main/java/org/apache/commons/io/monitor/FilesystemObserver.java b/src/main/java/org/apache/commons/io/monitor/FilesystemObserver.java
+index 39561688..c2ec3862 100644
+--- a/src/main/java/org/apache/commons/io/monitor/FilesystemObserver.java
++++ b/src/main/java/org/apache/commons/io/monitor/FilesystemObserver.java
+@@ -304,7 +304,7 @@ public class FilesystemObserver implements Serializable {
+      * @throws Exception if an error occurs
+      */
+     public void initialize() throws Exception {
+-        rootEntry.refresh(rootEntry.getFile());
++        rootEntry.refresh();
+         File[] files = listFiles(rootEntry.getFile());
+         FilesystemEntry[] children = files.length > 0 ? new FilesystemEntry[files.length] : EMPTY_ENTRIES;
+         for (int i = 0; i < files.length; i++) {
+@@ -389,7 +389,7 @@ public class FilesystemObserver implements Serializable {
+      */
+     private FilesystemEntry createFileEntry(FilesystemEntry parent, File file) {
+         FilesystemEntry entry = parent.newChildInstance(file);
+-        entry.refresh(file);
++        entry.refresh();
+         File[] files = listFiles(file);
+         FilesystemEntry[] children = files.length > 0 ? new FilesystemEntry[files.length] : EMPTY_ENTRIES;
+         for (int i = 0; i < files.length; i++) {
+@@ -425,16 +425,17 @@ public class FilesystemObserver implements Serializable {
+      * @param file The current file
+      */
+     private void doMatch(FilesystemEntry entry, File file) {
+-        if (entry.hasChanged(file)) {
++        if (entry.hasChanged()) {
+             for (FilesystemListener listener : listeners) {
+                 if (entry.isDirectory()) {
+-                    listener.onDirectoryChange(file);
++                    listener.onDirectoryChange(entry.getFile());
+                 } else {
+-                    listener.onFileChange(file);
++                    listener.onFileChange(entry.getFile());
+                 }
+             }
+-            entry.refresh(file);
++            entry.refresh();
+         }
++        entry.setFile(file);
+     }
+ 
+     /**

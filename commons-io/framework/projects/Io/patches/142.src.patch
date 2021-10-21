@@ -1,0 +1,24 @@
+diff --git a/src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java b/src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java
+index a7c7f252..eafb9c46 100644
+--- a/src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java
+@@ -65,11 +65,14 @@ public class ClassLoaderObjectInputStream extends ObjectInputStream {
+     protected Class<?> resolveClass(final ObjectStreamClass objectStreamClass)
+             throws IOException, ClassNotFoundException {
+         
+-        try {
+-            return Class.forName(objectStreamClass.getName(), false, classLoader);
+-        } catch (ClassNotFoundException cnfe) {
+-            // delegate to super class loader which can resolve primitives
+-            return super.resolveClass(objectStreamClass);            
++        final Class<?> clazz = Class.forName(objectStreamClass.getName(), false, classLoader);
++
++        if (clazz != null) {
++            // the classloader knows of the class
++            return clazz;
++        } else {
++            // classloader knows not of class, let the super classloader do it
++            return super.resolveClass(objectStreamClass);
+         }
+     }
+ 

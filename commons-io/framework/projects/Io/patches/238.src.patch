@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/input/AbstractCharacterFilterReader.java b/src/main/java/org/apache/commons/io/input/AbstractCharacterFilterReader.java
+index 3f51bb5b..cfb5df78 100644
+--- a/src/main/java/org/apache/commons/io/input/AbstractCharacterFilterReader.java
++++ b/src/main/java/org/apache/commons/io/input/AbstractCharacterFilterReader.java
+@@ -61,7 +61,7 @@ public abstract class AbstractCharacterFilterReader extends FilterReader {
+         }
+         int pos = off - 1;
+         for (int readPos = off; readPos < off + read; readPos++) {
+-            if (filter(cbuf[readPos])) {
++            if (filter(read)) {
+                 continue;
+             }
+             pos++;

@@ -1,0 +1,64 @@
+diff --git a/src/main/java/org/apache/commons/io/ByteOrderMark.java b/src/main/java/org/apache/commons/io/ByteOrderMark.java
+index 6840e7e6..109c4027 100644
+--- a/src/main/java/org/apache/commons/io/ByteOrderMark.java
++++ b/src/main/java/org/apache/commons/io/ByteOrderMark.java
+@@ -17,7 +17,6 @@
+ package org.apache.commons.io;
+ 
+ import java.io.Serializable;
+-import java.util.Locale;
+ 
+ /**
+  * Byte Order Mark (BOM) representation - see {@link org.apache.commons.io.input.BOMInputStream}.
+@@ -183,7 +182,7 @@ public class ByteOrderMark implements Serializable {
+                 builder.append(",");
+             }
+             builder.append("0x");
+-            builder.append(Integer.toHexString(0xFF & bytes[i]).toUpperCase(Locale.ROOT));
++            builder.append(Integer.toHexString(0xFF & bytes[i]).toUpperCase());
+         }
+         builder.append(']');
+         return builder.toString();
+diff --git a/src/main/java/org/apache/commons/io/input/XmlStreamReader.java b/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
+index f729b549..d1d24b37 100644
+--- a/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
++++ b/src/main/java/org/apache/commons/io/input/XmlStreamReader.java
+@@ -683,7 +683,7 @@ public class XmlStreamReader extends Reader {
+                 final String postMime = httpContentType.substring(i + 1);
+                 final Matcher m = CHARSET_PATTERN.matcher(postMime);
+                 encoding = m.find() ? m.group(1) : null;
+-                encoding = encoding != null ? encoding.toUpperCase(Locale.ROOT) : null;
++                encoding = encoding != null ? encoding.toUpperCase(Locale.US) : null;
+             }
+         }
+         return encoding;
+@@ -741,7 +741,7 @@ public class XmlStreamReader extends Reader {
+                 }
+                 final Matcher m = ENCODING_PATTERN.matcher(prolog);
+                 if (m.find()) {
+-                    encoding = m.group(1).toUpperCase(Locale.ROOT);
++                    encoding = m.group(1).toUpperCase();
+                     encoding = encoding.substring(1, encoding.length() - 1);
+                 }
+             }
+diff --git a/src/main/java/org/apache/commons/io/output/XmlStreamWriter.java b/src/main/java/org/apache/commons/io/output/XmlStreamWriter.java
+index 28fa6ac1..d352ad00 100644
+--- a/src/main/java/org/apache/commons/io/output/XmlStreamWriter.java
++++ b/src/main/java/org/apache/commons/io/output/XmlStreamWriter.java
+@@ -24,7 +24,6 @@ import java.io.OutputStream;
+ import java.io.OutputStreamWriter;
+ import java.io.StringWriter;
+ import java.io.Writer;
+-import java.util.Locale;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
+@@ -169,7 +168,7 @@ public class XmlStreamWriter extends Writer {
+                     final Matcher m = ENCODING_PATTERN.matcher(xmlProlog.substring(0,
+                             xmlPrologEnd));
+                     if (m.find()) {
+-                        encoding = m.group(1).toUpperCase(Locale.ROOT);
++                        encoding = m.group(1).toUpperCase();
+                         encoding = encoding.substring(1, encoding.length() - 1);
+                     } else {
+                         // no encoding found in XML prolog: using default

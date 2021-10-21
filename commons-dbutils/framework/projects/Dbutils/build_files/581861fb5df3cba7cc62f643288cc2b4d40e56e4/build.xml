@@ -20,7 +20,4 @@
     <echo message="Please run: $ant -projecthelp"/>
   </target>
 
-  <target name="compile" depends="commons-dbutils-from-maven.compile"> </target>
-  <target name="compile.tests" depends="commons-dbutils-from-maven.compile-tests"> </target>
-
 </project>

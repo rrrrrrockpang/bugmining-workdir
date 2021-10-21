@@ -1,0 +1,14 @@
+diff --git a/src/java/org/apache/commons/io/FileUtils.java b/src/java/org/apache/commons/io/FileUtils.java
+index f3902987..d8aa344b 100644
+--- a/src/java/org/apache/commons/io/FileUtils.java
++++ b/src/java/org/apache/commons/io/FileUtils.java
+@@ -2139,9 +2139,6 @@ public class FileUtils {
+         if (file == null) {
+             throw new NullPointerException("File must not be null");
+         }
+-        if (FilenameUtils.isSystemWindows()) {
+-            return false;
+-        }
+         File fileInCanonicalDir = null;
+         if (file.getParent() == null) {
+             fileInCanonicalDir = file;

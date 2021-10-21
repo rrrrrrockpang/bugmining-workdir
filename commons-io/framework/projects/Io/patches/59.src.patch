@@ -1,0 +1,26 @@
+diff --git a/src/java/org/apache/commons/io/output/LockableFileWriter.java b/src/java/org/apache/commons/io/output/LockableFileWriter.java
+index 6101800c..634eee04 100644
+--- a/src/java/org/apache/commons/io/output/LockableFileWriter.java
++++ b/src/java/org/apache/commons/io/output/LockableFileWriter.java
+@@ -241,17 +241,17 @@ public class LockableFileWriter extends Writer {
+         } catch (IOException ex) {
+             IOUtils.closeQuietly(writer);
+             IOUtils.closeQuietly(stream);
+-            FileUtils.deleteQuietly(lockFile);
++            lockFile.delete();
+             if (fileExistedAlready == false) {
+-                FileUtils.deleteQuietly(file);
++                file.delete();
+             }
+             throw ex;
+         } catch (RuntimeException ex) {
+             IOUtils.closeQuietly(writer);
+             IOUtils.closeQuietly(stream);
+-            FileUtils.deleteQuietly(lockFile);
++            lockFile.delete();
+             if (fileExistedAlready == false) {
+-                FileUtils.deleteQuietly(file);
++                file.delete();
+             }
+             throw ex;
+         }

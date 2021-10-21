@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 6a50a85a..03728846 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -167,7 +167,7 @@ public class FileUtils {
+     /**
+      * The number of bytes in a yottabyte.
+      */
+-    public static final BigInteger ONE_YB = ONE_KB_BI.multiply(ONE_ZB);
++    public static final BigInteger ONE_YB = ONE_ZB.multiply(BigInteger.valueOf(ONE_EB));
+ 
+     /**
+      * An empty array of type <code>File</code>.

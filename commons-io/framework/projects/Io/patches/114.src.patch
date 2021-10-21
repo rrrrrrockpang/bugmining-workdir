@@ -1,0 +1,28 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index ae88840d..baf7d103 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2354,20 +2354,12 @@ public class FileUtils {
+ 
+         long size = 0;
+ 
+-        final File[] files = directory.listFiles();
++        File[] files = directory.listFiles();
+         if (files == null) {  // null if security restricted
+             return 0L;
+         }
+-        for (final File file : files) {
+-            boolean isSymLink;
+-            try {
+-                isSymLink = isSymlink(file);
+-            } catch (IOException ioe) {
+-                isSymLink = true;
+-            }
+-            if (!isSymLink) {
+-                size += sizeOf(file);
+-            }
++        for (File file : files) {
++            size += sizeOf(file);
+         }
+ 
+         return size;

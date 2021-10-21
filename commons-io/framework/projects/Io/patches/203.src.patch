@@ -1,0 +1,41 @@
+diff --git a/src/main/java/org/apache/commons/io/FileSystemUtils.java b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+index a560c0ba..ceabd80c 100644
+--- a/src/main/java/org/apache/commons/io/FileSystemUtils.java
++++ b/src/main/java/org/apache/commons/io/FileSystemUtils.java
+@@ -294,16 +294,13 @@ public class FileSystemUtils {
+      * @throws IOException if an error occurs
+      */
+     long freeSpaceWindows(String path, final long timeout) throws IOException {
+-        String normPath = FilenameUtils.normalize(path, false);
+-        if (normPath == null) {
+-            throw new IllegalArgumentException(path);
+-        }
+-        if (normPath.length() > 0 && normPath.charAt(0) != '"') {
+-            normPath = "\"" + normPath + "\"";
++        path = FilenameUtils.normalize(path, false);
++        if (path.length() > 0 && path.charAt(0) != '"') {
++            path = "\"" + path + "\"";
+         }
+ 
+         // build and run the 'dir' command
+-        final String[] cmdAttribs = new String[] {"cmd.exe", "/C", "dir /a /-c " + normPath};
++        final String[] cmdAttribs = new String[] {"cmd.exe", "/C", "dir /a /-c " + path};
+ 
+         // read in the output of the command to an ArrayList
+         final List<String> lines = performCommand(cmdAttribs, Integer.MAX_VALUE, timeout);
+@@ -315,13 +312,13 @@ public class FileSystemUtils {
+         for (int i = lines.size() - 1; i >= 0; i--) {
+             final String line = lines.get(i);
+             if (line.length() > 0) {
+-                return parseDir(line, normPath);
++                return parseDir(line, path);
+             }
+         }
+         // all lines are blank
+         throw new IOException(
+                 "Command line 'dir /-c' did not return any info " +
+-                "for path '" + normPath + "'");
++                "for path '" + path + "'");
+     }
+ 
+     /**

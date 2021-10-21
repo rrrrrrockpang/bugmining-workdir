@@ -1,0 +1,379 @@
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryBaseTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryBaseTestCase.java
+index b99c1dd5..3aacbe85 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryBaseTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryBaseTestCase.java
+@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ import java.io.File;
+ import java.nio.file.Files;
++import java.nio.file.attribute.FileAttribute;
++
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.io.TempDir;
+ 
+@@ -33,41 +35,72 @@ public abstract class FileUtilsDeleteDirectoryBaseTestCase {
+     @TempDir
+     public File top;
+ 
+-    protected abstract boolean setupSymlink(final File res, final File link) throws Exception;
++    // -----------------------------------------------------------------------
+ 
+     @Test
+-    public void testDeleteDirWithASymlinkDir() throws Exception {
++    public void testDeletesRegular() throws Exception {
++        final File nested = new File(top, "nested");
++        assertTrue(nested.mkdirs());
++
++        assertEquals(1, top.list().length);
++
++        assertEquals(0, nested.list().length);
++
++        FileUtils.deleteDirectory(nested);
++
++        assertEquals(0, top.list().length);
++    }
++
++    @Test
++    public void testDeletesNested() throws Exception {
++        final File nested = new File(top, "nested");
++        assertTrue(nested.mkdirs());
++
++        assertEquals(1, top.list().length);
++
++        FileUtils.touch(new File(nested, "regular"));
++        FileUtils.touch(new File(nested, ".hidden"));
++
++        assertEquals(2, nested.list().length);
++
++		FileUtils.deleteDirectory(nested);
++
++        assertEquals(0, top.list().length);
++    }
+ 
++    @Test
++    public void testDeleteDirWithSymlinkFile() throws Exception {
+         final File realOuter = new File(top, "realouter");
+         assertTrue(realOuter.mkdirs());
+ 
+         final File realInner = new File(realOuter, "realinner");
+         assertTrue(realInner.mkdirs());
+ 
+-        FileUtils.touch(new File(realInner, "file1"));
+-        assertEquals(1, realInner.list().length);
++        final File realFile = new File(realInner, "file1");
++        FileUtils.touch(realFile);
+ 
+-        final File randomDirectory = new File(top, "randomDir");
+-        assertTrue(randomDirectory.mkdirs());
++        assertEquals(1, realInner.list().length);
+ 
+-        FileUtils.touch(new File(randomDirectory, "randomfile"));
+-        assertEquals(1, randomDirectory.list().length);
++        final File randomFile = new File(top, "randomfile");
++        FileUtils.touch(randomFile);
+ 
+-        final File symlinkDirectory = new File(realOuter, "fakeinner");
+-        assertTrue(setupSymlink(randomDirectory, symlinkDirectory));
++        final File symlinkFile = new File(realInner, "fakeinner");
++        assertTrue(setupSymlink(randomFile, symlinkFile));
+ 
+-        assertEquals(1, symlinkDirectory.list().length);
++        assertEquals(2, realInner.list().length);
++        assertEquals(2, top.list().length);
+ 
+-        // assert contents of the real directory were removed including the symlink
++        // assert the real directory were removed including the symlink
+         FileUtils.deleteDirectory(realOuter);
+         assertEquals(1, top.list().length);
+ 
+         // ensure that the contents of the symlink were NOT removed.
+-        assertEquals(1, randomDirectory.list().length, "Contents of sym link should not have been removed");
++        assertTrue(randomFile.exists());
++        assertFalse(symlinkFile.exists());
+     }
+ 
+     @Test
+-    public void testDeleteDirWithASymlinkDir2() throws Exception {
++    public void testDeleteDirWithASymlinkDir() throws Exception {
+ 
+         final File realOuter = new File(top, "realouter");
+         assertTrue(realOuter.mkdirs());
+@@ -85,7 +118,7 @@ public abstract class FileUtilsDeleteDirectoryBaseTestCase {
+         assertEquals(1, randomDirectory.list().length);
+ 
+         final File symlinkDirectory = new File(realOuter, "fakeinner");
+-        Files.createSymbolicLink(symlinkDirectory.toPath(), randomDirectory.toPath());
++        assertTrue(setupSymlink(randomDirectory, symlinkDirectory));
+ 
+         assertEquals(1, symlinkDirectory.list().length);
+ 
+@@ -98,36 +131,36 @@ public abstract class FileUtilsDeleteDirectoryBaseTestCase {
+     }
+ 
+     @Test
+-    public void testDeleteDirWithSymlinkFile() throws Exception {
++    public void testDeleteDirWithASymlinkDir2() throws Exception {
++
+         final File realOuter = new File(top, "realouter");
+         assertTrue(realOuter.mkdirs());
+ 
+         final File realInner = new File(realOuter, "realinner");
+         assertTrue(realInner.mkdirs());
+ 
+-        final File realFile = new File(realInner, "file1");
+-        FileUtils.touch(realFile);
+-
++        FileUtils.touch(new File(realInner, "file1"));
+         assertEquals(1, realInner.list().length);
+ 
+-        final File randomFile = new File(top, "randomfile");
+-        FileUtils.touch(randomFile);
++        final File randomDirectory = new File(top, "randomDir");
++        assertTrue(randomDirectory.mkdirs());
+ 
+-        final File symlinkFile = new File(realInner, "fakeinner");
+-        assertTrue(setupSymlink(randomFile, symlinkFile));
++        FileUtils.touch(new File(randomDirectory, "randomfile"));
++        assertEquals(1, randomDirectory.list().length);
+ 
+-        assertEquals(2, realInner.list().length);
+-        assertEquals(2, top.list().length);
++        final File symlinkDirectory = new File(realOuter, "fakeinner");
++        Files.createSymbolicLink(symlinkDirectory.toPath(), randomDirectory.toPath());
+ 
+-        // assert the real directory were removed including the symlink
++        assertEquals(1, symlinkDirectory.list().length);
++
++        // assert contents of the real directory were removed including the symlink
+         FileUtils.deleteDirectory(realOuter);
+         assertEquals(1, top.list().length);
+ 
+         // ensure that the contents of the symlink were NOT removed.
+-        assertTrue(randomFile.exists());
+-        assertFalse(symlinkFile.exists());
++        assertEquals(1, randomDirectory.list().length, "Contents of sym link should not have been removed");
+     }
+-
++    
+     @Test
+     public void testDeleteParentSymlink() throws Exception {
+         final File realParent = new File(top, "realparent");
+@@ -194,35 +227,7 @@ public abstract class FileUtilsDeleteDirectoryBaseTestCase {
+         assertEquals(1, randomDirectory.list().length, "Contents of sym link should not have been removed");
+     }
+ 
+-    @Test
+-    public void testDeletesNested() throws Exception {
+-        final File nested = new File(top, "nested");
+-        assertTrue(nested.mkdirs());
+-
+-        assertEquals(1, top.list().length);
+-
+-        FileUtils.touch(new File(nested, "regular"));
+-        FileUtils.touch(new File(nested, ".hidden"));
+-
+-        assertEquals(2, nested.list().length);
+-
+-        FileUtils.deleteDirectory(nested);
+-
+-        assertEquals(0, top.list().length);
+-    }
+-
+-    @Test
+-    public void testDeletesRegular() throws Exception {
+-        final File nested = new File(top, "nested");
+-        assertTrue(nested.mkdirs());
+-
+-        assertEquals(1, top.list().length);
+-
+-        assertEquals(0, nested.list().length);
+-
+-        FileUtils.deleteDirectory(nested);
+-
+-        assertEquals(0, top.list().length);
+-    }
++    protected abstract boolean setupSymlink(final File res, final File link) throws Exception;
+ 
+ }
++
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryLinuxTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryLinuxTestCase.java
+index 22857b9e..ad54483c 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryLinuxTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryLinuxTestCase.java
+@@ -33,42 +33,27 @@ import org.junit.jupiter.api.condition.OS;
+ @DisabledOnOs(OS.WINDOWS)
+ public class FileUtilsDeleteDirectoryLinuxTestCase extends FileUtilsDeleteDirectoryBaseTestCase {
+ 
+-	/** Only runs on Linux. */
+-	private boolean chmod(final File file, final int mode, final boolean recurse) throws InterruptedException {
+-		final List<String> args = new ArrayList<>();
+-		args.add("chmod");
+-
+-		if (recurse) {
+-			args.add("-R");
+-		}
+-
+-		args.add(Integer.toString(mode));
+-		args.add(file.getAbsolutePath());
++	@Test
++	public void testThrowsOnNullList() throws Exception {
++		final File nested = new File(top, "nested");
++		assertTrue(nested.mkdirs());
+ 
+-		final Process proc;
++		// test wont work if we can't restrict permissions on the
++		// directory, so skip it.
++		assumeTrue(chmod(nested, 0, false));
+ 
+ 		try {
+-			proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
++			// cleanDirectory calls forceDelete
++			FileUtils.deleteDirectory(nested);
++			fail("expected IOException");
+ 		} catch (final IOException e) {
+-			return false;
++			assertEquals("Unknown I/O error listing contents of directory: " + nested.getAbsolutePath(),
++					e.getMessage());
++		} finally {
++			chmod(nested, 755, false);
++			FileUtils.deleteDirectory(nested);
+ 		}
+-		return proc.waitFor() == 0;
+-	}
+-
+-	@Override
+-	protected boolean setupSymlink(final File res, final File link) throws Exception {
+-		// create symlink
+-		final List<String> args = new ArrayList<>();
+-		args.add("ln");
+-		args.add("-s");
+-
+-		args.add(res.getAbsolutePath());
+-		args.add(link.getAbsolutePath());
+-
+-		final Process proc;
+-
+-		proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
+-		return proc.waitFor() == 0;
++		assertEquals(0, top.list().length);
+ 	}
+ 
+ 	@Test
+@@ -95,26 +80,41 @@ public class FileUtilsDeleteDirectoryLinuxTestCase extends FileUtilsDeleteDirect
+ 		assertEquals(0, top.list().length);
+ 	}
+ 
+-	@Test
+-	public void testThrowsOnNullList() throws Exception {
+-		final File nested = new File(top, "nested");
+-		assertTrue(nested.mkdirs());
++	@Override
++	protected boolean setupSymlink(File res, File link) throws Exception {
++		// create symlink
++		final List<String> args = new ArrayList<>();
++		args.add("ln");
++		args.add("-s");
+ 
+-		// test wont work if we can't restrict permissions on the
+-		// directory, so skip it.
+-		assumeTrue(chmod(nested, 0, false));
++		args.add(res.getAbsolutePath());
++		args.add(link.getAbsolutePath());
++
++		final Process proc;
++
++		proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
++		return proc.waitFor() == 0;
++	}
++
++	/** Only runs on Linux. */
++	private boolean chmod(final File file, final int mode, final boolean recurse) throws InterruptedException {
++		final List<String> args = new ArrayList<>();
++		args.add("chmod");
++
++		if (recurse) {
++			args.add("-R");
++		}
++
++		args.add(Integer.toString(mode));
++		args.add(file.getAbsolutePath());
++
++		final Process proc;
+ 
+ 		try {
+-			// cleanDirectory calls forceDelete
+-			FileUtils.deleteDirectory(nested);
+-			fail("expected IOException");
++			proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
+ 		} catch (final IOException e) {
+-			assertEquals("Unknown I/O error listing contents of directory: " + nested.getAbsolutePath(),
+-					e.getMessage());
+-		} finally {
+-			chmod(nested, 755, false);
+-			FileUtils.deleteDirectory(nested);
++			return false;
+ 		}
+-		assertEquals(0, top.list().length);
++		return proc.waitFor() == 0;
+ 	}
+ }
+diff --git a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWinTestCase.java b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWinTestCase.java
+index 5ae31718..4ed4eda2 100644
+--- a/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWinTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileUtilsDeleteDirectoryWinTestCase.java
+@@ -17,8 +17,6 @@
+ package org.apache.commons.io;
+ 
+ import java.io.File;
+-import java.io.InputStream;
+-import java.nio.charset.Charset;
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+@@ -28,26 +26,25 @@ import org.junit.jupiter.api.condition.OS;
+ @EnabledOnOs(OS.WINDOWS)
+ public class FileUtilsDeleteDirectoryWinTestCase extends FileUtilsDeleteDirectoryBaseTestCase {
+ 
+-    @Override
+-    protected boolean setupSymlink(final File res, final File link) throws Exception {
+-        // create symlink
+-        final List<String> args = new ArrayList<>();
+-        args.add("cmd");
+-        args.add("/C");
+-        args.add("mklink");
+-
+-        if (res.isDirectory()) {
+-            args.add("/D");
+-        }
+-
+-        args.add(link.getAbsolutePath());
+-        args.add(res.getAbsolutePath());
+-
+-        final Process proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
+-        final InputStream errorStream = proc.getErrorStream();
+-        final int rc = proc.waitFor();
+-        System.err.println(IOUtils.toString(errorStream, Charset.defaultCharset()));
+-        return rc == 0;
+-    }
++	@Override
++	protected boolean setupSymlink(File res, File link) throws Exception {
++		// create symlink
++		final List<String> args = new ArrayList<>();
++		args.add("cmd");
++		args.add("/C");
++		args.add("mklink");
++
++		if (res.isDirectory()) {
++			args.add("/D");
++		}
++
++		args.add(link.getAbsolutePath());
++		args.add(res.getAbsolutePath());
++
++		final Process proc;
++
++		proc = Runtime.getRuntime().exec(args.toArray(new String[args.size()]));
++		return proc.waitFor() == 0;
++	}
+ 
+ }

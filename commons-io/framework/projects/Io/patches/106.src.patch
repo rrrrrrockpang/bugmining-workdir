@@ -1,0 +1,16 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 62718328..0705a940 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2061,10 +2061,10 @@ public class FileUtils {
+             return;
+         }
+ 
+-        directory.deleteOnExit();
+         if (!isSymlink(directory)) {
+             cleanDirectoryOnExit(directory);
+         }
++        directory.deleteOnExit();
+     }
+ 
+     /**

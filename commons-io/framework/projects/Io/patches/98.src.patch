@@ -1,0 +1,21 @@
+diff --git a/src/main/java/org/apache/commons/io/output/TeeOutputStream.java b/src/main/java/org/apache/commons/io/output/TeeOutputStream.java
+index 7e5e6be7..14400639 100644
+--- a/src/main/java/org/apache/commons/io/output/TeeOutputStream.java
++++ b/src/main/java/org/apache/commons/io/output/TeeOutputStream.java
+@@ -98,12 +98,14 @@ public class TeeOutputStream extends ProxyOutputStream {
+      *             if an I/O error occurs
+      */
+     @Override
+-    public void close() throws IOException {
++    public void close() throws IOException {        
+         try {
+             super.close();
+-        } finally {
++        } catch (IOException e) {
+             this.branch.close();
++            throw e;
+         }
++        this.branch.close();
+     }
+ 
+ }

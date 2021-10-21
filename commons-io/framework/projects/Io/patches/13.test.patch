@@ -1,0 +1,32 @@
+diff --git a/src/test/org/apache/commons/io/IOUtilsCopyTestCase.java b/src/test/org/apache/commons/io/IOUtilsCopyTestCase.java
+index cfe0d72e..2869e67a 100644
+--- a/src/test/org/apache/commons/io/IOUtilsCopyTestCase.java
++++ b/src/test/org/apache/commons/io/IOUtilsCopyTestCase.java
+@@ -125,7 +125,12 @@ public class IOUtilsCopyTestCase extends FileBasedTestCase {
+         OutputStream out = new NullOutputStream();
+ 
+         // Test copy() method
+-        assertEquals(-1, IOUtils.copy(in, out));
++        try {
++            IOUtils.copy(in, out);
++            fail("Expected copy() to throw an ArithmeticException");
++        } catch (ArithmeticException ae) {
++            // expected result
++        }
+ 
+         // reset the input
+         in.close();
+@@ -364,7 +369,12 @@ public class IOUtilsCopyTestCase extends FileBasedTestCase {
+         Writer writer = new NullWriter();
+ 
+         // Test copy() method
+-        assertEquals(-1, IOUtils.copy(reader, writer));
++        try {
++            IOUtils.copy(reader, writer);
++            fail("Expected copy() to throw an ArithmeticException");
++        } catch (ArithmeticException ae) {
++            // expected result
++        }
+ 
+         // reset the input
+         reader.close();

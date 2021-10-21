@@ -1,0 +1,22 @@
+diff --git a/src/java/org/apache/commons/io/FileUtils.java b/src/java/org/apache/commons/io/FileUtils.java
+index 0a23e071..13c57abf 100644
+--- a/src/java/org/apache/commons/io/FileUtils.java
++++ b/src/java/org/apache/commons/io/FileUtils.java
+@@ -1596,7 +1596,7 @@ public class FileUtils {
+         }
+         if (!reference.exists()) {
+             throw new IllegalArgumentException("The reference file '"
+-                    + reference + "' doesn't exist");
++                    + file + "' doesn't exist");
+         }
+         return isFileNewer(file, reference.lastModified());
+     }
+@@ -1663,7 +1663,7 @@ public class FileUtils {
+         }
+         if (!reference.exists()) {
+             throw new IllegalArgumentException("The reference file '"
+-                    + reference + "' doesn't exist");
++                    + file + "' doesn't exist");
+         }
+         return isFileOlder(file, reference.lastModified());
+     }

@@ -1,0 +1,17 @@
+diff --git a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+index d7ecb62d..7ef3edfe 100644
+--- a/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
++++ b/src/test/java/org/apache/commons/io/FilenameUtilsTestCase.java
+@@ -503,11 +503,7 @@ public class FilenameUtilsTestCase extends FileBasedTestCase {
+         assertEquals(1, FilenameUtils.getPrefixLength("\\a\\b\\c.txt"));
+         assertEquals(2, FilenameUtils.getPrefixLength("~\\a\\b\\c.txt"));
+         assertEquals(6, FilenameUtils.getPrefixLength("~user\\a\\b\\c.txt"));
+-
+-        assertEquals(9, FilenameUtils.getPrefixLength("//server/a/b/c.txt"));
+-        assertEquals(-1, FilenameUtils.getPrefixLength("\\\\\\a\\b\\c.txt"));
+-        assertEquals(-1, FilenameUtils.getPrefixLength("///a/b/c.txt"));
+-}
++    }
+     
+     public void testIndexOfLastSeparator() {
+         assertEquals(-1, FilenameUtils.indexOfLastSeparator(null));

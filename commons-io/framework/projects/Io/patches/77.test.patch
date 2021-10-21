@@ -1,0 +1,13 @@
+diff --git a/src/test/java/org/apache/commons/io/monitor/FileSystemMonitorTestCase.java b/src/test/java/org/apache/commons/io/monitor/FileSystemMonitorTestCase.java
+index 24d3506b..5d0762fb 100644
+--- a/src/test/java/org/apache/commons/io/monitor/FileSystemMonitorTestCase.java
++++ b/src/test/java/org/apache/commons/io/monitor/FileSystemMonitorTestCase.java
+@@ -178,7 +178,7 @@ public class FileSystemMonitorTestCase extends TestCase {
+             file = new File(file.getParent(), file.getName());
+             while (lastModified == file.lastModified()) {
+                 try {
+-                    Thread.sleep(200);
++                    Thread.sleep(50);
+                 } catch(InterruptedException ie) {
+                     // ignore
+                 }

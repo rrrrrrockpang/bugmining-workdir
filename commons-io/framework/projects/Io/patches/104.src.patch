@@ -1,0 +1,36 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index 0705a940..4c704cc4 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -1365,7 +1365,6 @@ public class FileUtils {
+             FileOutputStream output = openOutputStream(destination);
+             try {
+                 IOUtils.copy(source, output);
+-                output.close(); // don't swallow close Exception if copy completes normally
+             } finally {
+                 IOUtils.closeQuietly(output);
+             }
+@@ -1729,7 +1728,6 @@ public class FileUtils {
+         try {
+             out = openOutputStream(file, append);
+             IOUtils.write(data, out, encoding);
+-            out.close(); // don't swallow close Exception if copy completes normally
+         } finally {
+             IOUtils.closeQuietly(out);
+         }
+@@ -1847,7 +1845,6 @@ public class FileUtils {
+         try {
+             out = openOutputStream(file, append);
+             out.write(data);
+-            out.close(); // don't swallow close Exception if copy completes normally
+         } finally {
+             IOUtils.closeQuietly(out);
+         }
+@@ -1962,7 +1959,6 @@ public class FileUtils {
+         try {
+             out = openOutputStream(file, append);
+             IOUtils.writeLines(lines, lineEnding, out, encoding);
+-            out.close(); // don't swallow close Exception if copy completes normally
+         } finally {
+             IOUtils.closeQuietly(out);
+         }

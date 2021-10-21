@@ -1,0 +1,24 @@
+diff --git a/src/main/java/org/apache/commons/io/IOExceptionWithCause.java b/src/main/java/org/apache/commons/io/IOExceptionWithCause.java
+index a4691299..25f8813a 100644
+--- a/src/main/java/org/apache/commons/io/IOExceptionWithCause.java
++++ b/src/main/java/org/apache/commons/io/IOExceptionWithCause.java
+@@ -47,7 +47,8 @@ public class IOExceptionWithCause extends IOException {
+      *            the cause (see {@link #getCause()}). A {@code null} value is allowed.
+      */
+     public IOExceptionWithCause(final String message, final Throwable cause) {
+-        super(message, cause);
++        super(message);
++        this.initCause(cause);
+     }
+ 
+     /**
+@@ -61,7 +62,8 @@ public class IOExceptionWithCause extends IOException {
+      *            the cause (see {@link #getCause()}). A {@code null} value is allowed.
+      */
+     public IOExceptionWithCause(final Throwable cause) {
+-        super(cause);
++        super(cause == null ? null : cause.toString());
++        this.initCause(cause);
+     }
+ 
+ }

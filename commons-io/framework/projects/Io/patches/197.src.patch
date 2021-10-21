@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/io/FilenameUtils.java b/src/main/java/org/apache/commons/io/FilenameUtils.java
+index 822ac95d..25405a5a 100644
+--- a/src/main/java/org/apache/commons/io/FilenameUtils.java
++++ b/src/main/java/org/apache/commons/io/FilenameUtils.java
+@@ -666,8 +666,6 @@ public class FilenameUtils {
+                         return 2;
+                     }
+                     return 3;
+-                } else if (ch0 == UNIX_SEPARATOR) {
+-                    return 1;
+                 }
+                 return NOT_FOUND;
+ 

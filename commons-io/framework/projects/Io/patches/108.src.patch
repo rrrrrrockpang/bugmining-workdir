@@ -1,0 +1,18 @@
+diff --git a/src/main/java/org/apache/commons/io/input/ReaderInputStream.java b/src/main/java/org/apache/commons/io/input/ReaderInputStream.java
+index 4d55d587..5bc991ce 100644
+--- a/src/main/java/org/apache/commons/io/input/ReaderInputStream.java
++++ b/src/main/java/org/apache/commons/io/input/ReaderInputStream.java
+@@ -220,13 +220,6 @@ public class ReaderInputStream extends InputStream {
+      */
+     @Override
+     public int read(byte[] b, int off, int len) throws IOException {
+-        if (b == null) {
+-            throw new NullPointerException("Byte array must not be null");
+-        }
+-        if (len < 0 || off < 0 || (off + len) > b.length) {
+-            throw new IndexOutOfBoundsException("Array Size=" + b.length +
+-                    ", offset=" + off + ", length=" + len);
+-        }
+         int read = 0;
+         if (len == 0) {
+             return 0; // Always return 0 if len == 0

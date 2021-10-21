@@ -1,0 +1,31 @@
+diff --git a/src/main/java/org/apache/commons/io/input/Tailer.java b/src/main/java/org/apache/commons/io/input/Tailer.java
+index 14d3e601..fac1fc3f 100644
+--- a/src/main/java/org/apache/commons/io/input/Tailer.java
++++ b/src/main/java/org/apache/commons/io/input/Tailer.java
+@@ -363,7 +363,7 @@ public class Tailer implements Runnable {
+                 } else {
+                     // The current position in the file
+                     position = end ? file.length() : 0;
+-                    last = file.lastModified();
++                    last = System.currentTimeMillis();
+                     reader.seek(position);
+                 }
+             }
+@@ -400,7 +400,7 @@ public class Tailer implements Runnable {
+                     if (length > position) {
+                         // The file has more content than it did last time
+                         position = readLines(reader);
+-                        last = file.lastModified();
++                        last = System.currentTimeMillis();
+                     } else if (newer) {
+                         /*
+                          * This can happen if the file is truncated or overwritten with the exact same length of
+@@ -411,7 +411,7 @@ public class Tailer implements Runnable {
+ 
+                         // Now we can read new lines
+                         position = readLines(reader);
+-                        last = file.lastModified();
++                        last = System.currentTimeMillis();
+                     }
+                 }
+                 if (reOpen) {

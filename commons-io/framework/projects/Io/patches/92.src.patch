@@ -1,0 +1,50 @@
+diff --git a/src/main/java/org/apache/commons/io/input/Tailer.java b/src/main/java/org/apache/commons/io/input/Tailer.java
+index b79a9ed1..7a8e8a85 100644
+--- a/src/main/java/org/apache/commons/io/input/Tailer.java
++++ b/src/main/java/org/apache/commons/io/input/Tailer.java
+@@ -335,42 +335,12 @@ public class Tailer implements Runnable {
+      * @throws java.io.IOException if an I/O error occurs.
+      */
+     private long readLines(RandomAccessFile reader) throws IOException {
+-        long pos = reader.getFilePointer();
+-        String line = readLine(reader);
++        String line = reader.readLine();
+         while (line != null) {
+-            pos = reader.getFilePointer();
+             listener.handle(line);
+-            line = readLine(reader);
++            line = reader.readLine();
+         }
+-        reader.seek(pos); // Ensure we can re-read if necessary
+-        return pos;
++        return reader.getFilePointer();
+     }
+ 
+-    /**
+-     * Version of readline() that returns null on EOF rather than a partial line.
+-     * @param reader the input file
+-     * @return the line, or null if EOF reached before '\n' is seen.
+-     * @throws IOException if an error occurs.
+-     */
+-    private String readLine(RandomAccessFile reader) throws IOException {
+-        StringBuffer sb  = new StringBuffer();
+-        int ch;
+-        boolean seenCR = false;
+-        while((ch=reader.read()) != -1) {
+-            switch(ch) {
+-                case '\n':
+-                    return sb.toString();
+-                case '\r':
+-                    seenCR = true;
+-                    break;
+-                default:
+-                    if (seenCR) {
+-                        sb.append('\r');
+-                        seenCR = false;
+-                    }
+-                    sb.append((char)ch); // add character, not its ascii value
+-            }
+-        }
+-        return null;
+-    }
+ }

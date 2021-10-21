@@ -1,0 +1,31 @@
+diff --git a/src/main/java/org/apache/commons/io/FileUtils.java b/src/main/java/org/apache/commons/io/FileUtils.java
+index aed7c69f..d9bcf2b7 100644
+--- a/src/main/java/org/apache/commons/io/FileUtils.java
++++ b/src/main/java/org/apache/commons/io/FileUtils.java
+@@ -2421,26 +2421,6 @@ public class FileUtils {
+         }
+     }
+ 
+-    /**
+-     * Makes any necessary but nonexistent parent directories for a given File. If the parent directory cannot be
+-     * created then an IOException is thrown.
+-     * 
+-     * @param file
+-     *            file with parent to create, must not be {@code null}
+-     * @throws NullPointerException
+-     *             if the file is {@code null}
+-     * @throws IOException
+-     *             if the parent directory cannot be created
+-     * @since 2.5
+-     */
+-    public static void forceMkdirParent(final File file) throws IOException {
+-        final File parent = file.getParentFile();
+-        if (parent == null) {
+-            return;
+-        }
+-        forceMkdir(parent);
+-    }
+-
+     //-----------------------------------------------------------------------
+     /**
+      * Returns the size of the specified file or directory. If the provided 

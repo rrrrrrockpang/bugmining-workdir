@@ -1,0 +1,70 @@
+diff --git a/src/test/org/apache/commons/io/FileCleanerTestCase.java b/src/test/org/apache/commons/io/FileCleanerTestCase.java
+index adecb10c..e8f1ee28 100644
+--- a/src/test/org/apache/commons/io/FileCleanerTestCase.java
++++ b/src/test/org/apache/commons/io/FileCleanerTestCase.java
+@@ -79,8 +79,9 @@ public class FileCleanerTestCase extends FileBasedTestCase {
+         r.close();
+         testFile = null;
+         r = null;
+-
+-        waitUntilTrackCount();
++        while (FileCleaner.getTrackCount() != 0) {
++            System.gc();
++        }
+         
+         assertEquals(0, FileCleaner.getTrackCount());
+         assertEquals(false, new File(path).exists());
+@@ -97,9 +98,10 @@ public class FileCleanerTestCase extends FileBasedTestCase {
+         assertEquals(1, FileCleaner.getTrackCount());
+         
+         obj = null;
+-
+-        waitUntilTrackCount();
+-
++        while (FileCleaner.getTrackCount() != 0) {
++            System.gc();
++        }
++        
+         assertEquals(0, FileCleaner.getTrackCount());
+         assertEquals(true, testFile.exists());  // not deleted, as dir not empty
+         assertEquals(true, testFile.getParentFile().exists());  // not deleted, as dir not empty
+@@ -116,8 +118,9 @@ public class FileCleanerTestCase extends FileBasedTestCase {
+         assertEquals(1, FileCleaner.getTrackCount());
+         
+         obj = null;
+-
+-        waitUntilTrackCount();
++        while (FileCleaner.getTrackCount() != 0) {
++            System.gc();
++        }
+         
+         assertEquals(0, FileCleaner.getTrackCount());
+         assertEquals(true, testFile.exists());  // not deleted, as dir not empty
+@@ -135,8 +138,9 @@ public class FileCleanerTestCase extends FileBasedTestCase {
+         assertEquals(1, FileCleaner.getTrackCount());
+         
+         obj = null;
+-
+-        waitUntilTrackCount();
++        while (FileCleaner.getTrackCount() != 0) {
++            System.gc();
++        }
+         
+         assertEquals(0, FileCleaner.getTrackCount());
+         assertEquals(false, testFile.exists());
+@@ -170,15 +174,4 @@ public class FileCleanerTestCase extends FileBasedTestCase {
+         }
+     }
+ 
+-    private void waitUntilTrackCount() {
+-        while (FileCleaner.getTrackCount() != 0) {
+-            int total = 0;
+-            while (FileCleaner.getTrackCount() != 0) {
+-                byte[] b = new byte[1024 * 1024];
+-                b[0] = (byte) System.currentTimeMillis();
+-                total = total + b[0];
+-                System.gc();
+-            }
+-        }
+-    }
+ }

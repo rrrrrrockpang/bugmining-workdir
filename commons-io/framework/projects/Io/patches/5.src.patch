@@ -1,0 +1,24 @@
+diff --git a/src/java/org/apache/commons/io/IOUtils.java b/src/java/org/apache/commons/io/IOUtils.java
+index bb544c24..a6ad31fd 100644
+--- a/src/java/org/apache/commons/io/IOUtils.java
++++ b/src/java/org/apache/commons/io/IOUtils.java
+@@ -981,9 +981,6 @@ public class IOUtils {
+      * <p>
+      * This method buffers the input internally, so there is no need to use a
+      * <code>BufferedInputStream</code>.
+-     * <p>
+-     * Large streams (over 2GB) will return an inaccurate result count as the
+-     * type is an int. The copy will complete correctly however.
+      * 
+      * @param input  the <code>InputStream</code> to read from
+      * @param output  the <code>OutputStream</code> to write to
+@@ -1061,9 +1058,6 @@ public class IOUtils {
+      * <p>
+      * This method buffers the input internally, so there is no need to use a
+      * <code>BufferedReader</code>.
+-     * <p>
+-     * Large streams (over 2GB) will return an inaccurate result count as the
+-     * type is an int. The copy will complete correctly however.
+      *
+      * @param input  the <code>Reader</code> to read from
+      * @param output  the <code>Writer</code> to write to

@@ -1,0 +1,31 @@
+diff --git a/src/test/java/org/apache/commons/io/FileCleaningTrackerTestCase.java b/src/test/java/org/apache/commons/io/FileCleaningTrackerTestCase.java
+index 13004bb5..2152f480 100644
+--- a/src/test/java/org/apache/commons/io/FileCleaningTrackerTestCase.java
++++ b/src/test/java/org/apache/commons/io/FileCleaningTrackerTestCase.java
+@@ -155,7 +155,7 @@ public class FileCleaningTrackerTestCase extends FileBasedTestCase {
+         pauseForDeleteToComplete(testFile.getParentFile());
+         
+         assertEquals(0, theInstance.getTrackCount());
+-        assertEquals(showFailures(), false, new File(testFile.getPath()).exists());
++        assertEquals(showFailures(), false, testFile.exists());
+         assertEquals(showFailures(), false, testFile.getParentFile().exists());
+     }
+ 
+@@ -283,14 +283,10 @@ public class FileCleaningTrackerTestCase extends FileBasedTestCase {
+     }
+ 
+     //-----------------------------------------------------------------------
+-    private void pauseForDeleteToComplete(File file) {
++    private void pauseForDeleteToComplete(File file) throws Exception {
+         int count = 0;
+-        while(file.exists() && count++ < 40) {
+-            try {
+-                Thread.sleep(500L);
+-            } catch (InterruptedException e) {
+-            }
+-            file = new File(file.getPath());
++        while(file.exists() && count++ < 20) {
++            Thread.sleep(500L);
+         }
+     }
+     private String showFailures() throws Exception {
