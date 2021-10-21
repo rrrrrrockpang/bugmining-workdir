@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/CompositeConfiguration.java b/src/java/org/apache/commons/configuration/CompositeConfiguration.java
+index 22c4e008..0df59e88 100644
+--- a/src/java/org/apache/commons/configuration/CompositeConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CompositeConfiguration.java
+@@ -271,7 +271,7 @@ implements Cloneable
+     /**
+      * {@inheritDoc}
+      */
+-    protected void clearPropertyDirect(String key)
++    public void clearProperty(String key)
+     {
+         for (Iterator i = configList.iterator(); i.hasNext();)
+         {

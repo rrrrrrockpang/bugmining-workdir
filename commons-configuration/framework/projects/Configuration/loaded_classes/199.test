@@ -1,0 +1,4 @@
+org.apache.commons.configuration2.ConfigurationAssert
+org.apache.commons.configuration2.TestConfigurationUtils
+org.apache.commons.configuration2.tree.AbstractCombinerTest
+org.apache.commons.configuration2.tree.TestOverrideCombiner

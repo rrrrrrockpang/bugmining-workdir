@@ -1,0 +1,5 @@
+org.apache.commons.configuration.TestDefaultConfigurationBuilder
+org.apache.commons.configuration.TestDynamicCombinedConfiguration
+org.apache.commons.configuration.TestFileConfiguration
+org.apache.commons.configuration.TestMultiFileHierarchicalConfiguration
+org.apache.commons.configuration.TestVFSConfigurationBuilder

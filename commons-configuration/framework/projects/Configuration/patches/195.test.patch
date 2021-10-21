@@ -1,0 +1,46 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/TestPropertiesConfiguration.java b/src/test/java/org/apache/commons/configuration2/TestPropertiesConfiguration.java
+index f68a5aa9..3e7af5bd 100644
+--- a/src/test/java/org/apache/commons/configuration2/TestPropertiesConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration2/TestPropertiesConfiguration.java
+@@ -142,35 +142,15 @@ public class TestPropertiesConfiguration
+     }
+ 
+     /**
+-     * Checks for a property without a value.
+-     * 
+-     * @param key the key to be checked
+-     */
+-    private void checkEmpty(String key)
+-    {
+-        String empty = conf.getString(key);
+-        assertNotNull("Property not found: " + key, empty);
+-        assertEquals("Wrong value for property " + key, "", empty);
+-    }
+-
+-    /**
+-     * Tests that empty properties are treated as the empty string (rather than
+-     * as null).
+-     */
+-    @Test
+-    public void testEmpty()
+-    {
+-        checkEmpty("test.empty");
+-    }
+-
+-    /**
+-     * Tests that properties are detected that do not have a separator and a
+-     * value.
++     * Tests that empty properties are treated as the empty string
++     * (rather than as null).
+      */
+     @Test
+-    public void testEmptyNoSeparator()
++    public void testEmpty() throws Exception
+     {
+-        checkEmpty("test.empty2");
++        String empty = conf.getString("test.empty");
++        assertNotNull(empty);
++        assertEquals("", empty);
+     }
+ 
+     /**

@@ -1,0 +1,38 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/TestBaseHierarchicalConfigurationSynchronization.java b/src/test/java/org/apache/commons/configuration2/TestBaseHierarchicalConfigurationSynchronization.java
+index 377f5fa9..25795de9 100644
+--- a/src/test/java/org/apache/commons/configuration2/TestBaseHierarchicalConfigurationSynchronization.java
++++ b/src/test/java/org/apache/commons/configuration2/TestBaseHierarchicalConfigurationSynchronization.java
+@@ -185,8 +185,8 @@ public class TestBaseHierarchicalConfigurationSynchronization
+     private static boolean isDetached(HierarchicalConfiguration<ImmutableNode> c)
+     {
+         assertTrue("Not a sub configuration", c instanceof SubnodeConfiguration);
+-        InMemoryNodeModel nodeModel = ((SubnodeConfiguration) c).getRootNodeModel();
+-        return nodeModel.isTrackedNodeDetached(((SubnodeConfiguration) c)
++        return ((InMemoryNodeModel) c.getNodeModel())
++                .isTrackedNodeDetached(((SubnodeConfiguration) c)
+                         .getRootSelector());
+     }
+ 
+diff --git a/src/test/java/org/apache/commons/configuration2/TestSubnodeConfiguration.java b/src/test/java/org/apache/commons/configuration2/TestSubnodeConfiguration.java
+index e877c999..0b56c612 100644
+--- a/src/test/java/org/apache/commons/configuration2/TestSubnodeConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration2/TestSubnodeConfiguration.java
+@@ -519,18 +519,4 @@ public class TestSubnodeConfiguration
+         config.close();
+         EasyMock.verify(model);
+     }
+-
+-    /**
+-     * Tests whether a correct node model is returned for the sub
+-     * configuration. This test is related to CONFIGURATION-670.
+-     */
+-    @Test
+-    public void testGetNodeModel()
+-    {
+-        setUpSubnodeConfig();
+-        InMemoryNodeModel nodeModel = config.getNodeModel();
+-
+-        assertEquals("Wrong root node", "table",
+-                nodeModel.getNodeHandler().getRootNode().getNodeName());
+-    }
+ }

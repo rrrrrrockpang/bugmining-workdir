@@ -1,0 +1,51 @@
+diff --git a/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java b/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+index 84a43ad9..0b9854fc 100644
+--- a/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+@@ -1005,16 +1005,6 @@ public class TestHierarchicalConfiguration extends TestCase
+         assertEquals("Wrong number of children", 2, oldRoot.getChildrenCount());
+     }
+ 
+-    /**
+-     * Tests whether keys that contains brackets can be used.
+-     */
+-    public void testGetPropertyKeyWithBrackets()
+-    {
+-        final String key = "test.directory.platform(x86)";
+-        config.addProperty(key, "C:\\Temp");
+-        assertEquals("Wrong property value", "C:\\Temp", config.getString(key));
+-    }
+-
+ 	/**
+      * Helper method for testing the getKeys(String) method.
+      *
+diff --git a/src/test/org/apache/commons/configuration/tree/TestDefaultConfigurationKey.java b/src/test/org/apache/commons/configuration/tree/TestDefaultConfigurationKey.java
+index 88cdde1f..6e425dba 100644
+--- a/src/test/org/apache/commons/configuration/tree/TestDefaultConfigurationKey.java
++++ b/src/test/org/apache/commons/configuration/tree/TestDefaultConfigurationKey.java
+@@ -433,25 +433,6 @@ public class TestDefaultConfigurationKey extends TestCase
+         assertFalse("Too many parts", kit.hasNext());
+     }
+ 
+-    /**
+-     * Tests whether a key with brackets in it can be iterated over.
+-     */
+-    public void testIterateWithBrackets()
+-    {
+-        key.append("directory.platform(x86).path");
+-        DefaultConfigurationKey.KeyIterator kit = key.iterator();
+-        String part = kit.nextKey();
+-        assertEquals("Wrong part 1", "directory", part);
+-        assertFalse("Has index 1", kit.hasIndex());
+-        part = kit.nextKey();
+-        assertEquals("Wrong part 2", "platform(x86)", part);
+-        assertFalse("Has index 2", kit.hasIndex());
+-        part = kit.nextKey();
+-        assertEquals("Wrong part 3", "path", part);
+-        assertFalse("Has index 3", kit.hasIndex());
+-        assertFalse("Too many elements", kit.hasNext());
+-    }
+-
+     /**
+      * Tests iterating over an attribute key that has an index.
+      */

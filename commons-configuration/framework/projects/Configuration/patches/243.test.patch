@@ -1,0 +1,31 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/builder/TestFileBasedConfigurationBuilder.java b/src/test/java/org/apache/commons/configuration2/builder/TestFileBasedConfigurationBuilder.java
+index 47e739db..0a69b22b 100644
+--- a/src/test/java/org/apache/commons/configuration2/builder/TestFileBasedConfigurationBuilder.java
++++ b/src/test/java/org/apache/commons/configuration2/builder/TestFileBasedConfigurationBuilder.java
+@@ -408,26 +408,6 @@ public class TestFileBasedConfigurationBuilder
+         checkSavedConfig(file, 1);
+     }
+ 
+-    /**
+-     * Tests whether auto save mode works with a properties configuration.
+-     * This is related to CONFIGURATION-646.
+-     */
+-    @Test
+-    public void testAutoSaveWithPropertiesConfiguration() throws ConfigurationException,
+-            IOException
+-    {
+-        File file = folder.newFile();
+-        FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
+-                new FileBasedConfigurationBuilder<PropertiesConfiguration>(
+-                        PropertiesConfiguration.class)
+-                        .configure(new FileBasedBuilderParametersImpl()
+-                                .setFile(file));
+-        builder.setAutoSave(true);
+-        PropertiesConfiguration config = builder.getConfiguration();
+-        config.setProperty(PROP, 1);
+-        checkSavedConfig(file, 1);
+-    }
+-
+     /**
+      * Tries to set a default encoding for a null class.
+      */

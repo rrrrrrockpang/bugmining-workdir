@@ -1,0 +1,35 @@
+diff --git a/src/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+index d048a6f4..16d08ea3 100644
+--- a/src/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -875,11 +875,12 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+             }
+ 
+             // Copy data of the root node to the new path
+-            rootNode = ConfigurationUtils
++            HierarchicalConfiguration hc = ConfigurationUtils
+                     .convertToHierarchical(getConfiguration(),
+-                            getConversionExpressionEngine()).getRootNode();
+-            atParent.appendChildren(rootNode);
+-            atParent.appendAttributes(rootNode);
++                            getConversionExpressionEngine());
++            atParent.appendChildren(hc.getRootNode());
++            atParent.appendAttributes(hc.getRootNode());
++            rootNode = hc.getRootNode();
+ 
+             return result;
+         }
+diff --git a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+index 6dfab44a..db318787 100644
+--- a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
++++ b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+@@ -217,9 +217,7 @@ public class SubnodeConfiguration extends HierarchicalConfiguration
+                     {
+                         // the root node was changed due to a change of the
+                         // parent
+-                        fireEvent(EVENT_SUBNODE_CHANGED, null, null, true);
+                         setRootNode(currentRoot);
+-                        fireEvent(EVENT_SUBNODE_CHANGED, null, null, false);
+                     }
+                     return currentRoot;
+                 }

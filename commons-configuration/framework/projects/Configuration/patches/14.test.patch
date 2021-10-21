@@ -1,0 +1,43 @@
+diff --git a/src/test/org/apache/commons/configuration/TestConfigurationFactory.java b/src/test/org/apache/commons/configuration/TestConfigurationFactory.java
+index 99e08250..85ca6c13 100644
+--- a/src/test/org/apache/commons/configuration/TestConfigurationFactory.java
++++ b/src/test/org/apache/commons/configuration/TestConfigurationFactory.java
+@@ -20,7 +20,6 @@ package org.apache.commons.configuration;
+ import java.io.File;
+ import java.io.FileWriter;
+ import java.util.Collection;
+-import java.util.List;
+ 
+ import junit.framework.TestCase;
+ 
+@@ -53,8 +52,6 @@ public class TestConfigurationFactory extends TestCase
+             new File("conf/testDigesterOptionalConfigurationEx.xml");
+     private File testDigesterFileSysProps =
+             new File("conf/testDigesterConfigurationSysProps.xml");
+-    private File testDigesterFileInitProps =
+-            new File("conf/testDigesterConfigurationWithProps.xml");
+ 
+     private File testDigesterBadXML = new File("conf/testDigesterBadXML.xml");
+ 
+@@ -327,21 +324,6 @@ public class TestConfigurationFactory extends TestCase
+                 .getBoolean("configuration.loaded"));
+     }
+ 
+-    // Tests if the properties of a configuration object are correctly set
+-    // before it is loaded.
+-    public void testLoadInitProperties() throws ConfigurationException
+-    {
+-        factory.setConfigurationFileName(testDigesterFileInitProps
+-                .getAbsolutePath());
+-        Configuration config = factory.getConfiguration();
+-        PropertiesConfiguration c = (PropertiesConfiguration) ((CompositeConfiguration) config)
+-                .getConfiguration(0);
+-        assertEquals("List delimiter was not set", ';', c.getListDelimiter());
+-        List l = c.getList("test.mixed.array");
+-        assertEquals("Wrong number of list elements", 2, l.size());
+-        assertEquals("List delimiter was not applied", "b, c, d", l.get(1));
+-    }
+-
+     private void checkUnionConfig() throws Exception
+     {
+         compositeConfiguration = (CompositeConfiguration) factory.getConfiguration();

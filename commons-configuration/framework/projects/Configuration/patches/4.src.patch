@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/DataConfiguration.java b/src/java/org/apache/commons/configuration/DataConfiguration.java
+index cb3e08cd..5bdf6959 100644
+--- a/src/java/org/apache/commons/configuration/DataConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DataConfiguration.java
+@@ -1825,7 +1825,7 @@ public class DataConfiguration extends AbstractConfiguration implements Serializ
+      */
+     public Date[] getDateArray(String key, Date[] defaultValue, String format)
+     {
+-        List list = getDateList(key, format);
++        List list = getDateList(key);
+         if (list.isEmpty())
+         {
+             return defaultValue;

@@ -1,0 +1,12 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 76190358..66f8b1fd 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -869,7 +869,6 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+ 
+         XMLNode nd = (XMLNode) createNode(node.getName());
+         nd.setValue(node.getValue());
+-        nd.setAttribute(node.isAttribute());
+         for (Iterator it = node.getChildren().iterator(); it.hasNext();)
+         {
+             nd.addChild(convertToXMLNode((ConfigurationNode) it.next()));

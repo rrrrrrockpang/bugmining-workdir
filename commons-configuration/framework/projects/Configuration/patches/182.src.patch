@@ -1,0 +1,43 @@
+diff --git a/src/main/java/org/apache/commons/configuration/beanutils/XMLBeanDeclaration.java b/src/main/java/org/apache/commons/configuration/beanutils/XMLBeanDeclaration.java
+index e53b4a52..8b9ad0bc 100644
+--- a/src/main/java/org/apache/commons/configuration/beanutils/XMLBeanDeclaration.java
++++ b/src/main/java/org/apache/commons/configuration/beanutils/XMLBeanDeclaration.java
+@@ -29,7 +29,6 @@ import org.apache.commons.configuration.HierarchicalConfiguration;
+ import org.apache.commons.configuration.ex.ConfigurationRuntimeException;
+ import org.apache.commons.configuration.interpol.ConfigurationInterpolator;
+ import org.apache.commons.configuration.tree.NodeHandler;
+-import org.apache.commons.lang3.StringUtils;
+ 
+ /**
+  * <p>
+@@ -516,7 +515,7 @@ public class XMLBeanDeclaration implements BeanDeclaration
+     BeanDeclaration createBeanDeclaration(NodeData<?> node)
+     {
+         for (HierarchicalConfiguration<?> config : getConfiguration()
+-                .configurationsAt(node.escapedNodeName(getConfiguration())))
++                .configurationsAt(node.nodeName()))
+         {
+             if (node.matchesConfigRootNode(config))
+             {
+@@ -637,21 +636,6 @@ public class XMLBeanDeclaration implements BeanDeclaration
+             return handler.nodeName(node);
+         }
+ 
+-        /**
+-         * Returns the unescaped name of the node stored in this data object.
+-         * This method handles the case that the node name may contain reserved
+-         * characters with a special meaning for the current expression engine.
+-         * In this case, the characters affected have to be escaped accordingly.
+-         *
+-         * @param config the configuration
+-         * @return the escaped node name
+-         */
+-        public String escapedNodeName(HierarchicalConfiguration<?> config)
+-        {
+-            return config.getExpressionEngine().nodeKey(node,
+-                    StringUtils.EMPTY, handler);
+-        }
+-
+         /**
+          * Returns a list with the children of the wrapped node, again wrapped
+          * into {@code NodeData} objects.

@@ -1,0 +1,17 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index 28d9a623..3df7844a 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -1356,11 +1356,11 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+                 }
+             }
+ 
+-            visitor.visitAfterChildren(this, key);
+             if (key != null)
+             {
+                 key.setLength(length);
+             }
++            visitor.visitAfterChildren(this, key);
+         }
+     }
+ 

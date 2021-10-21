@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/ConfigurationUtils.java b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+index e6ae2870..4ab5d7b4 100644
+--- a/src/java/org/apache/commons/configuration/ConfigurationUtils.java
++++ b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+@@ -238,7 +238,7 @@ public final class ConfigurationUtils
+             // Workaround for problem with copy()
+             boolean delimiterParsingStatus = hc.isDelimiterParsingDisabled();
+             hc.setDelimiterParsingDisabled(true);
+-            hc.append(conf);
++            ConfigurationUtils.copy(conf, hc);
+             hc.setDelimiterParsingDisabled(delimiterParsingStatus);
+             return hc;
+         }

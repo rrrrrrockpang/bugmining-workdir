@@ -1,0 +1,6 @@
+org.apache.commons.configuration2.builder.TestDefaultParametersManager
+org.apache.commons.configuration2.builder.TestFileBasedConfigurationBuilder
+org.apache.commons.configuration2.builder.TestPropertiesBuilderParametersImpl
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration2.builder.fluent.TestParameters

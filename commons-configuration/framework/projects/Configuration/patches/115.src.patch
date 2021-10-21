@@ -1,0 +1,18 @@
+diff --git a/src/java/org/apache/commons/configuration/SubsetConfiguration.java b/src/java/org/apache/commons/configuration/SubsetConfiguration.java
+index 254d5dfb..a8c8d24e 100644
+--- a/src/java/org/apache/commons/configuration/SubsetConfiguration.java
++++ b/src/java/org/apache/commons/configuration/SubsetConfiguration.java
+@@ -170,7 +170,12 @@ public class SubsetConfiguration extends AbstractConfiguration
+         parent.addProperty(getParentKey(key), value);
+     }
+ 
+-    protected void clearPropertyDirect(String key)
++    public void setProperty(String key, Object value)
++    {
++        parent.setProperty(getParentKey(key), value);
++    }
++
++    public void clearProperty(String key)
+     {
+         parent.clearProperty(getParentKey(key));
+     }

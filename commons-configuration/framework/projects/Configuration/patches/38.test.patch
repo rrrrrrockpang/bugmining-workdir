@@ -1,0 +1,142 @@
+diff --git a/src/test/org/apache/commons/configuration/TestFileConfiguration.java b/src/test/org/apache/commons/configuration/TestFileConfiguration.java
+index 83711501..dd885b89 100644
+--- a/src/test/org/apache/commons/configuration/TestFileConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestFileConfiguration.java
+@@ -39,19 +39,8 @@ import junit.framework.TestCase;
+  */
+ public class TestFileConfiguration extends TestCase
+ {
+-    /** Constant for the output directory.*/
+     private static final File TARGET_DIR = new File("target");
+ 
+-    /** Constant for the directory with the test configuration files.*/
+-    private static final File TEST_DIR = new File("conf");
+-
+-    /** Constant for the name of a test file.*/
+-    private static final String TEST_FILENAME = "test.properties";
+-
+-    /** Constant for a test file.*/
+-    private static final File TEST_FILE = new File(TEST_DIR, TEST_FILENAME);
+-
+-    /** Constant for the name of a resource to be resolved.*/
+     private static final String RESOURCE_NAME = "config/deep/deeptest.properties";
+ 
+     public void testSetURL() throws Exception
+@@ -83,23 +72,23 @@ public class TestFileConfiguration extends TestCase
+     {
+         PropertiesConfiguration config = new PropertiesConfiguration();
+ 
+-        File directory = TEST_DIR;
+-        File file = TEST_FILE;
++        File directory = new File("conf");
++        File file = new File(directory, "test.properties");
+         config.setFile(file);
+         assertEquals(directory.getAbsolutePath(), config.getBasePath());
+-        assertEquals(TEST_FILENAME, config.getFileName());
++        assertEquals("test.properties", config.getFileName());
+         assertEquals(file.getAbsolutePath(), config.getPath());
+ 
+-        config.setPath("conf" + File.separator + TEST_FILENAME);
+-        assertEquals(TEST_FILENAME, config.getFileName());
++        config.setPath("conf" + File.separator + "test.properties");
++        assertEquals("test.properties", config.getFileName());
+         assertEquals(directory.getAbsolutePath(), config.getBasePath());
+         assertEquals(file.getAbsolutePath(), config.getPath());
+         assertEquals(file.toURL(), config.getURL());
+ 
+         config.setBasePath(null);
+-        config.setFileName(TEST_FILENAME);
++        config.setFileName("test.properties");
+         assertNull(config.getBasePath());
+-        assertEquals(TEST_FILENAME, config.getFileName());
++        assertEquals("test.properties", config.getFileName());
+     }
+ 
+     public void testCreateFile1() throws Exception
+@@ -300,7 +289,7 @@ public class TestFileConfiguration extends TestCase
+      */
+     public void testReloadingWithAutoSave() throws Exception
+     {
+-        File configFile = new File(TARGET_DIR, TEST_FILENAME);
++        File configFile = new File(TARGET_DIR, "test.properties");
+         PrintWriter out = null;
+ 
+         try
+@@ -390,43 +379,13 @@ public class TestFileConfiguration extends TestCase
+     {
+         FileConfiguration config = new PropertiesConfiguration();
+         assertNull(config.getFile());
+-        File file = TEST_FILE.getAbsoluteFile();
++        File file = new File("conf/test.properties").getAbsoluteFile();
+         config.setFile(file);
+         assertEquals(file, config.getFile());
+         config.load();
+         assertEquals(file, config.getFile());
+     }
+ 
+-    /**
+-     * Tests whether getFile() returns a valid file after a configuration has
+-     * been loaded.
+-     */
+-    public void testGetFileAfterLoad() throws ConfigurationException,
+-            IOException
+-    {
+-        FileConfiguration config = new PropertiesConfiguration();
+-        config.load(TEST_FILE.getAbsolutePath());
+-        assertNotNull("No source URL set", config.getURL());
+-        assertEquals("Wrong source file", TEST_FILE.getCanonicalFile(), config
+-                .getFile().getCanonicalFile());
+-    }
+-
+-    /**
+-     * Tests whether calling load() multiple times changes the source. This
+-     * should not be the case.
+-     */
+-    public void testLoadMultiple() throws ConfigurationException
+-    {
+-        FileConfiguration config = new PropertiesConfiguration();
+-        config.load(TEST_FILE.getAbsolutePath());
+-        URL srcUrl = config.getURL();
+-        File srcFile = config.getFile();
+-        File file2 = new File(TEST_DIR, "testEqual.properties");
+-        config.load(file2.getAbsolutePath());
+-        assertEquals("Source URL was changed", srcUrl, config.getURL());
+-        assertEquals("Source file was changed", srcFile, config.getFile());
+-    }
+-
+     /**
+      * Tests to invoke save() without explicitely setting a file name. This
+      * will cause an exception.
+@@ -434,7 +393,7 @@ public class TestFileConfiguration extends TestCase
+     public void testSaveWithoutFileName() throws Exception
+     {
+         FileConfiguration config = new PropertiesConfiguration();
+-        File file = TEST_FILE;
++        File file = new File("conf/test.properties");
+         config.load(file);
+         try
+         {
+@@ -447,7 +406,7 @@ public class TestFileConfiguration extends TestCase
+         }
+ 
+         config = new PropertiesConfiguration();
+-        config.load(TEST_FILE);
++        config.load("conf/test.properties");
+         try
+         {
+             config.save();
+@@ -534,12 +493,12 @@ public class TestFileConfiguration extends TestCase
+     }
+ 
+     /**
+-     * Tests the loading of configuration file in a Combined configuration
++     * Tests the loading of configuration file in a Combined configuration 
+      * when the configuration source is in the classpath.
+      */
+     public void testLoadFromClassPath() throws ConfigurationException
+     {
+-        DefaultConfigurationBuilder cf =
++        DefaultConfigurationBuilder cf = 
+             new DefaultConfigurationBuilder("conf/config/deep/testFileFromClasspath.xml");
+         CombinedConfiguration config = cf.getConfiguration(true);
+         Configuration config1 = config.getConfiguration("propConf");

@@ -1,0 +1,72 @@
+diff --git a/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java b/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
+index 1741f930..4ebae665 100644
+--- a/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
+@@ -42,6 +42,7 @@ import org.apache.commons.configuration.tree.ConfigurationNode;
+ import org.apache.commons.configuration.tree.ConfigurationNodeVisitorAdapter;
+ import org.apache.commons.configuration.tree.DefaultConfigurationNode;
+ import org.apache.commons.configuration.tree.DefaultExpressionEngine;
++import org.apache.commons.configuration.tree.DefaultExpressionEngineSymbols;
+ import org.apache.commons.configuration.tree.ExpressionEngine;
+ import org.apache.commons.configuration.tree.NodeAddData;
+ 
+@@ -172,6 +173,9 @@ public class BaseHierarchicalConfiguration extends AbstractConfiguration
+      */
+     private static final long serialVersionUID = 3373812230395363192L;
+ 
++    /** Stores the default expression engine to be used for new objects.*/
++    private static ExpressionEngine defaultExpressionEngine;
++
+     /** Stores the root configuration node.*/
+     private ConfigurationNode rootNode;
+ 
+@@ -311,6 +315,40 @@ public class BaseHierarchicalConfiguration extends AbstractConfiguration
+         return getRootNode().getName();
+     }
+ 
++    /**
++     * Returns the default expression engine.
++     *
++     * @return the default expression engine
++     * @since 1.3
++     */
++    public static synchronized ExpressionEngine getDefaultExpressionEngine()
++    {
++        if (defaultExpressionEngine == null)
++        {
++            defaultExpressionEngine = new DefaultExpressionEngine(DefaultExpressionEngineSymbols.DEFAULT_SYMBOLS);
++        }
++        return defaultExpressionEngine;
++    }
++
++    /**
++     * Sets the default expression engine. This expression engine will be used
++     * if no specific engine was set for an instance. It is shared between all
++     * hierarchical configuration instances. So modifying its properties will
++     * impact all instances, for which no specific engine is set.
++     *
++     * @param engine the new default expression engine
++     * @since 1.3
++     */
++    public static synchronized void setDefaultExpressionEngine(ExpressionEngine engine)
++    {
++        if (engine == null)
++        {
++            throw new IllegalArgumentException(
++                    "Default expression engine must not be null!");
++        }
++        defaultExpressionEngine = engine;
++    }
++
+     /**
+      * Returns the expression engine used by this configuration. This method
+      * will never return <b>null</b>; if no specific expression engine was set,
+@@ -322,7 +360,7 @@ public class BaseHierarchicalConfiguration extends AbstractConfiguration
+     public ExpressionEngine getExpressionEngine()
+     {
+         return (expressionEngine != null) ? expressionEngine
+-                : DefaultExpressionEngine.INSTANCE;
++                : getDefaultExpressionEngine();
+     }
+ 
+     /**

@@ -1,0 +1,3 @@
+org.apache.commons.configuration2.ConfigurationAssert
+org.apache.commons.configuration2.FileURLStreamHandler
+org.apache.commons.configuration2.TestPropertiesConfiguration

@@ -1,0 +1,9 @@
+org.apache.commons.configuration.TestCompositeConfiguration
+org.apache.commons.configuration.TestCompositeConfigurationNonStringProperties
+org.apache.commons.configuration.TestConfigurationFactory
+org.apache.commons.configuration.TestEqualBehaviour
+org.apache.commons.configuration.TestFileConfiguration
+org.apache.commons.configuration.TestNullCompositeConfiguration
+org.apache.commons.configuration.TestPropertiesConfiguration
+org.apache.commons.configuration.TestPropertiesSequence
+org.apache.commons.configuration.TestSubsetConfiguration

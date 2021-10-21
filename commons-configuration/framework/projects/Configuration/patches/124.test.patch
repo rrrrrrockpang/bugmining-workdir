@@ -1,0 +1,130 @@
+diff --git a/src/test/org/apache/commons/configuration/beanutils/TestConfigurationDynaBean.java b/src/test/org/apache/commons/configuration/beanutils/TestConfigurationDynaBean.java
+index a8ff1df7..158e0caa 100644
+--- a/src/test/org/apache/commons/configuration/beanutils/TestConfigurationDynaBean.java
++++ b/src/test/org/apache/commons/configuration/beanutils/TestConfigurationDynaBean.java
+@@ -21,15 +21,15 @@ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.List;
+ 
+-import junit.framework.AssertionFailedError;
+-import junit.framework.TestCase;
+-import junitx.framework.ObjectAssert;
+-
+ import org.apache.commons.beanutils.DynaProperty;
+ import org.apache.commons.configuration.BaseConfiguration;
+ import org.apache.commons.configuration.Configuration;
+ import org.apache.commons.configuration.MapConfiguration;
+ 
++import junit.framework.AssertionFailedError;
++import junit.framework.TestCase;
++import junitx.framework.ObjectAssert;
++
+ /**
+  * <p>Test Case for the <code>ConfigurationDynaBean</code> implementation class.
+  * These tests were based on the ones in <code>BasicDynaBeanTestCase</code>
+@@ -716,9 +716,11 @@ public class TestConfigurationDynaBean extends TestCase
+     }
+ 
+     /**
+-     * Tests whether nested properties can be accessed.
++     * Tests if accessing a non-indexed property using the index
++     * get method throws an IllegalArgumentException as it
++     * should.
+      */
+-    public void testNestedPropeties()
++    public void testNonIndexedPropeties()
+     {
+         ConfigurationDynaBean nested = (ConfigurationDynaBean) bean.get("mappedProperty");
+ 
+@@ -730,73 +732,44 @@ public class TestConfigurationDynaBean extends TestCase
+     }
+ 
+     /**
+-     * Tests if reading a non-indexed property using the index
++     * Tests if accessing a non-indexed property using the index
+      * get method throws an IllegalArgumentException as it
+      * should.
+      */
+-    public void testGetNonIndexedProperties()
++    public void testNestedPropeties()
+     {
+         try
+         {
+             bean.get("booleanProperty", 0);
+-            fail("Should have thrown IllegalArgumentException");
+         }
+         catch (IllegalArgumentException e)
+         {
+-            //ok
+-        }
+-    }
+-
+-    /**
+-     * Tests whether accessing a non-indexed string property using the index get
+-     * method causes an exception.
+-     */
+-    public void testGetIndexedString()
+-    {
+-        bean.set("stringProp", "value");
+-        try
+-        {
+-            bean.get("stringProp", 0);
+-            fail("Could access non-indexed property with indexed get method!");
++            return;
+         }
+-        catch(IllegalArgumentException iex)
++        catch (Throwable t)
+         {
+-            //ok
++            fail("Threw " + t + " instead of IllegalArgumentException");
++            return;
+         }
+-    }
+ 
+-    /**
+-     * Tests whether an indexed access to a non-existing property causes an
+-     * exception.
+-     */
+-    public void testGetIndexedNonExisting()
+-    {
+-        try
+-        {
+-            bean.get("Non existing property", 0);
+-            fail("Non existing property not detected!");
+-        }
+-        catch (IllegalArgumentException iex)
+-        {
+-            // ok
+-        }
+-    }
++        fail("Should have thrown IllegalArgumentException");
+ 
+-    /**
+-     * Tests if writing a non-indexed property using the index
+-     * set method with an index &gt; 0 throws an IllegalArgumentException as it
+-     * should.
+-     */
+-    public void testSetNonIndexedProperties()
+-    {
+         try
+         {
+-            bean.set("booleanProperty", 1, Boolean.TRUE);
+-            fail("Could write indexed property!");
++            bean.set("booleanProperty", 0, Boolean.TRUE);
+         }
+         catch (IllegalArgumentException e)
+         {
+-            //ok
++            return;
+         }
++        catch (Throwable t)
++        {
++            fail("Threw " + t + " instead of IllegalArgumentException");
++            return;
++        }
++
++        fail("Should have thrown IllegalArgumentException");
+     }
++
++
+ }

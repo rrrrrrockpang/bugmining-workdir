@@ -1,0 +1,107 @@
+diff --git a/src/java/org/apache/commons/configuration/plist/PropertyListConfiguration.java b/src/java/org/apache/commons/configuration/plist/PropertyListConfiguration.java
+index fb5e0017..cde29a0f 100644
+--- a/src/java/org/apache/commons/configuration/plist/PropertyListConfiguration.java
++++ b/src/java/org/apache/commons/configuration/plist/PropertyListConfiguration.java
+@@ -40,7 +40,7 @@ import org.apache.commons.lang.StringUtils;
+ 
+ /**
+  * NeXT / OpenStep style configuration. This configuration can read and write
+- * ASCII plist files. It supports the GNUStep extension to specify date objects.
++ * ASCII plist files. It support the GNUStep extension to specify date objects.
+  * <p>
+  * References:
+  * <ul>
+diff --git a/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java b/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
+index efeedc57..dfe79765 100644
+--- a/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
++++ b/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
+@@ -28,12 +28,10 @@ import java.text.ParseException;
+ import java.text.SimpleDateFormat;
+ import java.util.ArrayList;
+ import java.util.Calendar;
+-import java.util.Collection;
+ import java.util.Date;
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Map;
+-import java.util.TimeZone;
+ import javax.xml.parsers.SAXParser;
+ import javax.xml.parsers.SAXParserFactory;
+ 
+@@ -75,7 +73,7 @@ import org.xml.sax.helpers.DefaultHandler;
+  *         &lt;true/>
+  *
+  *         &lt;key>date&lt;/key>
+- *         &lt;date>2005-01-01T12:00:00Z&lt;/date>
++ *         &lt;date>2005-01-01T12:00:00-0700&lt;/date>
+  *
+  *         &lt;key>data&lt;/key>
+  *         &lt;data>RHJhY28gRG9ybWllbnMgTnVucXVhbSBUaXRpbGxhbmR1cw==&lt;/data>
+@@ -319,10 +317,7 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+ 
+         if (value instanceof Date)
+         {
+-            synchronized (PListNode.format)
+-            {
+-                out.println(padding + "<date>" + PListNode.format.format((Date) value) + "</date>");
+-            }
++            out.println(padding + "<date>" + PListNode.format.format((Date) value) + "</date>");
+         }
+         else if (value instanceof Calendar)
+         {
+@@ -562,15 +557,8 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+          */
+         private static final long serialVersionUID = -7614060264754798317L;
+ 
+-        /** The MacOS format of dates in plist files. */
+-        private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+-        static
+-        {
+-            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+-        }
+-
+-        /** The GNUstep format of dates in plist files. */
+-        private static DateFormat gnustepFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
++        /** The standard format of dates in plist files. */
++        private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+ 
+         /**
+          * Update the value of the node. If the existing value is null, it's
+@@ -586,10 +574,10 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+             {
+                 setValue(value);
+             }
+-            else if (getValue() instanceof Collection)
++            else if (getValue() instanceof List)
+             {
+-                Collection collection = (Collection) getValue();
+-                collection.add(value);
++                List list = (List) getValue();
++                list.add(value);
+             }
+             else
+             {
+@@ -609,22 +597,7 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+         {
+             try
+             {
+-                if (value.indexOf(' ') != -1)
+-                {
+-                    // parse the date using the GNUstep format
+-                    synchronized (gnustepFormat)
+-                    {
+-                        addValue(gnustepFormat.parse(value));
+-                    }
+-                }
+-                else
+-                {
+-                    // parse the date using the MacOS X format
+-                    synchronized (format)
+-                    {
+-                        addValue(format.parse(value));
+-                    }
+-                }
++                addValue(format.parse(value));
+             }
+             catch (ParseException e)
+             {

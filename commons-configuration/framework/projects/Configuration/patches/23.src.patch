@@ -1,0 +1,63 @@
+diff --git a/src/java/org/apache/commons/configuration/JNDIConfiguration.java b/src/java/org/apache/commons/configuration/JNDIConfiguration.java
+index 1a76fc29..ebd77c54 100644
+--- a/src/java/org/apache/commons/configuration/JNDIConfiguration.java
++++ b/src/java/org/apache/commons/configuration/JNDIConfiguration.java
+@@ -29,7 +29,6 @@ import javax.naming.NameClassPair;
+ import javax.naming.NameNotFoundException;
+ import javax.naming.NamingEnumeration;
+ import javax.naming.NamingException;
+-import javax.naming.NotContextException;
+ 
+ import org.apache.commons.lang.StringUtils;
+ import org.apache.commons.logging.LogFactory;
+@@ -104,7 +103,6 @@ public class JNDIConfiguration extends AbstractConfiguration
+         this.context = context;
+         this.prefix = prefix;
+         setLogger(LogFactory.getLog(getClass()));
+-        addErrorLogListener();
+     }
+ 
+     /**
+@@ -214,7 +212,7 @@ public class JNDIConfiguration extends AbstractConfiguration
+         }
+         catch (NamingException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, null, null, e);
++            getLogger().error(e.getMessage(), e);
+             return new ArrayList().iterator();
+         }
+     }
+@@ -298,7 +296,7 @@ public class JNDIConfiguration extends AbstractConfiguration
+         }
+         catch (NamingException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, null, null, e);
++            getLogger().error(e.getMessage(), e);
+             return true;
+         }
+     }
+@@ -352,7 +350,7 @@ public class JNDIConfiguration extends AbstractConfiguration
+         }
+         catch (NamingException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, key, null, e);
++            getLogger().error(e.getMessage(), e);
+             return false;
+         }
+     }
+@@ -402,14 +400,9 @@ public class JNDIConfiguration extends AbstractConfiguration
+             // expected exception, no need to log it
+             return null;
+         }
+-        catch (NotContextException nctxex)
+-        {
+-            // expected exception, no need to log it
+-            return null;
+-        }
+         catch (NamingException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, key, null, e);
++            getLogger().error(e.getMessage(), e);
+             return null;
+         }
+     }

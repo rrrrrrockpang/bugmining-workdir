@@ -1,0 +1,14 @@
+org.apache.commons.configuration.TestCompositeConfiguration
+org.apache.commons.configuration.TestConfigurationConverter
+org.apache.commons.configuration.TestEnvironmentConfiguration
+org.apache.commons.configuration.TestMapConfiguration
+org.apache.commons.configuration.TestNullCompositeConfiguration
+org.apache.commons.configuration.TestSystemConfiguration
+org.apache.commons.configuration.beanutils.TestConfigurationDynaBean
+org.apache.commons.configuration.beanutils.TestConfigurationDynaBeanXMLConfig
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration.event.TestMapConfigurationEvents
+org.apache.commons.configuration.event.TestSubsetConfigurationEvents
+org.apache.commons.configuration.interpol.TestEnvironmentLookup
+org.apache.commons.configuration.web.TestAppletConfiguration

@@ -1,0 +1,4 @@
+org.apache.commons.configuration2.TestINIConfiguration
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration2.builder.fluent.TestConfigurations

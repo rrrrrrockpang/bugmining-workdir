@@ -1,0 +1,80 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestPropertiesConfiguration.java b/src/test/java/org/apache/commons/configuration/TestPropertiesConfiguration.java
+index bd3fefb8..0cf68732 100644
+--- a/src/test/java/org/apache/commons/configuration/TestPropertiesConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestPropertiesConfiguration.java
+@@ -68,9 +68,6 @@ public class TestPropertiesConfiguration
+     /** Constant for a test property value.*/
+     private static final String PROP_VALUE = "value";
+ 
+-    /** Constant for the line break character. */
+-    private static final String CR = System.getProperty("line.separator");
+-
+     /** The configuration to be tested.*/
+     private PropertiesConfiguration conf;
+ 
+@@ -1080,36 +1077,6 @@ public class TestPropertiesConfiguration
+         assertEquals("Wrong list property", list, conf.getProperty(prop));
+     }
+ 
+-    /**
+-     * Tests whether a footer comment is correctly read.
+-     */
+-    @Test
+-    public void testReadFooterComment()
+-    {
+-        assertEquals("Wrong footer comment", "\n# This is a foot comment\n",
+-                conf.getFooter());
+-        assertEquals("Wrong footer comment from layout",
+-                "\nThis is a foot comment\n", conf.getLayout()
+-                        .getCanonicalFooterCooment(false));
+-    }
+-
+-    /**
+-     * Tests whether a footer comment is correctly written out.
+-     */
+-    @Test
+-    public void testWriteFooterComment() throws ConfigurationException,
+-            IOException
+-    {
+-        final String footer = "my footer";
+-        conf.clear();
+-        conf.setProperty(PROP_NAME, PROP_VALUE);
+-        conf.setFooter(footer);
+-        StringWriter out = new StringWriter();
+-        conf.write(out);
+-        assertEquals("Wrong result", PROP_NAME + " = " + PROP_VALUE + CR + "# "
+-                + footer + CR, out.toString());
+-    }
+-
+     /**
+      * Helper method for testing the content of a list with elements that
+      * contain backslashes.
+diff --git a/src/test/java/org/apache/commons/configuration/TestPropertiesConfigurationLayout.java b/src/test/java/org/apache/commons/configuration/TestPropertiesConfigurationLayout.java
+index 11026fca..bb2a8d25 100644
+--- a/src/test/java/org/apache/commons/configuration/TestPropertiesConfigurationLayout.java
++++ b/src/test/java/org/apache/commons/configuration/TestPropertiesConfigurationLayout.java
+@@ -601,14 +601,11 @@ public class TestPropertiesConfigurationLayout
+                 config, layout);
+         assertEquals("Wrong number of keys", layout.getKeys().size(), l2
+                 .getKeys().size());
+-        for (String key : layout.getKeys())
++        for (Iterator<String> it = layout.getKeys().iterator(); it.hasNext();)
+         {
++            Object key = it.next();
+             assertTrue("Key was not found: " + key, l2.getKeys().contains(key));
+         }
+-        assertEquals("Wrong header comment", layout.getHeaderComment(),
+-                l2.getHeaderComment());
+-        assertEquals("Wrong footer comment", layout.getFooterComment(),
+-                l2.getFooterComment());
+     }
+ 
+     /**
+@@ -702,7 +699,6 @@ public class TestPropertiesConfigurationLayout
+         builder.addComment(TEST_COMMENT);
+         builder.addProperty(TEST_KEY, TEST_VALUE);
+         builder.addProperty("anotherProp", "anotherValue");
+-        builder.addComment("A footer comment");
+         try
+         {
+             layout.load(builder.getReader());

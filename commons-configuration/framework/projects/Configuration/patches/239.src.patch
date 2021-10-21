@@ -1,0 +1,18 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+index bc2fc6b8..72a012ec 100644
+--- a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+@@ -962,13 +962,6 @@ public class XMLConfiguration extends BaseHierarchicalConfiguration implements
+      */
+     private void load(InputSource source) throws ConfigurationException
+     {
+-        if (locator == null)
+-        {
+-            throw new ConfigurationException("Load operation not properly "
+-                    + "initialized! Do not call read(InputStream) directly,"
+-                    + " but use a FileHandler to load a configuration.");
+-        }
+-
+         try
+         {
+             URL sourceURL = locator.getSourceURL();

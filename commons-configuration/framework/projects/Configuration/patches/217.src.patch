@@ -1,0 +1,107 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/INIConfiguration.java b/src/main/java/org/apache/commons/configuration2/INIConfiguration.java
+index 613e0a87..59a64fd1 100644
+--- a/src/main/java/org/apache/commons/configuration2/INIConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/INIConfiguration.java
+@@ -23,6 +23,7 @@ import java.io.Reader;
+ import java.io.Writer;
+ import java.util.ArrayList;
+ import java.util.Collection;
++import java.util.Iterator;
+ import java.util.LinkedHashMap;
+ import java.util.LinkedHashSet;
+ import java.util.List;
+@@ -279,44 +280,47 @@ public class INIConfiguration extends BaseHierarchicalConfiguration implements
+     public void write(Writer writer) throws ConfigurationException, IOException
+     {
+         PrintWriter out = new PrintWriter(writer);
+-        boolean first = true;
+-
+-        beginRead(false);
+-        try
++        for (String section : getSections())
+         {
+-            for (ImmutableNode node : getModel().getNodeHandler().getRootNode()
+-                    .getChildren())
++            if (section != null)
+             {
+-                if (isSectionNode(node))
++                out.print("[");
++                out.print(section);
++                out.print("]");
++                out.println();
++            }
++            Configuration subset = getSection(section);
++
++            Iterator<String> keys = subset.getKeys();
++            while (keys.hasNext())
++            {
++                String key = keys.next();
++                Object value = subset.getProperty(key);
++                if (value instanceof Collection)
+                 {
+-                    if (!first)
++                    Iterator<?> values = ((Collection<?>) value).iterator();
++                    while (values.hasNext())
+                     {
++                        value = values.next();
++                        out.print(key);
++                        out.print(" = ");
++                        out.print(escapeValue(value.toString()));
+                         out.println();
+                     }
+-                    out.print("[");
+-                    out.print(node.getNodeName());
+-                    out.print("]");
+-                    out.println();
+-
+-                    for (ImmutableNode child : node.getChildren())
+-                    {
+-                        writeProperty(out, child.getNodeName(),
+-                                child.getValue());
+-                    }
+                 }
+                 else
+                 {
+-                    writeProperty(out, node.getNodeName(), node.getValue());
++                    out.print(key);
++                    out.print(" = ");
++                    out.print(escapeValue(value.toString()));
++                    out.println();
+                 }
+-                first = false;
+             }
++
+             out.println();
+-            out.flush();
+-        }
+-        finally
+-        {
+-            endRead();
+         }
++
++        out.flush();
+     }
+ 
+     /**
+@@ -444,21 +448,6 @@ public class INIConfiguration extends BaseHierarchicalConfiguration implements
+         }
+     }
+ 
+-    /**
+-     * Writes data about a property into the given stream.
+-     *
+-     * @param out the output stream
+-     * @param key the key
+-     * @param value the value
+-     */
+-    private void writeProperty(PrintWriter out, String key, Object value)
+-    {
+-        out.print(key);
+-        out.print(" = ");
+-        out.print(escapeValue(value.toString()));
+-        out.println();
+-    }
+-
+     /**
+      * Parse the value to remove the quotes and ignoring the comment. Example:
+      *

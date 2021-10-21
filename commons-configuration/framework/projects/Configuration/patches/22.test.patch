@@ -1,0 +1,472 @@
+diff --git a/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java b/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
+index 1fddebe0..4e7ddda6 100644
+--- a/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
+@@ -18,7 +18,6 @@
+ package org.apache.commons.configuration;
+ 
+ import java.io.FileInputStream;
+-import java.sql.Connection;
+ import java.sql.SQLException;
+ import java.util.Iterator;
+ import java.util.List;
+@@ -27,8 +26,6 @@ import javax.sql.DataSource;
+ 
+ import junit.framework.TestCase;
+ 
+-import org.apache.commons.configuration.event.ConfigurationErrorEvent;
+-import org.apache.commons.configuration.event.ConfigurationErrorListener;
+ import org.apache.commons.configuration.test.HsqlDB;
+ import org.apache.commons.dbcp.BasicDataSource;
+ import org.dbunit.database.DatabaseConnection;
+@@ -38,7 +35,7 @@ import org.dbunit.dataset.xml.XmlDataSet;
+ import org.dbunit.operation.DatabaseOperation;
+ 
+ /**
+- * Test for database stored configurations.  Note, when running this Unit
++ * Test for database stored configurations.  Note, when running this Unit 
+  * Test in Eclipse it sometimes takes a couple tries. Otherwise you may get
+  * database is already in use by another process errors.
+  *
+@@ -51,31 +48,10 @@ public class TestDatabaseConfiguration extends TestCase
+     public final String DATABASE_USERNAME = "sa";
+     public final String DATABASE_PASSWORD = "";
+ 
+-    /** Constant for the configuration table.*/
+-    private static final String TABLE = "configuration";
+-
+-    /** Constant for the multi configuration table.*/
+-    private static final String TABLE_MULTI = "configurations";
+-
+-    /** Constant for the column with the keys.*/
+-    private static final String COL_KEY = "key";
+-
+-    /** Constant for the column with the values.*/
+-    private static final String COL_VALUE = "value";
+-
+-    /** Constant for the column with the configuration name.*/
+-    private static final String COL_NAME = "name";
+-
+-    /** Constant for the name of the test configuration.*/
+-    private static final String CONFIG_NAME = "test";
+-
+     private static HsqlDB hsqlDB = null;
+ 
+     private DataSource datasource;
+ 
+-    /** An error listener for testing whether internal errors occurred.*/
+-    private TestErrorListener listener;
+-
+     protected void setUp() throws Exception
+     {
+         /*
+@@ -83,9 +59,9 @@ public class TestDatabaseConfiguration extends TestCase
+          * use exception.
+          */
+         //Thread.sleep(1000);
+-
++        
+         // set up the datasource
+-
++        
+         if (hsqlDB == null)
+         {
+             hsqlDB = new HsqlDB(DATABASE_URL, DATABASE_DRIVER, "conf/testdb.script");
+@@ -98,7 +74,7 @@ public class TestDatabaseConfiguration extends TestCase
+         datasource.setPassword(DATABASE_PASSWORD);
+ 
+         this.datasource = datasource;
+-
++        
+ 
+         // prepare the database
+         IDatabaseConnection connection = new DatabaseConnection(datasource.getConnection());
+@@ -113,98 +89,15 @@ public class TestDatabaseConfiguration extends TestCase
+             connection.close();
+         }
+     }
+-
+-    protected void tearDown() throws Exception{
++    
++    protected void tearDown() throws SQLException{
+         datasource.getConnection().commit();
+         datasource.getConnection().close();
+-
+-        // if an error listener is defined, we check whether an error occurred
+-        if(listener != null)
+-        {
+-            assertEquals("An internal error occurred", 0, listener.errorCount);
+-        }
+-        super.tearDown();
+-    }
+-
+-    /**
+-     * Creates a database configuration with default values.
+-     *
+-     * @return the configuration
+-     */
+-    private PotentialErrorDatabaseConfiguration setUpConfig()
+-    {
+-        return new PotentialErrorDatabaseConfiguration(datasource, TABLE,
+-                COL_KEY, COL_VALUE);
+-    }
+-
+-    /**
+-     * Creates a database configuration that supports multiple configurations in
+-     * a table with default values.
+-     *
+-     * @return the configuration
+-     */
+-    private DatabaseConfiguration setUpMultiConfig()
+-    {
+-        return new DatabaseConfiguration(datasource, TABLE_MULTI, COL_NAME,
+-                COL_KEY, COL_VALUE, CONFIG_NAME);
+-    }
+-
+-    /**
+-     * Creates an error listener and adds it to the specified configuration.
+-     *
+-     * @param config the configuration
+-     */
+-    private void setUpErrorListener(PotentialErrorDatabaseConfiguration config)
+-    {
+-        // remove log listener to avoid exception longs
+-        config.removeErrorListener((ConfigurationErrorListener) config
+-                .getErrorListeners().iterator().next());
+-        listener = new TestErrorListener();
+-        config.addErrorListener(listener);
+-        config.failOnConnect = true;
+-    }
+-
+-    /**
+-     * Prepares a test for a database error. Sets up a config and registers an
+-     * error listener.
+-     *
+-     * @return the initialized configuration
+-     */
+-    private PotentialErrorDatabaseConfiguration setUpErrorConfig()
+-    {
+-        PotentialErrorDatabaseConfiguration config = setUpConfig();
+-        setUpErrorListener(config);
+-        return config;
+-    }
+-
+-    /**
+-     * Checks the error listener for an expected error. The properties of the
+-     * error event will be compared with the expected values.
+-     *
+-     * @param type the expected type of the error event
+-     * @param key the expected property key
+-     * @param value the expected property value
+-     */
+-    private void checkErrorListener(int type, String key, Object value)
+-    {
+-        assertEquals("Wrong number of errors", 1, listener.errorCount);
+-        assertEquals("Wrong event type", type, listener.event.getType());
+-        assertTrue("Wrong event source",
+-                listener.event.getSource() instanceof DatabaseConfiguration);
+-        assertTrue("Wrong exception",
+-                listener.event.getCause() instanceof SQLException);
+-        assertTrue("Wrong property key", (key == null) ? listener.event
+-                .getPropertyName() == null : key.equals(listener.event
+-                .getPropertyName()));
+-        assertTrue("Wrong property value", (value == null) ? listener.event
+-                .getPropertyValue() == null : value.equals(listener.event
+-                .getPropertyValue()));
+-        listener = null; // mark as checked
+     }
+ 
+     public void testAddPropertyDirectSingle()
+     {
+-        DatabaseConfiguration config = setUpConfig();
++        DatabaseConfiguration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         config.addPropertyDirect("key", "value");
+ 
+         assertTrue("missing property", config.containsKey("key"));
+@@ -212,7 +105,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testAddPropertyDirectMultiple()
+     {
+-        DatabaseConfiguration config = setUpMultiConfig();
++        DatabaseConfiguration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         config.addPropertyDirect("key", "value");
+ 
+         assertTrue("missing property", config.containsKey("key"));
+@@ -220,7 +113,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testAddNonStringProperty()
+     {
+-        DatabaseConfiguration config = setUpConfig();
++        DatabaseConfiguration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         config.addPropertyDirect("boolean", Boolean.TRUE);
+ 
+         assertTrue("missing property", config.containsKey("boolean"));
+@@ -228,7 +121,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetPropertyDirectSingle()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+ 
+         assertEquals("property1", "value1", config.getProperty("key1"));
+         assertEquals("property2", "value2", config.getProperty("key2"));
+@@ -237,7 +130,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetPropertyDirectMultiple()
+     {
+-        Configuration config = setUpMultiConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+ 
+         assertEquals("property1", "value1", config.getProperty("key1"));
+         assertEquals("property2", "value2", config.getProperty("key2"));
+@@ -246,7 +139,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearPropertySingle()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         config.clearProperty("key");
+ 
+         assertFalse("property not cleared", config.containsKey("key"));
+@@ -254,7 +147,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearPropertyMultiple()
+     {
+-        Configuration config = setUpMultiConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         config.clearProperty("key");
+ 
+         assertFalse("property not cleared", config.containsKey("key"));
+@@ -262,7 +155,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearSingle()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         config.clear();
+ 
+         assertTrue("configuration is not cleared", config.isEmpty());
+@@ -270,7 +163,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearMultiple()
+     {
+-        Configuration config = setUpMultiConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         config.clear();
+ 
+         assertTrue("configuration is not cleared", config.isEmpty());
+@@ -278,7 +171,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetKeysSingle()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         Iterator it = config.getKeys();
+ 
+         assertEquals("1st key", "key1", it.next());
+@@ -287,7 +180,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetKeysMultiple()
+     {
+-        Configuration config = setUpMultiConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         Iterator it = config.getKeys();
+ 
+         assertEquals("1st key", "key1", it.next());
+@@ -296,43 +189,43 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testContainsKeySingle()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         assertTrue("missing key1", config.containsKey("key1"));
+         assertTrue("missing key2", config.containsKey("key2"));
+     }
+ 
+     public void testContainsKeyMultiple()
+     {
+-        Configuration config = setUpMultiConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         assertTrue("missing key1", config.containsKey("key1"));
+         assertTrue("missing key2", config.containsKey("key2"));
+     }
+ 
+     public void testIsEmptySingle()
+     {
+-        Configuration config1 = setUpConfig();
++        Configuration config1 = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+         assertFalse("The configuration is empty", config1.isEmpty());
+     }
+ 
+     public void testIsEmptyMultiple()
+     {
+-        Configuration config1 = setUpMultiConfig();
++        Configuration config1 = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "test");
+         assertFalse("The configuration named 'test' is empty", config1.isEmpty());
+ 
+-        Configuration config2 = new DatabaseConfiguration(datasource, TABLE_MULTI, COL_NAME, COL_KEY, COL_VALUE, "testIsEmpty");
++        Configuration config2 = new DatabaseConfiguration(datasource, "configurations", "name", "key", "value", "testIsEmpty");
+         assertTrue("The configuration named 'testIsEmpty' is not empty", config2.isEmpty());
+     }
+-
++    
+     public void testGetList()
+     {
+-        Configuration config1 = new DatabaseConfiguration(datasource, "configurationList", COL_KEY, COL_VALUE);
++        Configuration config1 = new DatabaseConfiguration(datasource, "configurationList", "key", "value");
+         List list = config1.getList("key3");
+         assertEquals(3,list.size());
+-    }
+-
++    }    
++    
+     public void testGetKeys()
+     {
+-        Configuration config1 = new DatabaseConfiguration(datasource, "configurationList", COL_KEY, COL_VALUE);
++        Configuration config1 = new DatabaseConfiguration(datasource, "configurationList", "key", "value");
+         Iterator i = config1.getKeys();
+         assertTrue(i.hasNext());
+         Object key = i.next();
+@@ -342,7 +235,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearSubset()
+     {
+-        Configuration config = setUpConfig();
++        Configuration config = new DatabaseConfiguration(datasource, "configuration", "key", "value");
+ 
+         Configuration subset = config.subset("key1");
+         subset.clear();
+@@ -351,133 +244,4 @@ public class TestDatabaseConfiguration extends TestCase
+         assertFalse("the parent configuration is empty", config.isEmpty());
+     }
+ 
+-    /**
+-     * Tests whether the configuration has already an error listener registered
+-     * that is used for logging.
+-     */
+-    public void testLogErrorListener()
+-    {
+-        DatabaseConfiguration config = new DatabaseConfiguration(datasource,
+-                TABLE, COL_KEY, COL_VALUE);
+-        assertEquals("No error listener registered", 1, config
+-                .getErrorListeners().size());
+-    }
+-
+-    /**
+-     * Tests handling of errors in getProperty().
+-     */
+-    public void testGetPropertyError()
+-    {
+-        setUpErrorConfig().getProperty("key1");
+-        checkErrorListener(AbstractConfiguration.EVENT_READ_PROPERTY, "key1",
+-                null);
+-    }
+-
+-    /**
+-     * Tests handling of errors in addPropertyDirect().
+-     */
+-    public void testAddPropertyError()
+-    {
+-        setUpErrorConfig().addProperty("key1", "value");
+-        checkErrorListener(AbstractConfiguration.EVENT_ADD_PROPERTY, "key1",
+-                "value");
+-    }
+-
+-    /**
+-     * Tests handling of errors in isEmpty().
+-     */
+-    public void testIsEmptyError()
+-    {
+-        assertTrue("Wrong return value for failure", setUpErrorConfig()
+-                .isEmpty());
+-        checkErrorListener(AbstractConfiguration.EVENT_READ_PROPERTY, null,
+-                null);
+-    }
+-
+-    /**
+-     * Tests handling of errors in containsKey().
+-     */
+-    public void testContainsKeyError()
+-    {
+-        assertFalse("Wrong return value for failure", setUpErrorConfig()
+-                .containsKey("key1"));
+-        checkErrorListener(AbstractConfiguration.EVENT_READ_PROPERTY, "key1",
+-                null);
+-    }
+-
+-    /**
+-     * Tests handling of errors in clearProperty().
+-     */
+-    public void testClearPropertyError()
+-    {
+-        setUpErrorConfig().clearProperty("key1");
+-        checkErrorListener(AbstractConfiguration.EVENT_CLEAR_PROPERTY, "key1",
+-                null);
+-    }
+-
+-    /**
+-     * Tests handling of errors in clear().
+-     */
+-    public void testClearError()
+-    {
+-        setUpErrorConfig().clear();
+-        checkErrorListener(AbstractConfiguration.EVENT_CLEAR, null, null);
+-    }
+-
+-    /**
+-     * Tests handling of errors in getKeys().
+-     */
+-    public void testGetKeysError()
+-    {
+-        Iterator it = setUpErrorConfig().getKeys();
+-        checkErrorListener(AbstractConfiguration.EVENT_READ_PROPERTY, null,
+-                null);
+-        assertFalse("Iteration is not empty", it.hasNext());
+-    }
+-
+-    /**
+-     * A specialized database configuration implementation that can be
+-     * configured to throw an exception when obtaining a connection. This way
+-     * database exceptions can be simulated.
+-     */
+-    static class PotentialErrorDatabaseConfiguration extends
+-            DatabaseConfiguration
+-    {
+-        /** A flag whether a getConnection() call should fail. */
+-        boolean failOnConnect;
+-
+-        public PotentialErrorDatabaseConfiguration(DataSource datasource,
+-                String table, String keyColumn, String valueColumn)
+-        {
+-            super(datasource, table, keyColumn, valueColumn);
+-        }
+-
+-        protected Connection getConnection() throws SQLException
+-        {
+-            if (failOnConnect)
+-            {
+-                throw new SQLException("Simulated DB error");
+-            }
+-            return super.getConnection();
+-        }
+-    }
+-
+-    /**
+-     * A test error listener implementation that is used for finding out whether
+-     * error events are correctly triggered.
+-     */
+-    static class TestErrorListener implements ConfigurationErrorListener
+-    {
+-        /** Stores the number of calls. */
+-        int errorCount;
+-
+-        /** Stores the last error event. */
+-        ConfigurationErrorEvent event;
+-
+-        public void configurationError(ConfigurationErrorEvent event)
+-        {
+-            errorCount++;
+-            this.event = event;
+-        }
+-    }
+ }

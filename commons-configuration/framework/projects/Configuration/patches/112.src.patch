@@ -1,0 +1,16 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+index 4ac5528d..26427322 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+@@ -714,10 +714,7 @@ public class HierarchicalINIConfiguration extends
+             ConfigurationNode node = (ConfigurationNode) it.next();
+             if (!isSectionNode(node))
+             {
+-                synchronized (node)
+-                {
+-                    parent.addChild(node);
+-                }
++                parent.addChild(node);
+             }
+         }
+ 

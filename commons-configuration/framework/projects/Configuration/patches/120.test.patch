@@ -1,0 +1,13 @@
+diff --git a/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java b/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
+index 67529e13..8e2cd6e9 100644
+--- a/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
++++ b/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
+@@ -128,7 +128,7 @@ public class TestFileChangedReloadingStrategy extends TestCase
+         assertTrue(config.getBoolean("configuration.loaded"));
+         FileChangedReloadingStrategy strategy = new FileChangedReloadingStrategy();
+         config.setReloadingStrategy(strategy);
+-        assertEquals(config.getURL().toURI().toString(), strategy.getFile().toURI().toString());
++        assertEquals(config.getURL(), strategy.getFile().toURL());
+     }
+ 
+     /**

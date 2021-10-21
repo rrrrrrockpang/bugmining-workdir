@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java b/src/main/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
+index 05e1af9e..ff54ba1d 100644
+--- a/src/main/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
++++ b/src/main/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
+@@ -724,7 +724,7 @@ public class PropertiesConfigurationLayout implements EventListener<Configuratio
+      */
+     static String stripCommentChar(String s, boolean comment)
+     {
+-        if (StringUtils.isBlank(s) || (isCommentLine(s) == comment))
++        if (s.length() < 1 || (isCommentLine(s) == comment))
+         {
+             return s;
+         }

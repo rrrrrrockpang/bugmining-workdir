@@ -1,0 +1,21 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index 6aa0f72f..af772611 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -827,8 +827,6 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+                         }
+                         fireEvent(EVENT_RELOAD, null, getURL(), true);
+                         setDetailEvents(false);
+-                        boolean autoSaveBak = this.isAutoSave(); // save the current state
+-                        this.setAutoSave(false); // deactivate autoSave to prevent information loss
+                         try
+                         {
+                             clear();
+@@ -836,7 +834,6 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+                         }
+                         finally
+                         {
+-                            this.setAutoSave(autoSaveBak); // set autoSave to previous value
+                             setDetailEvents(true);
+                         }
+                         fireEvent(EVENT_RELOAD, null, getURL(), false);

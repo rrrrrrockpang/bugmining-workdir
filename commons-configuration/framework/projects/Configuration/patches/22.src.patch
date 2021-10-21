@@ -1,0 +1,283 @@
+diff --git a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+index 0e3dabbf..1a4a2da8 100644
+--- a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+@@ -79,7 +79,6 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         this.valueColumn = valueColumn;
+         this.name = name;
+         setLogger(LogFactory.getLog(getClass()));
+-        addErrorLogListener();  // log errors per default
+     }
+ 
+     /**
+@@ -96,14 +95,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Returns the value of the specified property. If this causes a database
+-     * error, an error event will be generated of type
+-     * <code>EVENT_READ_PROPERTY</code> with the causing exception. The
+-     * event's <code>propertyName</code> is set to the passed in property key,
+-     * the <code>propertyValue</code> is undefined.
+-     *
+-     * @param key the key of the desired property
+-     * @return the value of this property
++     * {@inheritDoc}
+      */
+     public Object getProperty(String key)
+     {
+@@ -121,7 +113,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -153,7 +145,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, key, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -164,14 +156,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Adds a property to this configuration. If this causes a database error,
+-     * an error event will be generated of type <code>EVENT_ADD_PROPERTY</code>
+-     * with the causing exception. The event's <code>propertyName</code> is
+-     * set to the passed in property key, the <code>propertyValue</code>
+-     * points to the passed in value.
+-     *
+-     * @param key the property key
+-     * @param obj the value of the property to add
++     * {@inheritDoc}
+      */
+     protected void addPropertyDirect(String key, Object obj)
+     {
+@@ -191,7 +176,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -207,7 +192,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_ADD_PROPERTY, key, obj, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -217,12 +202,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Checks if this configuration is empty. If this causes a database error,
+-     * an error event will be generated of type <code>EVENT_READ_PROPERTY</code>
+-     * with the causing exception. Both the event's <code>propertyName</code>
+-     * and <code>propertyValue</code> will be undefined.
+-     *
+-     * @return a flag whether this configuration is empty.
++     * {@inheritDoc}
+      */
+     public boolean isEmpty()
+     {
+@@ -240,7 +220,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -258,7 +238,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, null, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -270,14 +250,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Checks whether this configuration contains the specified key. If this
+-     * causes a database error, an error event will be generated of type
+-     * <code>EVENT_READ_PROPERTY</code> with the causing exception. The
+-     * event's <code>propertyName</code> will be set to the passed in key, the
+-     * <code>propertyValue</code> will be undefined.
+-     *
+-     * @param key the key to be checked
+-     * @return a flag whether this key is defined
++     * {@inheritDoc}
+      */
+     public boolean containsKey(String key)
+     {
+@@ -295,7 +268,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -311,7 +284,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, key, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -323,13 +296,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Removes the specified value from this configuration. If this causes a
+-     * database error, an error event will be generated of type
+-     * <code>EVENT_CLEAR_PROPERTY</code> with the causing exception. The
+-     * event's <code>propertyName</code> will be set to the passed in key, the
+-     * <code>propertyValue</code> will be undefined.
+-     *
+-     * @param key the key of the property to be removed
++     * {@inheritDoc}
+      */
+     public void clearProperty(String key)
+     {
+@@ -345,7 +312,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -359,7 +326,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_CLEAR_PROPERTY, key, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -369,11 +336,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Removes all entries from this configuration. If this causes a database
+-     * error, an error event will be generated of type
+-     * <code>EVENT_CLEAR</code> with the causing exception. Both the
+-     * event's <code>propertyName</code> and the <code>propertyValue</code>
+-     * will be undefined.
++     * {@inheritDoc}
+      */
+     public void clear()
+     {
+@@ -389,7 +352,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -402,7 +365,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_CLEAR, null, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -412,14 +375,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+     }
+ 
+     /**
+-     * Returns an iterator with the names of all properties contained in this
+-     * configuration. If this causes a database
+-     * error, an error event will be generated of type
+-     * <code>EVENT_READ_PROPERTY</code> with the causing exception. Both the
+-     * event's <code>propertyName</code> and the <code>propertyValue</code>
+-     * will be undefined.
+-     * @return an iterator with the contained keys (an empty iterator in case
+-     * of an error)
++     * {@inheritDoc}
+      */
+     public Iterator getKeys()
+     {
+@@ -437,7 +393,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+         try
+         {
+-            conn = getConnection();
++            conn = datasource.getConnection();
+ 
+             // bind the parameters
+             pstmt = conn.prepareStatement(query.toString());
+@@ -455,7 +411,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+         catch (SQLException e)
+         {
+-            fireError(EVENT_READ_PROPERTY, null, null, e);
++            getLogger().error(e.getMessage(), e);
+         }
+         finally
+         {
+@@ -466,31 +422,6 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         return keys.iterator();
+     }
+ 
+-    /**
+-     * Returns the used <code>DataSource</code> object.
+-     *
+-     * @return the data source
+-     * @since 1.4
+-     */
+-    public DataSource getDatasource()
+-    {
+-        return datasource;
+-    }
+-
+-    /**
+-     * Returns a <code>Connection</code> object. This method is called when
+-     * ever the database is to be accessed. This implementation returns a
+-     * connection from the current <code>DataSource</code>.
+-     *
+-     * @return the <code>Connection</code> object to be used
+-     * @throws SQLException if an error occurs
+-     * @since 1.4
+-     */
+-    protected Connection getConnection() throws SQLException
+-    {
+-        return getDatasource().getConnection();
+-    }
+-
+     /**
+      * Close a <code>Connection</code> and, <code>Statement</code>.
+      * Avoid closing if null and hide any SQLExceptions that occur.
+@@ -516,4 +447,4 @@ public class DatabaseConfiguration extends AbstractConfiguration
+             getLogger().error(e.getMessage(), e);
+         }
+     }
+-}
+\ No newline at end of file
++}

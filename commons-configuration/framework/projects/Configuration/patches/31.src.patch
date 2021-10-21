@@ -1,0 +1,98 @@
+diff --git a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+index 06b96c6f..ffc364d2 100644
+--- a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+@@ -29,7 +29,6 @@ import java.util.List;
+ 
+ import javax.sql.DataSource;
+ 
+-import org.apache.commons.collections.CollectionUtils;
+ import org.apache.commons.logging.LogFactory;
+ 
+ /**
+@@ -111,9 +110,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         Object result = null;
+ 
+         // build the query
+-        StringBuffer query = new StringBuffer("SELECT * FROM ");
+-        query.append(table).append(" WHERE ");
+-        query.append(keyColumn).append("=?");
++        StringBuffer query = new StringBuffer("SELECT * FROM " + table + " WHERE " + keyColumn + "=?");
+         if (nameColumn != null)
+         {
+             query.append(" AND " + nameColumn + "=?");
+@@ -136,25 +133,22 @@ public class DatabaseConfiguration extends AbstractConfiguration
+ 
+             ResultSet rs = pstmt.executeQuery();
+ 
+-            List results = new ArrayList();
+-            while (rs.next())
++            if (rs.next())
+             {
+-                Object val = rs.getObject(valueColumn);
+-                if (isDelimiterParsingDisabled())
+-                {
+-                    results.add(val);
+-                }
+-                else
+-                {
+-                    // Split value if it containts the list delimiter
+-                    CollectionUtils.addAll(results, PropertyConverter
+-                            .toIterator(val, getListDelimiter()));
+-                }
++                result = rs.getObject(valueColumn);
+             }
+ 
+-            if (!results.isEmpty())
++            // build a list if there is more than one row in the resultset
++            if (rs.next())
+             {
+-                result = (results.size() > 1) ? results : results.get(0);
++                List results = new ArrayList();
++                results.add(result);
++                results.add(rs.getObject(valueColumn));
++                while (rs.next())
++                {
++                    results.add(rs.getObject(valueColumn));
++                }
++                result = results;
+             }
+         }
+         catch (SQLException e)
+@@ -222,36 +216,6 @@ public class DatabaseConfiguration extends AbstractConfiguration
+         }
+     }
+ 
+-    /**
+-     * Adds a property to this configuration. This implementation will
+-     * temporarily disable list delimiter parsing, so that even if the value
+-     * contains the list delimiter, only a single record will be written into
+-     * the managed table. The implementation of <code>getProperty()</code>
+-     * will take care about delimiters. So list delimiters are fully supported
+-     * by <code>DatabaseConfiguration</code>, but internally treated a bit
+-     * differently.
+-     *
+-     * @param key the key of the new property
+-     * @param value the value to be added
+-     */
+-    public void addProperty(String key, Object value)
+-    {
+-        boolean parsingFlag = isDelimiterParsingDisabled();
+-        try
+-        {
+-            if (value instanceof String)
+-            {
+-                // temporarily disable delimiter parsing
+-                setDelimiterParsingDisabled(true);
+-            }
+-            super.addProperty(key, value);
+-        }
+-        finally
+-        {
+-            setDelimiterParsingDisabled(parsingFlag);
+-        }
+-    }
+-
+     /**
+      * Checks if this configuration is empty. If this causes a database error,
+      * an error event will be generated of type <code>EVENT_READ_PROPERTY</code>

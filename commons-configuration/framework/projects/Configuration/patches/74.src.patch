@@ -1,0 +1,54 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractConfiguration.java b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+index 0fece8a8..4416556b 100644
+--- a/src/java/org/apache/commons/configuration/AbstractConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+@@ -21,7 +21,6 @@ import java.lang.reflect.Array;
+ import java.math.BigDecimal;
+ import java.math.BigInteger;
+ import java.util.ArrayList;
+-import java.util.Arrays;
+ import java.util.Collection;
+ import java.util.Iterator;
+ import java.util.List;
+@@ -1135,10 +1134,6 @@ public abstract class AbstractConfiguration extends EventSource implements Confi
+         {
+             list = defaultValue;
+         }
+-        else if (value.getClass().isArray())
+-        {
+-            return Arrays.asList((Object[]) value);
+-        }
+         else
+         {
+             throw new ConversionException('\'' + key + "' doesn't map to a List object: " + value + ", a "
+diff --git a/src/java/org/apache/commons/configuration/beanutils/ConfigurationDynaBean.java b/src/java/org/apache/commons/configuration/beanutils/ConfigurationDynaBean.java
+index da59a689..c5eb9d4c 100644
+--- a/src/java/org/apache/commons/configuration/beanutils/ConfigurationDynaBean.java
++++ b/src/java/org/apache/commons/configuration/beanutils/ConfigurationDynaBean.java
+@@ -169,7 +169,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean
+         }
+         catch (ConversionException e)
+         {
+-            throw new IllegalArgumentException("Property '" + name + "' is not indexed.", e);
++            throw new IllegalArgumentException("Property '" + name + "' is not indexed.");
+         }
+     }
+ 
+@@ -213,7 +213,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean
+             }
+             else if (property.getClass().isArray())
+             {
+-                Array.set(property, index, value);
++                Array.set(value, index, value);
+             }
+             else if (index == 0)
+             {
+@@ -226,7 +226,7 @@ public class ConfigurationDynaBean extends ConfigurationMap implements DynaBean
+         }
+         catch (ConversionException e)
+         {
+-            throw new IllegalArgumentException("Property '" + name + "' is not indexed.", e);
++            throw new IllegalArgumentException("Property '" + name + "' is not indexed.");
+         }
+     }
+ 

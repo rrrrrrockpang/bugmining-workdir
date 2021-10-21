@@ -1,0 +1,14 @@
+diff --git a/src/main/java/org/apache/commons/configuration/XMLConfiguration.java b/src/main/java/org/apache/commons/configuration/XMLConfiguration.java
+index ba5be3dd..f6b6f45b 100644
+--- a/src/main/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -1411,7 +1411,8 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+         private Document document;
+ 
+         /** Stores the list delimiter.*/
+-        private final char listDelimiter;
++        private char listDelimiter = AbstractConfiguration.
++                getDefaultListDelimiter();
+ 
+         /** True if attributes should not be split */
+         private boolean isAttributeSplittingDisabled;

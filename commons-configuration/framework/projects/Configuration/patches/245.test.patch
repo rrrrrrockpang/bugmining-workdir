@@ -1,0 +1,72 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/builder/TestPropertiesBuilderParametersImpl.java b/src/test/java/org/apache/commons/configuration2/builder/TestPropertiesBuilderParametersImpl.java
+index 33120e22..4094e36f 100644
+--- a/src/test/java/org/apache/commons/configuration2/builder/TestPropertiesBuilderParametersImpl.java
++++ b/src/test/java/org/apache/commons/configuration2/builder/TestPropertiesBuilderParametersImpl.java
+@@ -25,7 +25,6 @@ import java.util.Map;
+ import org.apache.commons.configuration2.PropertiesConfiguration;
+ import org.apache.commons.configuration2.PropertiesConfigurationLayout;
+ import org.apache.commons.configuration2.beanutils.BeanHelper;
+-import org.apache.commons.configuration2.ex.ConfigurationException;
+ import org.easymock.EasyMock;
+ import org.junit.Before;
+ import org.junit.Test;
+@@ -81,7 +80,7 @@ public class TestPropertiesBuilderParametersImpl
+         EasyMock.replay(factory);
+         assertSame("Wrong result", params, params.setIOFactory(factory));
+         assertSame("Factory not set", factory,
+-                params.getParameters().get("IOFactory"));
++                params.getParameters().get("iOFactory"));
+     }
+ 
+     /**
+@@ -103,7 +102,7 @@ public class TestPropertiesBuilderParametersImpl
+         assertEquals("Wrong exception flag", Boolean.TRUE,
+                 paramsMap.get("throwExceptionOnMissing"));
+         assertSame("Factory not set", factory,
+-                params.getParameters().get("IOFactory"));
++                params.getParameters().get("iOFactory"));
+     }
+ 
+     /**
+@@ -124,27 +123,9 @@ public class TestPropertiesBuilderParametersImpl
+         Map<String, Object> parameters = params2.getParameters();
+         assertEquals("Exception flag not set", Boolean.TRUE,
+                 parameters.get("throwExceptionOnMissing"));
+-        assertEquals("IOFactory not set", factory, parameters.get("IOFactory"));
++        assertEquals("IOFactory not set", factory, parameters.get("iOFactory"));
+         assertEquals("Include flag not set", Boolean.FALSE,
+                 parameters.get("includesAllowed"));
+         assertNull("Layout was copied", parameters.get("layout"));
+     }
+-
+-    /**
+-     * Tests whether the IOFactory property can be correctly set. This test is
+-     * related to CONFIGURATION-648.
+-     */
+-    @Test
+-    public void testSetIOFactoryProperty() throws ConfigurationException
+-    {
+-        PropertiesConfiguration.IOFactory factory =
+-                new PropertiesConfiguration.DefaultIOFactory();
+-        ConfigurationBuilder<PropertiesConfiguration> builder =
+-                new FileBasedConfigurationBuilder<PropertiesConfiguration>(
+-                        PropertiesConfiguration.class)
+-                .configure(params.setIOFactory(factory));
+-
+-        PropertiesConfiguration config = builder.getConfiguration();
+-        assertEquals("Wrong IO factory", factory, config.getIOFactory());
+-    }
+ }
+diff --git a/src/test/java/org/apache/commons/configuration2/builder/fluent/TestParameters.java b/src/test/java/org/apache/commons/configuration2/builder/fluent/TestParameters.java
+index 21e933f7..47645e4a 100644
+--- a/src/test/java/org/apache/commons/configuration2/builder/fluent/TestParameters.java
++++ b/src/test/java/org/apache/commons/configuration2/builder/fluent/TestParameters.java
+@@ -285,7 +285,7 @@ public class TestParameters
+                 .getFileName());
+         assertEquals("Wrong includes flag", Boolean.FALSE,
+                 map.get("includesAllowed"));
+-        assertSame("Wrong factory", factory, map.get("IOFactory"));
++        assertSame("Wrong factory", factory, map.get("iOFactory"));
+     }
+ 
+     /**

@@ -1,0 +1,31 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+index 87c1202d..e88d11b6 100644
+--- a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+@@ -17,11 +17,11 @@
+ 
+ package org.apache.commons.configuration;
+ 
++import java.io.Reader;
++import java.io.Writer;
+ import java.io.File;
+ import java.io.InputStream;
+ import java.io.OutputStream;
+-import java.io.Reader;
+-import java.io.Writer;
+ import java.net.URL;
+ import java.util.Collection;
+ import java.util.Iterator;
+@@ -308,12 +308,6 @@ implements FileConfiguration, ConfigurationListener
+         return super.containsKey(key);
+     }
+ 
+-    public Iterator getKeys()
+-    {
+-        reload();
+-        return super.getKeys();
+-    }
+-
+     public Iterator getKeys(String prefix)
+     {
+         reload();

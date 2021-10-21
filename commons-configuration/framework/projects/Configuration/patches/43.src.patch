@@ -1,0 +1,46 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+index 1b641853..6582d9ab 100644
+--- a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
++++ b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+@@ -185,9 +185,6 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+     /** Constant for the platform specific line separator.*/
+     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+ 
+-    /** Constant for the escaping character.*/
+-    private static final String ESCAPE = "\\";
+-
+     /** Constant for the radix of hex numbers.*/
+     private static final int HEX_RADIX = 16;
+ 
+@@ -936,7 +933,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+             String escapedValue = StringEscapeUtils.escapeJava(String.valueOf(value));
+             if (delimiter != 0)
+             {
+-                escapedValue = StringUtils.replace(escapedValue, String.valueOf(delimiter), ESCAPE + delimiter);
++                escapedValue = StringUtils.replace(escapedValue, String.valueOf(delimiter), "\\" + delimiter);
+             }
+             return escapedValue;
+         }
+@@ -953,20 +950,11 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+             if (!values.isEmpty())
+             {
+                 Iterator it = values.iterator();
+-                String lastValue = escapeValue(it.next());
+-                StringBuffer buf = new StringBuffer(lastValue);
++                StringBuffer buf = new StringBuffer(escapeValue(it.next()));
+                 while (it.hasNext())
+                 {
+-                    // if the last value ended with an escape character, it has
+-                    // to be escaped itself; otherwise the list delimiter will
+-                    // be escaped
+-                    if (lastValue.endsWith(ESCAPE))
+-                    {
+-                        buf.append(ESCAPE).append(ESCAPE);
+-                    }
+                     buf.append(delimiter);
+-                    lastValue = escapeValue(it.next());
+-                    buf.append(lastValue);
++                    buf.append(escapeValue(it.next()));
+                 }
+                 return buf.toString();
+             }

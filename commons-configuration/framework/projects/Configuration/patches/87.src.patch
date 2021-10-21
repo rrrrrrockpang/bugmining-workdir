@@ -1,0 +1,36 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+index 8924c058..96dfa43f 100644
+--- a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
++++ b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+@@ -213,6 +213,11 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+     /** Allow file inclusion or not */
+     private boolean includesAllowed;
+ 
++    // initialization block to set the encoding before loading the file in the constructors
++    {
++        setEncoding(DEFAULT_ENCODING);
++    }
++
+     /**
+      * Creates an empty PropertyConfiguration object which can be
+      * used to synthesize a new Properties file by adding values and
+@@ -338,19 +343,6 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+         getLayout().setHeaderComment(header);
+     }
+ 
+-    /**
+-     * Returns the encoding to be used when loading or storing configuration
+-     * data. This implementation ensures that the default encoding will be used
+-     * if none has been set explicitly.
+-     *
+-     * @return the encoding
+-     */
+-    public String getEncoding()
+-    {
+-        String enc = super.getEncoding();
+-        return (enc != null) ? enc : DEFAULT_ENCODING;
+-    }
+-
+     /**
+      * Returns the associated layout object.
+      *

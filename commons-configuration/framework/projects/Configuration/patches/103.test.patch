@@ -1,0 +1,1386 @@
+diff --git a/src/test/org/apache/commons/configuration/Logging.java b/src/test/org/apache/commons/configuration/Logging.java
+deleted file mode 100644
+index f7ff94ab..00000000
+--- a/src/test/org/apache/commons/configuration/Logging.java
++++ /dev/null
+@@ -1,259 +0,0 @@
+-/*
+- * Licensed to the Apache Software Foundation (ASF) under one or more
+- * contributor license agreements.  See the NOTICE file distributed with
+- * this work for additional information regarding copyright ownership.
+- * The ASF licenses this file to You under the Apache License, Version 2.0
+- * (the "License"); you may not use this file except in compliance with
+- * the License.  You may obtain a copy of the License at
+- *
+- *     http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-package org.apache.commons.configuration;
+-
+-import org.apache.commons.logging.impl.Log4JLogger;
+-import org.apache.log4j.Priority;
+-import org.apache.log4j.Level;
+-import org.apache.log4j.Appender;
+-import org.apache.log4j.PatternLayout;
+-import org.apache.log4j.ConsoleAppender;
+-
+-/**
+- * Configures logging for tests.
+- *
+- * When running with Maven do -Dmaven.surefire.debug="LogLevel=level" to set the
+- * Log Level to the desired value.
+- */
+-public class Logging extends Log4JLogger
+-{
+-    /**
+-     * The fully qualified name of the Log4JLogger class.
+-     */
+-    private static final String FQCN = Logging.class.getName();
+-
+-    private static Priority traceLevel;
+-
+-    static
+-    {
+-        // Releases of log4j1.2 >= 1.2.12 have Priority.TRACE available, earlier
+-        // versions do not. If TRACE is not available, then we have to map
+-        // calls to Log.trace(...) onto the DEBUG level.
+-
+-        try
+-        {
+-            traceLevel = (Priority) Level.class.getDeclaredField("TRACE").get(null);
+-        }
+-        catch (Exception ex)
+-        {
+-            // ok, trace not available
+-            traceLevel = Priority.DEBUG;
+-        }
+-
+-        String level = System.getProperty("LogLevel");
+-        if (level != null)
+-        {
+-            org.apache.log4j.Logger log = org.apache.log4j.Logger.getRootLogger();
+-            log.setLevel(Level.toLevel(level));
+-            Appender appender = new ConsoleAppender(new PatternLayout("%p - %m%n"), ConsoleAppender.SYSTEM_OUT);
+-            log.addAppender(appender);
+-        }
+-    }
+-
+-    public Logging()
+-    {
+-        super();
+-    }
+-
+-
+-    /**
+-     * Base constructor.
+-     */
+-    public Logging(String name)
+-    {
+-        super(name);
+-    }
+-
+-    /**
+-     * For use with a log4j factory.
+-     */
+-    public Logging(org.apache.log4j.Logger logger)
+-    {
+-        super(logger);
+-    }
+-
+-    // ---------------------------------------------------------
+-    // Implementation
+-    //
+-    // Note that in the methods below the Priority class is used to define
+-    // levels even though the Level class is supported in 1.2. This is done
+-    // so that at compile time the call definitely resolves to a call to
+-    // a method that takes a Priority rather than one that takes a Level.
+-    //
+-    // The Category class (and hence its subclass Logging) in version 1.2 only
+-    // has methods that take Priority objects. The Category class (and hence
+-    // Logging class) in version 1.3 has methods that take both Priority and
+-    // Level objects. This means that if we use Level here, and compile
+-    // against log4j 1.3 then calls would be bound to the versions of
+-    // methods taking Level objects and then would fail to run against
+-    // version 1.2 of log4j.
+-    // ---------------------------------------------------------
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.TRACE</code>.
+-     * When using a log4j version that does not support the <code>TRACE</code>
+-     * level, the message will be logged at the <code>DEBUG</code> level.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#trace(Object)
+-     */
+-    public void trace(Object message)
+-    {
+-        getLogger().log(FQCN, traceLevel, message, null);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.TRACE</code>.
+-     * When using a log4j version that does not support the <code>TRACE</code>
+-     * level, the message will be logged at the <code>DEBUG</code> level.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#trace(Object, Throwable)
+-     */
+-    public void trace(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, traceLevel, message, t);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.DEBUG</code>.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#debug(Object)
+-     */
+-    public void debug(Object message)
+-    {
+-        getLogger().log(FQCN, Priority.DEBUG, message, null);
+-    }
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.DEBUG</code>.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#debug(Object, Throwable)
+-     */
+-    public void debug(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, Priority.DEBUG, message, t);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.INFO</code>.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#info(Object)
+-     */
+-    public void info(Object message)
+-    {
+-        getLogger().log(FQCN, Priority.INFO, message, null);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.INFO</code>.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#info(Object, Throwable)
+-     */
+-    public void info(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, Priority.INFO, message, t);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.WARN</code>.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#warn(Object)
+-     */
+-    public void warn(Object message)
+-    {
+-        getLogger().log(FQCN, Priority.WARN, message, null);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.WARN</code>.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#warn(Object, Throwable)
+-     */
+-    public void warn(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, Priority.WARN, message, t);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.ERROR</code>.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#error(Object)
+-     */
+-    public void error(Object message)
+-    {
+-        getLogger().log(FQCN, Priority.ERROR, message, null);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.ERROR</code>.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#error(Object, Throwable)
+-     */
+-    public void error(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, Priority.ERROR, message, t);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.FATAL</code>.
+-     *
+-     * @param message to log
+-     * @see org.apache.commons.logging.Log#fatal(Object)
+-     */
+-    public void fatal(Object message)
+-    {
+-        getLogger().log(FQCN, Priority.FATAL, message, null);
+-    }
+-
+-
+-    /**
+-     * Logs a message with <code>org.apache.log4j.Priority.FATAL</code>.
+-     *
+-     * @param message to log
+-     * @param t       log this cause
+-     * @see org.apache.commons.logging.Log#fatal(Object, Throwable)
+-     */
+-    public void fatal(Object message, Throwable t)
+-    {
+-        getLogger().log(FQCN, Priority.FATAL, message, t);
+-    }
+-
+-}
+diff --git a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+index 61a607bc..0c425d64 100644
+--- a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+@@ -152,7 +152,7 @@ public abstract class TestAbstractConfiguration extends TestCase
+         assertNotNull("Default logger is null", config.getLogger());
+         Log log = LogFactory.getLog(config.getClass());
+         config.setLogger(log);
+-        assertSame("Logging was not set", log, config.getLogger());
++        assertSame("Logger was not set", log, config.getLogger());
+     }
+ 
+     /**
+diff --git a/src/test/org/apache/commons/configuration/TestCatalogResolver.java b/src/test/org/apache/commons/configuration/TestCatalogResolver.java
+index 75d64bef..0b7f5356 100644
+--- a/src/test/org/apache/commons/configuration/TestCatalogResolver.java
++++ b/src/test/org/apache/commons/configuration/TestCatalogResolver.java
+@@ -85,8 +85,8 @@ public class TestCatalogResolver extends TestCase
+     {
+         Log log = LogFactory.getLog(this.getClass());
+         resolver.setLogger(log);
+-        assertNotNull("No Logging returned", resolver.getLogger());
+-        assertTrue("Incorrect Logging", log == resolver.getLogger());
++        assertNotNull("No Logger returned", resolver.getLogger());
++        assertTrue("Incorrect Logger", log == resolver.getLogger());
+     }
+ 
+ }
+diff --git a/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java b/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
+index 21612461..420b28e4 100644
+--- a/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
+@@ -34,13 +34,10 @@ import junit.framework.TestCase;
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+ import org.apache.commons.configuration.reloading.FileAlwaysReloadingStrategy;
+-import org.apache.commons.configuration.reloading.FileRandomReloadingStrategy;
+ import org.apache.commons.configuration.tree.DefaultExpressionEngine;
+ import org.apache.commons.configuration.tree.NodeCombiner;
+ import org.apache.commons.configuration.tree.OverrideCombiner;
+ import org.apache.commons.configuration.tree.UnionCombiner;
+-import org.apache.commons.configuration.tree.MergeCombiner;
+-import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+ 
+ /**
+  * Test class for CombinedConfiguration.
+@@ -767,75 +764,6 @@ public class TestCombinedConfiguration extends TestCase
+                 .getInt("xmlReload1"));
+     }
+ 
+-    public void testConcurrentGetAndReload() throws Exception
+-    {
+-        final int threadCount = 5;
+-        final int loopCount = 1000;
+-        config.setForceReloadCheck(true);
+-        config.setNodeCombiner(new MergeCombiner());
+-        final XMLConfiguration xml = new XMLConfiguration("configA.xml");
+-        xml.setReloadingStrategy(new FileRandomReloadingStrategy());
+-        config.addConfiguration(xml);
+-        final XMLConfiguration xml2 = new XMLConfiguration("configB.xml");
+-        xml2.setReloadingStrategy(new FileRandomReloadingStrategy());
+-        config.addConfiguration(xml2);
+-        config.setExpressionEngine(new XPathExpressionEngine());
+-
+-        assertEquals(config.getString("/property[@name='config']/@value"), "100");
+-
+-        Thread testThreads[] = new Thread[threadCount];
+-        int failures[] = new int[threadCount];
+-
+-        for (int i = 0; i < testThreads.length; ++i)
+-        {
+-            testThreads[i] = new ReloadThread(config, failures, i, loopCount);
+-            testThreads[i].start();
+-        }
+-
+-        int totalFailures = 0;
+-        for (int i = 0; i < testThreads.length; ++i)
+-        {
+-            testThreads[i].join();
+-            totalFailures += failures[i];
+-        }
+-        assertTrue(totalFailures + " failures Occurred", totalFailures == 0);
+-    }
+-
+-    private class ReloadThread extends Thread
+-    {
+-        CombinedConfiguration combined;
+-        int[] failures;
+-        int index;
+-        int count;
+-
+-        ReloadThread(CombinedConfiguration config, int[] failures, int index, int count)
+-        {
+-            combined = config;
+-            this.failures = failures;
+-            this.index = index;
+-            this.count = count;
+-        }
+-        public void run()
+-        {
+-            failures[index] = 0;
+-            for (int i = 0; i < count; i++)
+-            {
+-                try
+-                {
+-                    String value = combined.getString("/property[@name='config']/@value");
+-                    if (value == null || !value.equals("100"))
+-                    {
+-                        ++failures[index];
+-                    }
+-                }
+-                catch (Exception ex)
+-                {
+-                    ++failures[index];
+-                }
+-            }
+-        }
+-    }
+-
+     /**
+      * Helper method for writing a file. The file is also added to a list and
+      * will be deleted in teadDown() automatically.
+diff --git a/src/test/org/apache/commons/configuration/TestMultiFileHierarchicalConfiguration.java b/src/test/org/apache/commons/configuration/TestMultiFileHierarchicalConfiguration.java
+index 6da689a5..2759cad1 100644
+--- a/src/test/org/apache/commons/configuration/TestMultiFileHierarchicalConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestMultiFileHierarchicalConfiguration.java
+@@ -19,9 +19,6 @@ package org.apache.commons.configuration;
+ 
+ import junit.framework.TestCase;
+ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
+-import org.xml.sax.SAXParseException;
+-
+-import java.io.*;
+ 
+ /**
+  * Unit test for simple MultiConfigurationTest.
+@@ -30,15 +27,6 @@ public class TestMultiFileHierarchicalConfiguration extends TestCase
+ {
+     private static String PATTERN1 = "target/test-classes/testMultiConfiguration_${sys:Id}.xml";
+ 
+-    private static final File MULTI_TENENT_FILE = new File(
+-            "conf/testMultiTenentConfigurationBuilder2.xml");
+-
+-    private static final File MULTI_TENENT_FILE2 = new File(
+-            "target/test-classes/testMultiTenentConfigurationBuilder2.xml");
+-
+-    private static final File MULTI_RELOAD_FILE = new File(
+-            "conf/testMultiTenentConfigurationBuilder3.xml");
+-
+     /**
+      * Rigourous Test :-)
+      */
+@@ -60,238 +48,4 @@ public class TestMultiFileHierarchicalConfiguration extends TestCase
+         System.setProperty("Id", "1003");
+         assertTrue(config.getInt("rowsPerPage") == 35);
+     }
+-
+-    public void testSchemaValidationError() throws Exception
+-    {
+-        System.clearProperty("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_TENENT_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        try
+-        {
+-            System.setProperty("Id", "2001");
+-            config.getInt("rowsPerPage");
+-            fail("No exception thrown");
+-        }
+-        catch (Exception ex)
+-        {
+-            Throwable cause = ex.getCause();
+-            while (cause != null && !(cause instanceof SAXParseException))
+-            {
+-                cause = cause.getCause();
+-            }
+-            assertTrue("SAXParseException was not thrown", cause instanceof SAXParseException);
+-        }
+-    }
+-
+-    public void testSchemaValidation() throws Exception
+-    {
+-        System.clearProperty("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_TENENT_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        System.setProperty("Id", "2002");
+-        int rows = config.getInt("rowsPerPage");
+-        assertTrue("expected: " + rows + " actual: " + "25", 25 == rows);
+-    }
+-
+-    public void testMissingFile() throws Exception
+-    {
+-        System.clearProperty("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_TENENT_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        System.setProperty("Id", "3099");
+-        int rows = config.getInt("rowsPerPage");
+-        assertTrue("expected: " + rows + " actual: " + "50", 50 == rows);
+-
+-    }
+-
+-    public void testFileReload1() throws Exception
+-    {
+-        System.getProperties().remove("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_RELOAD_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-
+-        // create a new configuration
+-        File input = new File("target/test-classes/testMultiConfiguration_3001.xml");
+-        File output = new File("target/test-classes/testwrite/testMultiConfiguration_3001.xml");
+-        output.delete();
+-        output.getParentFile().mkdir();
+-        copyFile(input, output);
+-
+-        assertNotNull(config);
+-        verify("3001", config, 15);
+-        Thread.sleep(1100);
+-        XMLConfiguration x = new XMLConfiguration();
+-        x.setFile(output);
+-        x.setAttributeSplittingDisabled(true);
+-        x.setDelimiterParsingDisabled(true);
+-        x.load();
+-        x.setProperty("rowsPerPage", "35");
+-        //Insure orginal timestamp and new timestamp aren't the same second.
+-        Thread.sleep(1100);
+-        x.save();
+-        verify("3001", config, 35);
+-        output.delete();
+-    }
+-
+-    public void testFileReload2() throws Exception
+-    {
+-        // create a new configuration
+-        File input = new File("target/test-classes/testMultiConfiguration_3002.xml");
+-        File output = new File("target/test-classes/testwrite/testMultiConfiguration_3002.xml");
+-        output.delete();
+-
+-        System.getProperties().remove("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_RELOAD_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        assertNotNull(config);
+-        // The file should not exist yet.
+-        verify("3002", config, 50);
+-
+-        output.getParentFile().mkdir();
+-        copyFile(input, output);
+-        Thread.sleep(600);
+-        verify("3002", config, 25);
+-        output.delete();
+-    }
+-
+-    public void testFileReload3() throws Exception
+-    {
+-        // create a new configuration
+-        File input = new File("target/test-classes/testMultiConfiguration_3001.xml");
+-        File output = new File("target/test-classes/testwrite/testMultiConfiguration_3001.xml");
+-        output.delete();
+-        output.getParentFile().mkdir();
+-
+-        System.getProperties().remove("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_RELOAD_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        assertNotNull(config);
+-        //The file does not exist yet.
+-        verify("3001", config, 50);
+-        copyFile(input, output);
+-        //Sleep so refreshDelay elapses
+-        Thread.sleep(600);
+-        verify("3001", config, 15);
+-        Thread.sleep(500);
+-        XMLConfiguration x = new XMLConfiguration();
+-        x.setFile(output);
+-        x.setAttributeSplittingDisabled(true);
+-        x.setDelimiterParsingDisabled(true);
+-        x.load();
+-        x.setProperty("rowsPerPage", "35");
+-        // Insure original timestamp and new timestamp are not the same second.
+-        Thread.sleep(1100);
+-        x.save();
+-        verify("3001", config, 35);
+-        output.delete();
+-    }
+-
+-
+-    public void testReloadDefault() throws Exception
+-    {
+-        // create a new configuration
+-        String defaultName = "target/test-classes/testMultiConfiguration_default.xml";
+-        File input = new File(defaultName);
+-
+-        System.getProperties().remove("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_TENENT_FILE2);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-        assertNotNull(config);
+-        verify("3001", config, 15);
+-        verify("3002", config, 25);
+-        System.setProperty("Id", "3002");
+-        config.addProperty("/ TestProp", "Test");
+-        assertTrue("Property not added", "Test".equals(config.getString("TestProp")));
+-        System.getProperties().remove("Id");
+-        //Sleep so refreshDelay elapses
+-        Thread.sleep(600);
+-        long time = System.currentTimeMillis();
+-        long original = input.lastModified();
+-        input.setLastModified(time);
+-        File defaultFile = new File(defaultName);
+-        long newTime = defaultFile.lastModified();
+-        assertTrue("time mismatch", original != newTime);
+-        Thread.sleep(600);
+-        verify("3001", config, 15);
+-        verify("3002", config, 25);
+-        System.setProperty("Id", "3002");
+-        String test = config.getString("TestProp");
+-        assertNull("Property was not cleared by reload", test);
+-    }
+-
+-
+-    public void testFileReloadSchemaValidationError() throws Exception
+-    {
+-        System.getProperties().remove("Id");
+-        DefaultConfigurationBuilder factory = new DefaultConfigurationBuilder();
+-        factory.setFile(MULTI_RELOAD_FILE);
+-        CombinedConfiguration config = factory.getConfiguration(true);
+-
+-        // create a new configuration
+-        File input = new File("target/test-classes/testMultiConfiguration_3001.xml");
+-        File output = new File("target/test-classes/testwrite/testMultiConfiguration_3001.xml");
+-        output.delete();
+-        output.getParentFile().mkdir();
+-        copyFile(input, output);
+-
+-        assertNotNull(config);
+-        verify("3001", config, 15);
+-        Thread.sleep(1100);
+-        XMLConfiguration x = new XMLConfiguration();
+-        x.setFile(output);
+-        x.setAttributeSplittingDisabled(true);
+-        x.setDelimiterParsingDisabled(true);
+-        x.load();
+-        x.setProperty("rowsPerPage", "test");
+-        //Insure orginal timestamp and new timestamp aren't the same second.
+-        Thread.sleep(1100);
+-        x.save();
+-        System.setProperty("Id", "3001");
+-        try
+-        {
+-            config.getInt("rowsPerPage");
+-            fail("No exception was thrown");
+-        }
+-        catch (Exception ex)
+-        {
+-
+-        }
+-
+-        output.delete();
+-    }
+-
+-    private void copyFile(File input, File output) throws IOException
+-    {
+-        Reader reader = new FileReader(input);
+-        Writer writer = new FileWriter(output);
+-        char[] buffer = new char[4096];
+-        int n = 0;
+-        while (-1 != (n = reader.read(buffer)))
+-        {
+-            writer.write(buffer, 0, n);
+-        }
+-        reader.close();
+-        writer.close();
+-    }
+-
+-    private void verify(String key, CombinedConfiguration config, int rows)
+-    {
+-        if (key == null)
+-        {
+-            System.getProperties().remove("Id");
+-        }
+-        else
+-        {
+-            System.setProperty("Id", key);
+-        }
+-        int actual = config.getInt("rowsPerPage");
+-        assertTrue("expected: " + rows + " actual: " + actual, actual == rows);
+-    }
+ }
+diff --git a/src/test/org/apache/commons/configuration/TestVFSConfigurationBuilder.java b/src/test/org/apache/commons/configuration/TestVFSConfigurationBuilder.java
+index cc99f158..0ba9fce2 100644
+--- a/src/test/org/apache/commons/configuration/TestVFSConfigurationBuilder.java
++++ b/src/test/org/apache/commons/configuration/TestVFSConfigurationBuilder.java
+@@ -31,6 +31,7 @@ import junit.framework.TestCase;
+ 
+ import org.apache.commons.configuration.beanutils.BeanHelper;
+ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
++import org.apache.commons.configuration.reloading.VFSFileMonitorReloadingStrategy;
+ import org.apache.commons.configuration.tree.DefaultConfigurationNode;
+ import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+@@ -90,17 +91,14 @@ public class TestVFSConfigurationBuilder extends TestCase implements Configurati
+     private static final File FILESYSTEM_FILE = new File(
+             "conf/testFileSystem.xml");
+ 
+-    private static final File FILERELOAD_FILE = new File(
+-            "target/test-classes/testFileReloadConfigurationBuilder.xml");
++    private static final File FILEMONITOR_FILE = new File(
++            "target/test-classes/testFileMonitorConfigurationBuilder.xml");
+ 
+-    private static final File FILERELOAD2_FILE = new File(
+-            "target/test-classes/testFileReloadConfigurationBuilder2.xml");
++    private static final File FILEMONITOR2_FILE = new File(
++            "target/test-classes/testFileMonitorConfigurationBuilder2.xml");
+ 
+-      private static final File MULTI_RELOAD_FILE1 = new File(
+-            "target/test-classes/testVFSMultiTenentConfigurationBuilder1.xml");
+-
+-    private static final File MULTI_RELOAD_FILE2 = new File(
+-            "target/test-classes/testVFSMultiTenentConfigurationBuilder2.xml");
++    private static final String FILEMONITOR_URI = "file://" + System.getProperty("user.dir")
++            + "/target/test-classes/testFileMonitorConfigurationBuilder2.xml";
+ 
+     /** Constant for the name of an optional configuration.*/
+     private static final String OPTIONAL_NAME = "optionalConfig";
+@@ -111,6 +109,12 @@ public class TestVFSConfigurationBuilder extends TestCase implements Configurati
+     /** Stores the object to be tested. */
+     DefaultConfigurationBuilder factory;
+ 
++    public TestVFSConfigurationBuilder()
++    {
++        super();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
++    }
++
+     protected void setUp() throws Exception
+     {
+         super.setUp();
+@@ -1001,7 +1005,7 @@ public class TestVFSConfigurationBuilder extends TestCase implements Configurati
+         }
+     }
+ 
+-    public void testFileReload1() throws Exception
++    public void testFileMonitor1() throws Exception
+     {
+         // create a new configuration
+         File input = new File("target/test-classes/testMultiConfiguration_1001.xml");
+@@ -1009,147 +1013,116 @@ public class TestVFSConfigurationBuilder extends TestCase implements Configurati
+         output.delete();
+         output.getParentFile().mkdir();
+         copyFile(input, output);
+-        // Sleep to make sure the file timestamp is not in the same second as "now".
+-        Thread.sleep(1100);
+ 
+-        factory.setFile(FILERELOAD_FILE);
++        factory.setFile(FILEMONITOR_FILE);
+         FileSystem.resetDefaultFileSystem();
+         System.getProperties().remove("Id");
+ 
+         CombinedConfiguration config = factory.getConfiguration(true);
+         assertNotNull(config);
++        config.addConfigurationListener(this);
+         verify("1001", config, 15);
++
++        // Allow time for FileMonitor to set up.
++        Thread.sleep(1000);
+         XMLConfiguration x = new XMLConfiguration(output);
+         x.setProperty("rowsPerPage", "50");
+         x.save();
++
++        waitForChange();
+         verify("1001", config, 50);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+-    public void testFileReload2() throws Exception
++    public void testFileMonitor2() throws Exception
+     {
+         // create a new configuration
+         File input = new File("target/test-classes/testMultiConfiguration_1002.xml");
+         File output = new File("target/test-classes/testwrite/testMultiConfiguration_1002.xml");
+         output.delete();
+ 
+-        factory.setFile(FILERELOAD_FILE);
++        factory.setFile(FILEMONITOR_FILE);
+         FileSystem.resetDefaultFileSystem();
+         System.getProperties().remove("Id");
+ 
+         CombinedConfiguration config = factory.getConfiguration(true);
++        config.addConfigurationListener(this);
+         assertNotNull(config);
+ 
+         verify("1002", config, 50);
+-        // Sleep to make sure the file timestamp is not in the same second as "now".
+-        Thread.sleep(1100);
++        Thread.sleep(1000);
++
+         output.getParentFile().mkdir();
+         copyFile(input, output);
++
++        // Allow time for the monitor to notice the change.
++        //Thread.sleep(2000);
++        waitForChange();
+         verify("1002", config, 25);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+-    public void testFileReload3() throws Exception
++
++    public void testFileMonitor3() throws Exception
+     {
+         // create a new configuration
+         File input = new File("target/test-classes/testMultiConfiguration_1001.xml");
+         File output = new File("target/test-classes/testwrite/testMultiConfiguration_1001.xml");
+         output.delete();
+         output.getParentFile().mkdir();
++        copyFile(input, output);
+ 
+-        factory.setFile(FILERELOAD_FILE);
+-        FileSystem.resetDefaultFileSystem();
++        factory.setFile(FILEMONITOR2_FILE);
+         System.getProperties().remove("Id");
+ 
+         CombinedConfiguration config = factory.getConfiguration(true);
+         assertNotNull(config);
+-        verify("1001", config, 50);
+-        copyFile(input, output);
+-        // Sleep to make sure the file timestamp is not in the same second as "now".
+-        Thread.sleep(1100);
++        config.addConfigurationListener(this);
+         verify("1001", config, 15);
++
++        // Allow time for FileMonitor to set up.
++        Thread.sleep(1000);
+         XMLConfiguration x = new XMLConfiguration(output);
+-        x.setProperty("rowsPerPage", "25");
++        x.setProperty("rowsPerPage", "50");
+         x.save();
+-         // Sleep to make sure the file timestamp is not in the same second as "now".
+-        Thread.sleep(1100);
+-        verify("1001", config, 25);
++        // Let FileMonitor detect the change.
++        //Thread.sleep(2000);
++        waitForChange();
++        verify("1001", config, 50);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+-    public void testReloadDefault() throws Exception
++    public void testFileMonitor4() throws Exception
+     {
+         // create a new configuration
+-        String defaultName = "target/test-classes/testMultiConfiguration_default.xml";
+-        File input = new File(defaultName);
++        File input = new File("target/test-classes/testMultiConfiguration_1002.xml");
++        File output = new File("target/test-classes/testwrite/testMultiConfiguration_1002.xml");
++        output.delete();
+ 
++        factory.setFileName(FILEMONITOR_URI);
+         System.getProperties().remove("Id");
+-        factory.setFile(MULTI_RELOAD_FILE1);
++
+         CombinedConfiguration config = factory.getConfiguration(true);
+         assertNotNull(config);
+-        verify("3001", config, 15);
+-        verify("3002", config, 25);
+-        System.setProperty("Id", "3002");
+-        config.addProperty("/ TestProp", "Test");
+-        assertTrue("Property not added", "Test".equals(config.getString("TestProp")));
+-        System.getProperties().remove("Id");
+-        //Sleep so refreshDelay elapses
+-        Thread.sleep(600);
+-        long time = System.currentTimeMillis();
+-        long original = input.lastModified();
+-        input.setLastModified(time);
+-        File defaultFile = new File(defaultName);
+-        long newTime = defaultFile.lastModified();
+-        assertTrue("time mismatch", original != newTime);
+-        Thread.sleep(600);
+-        verify("3001", config, 15);
+-        verify("3002", config, 25);
+-        System.setProperty("Id", "3002");
+-        String test = config.getString("TestProp");
+-        assertNull("Property was not cleared by reload", test);
+-    }
+-
++        config.addConfigurationListener(this);
+ 
+-    public void testFileReloadSchemaValidationError() throws Exception
+-    {
+-        System.getProperties().remove("Id");
+-        factory.setFile(MULTI_RELOAD_FILE2);
+-        CombinedConfiguration config = factory.getConfiguration(true);
++        verify("1002", config, 50);
++        Thread.sleep(1000);
+ 
+-        // create a new configuration
+-        File input = new File("target/test-classes/testMultiConfiguration_3001.xml");
+-        File output = new File("target/test-classes/testwrite/testMultiConfiguration_3001.xml");
+-        output.delete();
+         output.getParentFile().mkdir();
+         copyFile(input, output);
+ 
+-        assertNotNull(config);
+-        verify("3001", config, 15);
+-        Thread.sleep(1100);
+-        XMLConfiguration x = new XMLConfiguration();
+-        x.setFile(output);
+-        x.setAttributeSplittingDisabled(true);
+-        x.setDelimiterParsingDisabled(true);
+-        x.load();
+-        x.setProperty("rowsPerPage", "test");
+-        //Insure orginal timestamp and new timestamp aren't the same second.
+-        Thread.sleep(1100);
+-        x.save();
+-        System.setProperty("Id", "3001");
+-        try
+-        {
+-            config.getInt("rowsPerPage");
+-            fail("No exception was thrown");
+-        }
+-        catch (Exception ex)
+-        {
+-
+-        }
+-
++        // Allow time for the monitor to notice the change.
++        //Thread.sleep(2000);
++        waitForChange();
++        verify("1002", config, 25);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+-
+     private void copyFile(File input, File output) throws IOException
+     {
+         Reader reader = new FileReader(input);
+@@ -1188,11 +1161,7 @@ public class TestVFSConfigurationBuilder extends TestCase implements Configurati
+                 int count = 0;
+                 while (!configChanged && count++ <= 3)
+                 {
+-                    this.wait(2000);
+-                }
+-                if (!configChanged)
+-                {
+-                  throw new IllegalStateException("No change detected");
++                    this.wait(5000);
+                 }
+             }
+             catch (InterruptedException ie)
+diff --git a/src/test/org/apache/commons/configuration/TestWebdavConfigurationBuilder.java b/src/test/org/apache/commons/configuration/TestWebdavConfigurationBuilder.java
+index b19fa49b..3b4e1162 100644
+--- a/src/test/org/apache/commons/configuration/TestWebdavConfigurationBuilder.java
++++ b/src/test/org/apache/commons/configuration/TestWebdavConfigurationBuilder.java
+@@ -21,6 +21,7 @@ import java.io.IOException;
+ import java.io.Reader;
+ import java.io.FileReader;
+ import java.io.Writer;
++import java.io.FileWriter;
+ import java.io.OutputStreamWriter;
+ import java.util.Collection;
+ import java.util.HashMap;
+@@ -31,6 +32,7 @@ import junit.framework.TestCase;
+ 
+ import org.apache.commons.configuration.beanutils.BeanHelper;
+ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
++import org.apache.commons.configuration.reloading.VFSFileMonitorReloadingStrategy;
+ import org.apache.commons.configuration.tree.DefaultConfigurationNode;
+ import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+@@ -40,6 +42,7 @@ import org.apache.commons.vfs.FileSystemManager;
+ import org.apache.commons.vfs.VFS;
+ import org.apache.commons.vfs.FileName;
+ import org.apache.commons.vfs.FileSystemOptions;
++import org.apache.commons.vfs.FileContent;
+ 
+ /**
+  * Test class for DefaultConfigurationBuilder.
+@@ -90,13 +93,13 @@ public class TestWebdavConfigurationBuilder extends TestCase
+     private static final String MULTI_TENENT_FILE =
+             "testMultiTenentConfigurationBuilder.xml";
+ 
+-    private static final String FILERELOAD2_FILE =
+-            "testFileReloadConfigurationBuilder2.xml";
++    private static final String FILEMONITOR2_FILE =
++            "testFileMonitorConfigurationBuilder2.xml";
+ 
+-    private static final String FILERELOAD_1001_FILE =
++    private static final String FILEMONITOR_1001_FILE =
+             "testwrite/testMultiConfiguration_1001.xml";
+ 
+-    private static final String FILERELOAD_1002_FILE =
++    private static final String FILEMONITOR_1002_FILE =
+             "testwrite/testMultiConfiguration_1002.xml";
+ 
+     private static final String TEST_PROPERTIES = "test.properties.xml";
+@@ -897,16 +900,16 @@ public class TestWebdavConfigurationBuilder extends TestCase
+         verify("1005", config, 50);
+     }
+ 
+-    public void testFileChanged() throws Exception
++    public void testFileMonitor1() throws Exception
+     {
+         // create a new configuration
+         File input = new File("target/test-classes/testMultiConfiguration_1001.xml");
+-        FileObject output = getFile(getBasePath() + FILERELOAD_1001_FILE);
++        FileObject output = getFile(getBasePath() + FILEMONITOR_1001_FILE);
+         output.delete();
+         output.getParent().createFolder();
+         copyFile(input, output);
+ 
+-        factory.setFileName(getBasePath() + FILERELOAD2_FILE);
++        factory.setFileName(getBasePath() + FILEMONITOR2_FILE);
+         System.getProperties().remove("Id");
+ 
+         CombinedConfiguration config = factory.getConfiguration(true);
+@@ -916,7 +919,7 @@ public class TestWebdavConfigurationBuilder extends TestCase
+ 
+         // Allow time for FileMonitor to set up.
+         Thread.sleep(1000);
+-        XMLConfiguration x = new XMLConfiguration(getBasePath() + FILERELOAD_1001_FILE);
++        XMLConfiguration x = new XMLConfiguration(getBasePath() + FILEMONITOR_1001_FILE);
+         x.setProperty("rowsPerPage", "50");
+         x.save();
+         // Let FileMonitor detect the change.
+@@ -924,16 +927,17 @@ public class TestWebdavConfigurationBuilder extends TestCase
+         waitForChange();
+         verify("1001", config, 50);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+-    public void testFileChanged2() throws Exception
++    public void testFileMonitor2() throws Exception
+     {
+         // create a new configuration
+         File input = new File("target/test-classes/testMultiConfiguration_1002.xml");
+-        FileObject output = getFile(getBasePath() + FILERELOAD_1002_FILE);
++        FileObject output = getFile(getBasePath() + FILEMONITOR_1002_FILE);
+         output.delete();
+ 
+-        factory.setFileName(getBasePath() + FILERELOAD2_FILE);
++        factory.setFileName(getBasePath() + FILEMONITOR2_FILE);
+         System.getProperties().remove("Id");
+ 
+         CombinedConfiguration config = factory.getConfiguration(true);
+@@ -951,6 +955,7 @@ public class TestWebdavConfigurationBuilder extends TestCase
+         waitForChange();
+         verify("1002", config, 25);
+         output.delete();
++        VFSFileMonitorReloadingStrategy.stopMonitor();
+     }
+ 
+ 
+diff --git a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+index 509f87b1..4166e2e1 100644
+--- a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -1597,50 +1597,6 @@ public class TestXMLConfiguration extends TestCase
+         }
+     }
+ 
+-    public void testConcurrentGetAndReload() throws Exception
+-    {
+-        //final FileConfiguration config = new PropertiesConfiguration("test.properties");
+-        final FileConfiguration config = new XMLConfiguration("test.xml");
+-        config.setReloadingStrategy(new FileAlwaysReloadingStrategy());
+-
+-        assertTrue("Property not found", config.getProperty("test.short") != null);
+-
+-        Thread testThreads[] = new Thread[5];
+-
+-        for (int i = 0; i < testThreads.length; ++i)
+-        {
+-            testThreads[i] = new ReloadThread(config);
+-            testThreads[i].start();
+-        }
+-
+-        for (int i = 0; i < 2000; i++)
+-        {
+-            assertTrue("Property not found", config.getProperty("test.short") != null); 
+-        }
+-
+-        for (int i = 0; i < testThreads.length; ++i)
+-        {
+-            testThreads[i].join();
+-        }
+-    }
+-
+-    private class ReloadThread extends Thread
+-    {
+-        FileConfiguration config;
+-
+-        ReloadThread(FileConfiguration config)
+-        {
+-            this.config = config;
+-        }
+-        public void run()
+-        {
+-            for (int i = 0; i < 1000; i++)
+-            {
+-                config.reload();
+-            }
+-        }
+-    }
+-
+     /**
+      * Prepares a configuration object for testing a reload operation.
+      *
+diff --git a/src/test/org/apache/commons/configuration/reloading/FileRandomReloadingStrategy.java b/src/test/org/apache/commons/configuration/reloading/FileRandomReloadingStrategy.java
+deleted file mode 100644
+index 6e9b5802..00000000
+--- a/src/test/org/apache/commons/configuration/reloading/FileRandomReloadingStrategy.java
++++ /dev/null
+@@ -1,31 +0,0 @@
+-package org.apache.commons.configuration.reloading;
+-
+-import java.io.File;
+-import java.util.Random;
+-
+-/**
+- * A ReloadingStrategy that randomly returns true or false;
+- */
+-public class FileRandomReloadingStrategy extends FileChangedReloadingStrategy
+-{
+-    Random random = new Random();
+-    /**
+-     * Checks whether a reload is necessary.
+-     *
+-     * @return a flag whether a reload is required
+-     */
+-    public boolean reloadingRequired()
+-    {
+-        return random.nextBoolean();
+-    }
+-
+-    /**
+-     * Returns the file that is watched by this strategy.
+-     *
+-     * @return the monitored file
+-     */
+-    public File getMonitoredFile()
+-    {
+-        return getFile();
+-    }
+-}
+diff --git a/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java b/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
+index 8e2cd6e9..b31ba229 100644
+--- a/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
++++ b/src/test/org/apache/commons/configuration/reloading/TestFileChangedReloadingStrategy.java
+@@ -19,7 +19,6 @@ package org.apache.commons.configuration.reloading;
+ 
+ import java.io.File;
+ import java.io.FileWriter;
+-import java.io.ByteArrayOutputStream;
+ import java.net.URL;
+ 
+ import junit.framework.TestCase;
+@@ -27,12 +26,6 @@ import junit.framework.TestCase;
+ import org.apache.commons.configuration.ConfigurationException;
+ import org.apache.commons.configuration.PropertiesConfiguration;
+ import org.apache.commons.configuration.XMLConfiguration;
+-import org.apache.log4j.Logger;
+-import org.apache.log4j.Layout;
+-import org.apache.log4j.PatternLayout;
+-import org.apache.log4j.Appender;
+-import org.apache.log4j.WriterAppender;
+-import org.apache.log4j.Level;
+ 
+ /**
+  * Test case for the ReloadableConfiguration class.
+@@ -170,46 +163,4 @@ public class TestFileChangedReloadingStrategy extends TestCase
+         strategy.reloadingPerformed();
+         assertFalse("Reloading still required", strategy.reloadingRequired());
+     }
+-
+-    public void testFileDeletion() throws Exception
+-    {
+-        Logger logger = Logger.getLogger(FileChangedReloadingStrategy.class.getName());
+-        Layout layout = new PatternLayout("%p - %m%n");
+-        ByteArrayOutputStream os = new ByteArrayOutputStream();
+-        Appender appender = new WriterAppender(layout, os);
+-        logger.addAppender(appender);
+-        logger.setLevel(Level.WARN);
+-        logger.setAdditivity(false);
+-        // create a new configuration
+-        File file = new File("target/testReload.properties");
+-
+-        if (file.exists())
+-        {
+-            file.delete();
+-        }
+-
+-        // create the configuration file
+-        FileWriter out = new FileWriter(file);
+-        out.write("string=value1");
+-        out.flush();
+-        out.close();
+-
+-        // load the configuration
+-        PropertiesConfiguration config = new PropertiesConfiguration("target/testReload.properties");
+-        FileChangedReloadingStrategy strategy = new FileChangedReloadingStrategy();
+-        strategy.setRefreshDelay(500);
+-        config.setReloadingStrategy(strategy);
+-        assertEquals("Initial value", "value1", config.getString("string"));
+-
+-        Thread.sleep(2000);
+-
+-        // Delete the file.
+-        file.delete();
+-        //Old value should still be returned.
+-        assertEquals("Initial value", "value1", config.getString("string"));
+-        logger.removeAppender(appender);
+-        String str = os.toString();
+-        //System.out.println(str);
+-        assertTrue("No error was logged", str != null && str.length() > 0);
+-    }
+ }
+diff --git a/src/test/org/apache/commons/configuration/reloading/TestVFSFileChangedReloadingStrategy.java b/src/test/org/apache/commons/configuration/reloading/TestVFSFileMonitorReloadingStrategy.java
+similarity index 52%
+rename from src/test/org/apache/commons/configuration/reloading/TestVFSFileChangedReloadingStrategy.java
+rename to src/test/org/apache/commons/configuration/reloading/TestVFSFileMonitorReloadingStrategy.java
+index 987cba00..af070f34 100644
+--- a/src/test/org/apache/commons/configuration/reloading/TestVFSFileChangedReloadingStrategy.java
++++ b/src/test/org/apache/commons/configuration/reloading/TestVFSFileMonitorReloadingStrategy.java
+@@ -38,10 +38,11 @@ import org.apache.commons.configuration.event.ConfigurationListener;
+  * @author Ralph Goers
+  * @version $Revision$
+  */
+-public class TestVFSFileChangedReloadingStrategy extends TestCase
++public class TestVFSFileMonitorReloadingStrategy extends TestCase
++        implements ConfigurationListener
+ {
+-    /** Constant for the name of a test properties file.*/
+-    private static final String TEST_FILE = "test.properties";
++    /** true when a file is changed */
++    private boolean configChanged = false;
+ 
+     protected void setUp() throws Exception
+     {
+@@ -73,12 +74,12 @@ public class TestVFSFileChangedReloadingStrategy extends TestCase
+ 
+         // load the configuration
+         PropertiesConfiguration config = new PropertiesConfiguration("target/testReload.properties");
+-        VFSFileChangedReloadingStrategy strategy = new VFSFileChangedReloadingStrategy();
+-        strategy.setRefreshDelay(500);
++        VFSFileMonitorReloadingStrategy strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(500);
+         config.setReloadingStrategy(strategy);
+         assertEquals("Initial value", "value1", config.getString("string"));
+ 
+-        Thread.sleep(2000);
++        Thread.sleep(1000);
+ 
+         // change the file
+         out = new FileWriter(file);
+@@ -86,8 +87,15 @@ public class TestVFSFileChangedReloadingStrategy extends TestCase
+         out.flush();
+         out.close();
+ 
++        Thread.sleep(2000);
++
+         // test the automatic reloading
+         assertEquals("Modified value with enabled reloading", "value2", config.getString("string"));
++        strategy.stopMonitor();
++        if (file.exists())
++        {
++            file.delete();
++        }
+     }
+ 
+     public void testNewFileReloading() throws Exception
+@@ -102,8 +110,9 @@ public class TestVFSFileChangedReloadingStrategy extends TestCase
+ 
+         PropertiesConfiguration config = new PropertiesConfiguration();
+         config.setFile(file);
+-        VFSFileChangedReloadingStrategy strategy = new VFSFileChangedReloadingStrategy();
+-        strategy.setRefreshDelay(500);
++        config.addConfigurationListener(this);
++        VFSFileMonitorReloadingStrategy strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(500);
+         config.setReloadingStrategy(strategy);
+ 
+         assertNull("Initial value", config.getString("string"));
+@@ -114,40 +123,106 @@ public class TestVFSFileChangedReloadingStrategy extends TestCase
+         out.flush();
+         out.close();
+ 
+-        Thread.sleep(2000);
++        waitForChange();
+ 
+         // test the automatic reloading
+-        assertEquals("Modified value with enabled reloading", "value1", config.getString("string"));
++        try
++        {
++            assertEquals("Modified value with enabled reloading", "value1", config.getString("string"));
++        }
++        finally
++        {
++            strategy.stopMonitor();
++            if (file.exists())
++            {
++                file.delete();
++            }
++        }
+     }
+ 
+     public void testGetRefreshDelay() throws Exception
+     {
+-        VFSFileChangedReloadingStrategy strategy = new VFSFileChangedReloadingStrategy();
+-        strategy.setRefreshDelay(500);
+-        assertEquals("refresh delay", 500, strategy.getRefreshDelay());
++        // create a new configuration
++        File file = new File("target/testReload.properties");
++
++        if (file.exists())
++        {
++            file.delete();
++        }
++
++        // create the configuration file
++        FileWriter out = new FileWriter(file);
++        out.write("string=value1");
++        out.flush();
++        out.close();
++
++        PropertiesConfiguration config = new PropertiesConfiguration("target/testReload.properties");
++        VFSFileMonitorReloadingStrategy strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(500);
++        config.setReloadingStrategy(strategy);
++        // Minimum is 1 second.
++        assertEquals("refresh delay", 1000, strategy.getDelay());
++
++        config = new PropertiesConfiguration("target/testReload.properties");
++        strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(1500);
++        config.setReloadingStrategy(strategy);
++        // Can be made longer
++        assertEquals("refresh delay", 1500, strategy.getDelay());
++
++        config = new PropertiesConfiguration("target/testReload.properties");
++        strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(500);
++        config.setReloadingStrategy(strategy);
++        // Can't be made shorter
++        assertEquals("refresh delay", 1500, strategy.getDelay());
++
++        strategy.stopMonitor();
++        // Reset and verify everything clears
++        config = new PropertiesConfiguration("target/testReload.properties");
++        strategy = new VFSFileMonitorReloadingStrategy();
++        strategy.setDelay(1100);
++        config.setReloadingStrategy(strategy);
++        assertEquals("refresh delay", 1100, strategy.getDelay());
++        strategy.stopMonitor();
++        if (file.exists())
++        {
++            file.delete();
++        }
++    }
++
++    private void waitForChange()
++    {
++        synchronized(this)
++        {
++            try
++            {
++                int count = 0;
++                while (!configChanged && count++ <= 3)
++                {
++                    this.wait(5000);
++                }
++            }
++            catch (InterruptedException ie)
++            {
++                throw new IllegalStateException("wait timed out");
++            }
++            finally
++            {
++                configChanged = false;
++            }
++        }
+     }
+ 
+-    /**
+-     * Tests calling reloadingRequired() multiple times before a reload actually
+-     * happens. This test is related to CONFIGURATION-302.
+-     */
+-    public void testReloadingRequiredMultipleTimes()
+-            throws ConfigurationException
++    public void configurationChanged(ConfigurationEvent event)
+     {
+-        VFSFileChangedReloadingStrategy strategy = new VFSFileChangedReloadingStrategy()
++        if (event.getType() == AbstractFileConfiguration.EVENT_CONFIG_CHANGED)
+         {
+-            protected boolean hasChanged()
++            synchronized(this)
+             {
+-                // signal always a change
+-                return true;
++                configChanged = true;
++                this.notify();
+             }
+-        };
+-        strategy.setRefreshDelay(100000);
+-        PropertiesConfiguration config = new PropertiesConfiguration(TEST_FILE);
+-        config.setReloadingStrategy(strategy);
+-        assertTrue("Reloading not required", strategy.reloadingRequired());
+-        assertTrue("Reloading no more required", strategy.reloadingRequired());
+-        strategy.reloadingPerformed();
+-        assertFalse("Reloading still required", strategy.reloadingRequired());
++        }
+     }
+ }
+\ No newline at end of file

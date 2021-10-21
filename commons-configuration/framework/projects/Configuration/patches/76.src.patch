@@ -1,0 +1,28 @@
+diff --git a/src/java/org/apache/commons/configuration/DataConfiguration.java b/src/java/org/apache/commons/configuration/DataConfiguration.java
+index 56d7a6db..69d56c5b 100644
+--- a/src/java/org/apache/commons/configuration/DataConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DataConfiguration.java
+@@ -140,11 +140,6 @@ public class DataConfiguration extends AbstractConfiguration implements Serializ
+         }
+     }
+ 
+-    public void addProperty(String key, Object value)
+-    {
+-        getConfiguration().addProperty(key, value);
+-    }
+-
+     public boolean isEmpty()
+     {
+         return configuration.isEmpty();
+@@ -160,11 +155,6 @@ public class DataConfiguration extends AbstractConfiguration implements Serializ
+         configuration.clearProperty(key);
+     }
+ 
+-    public void setProperty(String key, Object value)
+-    {
+-        configuration.setProperty(key, value);
+-    }
+-
+     public Iterator getKeys()
+     {
+         return configuration.getKeys();

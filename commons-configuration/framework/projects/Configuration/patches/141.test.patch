@@ -1,0 +1,47 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestCompositeConfiguration.java b/src/test/java/org/apache/commons/configuration/TestCompositeConfiguration.java
+index 0a8dfea2..3eff4ba1 100644
+--- a/src/test/java/org/apache/commons/configuration/TestCompositeConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestCompositeConfiguration.java
+@@ -39,7 +39,6 @@ import java.util.NoSuchElementException;
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+ import org.apache.commons.configuration.reloading.FileAlwaysReloadingStrategy;
+-import org.easymock.EasyMock;
+ import org.junit.Before;
+ import org.junit.Test;
+ 
+@@ -847,34 +846,6 @@ public class TestCompositeConfiguration
+                 cc.getString("property.one.ref"));
+     }
+ 
+-    /**
+-     * Tests the behavior of setListDelimiter() if the in-memory configuration
+-     * is not derived from BaseConfiguration. This test is related to
+-     * CONFIGURATION-476.
+-     */
+-    @Test
+-    public void testSetListDelimiterInMemoryConfigNonBaseConfig()
+-    {
+-        Configuration inMemoryConfig = EasyMock.createMock(Configuration.class);
+-        EasyMock.replay(inMemoryConfig);
+-        cc = new CompositeConfiguration(inMemoryConfig);
+-        cc.setListDelimiter(';');
+-    }
+-
+-    /**
+-     * Tests the behavior of setDelimiterParsingDisabled() if the in-memory
+-     * configuration is not derived from BaseConfiguration. This test is related
+-     * to CONFIGURATION-476.
+-     */
+-    @Test
+-    public void testSetDelimiterParsingDisabledInMemoryConfigNonBaseConfig()
+-    {
+-        Configuration inMemoryConfig = EasyMock.createMock(Configuration.class);
+-        EasyMock.replay(inMemoryConfig);
+-        cc = new CompositeConfiguration(inMemoryConfig);
+-        cc.setDelimiterParsingDisabled(true);
+-    }
+-
+     /**
+      * A test configuration event listener that counts the number of received
+      * events. Used for testing the event facilities.

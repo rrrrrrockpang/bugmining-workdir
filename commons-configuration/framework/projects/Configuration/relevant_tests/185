@@ -1,0 +1,13 @@
+org.apache.commons.configuration.TestDynamicCombinedConfiguration
+org.apache.commons.configuration.TestPatternSubtreeConfiguration
+org.apache.commons.configuration.TestSubnodeConfiguration
+org.apache.commons.configuration.TestXMLConfiguration
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased
+org.apache.commons.configuration.tree.TestMergeCombiner
+org.apache.commons.configuration.tree.xpath.TestConfigurationIteratorAttributes
+org.apache.commons.configuration.tree.xpath.TestConfigurationNodeIteratorChildren
+org.apache.commons.configuration.tree.xpath.TestConfigurationNodePointer
+org.apache.commons.configuration.tree.xpath.TestConfigurationNodePointerFactory
+org.apache.commons.configuration.tree.xpath.TestXPathExpressionEngineInConfig

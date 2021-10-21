@@ -1,0 +1,17 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index 81e42e5d..1c660c97 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -824,12 +824,6 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+     public Iterator getKeys(String prefix)
+     {
+         DefinedKeysVisitor visitor = new DefinedKeysVisitor(prefix);
+-        if (containsKey(prefix))
+-        {
+-            // explicitly add the prefix
+-            visitor.getKeyList().add(prefix);
+-        }
+-
+         List nodes = fetchNodeList(prefix);
+ 
+         for (Iterator itNodes = nodes.iterator(); itNodes.hasNext();)

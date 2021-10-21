@@ -1,0 +1,4 @@
+org.apache.commons.configuration.beanutils.BeanCreationTestBean
+org.apache.commons.configuration.beanutils.BeanCreationTestBeanWithListChild
+org.apache.commons.configuration.beanutils.BeanDeclarationTestImpl
+org.apache.commons.configuration.beanutils.TestBeanHelper

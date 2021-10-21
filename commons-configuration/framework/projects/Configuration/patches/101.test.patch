@@ -1,0 +1,23 @@
+diff --git a/src/test/org/apache/commons/configuration/TestBaseConfiguration.java b/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
+index b8014a46..11780c53 100644
+--- a/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
+@@ -804,18 +804,4 @@ public class TestBaseConfiguration extends TestCase
+         assertEquals("Event listener was copied", 0, config2
+                 .getConfigurationListeners().size());
+     }
+-
+-    /**
+-     * Tests the clone() method if a list property is involved.
+-     */
+-    public void testCloneListProperty()
+-    {
+-        final String key = "list";
+-        config.addProperty(key, "value1");
+-        config.addProperty(key, "value2");
+-        BaseConfiguration config2 = (BaseConfiguration) config.clone();
+-        config2.addProperty(key, "value3");
+-        assertEquals("Wrong number of original properties", 2, config.getList(
+-                key).size());
+-    }
+ }

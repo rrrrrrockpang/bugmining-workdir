@@ -1,0 +1,45 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestDefaultConfigurationBuilder.java b/src/test/java/org/apache/commons/configuration/TestDefaultConfigurationBuilder.java
+index 558086ed..72946efe 100644
+--- a/src/test/java/org/apache/commons/configuration/TestDefaultConfigurationBuilder.java
++++ b/src/test/java/org/apache/commons/configuration/TestDefaultConfigurationBuilder.java
+@@ -1131,11 +1131,11 @@ public class TestDefaultConfigurationBuilder
+         CombinedConfiguration config = factory.getConfiguration(true);
+         assertTrue("Incorrect configuration", config instanceof DynamicCombinedConfiguration);
+ 
+-        List<SubnodeConfiguration> list = config.configurationsAt("colors/*");
+-        Iterator<SubnodeConfiguration> iter = list.iterator();
++        List<HierarchicalConfiguration> list = config.configurationsAt("colors/*");
++        Iterator<HierarchicalConfiguration> iter = list.iterator();
+         while (iter.hasNext())
+         {
+-            SubnodeConfiguration sub = iter.next();
++            SubnodeConfiguration sub = (SubnodeConfiguration)iter.next();
+             ConfigurationNode node = sub.getRootNode();
+             String value = (node.getValue() == null) ? "null" : node.getValue().toString();
+             if (map.containsKey(node.getName()))
+diff --git a/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java b/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+index 623e0734..e1cc3b59 100644
+--- a/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+@@ -627,7 +627,7 @@ public class TestHierarchicalConfiguration
+     @Test
+     public void testConfigurationsAt()
+     {
+-        List<SubnodeConfiguration> lstFlds = config.configurationsAt("tables.table(1).fields.field");
++        List<HierarchicalConfiguration> lstFlds = config.configurationsAt("tables.table(1).fields.field");
+         assertEquals("Wrong size of fields", fields[1].length, lstFlds.size());
+         for (int i = 0; i < fields[1].length; i++)
+         {
+diff --git a/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
+index bdf34aee..8c14e0ae 100644
+--- a/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -1174,7 +1174,7 @@ public class TestXMLConfiguration
+     public void testConfigurationsAtWithReload() throws ConfigurationException
+     {
+         XMLConfiguration c = setUpReloadTest();
+-        List<SubnodeConfiguration> configs = c.configurationsAt("test");
++        List<HierarchicalConfiguration> configs = c.configurationsAt("test");
+         assertEquals("New value not read", "newValue",
+                 configs.get(0).getString("entity"));
+     }

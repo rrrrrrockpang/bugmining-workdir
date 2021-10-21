@@ -1,0 +1,81 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index 0f4ccc46..49cb4f98 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2004-2006 The Apache Software Foundation.
++ * Copyright 2004-2005 The Apache Software Foundation.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License")
+  * you may not use this file except in compliance with the License.
+@@ -127,7 +127,7 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+         this();
+ 
+         // store the file name
+-        setFileName(fileName);
++        setPath(fileName);
+ 
+         // load the file
+         load();
+diff --git a/src/java/org/apache/commons/configuration/ConfigurationUtils.java b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+index d944ce76..07a56d3d 100644
+--- a/src/java/org/apache/commons/configuration/ConfigurationUtils.java
++++ b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+@@ -46,9 +46,6 @@ public final class ConfigurationUtils
+     /** Constant for the file URL protocol.*/
+     static final String PROTOCOL_FILE = "file";
+ 
+-    /** Constant for the resource path separator.*/
+-    static final String RESOURCE_PATH_SEPARATOR = "/";
+-
+     /** The logger.*/
+     private static Log log = LogFactory.getLog(ConfigurationUtils.class);
+ 
+@@ -404,30 +401,17 @@ public final class ConfigurationUtils
+             }
+         }
+ 
+-        String resourceName = null;
+-        if (url == null)
+-        {
+-            if (base != null)
+-            {
+-                resourceName = base + RESOURCE_PATH_SEPARATOR + name;
+-            }
+-            else
+-            {
+-                resourceName = name;
+-            }
+-        }
+-
+         // attempt to load from the context classpath
+         if (url == null)
+         {
+             ClassLoader loader = Thread.currentThread().getContextClassLoader();
+             if (loader != null)
+             {
+-                url = loader.getResource(resourceName);
++                url = loader.getResource(name);
+ 
+                 if (url != null)
+                 {
+-                    log.debug("Configuration loaded from the context classpath (" + resourceName + ")");
++                    log.debug("Configuration loaded from the context classpath (" + name + ")");
+                 }
+             }
+         }
+@@ -435,11 +419,11 @@ public final class ConfigurationUtils
+         // attempt to load from the system classpath
+         if (url == null)
+         {
+-            url = ClassLoader.getSystemResource(resourceName);
++            url = ClassLoader.getSystemResource(name);
+ 
+             if (url != null)
+             {
+-                log.debug("Configuration loaded from the system classpath (" + resourceName + ")");
++                log.debug("Configuration loaded from the system classpath (" + name + ")");
+             }
+         }
+ 

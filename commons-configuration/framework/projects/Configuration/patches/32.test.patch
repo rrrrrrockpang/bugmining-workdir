@@ -1,0 +1,223 @@
+diff --git a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+index de78cec7..e11f9f99 100644
+--- a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+@@ -36,12 +36,11 @@ import junitx.framework.ListAssert;
+ public abstract class TestAbstractConfiguration extends TestCase
+ {
+     /**
+-     * Return an abstract configuration with the following data:<br>
++     * Return an abstract configuration with 2 key/value pairs:<br>
+      * <pre>
+      * key1 = value1
+      * key2 = value2
+      * list = value1, value2
+-     * listesc = value1\\,value2
+      * </pre>
+      */
+     protected abstract AbstractConfiguration getConfiguration();
+@@ -70,16 +69,6 @@ public abstract class TestAbstractConfiguration extends TestCase
+         assertTrue("'value2' is not in the list", list.contains("value2"));
+     }
+ 
+-    /**
+-     * Tests whether the escape character for list delimiters is recocknized and
+-     * removed.
+-     */
+-    public void testListEscaped()
+-    {
+-        assertEquals("Wrong value for escaped list", "value1,value2",
+-                getConfiguration().getString("listesc"));
+-    }
+-
+     public void testAddPropertyDirect()
+     {
+         AbstractConfiguration config = getConfiguration();
+@@ -129,7 +118,6 @@ public abstract class TestAbstractConfiguration extends TestCase
+         expectedKeys.add("key1");
+         expectedKeys.add("key2");
+         expectedKeys.add("list");
+-        expectedKeys.add("listesc");
+ 
+         assertNotNull("null iterator", keys);
+         assertTrue("empty iterator", keys.hasNext());
+diff --git a/src/test/org/apache/commons/configuration/TestMapConfiguration.java b/src/test/org/apache/commons/configuration/TestMapConfiguration.java
+index 946a1a6b..a66ddab4 100644
+--- a/src/test/org/apache/commons/configuration/TestMapConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestMapConfiguration.java
+@@ -37,7 +37,6 @@ public class TestMapConfiguration extends TestAbstractConfiguration
+         map.put("key1", "value1");
+         map.put("key2", "value2");
+         map.put("list", "value1, value2");
+-        map.put("listesc", "value1\\,value2");
+ 
+         return new MapConfiguration(map);
+     }
+diff --git a/src/test/org/apache/commons/configuration/web/TestAppletConfiguration.java b/src/test/org/apache/commons/configuration/web/TestAppletConfiguration.java
+index 439528d4..f2a2cf21 100644
+--- a/src/test/org/apache/commons/configuration/web/TestAppletConfiguration.java
++++ b/src/test/org/apache/commons/configuration/web/TestAppletConfiguration.java
+@@ -64,7 +64,6 @@ public class TestAppletConfiguration extends TestAbstractConfiguration
+         parameters.setProperty("key1", "value1");
+         parameters.setProperty("key2", "value2");
+         parameters.setProperty("list", "value1, value2");
+-        parameters.setProperty("listesc", "value1\\,value2");
+ 
+         if (supportsApplet)
+         {
+@@ -81,8 +80,7 @@ public class TestAppletConfiguration extends TestAbstractConfiguration
+                     {
+                     { "key1", "String", "" },
+                     { "key2", "String", "" },
+-                    { "list", "String[]", "" },
+-                    { "listesc", "String", "" } };
++                    { "list", "String[]", "" } };
+                 }
+             };
+ 
+diff --git a/src/test/org/apache/commons/configuration/web/TestServletConfiguration.java b/src/test/org/apache/commons/configuration/web/TestServletConfiguration.java
+index 9ebc4200..af8c2156 100644
+--- a/src/test/org/apache/commons/configuration/web/TestServletConfiguration.java
++++ b/src/test/org/apache/commons/configuration/web/TestServletConfiguration.java
+@@ -39,7 +39,6 @@ public class TestServletConfiguration extends TestAbstractConfiguration
+         config.setInitParameter("key1", "value1");
+         config.setInitParameter("key2", "value2");
+         config.setInitParameter("list", "value1, value2");
+-        config.setInitParameter("listesc", "value1\\,value2");
+ 
+         Servlet servlet = new HttpServlet() {
+             public ServletConfig getServletConfig()
+diff --git a/src/test/org/apache/commons/configuration/web/TestServletContextConfiguration.java b/src/test/org/apache/commons/configuration/web/TestServletContextConfiguration.java
+index f87b16ea..b3ac2d27 100644
+--- a/src/test/org/apache/commons/configuration/web/TestServletContextConfiguration.java
++++ b/src/test/org/apache/commons/configuration/web/TestServletContextConfiguration.java
+@@ -43,7 +43,6 @@ public class TestServletContextConfiguration extends TestAbstractConfiguration
+         parameters.setProperty("key1", "value1");
+         parameters.setProperty("key2", "value2");
+         parameters.setProperty("list", "value1, value2");
+-        parameters.setProperty("listesc", "value1\\,value2");
+ 
+         // create a servlet context
+         ServletContext context = new MockServletContext()
+diff --git a/src/test/org/apache/commons/configuration/web/TestServletFilterConfiguration.java b/src/test/org/apache/commons/configuration/web/TestServletFilterConfiguration.java
+index f66ef2e2..5bd0c8fe 100644
+--- a/src/test/org/apache/commons/configuration/web/TestServletFilterConfiguration.java
++++ b/src/test/org/apache/commons/configuration/web/TestServletFilterConfiguration.java
+@@ -39,7 +39,6 @@ public class TestServletFilterConfiguration extends TestAbstractConfiguration
+         config.setInitParameter("key1", "value1");
+         config.setInitParameter("key2", "value2");
+         config.setInitParameter("list", "value1, value2");
+-        config.setInitParameter("listesc", "value1\\,value2");
+ 
+         return new ServletFilterConfiguration(config);
+     }
+diff --git a/src/test/org/apache/commons/configuration/web/TestServletRequestConfiguration.java b/src/test/org/apache/commons/configuration/web/TestServletRequestConfiguration.java
+index f3f8c3f2..3b09fc0c 100644
+--- a/src/test/org/apache/commons/configuration/web/TestServletRequestConfiguration.java
++++ b/src/test/org/apache/commons/configuration/web/TestServletRequestConfiguration.java
+@@ -18,8 +18,6 @@
+ package org.apache.commons.configuration.web;
+ 
+ import java.util.Enumeration;
+-import java.util.List;
+-
+ import javax.servlet.ServletRequest;
+ 
+ import com.mockobjects.servlet.MockHttpServletRequest;
+@@ -28,7 +26,6 @@ import org.apache.commons.configuration.AbstractConfiguration;
+ import org.apache.commons.configuration.BaseConfiguration;
+ import org.apache.commons.configuration.Configuration;
+ import org.apache.commons.configuration.TestAbstractConfiguration;
+-import org.apache.commons.lang.StringUtils;
+ 
+ /**
+  * Test case for the {@link ServletRequestConfiguration} class.
+@@ -41,25 +38,16 @@ public class TestServletRequestConfiguration extends TestAbstractConfiguration
+     protected AbstractConfiguration getConfiguration()
+     {
+         final Configuration configuration = new BaseConfiguration();
+-        ((BaseConfiguration) configuration).setListDelimiter('\0');
+         configuration.setProperty("key1", "value1");
+         configuration.setProperty("key2", "value2");
+         configuration.addProperty("list", "value1");
+         configuration.addProperty("list", "value2");
+-        configuration.addProperty("listesc", "value1\\,value2");
+-
+-        return createConfiguration(configuration);
+-    }
+-
+-    protected AbstractConfiguration getEmptyConfiguration()
+-    {
+-        final Configuration configuration = new BaseConfiguration();
+ 
+         ServletRequest request = new MockHttpServletRequest()
+         {
+-            public String getParameter(String key)
++            public String[] getParameterValues(String key)
+             {
+-                return null;
++                return configuration.getStringArray(key);
+             }
+ 
+             public Enumeration getParameterNames()
+@@ -71,26 +59,20 @@ public class TestServletRequestConfiguration extends TestAbstractConfiguration
+         return new ServletRequestConfiguration(request);
+     }
+ 
+-    /**
+-     * Returns a new servlet request configuration that is backed by the passed
+-     * in configuration.
+-     *
+-     * @param base the configuration with the underlying values
+-     * @return the servlet request configuration
+-     */
+-    private ServletRequestConfiguration createConfiguration(
+-            final Configuration base)
++    protected AbstractConfiguration getEmptyConfiguration()
+     {
++        final Configuration configuration = new BaseConfiguration();
++
+         ServletRequest request = new MockHttpServletRequest()
+         {
+-            public String[] getParameterValues(String key)
++            public String getParameter(String key)
+             {
+-                return base.getStringArray(key);
++                return null;
+             }
+ 
+             public Enumeration getParameterNames()
+             {
+-                return new IteratorEnumeration(base.getKeys());
++                return new IteratorEnumeration(configuration.getKeys());
+             }
+         };
+ 
+@@ -123,27 +105,4 @@ public class TestServletRequestConfiguration extends TestAbstractConfiguration
+         }
+     }
+ 
+-    /**
+-     * Tests a list with elements that contain an escaped list delimiter.
+-     */
+-    public void testListWithEscapedElements()
+-    {
+-        String[] values =
+-        { "test1", "test2\\,test3", "test4\\,test5" };
+-        final String listKey = "test.list";
+-        BaseConfiguration config = new BaseConfiguration();
+-        config.setListDelimiter('\0');
+-        config.addProperty(listKey, values);
+-        assertEquals("Wrong number of list elements", values.length, config
+-                .getList(listKey).size());
+-        Configuration c = createConfiguration(config);
+-        List v = c.getList(listKey);
+-        assertEquals("Wrong number of elements in list", values.length, v
+-                .size());
+-        for (int i = 0; i < values.length; i++)
+-        {
+-            assertEquals("Wrong value at index " + i, StringUtils.replace(
+-                    values[i], "\\", StringUtils.EMPTY), v.get(i));
+-        }
+-    }
+ }

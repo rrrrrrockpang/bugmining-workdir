@@ -1,0 +1,93 @@
+diff --git a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+index cba4b560..6dfab44a 100644
+--- a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
++++ b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+@@ -21,7 +21,6 @@ import java.util.Collections;
+ import java.util.Iterator;
+ import java.util.List;
+ 
+-import org.apache.commons.configuration.interpol.ConfigurationInterpolator;
+ import org.apache.commons.configuration.tree.ConfigurationNode;
+ 
+ /**
+@@ -327,16 +326,14 @@ public class SubnodeConfiguration extends HierarchicalConfiguration
+     }
+ 
+     /**
+-     * Creates a ConfigurationInterpolator with a chain to the parent's
+-     * interpolator. 
++     * Performs interpolation. This implementation will ask the parent
++     * configuration to perform the interpolation so that variables can be
++     * evaluated in the global context.
+      *
+-     * @return the new interpolator
++     * @param value the value to be interpolated
+      */
+-    @Override
+-    protected ConfigurationInterpolator createInterpolator() {
+-        ConfigurationInterpolator interpolator = super.createInterpolator();
+-        interpolator.setParentInterpolator(getParent().getInterpolator());
+-        return interpolator;
++    protected Object interpolate(Object value)
++    {
++        return getParent().interpolate(value);
+     }
+-    
+ }
+diff --git a/src/java/org/apache/commons/configuration/interpol/ConfigurationInterpolator.java b/src/java/org/apache/commons/configuration/interpol/ConfigurationInterpolator.java
+index ddca9710..6103ad30 100644
+--- a/src/java/org/apache/commons/configuration/interpol/ConfigurationInterpolator.java
++++ b/src/java/org/apache/commons/configuration/interpol/ConfigurationInterpolator.java
+@@ -286,19 +286,12 @@ public class ConfigurationInterpolator extends StrLookup
+             String prefix = var.substring(0, prefixPos);
+             String name = var.substring(prefixPos + 1);
+             String value = fetchLookupForPrefix(prefix).lookup(name);
+-            if (value == null && getParentInterpolator() != null) {
+-                value = getParentInterpolator().fetchLookupForPrefix(prefix).lookup(name);
+-            }
+             if (value != null)
+             {
+                 return value;
+-            } 
+-        }
+-        String value = fetchNoPrefixLookup().lookup(var);
+-        if (value == null && getParentInterpolator() != null) {
+-            value = getParentInterpolator().fetchNoPrefixLookup().lookup(var);
++            }
+         }
+-        return value;
++        return fetchNoPrefixLookup().lookup(var);
+     }
+ 
+     /**
+@@ -311,7 +304,17 @@ public class ConfigurationInterpolator extends StrLookup
+      */
+     protected StrLookup fetchNoPrefixLookup()
+     {
+-        return (getDefaultLookup() != null) ? getDefaultLookup() : StrLookup.noneLookup();
++        StrLookup lookup = null;
++        if (getDefaultLookup() != null) { 
++            lookup = getDefaultLookup();
++        }
++        if (lookup == null) { 
++            ConfigurationInterpolator parent = getParentInterpolator();
++            lookup = (parent == null) 
++                ? StrLookup.noneLookup() 
++                : parent.fetchNoPrefixLookup();
++        }
++        return lookup;
+     }
+ 
+     /**
+@@ -328,7 +331,10 @@ public class ConfigurationInterpolator extends StrLookup
+         StrLookup lookup = (StrLookup) localLookups.get(prefix);
+         if (lookup == null)
+         {
+-            lookup = StrLookup.noneLookup();
++            ConfigurationInterpolator parent = getParentInterpolator();
++            lookup = (parent == null) 
++                ? StrLookup.noneLookup() 
++                : parent.fetchLookupForPrefix(prefix);
+         }
+         return lookup;
+     }

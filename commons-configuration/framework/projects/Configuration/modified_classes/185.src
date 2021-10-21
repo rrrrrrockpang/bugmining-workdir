@@ -1,0 +1,3 @@
+org.apache.commons.configuration.tree.xpath.ConfigurationNodeIteratorAttribute
+org.apache.commons.configuration.tree.xpath.ConfigurationNodeIteratorBase
+org.apache.commons.configuration.tree.xpath.ConfigurationNodeIteratorChildren

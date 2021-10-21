@@ -1,0 +1,25 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 041fb2f7..15317d53 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -200,7 +200,6 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+     {
+         super(c);
+         clearReferences(getRootNode());
+-        setRootElementName(getRootNode().getName());
+     }
+ 
+     /**
+@@ -1267,10 +1266,8 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+          */
+         private Element getElement(Node node)
+         {
+-            // special treatment for root node of the hierarchy
+-            return (node.getName() != null && node.getReference() != null) ? (Element) node
+-                    .getReference()
+-                    : document.getDocumentElement();
++            // special treatement for root node of the hierarchy
++            return (node.getName() != null) ? (Element) node.getReference() : document.getDocumentElement();
+         }
+     }
+ 

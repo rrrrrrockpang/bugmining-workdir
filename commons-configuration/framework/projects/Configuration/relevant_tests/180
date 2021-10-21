@@ -1,0 +1,12 @@
+org.apache.commons.configuration.TestCombinedConfiguration
+org.apache.commons.configuration.TestDynamicCombinedConfiguration
+org.apache.commons.configuration.TestEqualBehaviour
+org.apache.commons.configuration.TestPropertiesConfiguration
+org.apache.commons.configuration.TestPropertiesSequence
+org.apache.commons.configuration.TestSubsetConfiguration
+org.apache.commons.configuration.builder.combined.TestBaseConfigurationBuilderProvider
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration.builder.combined.TestMultiFileConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestReloadingCombinedConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestReloadingCombinedConfigurationBuilderFileBased

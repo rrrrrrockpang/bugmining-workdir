@@ -1,0 +1,187 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/DataConfiguration.java b/src/main/java/org/apache/commons/configuration2/DataConfiguration.java
+index 27445f12..673d4304 100644
+--- a/src/main/java/org/apache/commons/configuration2/DataConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/DataConfiguration.java
+@@ -33,7 +33,6 @@ import java.util.NoSuchElementException;
+ import org.apache.commons.configuration2.convert.ConversionHandler;
+ import org.apache.commons.configuration2.convert.DefaultConversionHandler;
+ import org.apache.commons.configuration2.ex.ConversionException;
+-import org.apache.commons.lang3.ArrayUtils;
+ import org.apache.commons.lang3.StringUtils;
+ 
+ /**
+@@ -99,30 +98,6 @@ import org.apache.commons.lang3.StringUtils;
+  */
+ public class DataConfiguration extends AbstractConfiguration
+ {
+-    /** Empty array constant. */
+-    private static final URL[] EMPTY_URL_ARRAY = new URL[0];
+-
+-    /** Empty array constant. */
+-    private static final URI[] EMPTY_URI_ARRAY = new URI[0];
+-
+-    /** Empty array constant. */
+-    private static final Locale[] EMPTY_LOCALE_ARRAY = new Locale[0];
+-
+-    /** Empty array constant. */
+-    private static final Date[] EMPTY_DATE_ARRAY = new Date[0];
+-
+-    /** Empty array constant. */
+-    private static final Color[] EMPTY_COLOR_ARRAY = new Color[0];
+-
+-    /** Empty array constant. */
+-    private static final Calendar[] EMPTY_CALENDARD_ARRAY = new Calendar[0];
+-
+-    /** Empty array constant. */
+-    private static final BigInteger[] EMPTY_BIG_INTEGER_ARRAY = new BigInteger[0];
+-
+-    /** Empty array constant. */
+-    private static final BigDecimal[] EMPTY_BIG_DECIMAL_ARRAY = new BigDecimal[0];
+-
+     /** The key of the property storing the user defined date format. */
+     public static final String DATE_FORMAT_KEY = "org.apache.commons.configuration.format.date";
+ 
+@@ -336,7 +311,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public byte[] getByteArray(final String key)
+     {
+-        return getByteArray(key, ArrayUtils.EMPTY_BYTE_ARRAY);
++        return getByteArray(key, new byte[0]);
+     }
+ 
+     /**
+@@ -401,7 +376,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public short[] getShortArray(final String key)
+     {
+-        return getShortArray(key, ArrayUtils.EMPTY_SHORT_ARRAY);
++        return getShortArray(key, new short[0]);
+     }
+ 
+     /**
+@@ -467,7 +442,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public int[] getIntArray(final String key)
+     {
+-        return getIntArray(key, ArrayUtils.EMPTY_INT_ARRAY);
++        return getIntArray(key, new int[0]);
+     }
+ 
+     /**
+@@ -532,7 +507,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public long[] getLongArray(final String key)
+     {
+-        return getLongArray(key, ArrayUtils.EMPTY_LONG_ARRAY);
++        return getLongArray(key, new long[0]);
+     }
+ 
+     /**
+@@ -597,7 +572,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public float[] getFloatArray(final String key)
+     {
+-        return getFloatArray(key, ArrayUtils.EMPTY_FLOAT_ARRAY);
++        return getFloatArray(key, new float[0]);
+     }
+ 
+     /**
+@@ -663,7 +638,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public double[] getDoubleArray(final String key)
+     {
+-        return getDoubleArray(key, ArrayUtils.EMPTY_DOUBLE_ARRAY);
++        return getDoubleArray(key, new double[0]);
+     }
+ 
+     /**
+@@ -728,7 +703,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public BigInteger[] getBigIntegerArray(final String key)
+     {
+-        return getBigIntegerArray(key, EMPTY_BIG_INTEGER_ARRAY);
++        return getBigIntegerArray(key, new BigInteger[0]);
+     }
+ 
+     /**
+@@ -793,7 +768,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public BigDecimal[] getBigDecimalArray(final String key)
+     {
+-        return getBigDecimalArray(key, EMPTY_BIG_DECIMAL_ARRAY);
++        return getBigDecimalArray(key, new BigDecimal[0]);
+     }
+ 
+     /**
+@@ -856,7 +831,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public URI[] getURIArray(final String key)
+     {
+-        return getURIArray(key, EMPTY_URI_ARRAY);
++        return getURIArray(key, new URI[0]);
+     }
+ 
+     /**
+@@ -982,7 +957,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public URL[] getURLArray(final String key)
+     {
+-        return getURLArray(key, EMPTY_URL_ARRAY);
++        return getURLArray(key, new URL[0]);
+     }
+ 
+     /**
+@@ -1177,7 +1152,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Date[] getDateArray(final String key)
+     {
+-        return getDateArray(key, EMPTY_DATE_ARRAY);
++        return getDateArray(key, new Date[0]);
+     }
+ 
+     /**
+@@ -1195,7 +1170,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Date[] getDateArray(final String key, final String format)
+     {
+-        return getDateArray(key, EMPTY_DATE_ARRAY, format);
++        return getDateArray(key, new Date[0], format);
+     }
+ 
+     /**
+@@ -1434,7 +1409,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Calendar[] getCalendarArray(final String key)
+     {
+-        return getCalendarArray(key, EMPTY_CALENDARD_ARRAY);
++        return getCalendarArray(key, new Calendar[0]);
+     }
+ 
+     /**
+@@ -1452,7 +1427,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Calendar[] getCalendarArray(final String key, final String format)
+     {
+-        return getCalendarArray(key, EMPTY_CALENDARD_ARRAY, format);
++        return getCalendarArray(key, new Calendar[0], format);
+     }
+ 
+     /**
+@@ -1588,7 +1563,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Locale[] getLocaleArray(final String key)
+     {
+-        return getLocaleArray(key, EMPTY_LOCALE_ARRAY);
++        return getLocaleArray(key, new Locale[0]);
+     }
+ 
+     /**
+@@ -1684,7 +1659,7 @@ public class DataConfiguration extends AbstractConfiguration
+      */
+     public Color[] getColorArray(final String key)
+     {
+-        return getColorArray(key, EMPTY_COLOR_ARRAY);
++        return getColorArray(key, new Color[0]);
+     }
+ 
+     /**

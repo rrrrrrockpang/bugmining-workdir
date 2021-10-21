@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 11a3cf50..1922c688 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -710,7 +710,7 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+ 
+         // clear document related properties
+         copy.document = null;
+-        copy.setDelegate(copy.createDelegate());
++        copy.setDelegate(createDelegate());
+         // clear all references in the nodes, too
+         clearReferences(copy.getRootNode());
+ 

@@ -1,0 +1,73 @@
+diff --git a/src/test/org/apache/commons/configuration/TestPropertyConverter.java b/src/test/org/apache/commons/configuration/TestPropertyConverter.java
+index b6d7aca3..b925787a 100644
+--- a/src/test/org/apache/commons/configuration/TestPropertyConverter.java
++++ b/src/test/org/apache/commons/configuration/TestPropertyConverter.java
+@@ -22,10 +22,10 @@ import java.math.BigDecimal;
+ import java.util.Iterator;
+ import java.util.List;
+ 
+-import junit.framework.TestCase;
+-
+ import org.apache.commons.lang.SystemUtils;
+ 
++import junit.framework.TestCase;
++
+ /**
+  * Test class for PropertyConverter.
+  *
+@@ -115,16 +115,6 @@ public class TestPropertyConverter extends TestCase
+                         .escapeDelimiters("C:\\Temp\\,D:\\Data\\", ','));
+     }
+ 
+-    /**
+-     * Tests whether only the list delimiter can be escaped.
+-     */
+-    public void testEscapeListDelimiter()
+-    {
+-        assertEquals("Wrong escaped list delimiter", "C:\\Temp\\\\,D:\\Data\\",
+-                PropertyConverter.escapeListDelimiter("C:\\Temp\\,D:\\Data\\",
+-                        ','));
+-    }
+-
+     public void testToIterator()
+     {
+         int[] array = new int[]{1, 2, 3};
+@@ -364,7 +354,7 @@ public class TestPropertyConverter extends TestCase
+         {
+             return;
+         }
+-
++        
+         try
+         {
+             assertEquals(enumObject, PropertyConverter.toEnum(new Integer(-1), enumClass));
+diff --git a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+index 4db4dfc2..0f5daba1 100644
+--- a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -1704,25 +1704,6 @@ public class TestXMLConfiguration extends TestCase
+         }
+     }
+ 
+-    /**
+-     * Tests whether a windows path can be saved correctly. This test is related
+-     * to CONFIGURATION-428.
+-     */
+-    public void testSaveWindowsPath() throws ConfigurationException
+-    {
+-        conf.clear();
+-        conf.addProperty("path", "C:\\Temp");
+-        StringWriter writer = new StringWriter();
+-        conf.save(writer);
+-        String content = writer.toString();
+-        assertTrue("Path not found: " + content,
+-                content.indexOf("<path>C:\\Temp</path>") >= 0);
+-        conf.save(testSaveFile);
+-        XMLConfiguration conf2 = new XMLConfiguration(testSaveFile);
+-        assertEquals("Wrong windows path", "C:\\Temp",
+-                conf2.getString("path"));
+-    }
+-
+     private class ReloadThread extends Thread
+     {
+         FileConfiguration config;

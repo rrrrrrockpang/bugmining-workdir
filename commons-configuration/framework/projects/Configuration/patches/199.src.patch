@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java b/src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java
+index 6132571f..33fdf507 100644
+--- a/src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java
++++ b/src/main/java/org/apache/commons/configuration2/ConfigurationUtils.java
+@@ -262,7 +262,7 @@ public final class ConfigurationUtils
+ 
+             // Per default, a DisabledListDelimiterHandler is set.
+             // So list delimiters in property values are not an issue.
+-            hc.copy(conf);
++            hc.append(conf);
+             return hc;
+         }
+     }

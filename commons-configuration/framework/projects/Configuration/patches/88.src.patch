@@ -1,0 +1,16 @@
+diff --git a/src/java/org/apache/commons/configuration/DefaultConfigurationBuilder.java b/src/java/org/apache/commons/configuration/DefaultConfigurationBuilder.java
+index b5ed1748..f553aa6b 100644
+--- a/src/java/org/apache/commons/configuration/DefaultConfigurationBuilder.java
++++ b/src/java/org/apache/commons/configuration/DefaultConfigurationBuilder.java
+@@ -1281,10 +1281,8 @@ public class DefaultConfigurationBuilder extends XMLConfiguration implements
+      * implementation acts like a <code>FileConfigurationProvider</code>, but
+      * it will copy all entity IDs that have been registered for the
+      * configuration builder to the new XML configuration before it is loaded.
+-     *
+-     * @since 1.6
+      */
+-    public static class XMLConfigurationProvider extends FileConfigurationProvider
++    static class XMLConfigurationProvider extends FileConfigurationProvider
+     {
+         /**
+          * Creates a new instance of <code>XMLConfigurationProvider</code>.

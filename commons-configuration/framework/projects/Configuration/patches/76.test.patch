@@ -1,0 +1,42 @@
+diff --git a/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java b/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
+index 6302d9c5..d6ce32cb 100644
+--- a/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
+@@ -34,11 +34,11 @@ import java.util.ArrayList;
+ import java.util.Iterator;
+ import java.util.List;
+ 
+-import junit.framework.TestCase;
+-
+ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
+ import org.apache.commons.lang.SystemUtils;
+ 
++import junit.framework.TestCase;
++
+ /**
+  * Test for loading and saving properties files.
+  *
+@@ -798,23 +798,6 @@ public class TestPropertiesConfiguration extends TestCase
+         checkCopiedConfig(copyConf);
+     }
+ 
+-    /**
+-     * Tests adding properties through a DataConfiguration. This is related to
+-     * CONFIGURATION-332.
+-     */
+-    public void testSaveWithDataConfig() throws ConfigurationException
+-    {
+-        conf = new PropertiesConfiguration(testSavePropertiesFile);
+-        DataConfiguration dataConfig = new DataConfiguration(conf);
+-        dataConfig.setProperty("foo", "bar");
+-        assertEquals("Property not set", "bar", conf.getString("foo"));
+-
+-        conf.save();
+-        PropertiesConfiguration config2 = new PropertiesConfiguration(
+-                testSavePropertiesFile);
+-        assertEquals("Property not saved", "bar", config2.getString("foo"));
+-    }
+-
+     /**
+      * Creates a configuration that can be used for testing copy operations.
+      *

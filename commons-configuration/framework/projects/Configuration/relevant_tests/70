@@ -1,0 +1,3 @@
+org.apache.commons.configuration.TestCombinedConfiguration
+org.apache.commons.configuration.TestDefaultConfigurationBuilder
+org.apache.commons.configuration.TestFileConfiguration

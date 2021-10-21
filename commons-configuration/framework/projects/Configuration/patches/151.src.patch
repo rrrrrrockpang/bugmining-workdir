@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/main/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index 527deeb9..149161de 100644
+--- a/src/main/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -739,7 +739,7 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+         // Update the existing nodes for this property
+         Iterator<ConfigurationNode> itNodes = fetchNodeList(key).iterator();
+         Iterator<?> itValues;
+-        if (!isDelimiterParsingDisabled() || !(value instanceof String))
++        if (!isDelimiterParsingDisabled())
+         {
+             itValues = PropertyConverter.toIterator(value, getListDelimiter());
+         }

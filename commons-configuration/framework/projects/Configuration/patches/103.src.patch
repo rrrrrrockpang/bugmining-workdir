@@ -1,0 +1,1542 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index 5b8215dc..a9b434e8 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -103,7 +103,7 @@ implements FileConfiguration, FileSystemBased
+     protected ReloadingStrategy strategy;
+ 
+     /** A lock object for protecting reload operations.*/
+-    protected Object reloadLock = new Object();
++    private Object reloadLock = new Object();
+ 
+     /** Stores the encoding of the configuration file.*/
+     private String encoding;
+@@ -207,11 +207,6 @@ implements FileConfiguration, FileSystemBased
+         return this.fileSystem;
+     }
+ 
+-    public Object getReloadLock()
+-    {
+-        return reloadLock;
+-    }
+-
+ 
+     /**
+      * Load the configuration from the underlying location.
+@@ -752,11 +747,8 @@ implements FileConfiguration, FileSystemBased
+      */
+     public void addProperty(String key, Object value)
+     {
+-        synchronized(reloadLock)
+-        {
+-            super.addProperty(key, value);
+-            possiblySave();
+-        }
++        super.addProperty(key, value);
++        possiblySave();
+     }
+ 
+     /**
+@@ -769,20 +761,14 @@ implements FileConfiguration, FileSystemBased
+      */
+     public void setProperty(String key, Object value)
+     {
+-        synchronized(reloadLock)
+-        {
+-            super.setProperty(key, value);
+-            possiblySave();
+-        }
++        super.setProperty(key, value);
++        possiblySave();
+     }
+ 
+     public void clearProperty(String key)
+     {
+-        synchronized(reloadLock)
+-        {
+-            super.clearProperty(key);
+-            possiblySave();
+-        }
++        super.clearProperty(key);
++        possiblySave();
+     }
+ 
+     public ReloadingStrategy getReloadingStrategy()
+@@ -808,11 +794,6 @@ implements FileConfiguration, FileSystemBased
+      * event.
+      */
+     public void reload()
+-    {
+-        reload(false);
+-    }
+-
+-    public boolean reload(boolean checkReload)
+     {
+         synchronized (reloadLock)
+         {
+@@ -852,10 +833,6 @@ implements FileConfiguration, FileSystemBased
+                 {
+                     fireError(EVENT_RELOAD, null, null, e);
+                     // todo rollback the changes if the file can't be reloaded
+-                    if (checkReload)
+-                    {
+-                        return false;
+-                    }
+                 }
+                 finally
+                 {
+@@ -863,7 +840,6 @@ implements FileConfiguration, FileSystemBased
+                 }
+             }
+         }
+-        return true;
+     }
+ 
+     /**
+@@ -944,19 +920,13 @@ implements FileConfiguration, FileSystemBased
+     public boolean isEmpty()
+     {
+         reload();
+-        synchronized(reloadLock)
+-        {
+-            return super.isEmpty();
+-        }
++        return super.isEmpty();
+     }
+ 
+     public boolean containsKey(String key)
+     {
+         reload();
+-        synchronized(reloadLock)
+-        {
+-            return super.containsKey(key);
+-        }
++        return super.containsKey(key);
+     }
+ 
+     /**
+diff --git a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+index 41565055..2a6a70fd 100644
+--- a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+@@ -29,10 +29,7 @@ import java.util.List;
+ 
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+-import org.apache.commons.configuration.event.ConfigurationErrorListener;
+-import org.apache.commons.configuration.event.ConfigurationErrorEvent;
+ import org.apache.commons.configuration.reloading.ReloadingStrategy;
+-import org.apache.commons.configuration.reloading.Reloadable;
+ 
+ /**
+  * <p>Base class for implementing file based hierarchical configurations.</p>
+@@ -48,8 +45,7 @@ import org.apache.commons.configuration.reloading.Reloadable;
+  */
+ public abstract class AbstractHierarchicalFileConfiguration
+ extends HierarchicalConfiguration
+-implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener, FileSystemBased,
+-        Reloadable
++implements FileConfiguration, ConfigurationListener, FileSystemBased
+ {
+     /** Stores the delegate used for implementing functionality related to the
+      * <code>FileConfiguration</code> interface.
+@@ -141,38 +137,26 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+ 
+     protected void addPropertyDirect(String key, Object obj)
+     {
+-        synchronized(delegate.getReloadLock())
+-        {
+-            super.addPropertyDirect(key, obj);
+-            delegate.possiblySave();
+-        }
++        super.addPropertyDirect(key, obj);
++        delegate.possiblySave();
+     }
+ 
+     public void clearProperty(String key)
+     {
+-        synchronized(delegate.getReloadLock())
+-        {
+-            super.clearProperty(key);
+-            delegate.possiblySave();
+-        }
++        super.clearProperty(key);
++        delegate.possiblySave();
+     }
+ 
+     public void clearTree(String key)
+     {
+-        synchronized(delegate.getReloadLock())
+-        {
+-            super.clearTree(key);
+-            delegate.possiblySave();
+-        }
++        super.clearTree(key);
++        delegate.possiblySave();
+     }
+ 
+     public void setProperty(String key, Object value)
+     {
+-        synchronized(delegate.getReloadLock())
+-        {
+-            super.setProperty(key, value);
+-            delegate.possiblySave();
+-        }
++        super.setProperty(key, value);
++        delegate.possiblySave();
+     }
+ 
+     public void load() throws ConfigurationException
+@@ -296,16 +280,11 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+     }
+ 
+     public void reload()
+-    {
+-        reload(false);
+-    }
+-
+-    private boolean reload(boolean checkReload)
+     {
+         setDetailEvents(false);
+         try
+         {
+-            return delegate.reload(checkReload);
++            delegate.reload();
+         }
+         finally
+         {
+@@ -323,58 +302,34 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+         delegate.setEncoding(encoding);
+     }
+ 
+-    public Object getReloadLock()
+-    {
+-        return delegate.getReloadLock();
+-    }
+-
+     public boolean containsKey(String key)
+     {
+         reload();
+-        synchronized(delegate.getReloadLock())
+-        {
+-            return super.containsKey(key);
+-        }
++        return super.containsKey(key);
+     }
+ 
+     public Iterator getKeys()
+     {
+         reload();
+-        synchronized(delegate.getReloadLock())
+-        {
+-            return super.getKeys();
+-        }
++        return super.getKeys();
+     }
+ 
+     public Iterator getKeys(String prefix)
+     {
+         reload();
+-        synchronized(delegate.getReloadLock())
+-        {
+-            return super.getKeys(prefix);
+-        }
++        return super.getKeys(prefix);
+     }
+ 
+     public Object getProperty(String key)
+     {
+-        if (reload(true))
+-        {
+-            // Avoid reloading again and getting the same error.
+-            synchronized(delegate.getReloadLock())
+-            {
+-                return super.getProperty(key);
+-            }
+-        }
+-        return null;
++        reload();
++        return super.getProperty(key);
+     }
+ 
+     public boolean isEmpty()
+     {
+         reload();
+-        synchronized(delegate.getReloadLock())
+-        {
+-            return super.isEmpty();
+-        }
++        return super.isEmpty();
+     }
+ 
+     /**
+@@ -387,11 +342,8 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+      */
+     public void addNodes(String key, Collection nodes)
+     {
+-        synchronized(delegate.getReloadLock())
+-        {
+-            super.addNodes(key, nodes);
+-            delegate.possiblySave();
+-        }
++        super.addNodes(key, nodes);
++        delegate.possiblySave();
+     }
+ 
+     /**
+@@ -404,10 +356,7 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+     protected List fetchNodeList(String key)
+     {
+         reload();
+-        synchronized(delegate.getReloadLock())
+-        {
+-            return super.fetchNodeList(key);
+-        }
++        return super.fetchNodeList(key);
+     }
+ 
+     /**
+@@ -445,8 +394,6 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+     private void initDelegate(FileConfigurationDelegate del)
+     {
+         del.addConfigurationListener(this);
+-        del.addErrorListener(this);
+-        del.setLogger(getLogger());
+     }
+ 
+     /**
+@@ -471,12 +418,6 @@ implements FileConfiguration, ConfigurationListener, ConfigurationErrorListener,
+         }
+     }
+ 
+-    public void configurationError(ConfigurationErrorEvent event)
+-    {
+-        fireError(event.getType(), event.getPropertyName(), event.getPropertyValue(),
+-                event.getCause());
+-    }
+-
+     /**
+      * Returns the file configuration delegate.
+      *
+diff --git a/src/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+index f76f4bbe..e697b7df 100644
+--- a/src/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -37,7 +37,6 @@ import org.apache.commons.configuration.tree.NodeCombiner;
+ import org.apache.commons.configuration.tree.UnionCombiner;
+ import org.apache.commons.configuration.tree.ViewNode;
+ import org.apache.commons.configuration.tree.TreeUtils;
+-import org.apache.commons.configuration.reloading.Reloadable;
+ 
+ /**
+  * <p>
+@@ -170,7 +169,7 @@ import org.apache.commons.configuration.reloading.Reloadable;
+  * @since 1.3
+  * @version $Id$
+  */
+-public class CombinedConfiguration extends HierarchicalReloadableConfiguration implements
++public class CombinedConfiguration extends HierarchicalConfiguration implements
+         ConfigurationListener, Cloneable
+ {
+     /**
+@@ -205,13 +204,6 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+     /** Stores a map with the named configurations. */
+     private Map namedConfigurations;
+ 
+-    /** The default behavior is to ignore exceptions that occur during reload */
+-    private boolean ignoreReloadExceptions = true;
+-
+-    //private final Object reloadLock = new Object();
+-
+-    private boolean reloadRequired = false;
+-
+     /**
+      * An expression engine used for converting child configurations to
+      * hierarchical ones.
+@@ -245,12 +237,6 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+         this(null);
+     }
+ 
+-    /*
+-    public Object getReloadLock()
+-    {
+-        return reloadLock;
+-    } */
+-
+     /**
+      * Returns the node combiner that is used for creating the combined node
+      * structure.
+@@ -343,26 +329,6 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+         this.conversionExpressionEngine = conversionExpressionEngine;
+     }
+ 
+-    /**
+-     * Retrieves the value of the ignoreReloadExceptions flag.
+-     * @return true if exceptions are ignored, false otherwise.
+-     */
+-    public boolean isIgnoreReloadExceptions()
+-    {
+-        return ignoreReloadExceptions;
+-    }
+-
+-    /**
+-     * If set to true then exceptions that occur during reloading will be
+-     * ignored. If false then the exceptions will be allowed to be thrown
+-     * back to the caller.
+-     * @param ignoreReloadExceptions true if exceptions should be ignored.
+-     */
+-    public void setIgnoreReloadExceptions(boolean ignoreReloadExceptions)
+-    {
+-        this.ignoreReloadExceptions = ignoreReloadExceptions;
+-    }
+-
+     /**
+      * Adds a new configuration to this combined configuration. It is possible
+      * (but not mandatory) to give the new configuration a name. This name must
+@@ -580,7 +546,7 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+      */
+     public void invalidate()
+     {
+-        reloadRequired = true;
++        combinedRoot = null;
+         fireEvent(EVENT_COMBINED_INVALIDATE, null, null, false);
+     }
+ 
+@@ -612,153 +578,13 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+      */
+     public ConfigurationNode getRootNode()
+     {
+-        synchronized(getReloadLock())
+-        {
+-            if (reloadRequired || combinedRoot == null)
+-            {
+-                combinedRoot = constructCombinedNode();
+-                reloadRequired = false;
+-            }
+-            return combinedRoot;
+-        }
+-    }
+-    /*
+-    public Object getProperty(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getProperty(key);
+-        }
+-    }
+-
+-    protected void addPropertyDirect(String key, Object obj)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.addPropertyDirect(key, obj);
+-        }
+-    }
+-
+-    public void addNodes(String key, Collection nodes)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.addNodes(key, nodes);
+-        }
+-    }
+-
+-    public boolean isEmpty()
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.isEmpty();
+-        }
+-    }
+-
+-    public Configuration subset(String prefix)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.subset(prefix);
+-        }
+-    }
+-
+-    public SubnodeConfiguration configurationAt(String key, boolean supportUpdates)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.configurationAt(key, supportUpdates);
+-        }
+-    }
+-
+-    public SubnodeConfiguration configurationAt(String key)
+-    {
+-        synchronized(reloadLock)
++        if (combinedRoot == null)
+         {
+-            return super.configurationAt(key);
++            combinedRoot = constructCombinedNode();
+         }
++        return combinedRoot;
+     }
+ 
+-    public List configurationsAt(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.configurationsAt(key);
+-        }
+-    }
+-
+-    protected SubnodeConfiguration createSubnodeConfiguration(ConfigurationNode node)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.createSubnodeConfiguration(node);
+-        }
+-    }
+-
+-    protected SubnodeConfiguration createSubnodeConfiguration(ConfigurationNode node, String subnodeKey)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.createSubnodeConfiguration(node, subnodeKey);
+-        }
+-    }
+-
+-    public boolean containsKey(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.containsKey(key);
+-        }
+-    }
+-
+-    public void setProperty(String key, Object value)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.setProperty(key, value);
+-        }
+-    }
+-
+-    public void clearTree(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.clearTree(key);
+-        }
+-    }
+-
+-    public void clearProperty(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.clearProperty(key);
+-        }
+-    }
+-
+-    public Iterator getKeys()
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getKeys();
+-        }
+-    }
+-
+-    public Iterator getKeys(String prefix)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getKeys(prefix);
+-        }
+-    }
+-
+-    public int getMaxIndex(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getMaxIndex(key);
+-        }
+-    } */
+-
+     /**
+      * Clears this configuration. All contained configurations will be removed.
+      */
+@@ -890,10 +716,8 @@ public class CombinedConfiguration extends HierarchicalReloadableConfiguration i
+             }
+             catch (Exception ex)
+             {
+-                if (!ignoreReloadExceptions)
+-                {
+-                    throw new ConfigurationRuntimeException(ex);
+-                }
++                // ignore all exceptions, e.g. missing property exceptions
++                ;
+             }
+         }
+     }
+diff --git a/src/java/org/apache/commons/configuration/DefaultFileSystem.java b/src/java/org/apache/commons/configuration/DefaultFileSystem.java
+index 69f1c019..f20a1855 100644
+--- a/src/java/org/apache/commons/configuration/DefaultFileSystem.java
++++ b/src/java/org/apache/commons/configuration/DefaultFileSystem.java
+@@ -16,9 +16,6 @@
+  */
+ package org.apache.commons.configuration;
+ 
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
+-
+ import java.io.InputStream;
+ import java.io.File;
+ import java.io.IOException;
+@@ -38,11 +35,6 @@ import java.net.MalformedURLException;
+  */
+ public class DefaultFileSystem extends FileSystem
+ {
+-    /**
+-     * The Log for diagnostic messages.
+-     */
+-    private Log log = LogFactory.getLog(DefaultFileSystem.class);
+-
+     public InputStream getInputStream(String basePath, String fileName)
+         throws ConfigurationException
+     {
+@@ -262,10 +254,6 @@ public class DefaultFileSystem extends FileSystem
+         }
+         catch (IOException e)
+         {
+-            if (log.isDebugEnabled())
+-            {
+-                log.debug("Could not locate file " + fileName + " at " + basePath + ": " + e.getMessage());
+-            }
+             return null;
+         }
+     }
+diff --git a/src/java/org/apache/commons/configuration/DynamicCombinedConfiguration.java b/src/java/org/apache/commons/configuration/DynamicCombinedConfiguration.java
+index d7ae6582..f8d5b216 100644
+--- a/src/java/org/apache/commons/configuration/DynamicCombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DynamicCombinedConfiguration.java
+@@ -87,7 +87,6 @@ public class DynamicCombinedConfiguration extends CombinedConfiguration
+     {
+         super();
+         setNodeCombiner(comb);
+-        setIgnoreReloadExceptions(false);
+     }
+ 
+     /**
+@@ -99,7 +98,6 @@ public class DynamicCombinedConfiguration extends CombinedConfiguration
+     public DynamicCombinedConfiguration()
+     {
+         super();
+-        setIgnoreReloadExceptions(false);
+     }
+ 
+     public void setKeyPattern(String pattern)
+@@ -770,7 +768,6 @@ public class DynamicCombinedConfiguration extends CombinedConfiguration
+                         config.setLogger(log);
+                     }
+                 }
+-                config.setIgnoreReloadExceptions(isIgnoreReloadExceptions());
+                 config.setExpressionEngine(this.getExpressionEngine());
+                 config.setDelimiterParsingDisabled(isDelimiterParsingDisabled());
+                 config.setConversionExpressionEngine(getConversionExpressionEngine());
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index 8a87b075..28d9a623 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -193,16 +193,6 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+         }
+     }
+ 
+-    /**
+-     * Object to synchronize on a reload. This class is not reloadable so this
+-     * object isn't important
+-     * @return
+-     */
+-    public Object getReloadLock()
+-    {
+-        return this;
+-    }
+-
+     /**
+      * Returns the root node of this hierarchical configuration. This method
+      * exists for backwards compatibility only. New code should use the
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalReloadableConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalReloadableConfiguration.java
+deleted file mode 100644
+index 5210d1d8..00000000
+--- a/src/java/org/apache/commons/configuration/HierarchicalReloadableConfiguration.java
++++ /dev/null
+@@ -1,206 +0,0 @@
+-package org.apache.commons.configuration;
+-
+-import org.apache.commons.configuration.tree.ConfigurationNode;
+-import org.apache.commons.configuration.event.ConfigurationEvent;
+-import org.apache.commons.configuration.reloading.Reloadable;
+-
+-import java.util.Collection;
+-import java.util.List;
+-import java.util.Iterator;
+-
+-/**
+- *
+- */
+-public class HierarchicalReloadableConfiguration extends HierarchicalConfiguration
+-    implements Reloadable
+-{
+-    private final Object reloadLock;
+-
+-    /**
+-     * Creates a new instance of <code>HierarchicalReloadableConfiguration</code>.
+-     */
+-    public HierarchicalReloadableConfiguration()
+-    {
+-        super();
+-        reloadLock = new Object();
+-    }
+-
+-    public HierarchicalReloadableConfiguration(Object lock)
+-    {
+-        super();
+-        reloadLock = lock == null ? new Object() : lock;
+-    }
+-
+-    /**
+-     * Creates a new instance of <code>HierarchicalConfiguration</code> and
+-     * copies all data contained in the specified configuration into the new
+-     * one.
+-     *
+-     * @param c the configuration that is to be copied (if <b>null</b>, this
+-     * constructor will behave like the standard constructor)
+-     * @since 1.4
+-     */
+-    public HierarchicalReloadableConfiguration(HierarchicalConfiguration c)
+-    {
+-        super(c);
+-        reloadLock = new Object();
+-    }
+-
+-
+-    public Object getReloadLock()
+-    {
+-        return reloadLock;
+-    }
+-
+-    public Object getProperty(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getProperty(key);
+-        }
+-    }
+-
+-    protected void addPropertyDirect(String key, Object obj)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.addPropertyDirect(key, obj);
+-        }
+-    }
+-
+-    public void addNodes(String key, Collection nodes)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.addNodes(key, nodes);
+-        }
+-    }
+-
+-    public boolean isEmpty()
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.isEmpty();
+-        }
+-    }
+-
+-    public Configuration subset(String prefix)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.subset(prefix);
+-        }
+-    }
+-
+-    public SubnodeConfiguration configurationAt(String key, boolean supportUpdates)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.configurationAt(key, supportUpdates);
+-        }
+-    }
+-
+-    public SubnodeConfiguration configurationAt(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.configurationAt(key);
+-        }
+-    }
+-
+-    public List configurationsAt(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.configurationsAt(key);
+-        }
+-    }
+-
+-    protected SubnodeConfiguration createSubnodeConfiguration(ConfigurationNode node)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.createSubnodeConfiguration(node);
+-        }
+-    }
+-
+-    protected SubnodeConfiguration createSubnodeConfiguration(ConfigurationNode node, String subnodeKey)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.createSubnodeConfiguration(node, subnodeKey);
+-        }
+-    }
+-
+-    protected void subnodeConfigurationChanged(ConfigurationEvent event)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.subnodeConfigurationChanged(event);
+-        }
+-    }
+-
+-    void registerSubnodeConfiguration(SubnodeConfiguration config)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.registerSubnodeConfiguration(config);
+-        }
+-    }
+-
+-    public boolean containsKey(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.containsKey(key);
+-        }
+-    }
+-
+-    public void setProperty(String key, Object value)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.setProperty(key, value);
+-        }
+-    }
+-
+-    public void clearTree(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.clearTree(key);
+-        }
+-    }
+-
+-    public void clearProperty(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            super.clearProperty(key);
+-        }
+-    }
+-
+-    public Iterator getKeys()
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getKeys();
+-        }
+-    }
+-
+-    public Iterator getKeys(String prefix)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getKeys(prefix);
+-        }
+-    }
+-
+-    public int getMaxIndex(String key)
+-    {
+-        synchronized(reloadLock)
+-        {
+-            return super.getMaxIndex(key);
+-        }
+-    }
+-}
+diff --git a/src/java/org/apache/commons/configuration/MultiFileHierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/MultiFileHierarchicalConfiguration.java
+index 809e16e5..dfc84798 100644
+--- a/src/java/org/apache/commons/configuration/MultiFileHierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/MultiFileHierarchicalConfiguration.java
+@@ -43,7 +43,6 @@ import org.apache.commons.beanutils.BeanUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ import org.xml.sax.EntityResolver;
+-import org.xml.sax.SAXParseException;
+ 
+ /**
+  * This class provides access to multiple configuration files that reside in a location that
+@@ -93,7 +92,7 @@ public class MultiFileHierarchicalConfiguration extends AbstractHierarchicalFile
+     private boolean attributeSplittingDisabled;
+ 
+     /** The Logger name to use */
+-    private String loggerName = MultiFileHierarchicalConfiguration.class.getName();
++    private String loggerName = "";
+ 
+     /** The Reloading strategy to use on created configurations */
+     private ReloadingStrategy fileStrategy;
+@@ -108,7 +107,6 @@ public class MultiFileHierarchicalConfiguration extends AbstractHierarchicalFile
+     {
+         super();
+         this.init = true;
+-        setLogger(LogFactory.getLog(loggerName));
+     }
+ 
+     /**
+@@ -623,14 +621,6 @@ public class MultiFileHierarchicalConfiguration extends AbstractHierarchicalFile
+                 listener.configurationError(event);
+             }
+         }
+-
+-        if (event.getType() == AbstractFileConfiguration.EVENT_RELOAD)
+-        {
+-            if (isThrowable(event.getCause()))
+-            {
+-                throw new ConfigurationRuntimeException(event.getCause());
+-            }
+-        }
+     }
+ 
+     /*
+@@ -740,7 +730,7 @@ public class MultiFileHierarchicalConfiguration extends AbstractHierarchicalFile
+         }
+         catch (ConfigurationException ce)
+         {
+-            if (isThrowable(ce))
++            if (!ignoreException)
+             {
+                 throw new ConfigurationRuntimeException(ce);
+             }
+@@ -756,20 +746,6 @@ public class MultiFileHierarchicalConfiguration extends AbstractHierarchicalFile
+         return configuration;
+     }
+ 
+-    private boolean isThrowable(Throwable throwable)
+-    {
+-        if (!ignoreException)
+-        {
+-            return true;
+-        }
+-        Throwable cause = throwable.getCause();
+-        while (cause != null && !(cause instanceof SAXParseException))
+-        {
+-            cause = cause.getCause();
+-        }
+-        return cause != null;
+-    }
+-
+     /**
+      * Clone the FileReloadingStrategy since each file needs its own.
+      * @return A new FileReloadingStrategy.
+diff --git a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+index 457e8142..4b6f941f 100644
+--- a/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
++++ b/src/java/org/apache/commons/configuration/SubnodeConfiguration.java
+@@ -23,7 +23,6 @@ import java.util.List;
+ 
+ import org.apache.commons.configuration.interpol.ConfigurationInterpolator;
+ import org.apache.commons.configuration.tree.ConfigurationNode;
+-import org.apache.commons.configuration.reloading.Reloadable;
+ 
+ /**
+  * <p>
+@@ -115,7 +114,7 @@ import org.apache.commons.configuration.reloading.Reloadable;
+  * @author Oliver Heger
+  * @version $Id$
+  */
+-public class SubnodeConfiguration extends HierarchicalReloadableConfiguration
++public class SubnodeConfiguration extends HierarchicalConfiguration
+ {
+     /**
+      * The serial version UID.
+@@ -137,7 +136,6 @@ public class SubnodeConfiguration extends HierarchicalReloadableConfiguration
+      */
+     public SubnodeConfiguration(HierarchicalConfiguration parent, ConfigurationNode root)
+     {
+-        super(parent instanceof Reloadable ? ((Reloadable) parent).getReloadLock() : null);
+         if (parent == null)
+         {
+             throw new IllegalArgumentException(
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index c44e7be1..89dd9b1f 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -939,11 +939,11 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+         }
+         catch (SAXParseException spe)
+         {
++            this.getLogger().debug("Error parsing " + source.getSystemId(), spe);
+             throw new ConfigurationException("Error parsing " + source.getSystemId(), spe);
+         }
+         catch (Exception e)
+         {
+-            this.getLogger().debug("Unable to load the configuraton", e);
+             throw new ConfigurationException("Unable to load the configuration", e);
+         }
+     }
+diff --git a/src/java/org/apache/commons/configuration/reloading/FileChangedReloadingStrategy.java b/src/java/org/apache/commons/configuration/reloading/FileChangedReloadingStrategy.java
+index ad54ea29..b2b390a4 100644
+--- a/src/java/org/apache/commons/configuration/reloading/FileChangedReloadingStrategy.java
++++ b/src/java/org/apache/commons/configuration/reloading/FileChangedReloadingStrategy.java
+@@ -23,8 +23,6 @@ import java.net.URL;
+ 
+ import org.apache.commons.configuration.ConfigurationUtils;
+ import org.apache.commons.configuration.FileConfiguration;
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
+ 
+ /**
+  * <p>A reloading strategy that will reload the configuration every time its
+@@ -66,9 +64,6 @@ public class FileChangedReloadingStrategy implements ReloadingStrategy
+     /** A flag whether a reload is required.*/
+     private boolean reloading;
+ 
+-    /** The Log to use for diagnostic messages */
+-    private Log logger = LogFactory.getLog(FileChangedReloadingStrategy.class);
+-
+     public void setConfiguration(FileConfiguration configuration)
+     {
+         this.configuration = configuration;
+@@ -90,10 +85,6 @@ public class FileChangedReloadingStrategy implements ReloadingStrategy
+                 lastChecked = now;
+                 if (hasChanged())
+                 {
+-                    if (logger.isDebugEnabled())
+-                    {
+-                        logger.debug("File change detected: " + getName());
+-                    }
+                     reloading = true;
+                 }
+             }
+@@ -150,11 +141,6 @@ public class FileChangedReloadingStrategy implements ReloadingStrategy
+         File file = getFile();
+         if (file == null || !file.exists())
+         {
+-            if (logger.isWarnEnabled() && lastModified != 0)
+-            {
+-                logger.warn("File was deleted: " + getName(file));
+-                lastModified = 0;
+-            }
+             return false;
+         }
+ 
+@@ -200,27 +186,4 @@ public class FileChangedReloadingStrategy implements ReloadingStrategy
+             return ConfigurationUtils.fileFromURL(url);
+         }
+     }
+-
+-    private String getName()
+-    {
+-        return getName(getFile());
+-    }
+-
+-    private String getName(File file)
+-    {
+-        String name = configuration.getURL().toString();
+-        if (name == null)
+-        {
+-            if (file != null)
+-            {
+-                name = file.getAbsolutePath();
+-            }
+-            else
+-            {
+-                name = "base: " + configuration.getBasePath()
+-                       + "file: " + configuration.getFileName();
+-            }
+-        }
+-        return name;
+-    }
+ }
+diff --git a/src/java/org/apache/commons/configuration/reloading/Reloadable.java b/src/java/org/apache/commons/configuration/reloading/Reloadable.java
+deleted file mode 100644
+index 88a486c7..00000000
+--- a/src/java/org/apache/commons/configuration/reloading/Reloadable.java
++++ /dev/null
+@@ -1,9 +0,0 @@
+-package org.apache.commons.configuration.reloading;
+-
+-/**
+- * Interface that allows other objects to synchronize on a root lock.
+- */
+-public interface Reloadable
+-{
+-    Object getReloadLock();
+-}
+diff --git a/src/java/org/apache/commons/configuration/reloading/VFSFileChangedReloadingStrategy.java b/src/java/org/apache/commons/configuration/reloading/VFSFileChangedReloadingStrategy.java
+deleted file mode 100644
+index 8b54b69e..00000000
+--- a/src/java/org/apache/commons/configuration/reloading/VFSFileChangedReloadingStrategy.java
++++ /dev/null
+@@ -1,204 +0,0 @@
+-/*
+- * Licensed to the Apache Software Foundation (ASF) under one or more
+- * contributor license agreements.  See the NOTICE file distributed with
+- * this work for additional information regarding copyright ownership.
+- * The ASF licenses this file to You under the Apache License, Version 2.0
+- * (the "License"); you may not use this file except in compliance with
+- * the License.  You may obtain a copy of the License at
+- *
+- *     http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-package org.apache.commons.configuration.reloading;
+-
+-import org.apache.commons.configuration.FileConfiguration;
+-import org.apache.commons.configuration.FileSystemBased;
+-import org.apache.commons.configuration.FileSystem;
+-import org.apache.commons.configuration.ConfigurationRuntimeException;
+-import org.apache.commons.vfs.FileSystemManager;
+-import org.apache.commons.vfs.FileObject;
+-import org.apache.commons.vfs.VFS;
+-import org.apache.commons.vfs.FileSystemException;
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
+-
+-/**
+- * <p>A reloading strategy that will reload the configuration every time its
+- * underlying file is changed.</p>
+- * <p>This reloading strategy does not actively monitor a configuration file,
+- * but is triggered by its associated configuration whenever properties are
+- * accessed. It then checks the configuration file's last modification date
+- * and causes a reload if this has changed.</p>
+- * <p>To avoid permanent disc access on successive property lookups a refresh
+- * delay can be specified. This has the effect that the configuration file's
+- * last modification date is only checked once in this delay period. The default
+- * value for this refresh delay is 5 seconds.</p>
+- * <p>This strategy only works with FileConfiguration instances.</p>
+- *
+- * @author Emmanuel Bourg
+- * @version $Revision$, $Date$
+- * @since 1.1
+- */
+-public class VFSFileChangedReloadingStrategy implements ReloadingStrategy
+-{
+-    /** Constant for the default refresh delay.*/
+-    private static final int DEFAULT_REFRESH_DELAY = 5000;
+-
+-    /** Stores a reference to the configuration to be monitored.*/
+-    protected FileConfiguration configuration;
+-
+-    /** The last time the configuration file was modified. */
+-    protected long lastModified;
+-
+-    /** The last time the file was checked for changes. */
+-    protected long lastChecked;
+-
+-    /** The minimum delay in milliseconds between checks. */
+-    protected long refreshDelay = DEFAULT_REFRESH_DELAY;
+-
+-    /** A flag whether a reload is required.*/
+-    private boolean reloading;
+-
+-    /** Stores the logger.*/
+-    private Log log = LogFactory.getLog(getClass());
+-
+-    public void setConfiguration(FileConfiguration configuration)
+-    {
+-        this.configuration = configuration;
+-    }
+-
+-    public void init()
+-    {
+-        if (configuration.getURL() == null && configuration.getFileName() == null)
+-        {
+-            return;
+-        }
+-        if (this.configuration == null)
+-        {
+-            throw new IllegalStateException("No configuration has been set for this strategy");
+-        }
+-        updateLastModified();
+-    }
+-
+-    public boolean reloadingRequired()
+-    {
+-        if (!reloading)
+-        {
+-            long now = System.currentTimeMillis();
+-
+-            if (now > lastChecked + refreshDelay)
+-            {
+-                lastChecked = now;
+-                if (hasChanged())
+-                {
+-                    reloading = true;
+-                }
+-            }
+-        }
+-
+-        return reloading;
+-    }
+-
+-    public void reloadingPerformed()
+-    {
+-        updateLastModified();
+-    }
+-
+-    /**
+-     * Return the minimal time in milliseconds between two reloadings.
+-     *
+-     * @return the refresh delay (in milliseconds)
+-     */
+-    public long getRefreshDelay()
+-    {
+-        return refreshDelay;
+-    }
+-
+-    /**
+-     * Set the minimal time between two reloadings.
+-     *
+-     * @param refreshDelay refresh delay in milliseconds
+-     */
+-    public void setRefreshDelay(long refreshDelay)
+-    {
+-        this.refreshDelay = refreshDelay;
+-    }
+-
+-    /**
+-     * Update the last modified time.
+-     */
+-    protected void updateLastModified()
+-    {
+-        FileObject file = getFile();
+-        if (file != null)
+-        {
+-            try
+-            {
+-                lastModified = file.getContent().getLastModifiedTime();
+-            }
+-            catch (FileSystemException fse)
+-            {
+-                log.error("Unable to get last modified time for" + file.getName().getURI());
+-            }
+-        }
+-        reloading = false;
+-    }
+-
+-    /**
+-     * Check if the configuration has changed since the last time it was loaded.
+-     *
+-     * @return a flag whether the configuration has changed
+-     */
+-    protected boolean hasChanged()
+-    {
+-        FileObject file = getFile();
+-        try
+-        {
+-            if (file == null || !file.exists())
+-            {
+-                return false;
+-            }
+-
+-            return file.getContent().getLastModifiedTime() > lastModified;
+-        }
+-        catch (FileSystemException ex)
+-        {
+-            log.error("Unable to get last modified time for" + file.getName().getURI());
+-            return false;
+-        }
+-    }
+-
+-    /**
+-     * Returns the file that is monitored by this strategy. Note that the return
+-     * value can be <b>null </b> under some circumstances.
+-     *
+-     * @return the monitored file
+-     */
+-    protected FileObject getFile()
+-    {
+-        try
+-        {
+-            FileSystemManager fsManager = VFS.getManager();
+-            FileSystem fs = ((FileSystemBased) configuration).getFileSystem();
+-            String uri = fs.getPath(null, configuration.getURL(), configuration.getBasePath(),
+-                configuration.getFileName());
+-            if (uri == null)
+-            {
+-                throw new ConfigurationRuntimeException("Unable to determine file to monitor");
+-            }
+-            return fsManager.resolveFile(uri);
+-        }
+-        catch (FileSystemException fse)
+-        {
+-            String msg = "Unable to monitor " + configuration.getURL().toString();
+-            log.error(msg);
+-            throw new ConfigurationRuntimeException(msg, fse);
+-        }
+-    }
+-}
+diff --git a/src/java/org/apache/commons/configuration/reloading/VFSFileMonitorReloadingStrategy.java b/src/java/org/apache/commons/configuration/reloading/VFSFileMonitorReloadingStrategy.java
+new file mode 100644
+index 00000000..c749477b
+--- /dev/null
++++ b/src/java/org/apache/commons/configuration/reloading/VFSFileMonitorReloadingStrategy.java
+@@ -0,0 +1,245 @@
++/*
++ * Licensed to the Apache Software Foundation (ASF) under one or more
++ * contributor license agreements.  See the NOTICE file distributed with
++ * this work for additional information regarding copyright ownership.
++ * The ASF licenses this file to You under the Apache License, Version 2.0
++ * (the "License"); you may not use this file except in compliance with
++ * the License.  You may obtain a copy of the License at
++ *
++ *     http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package org.apache.commons.configuration.reloading;
++
++import org.apache.commons.configuration.FileConfiguration;
++import org.apache.commons.configuration.FileSystemBased;
++import org.apache.commons.configuration.ConfigurationRuntimeException;
++import org.apache.commons.configuration.FileSystem;
++import org.apache.commons.configuration.AbstractFileConfiguration;
++
++import org.apache.commons.vfs.impl.DefaultFileMonitor;
++import org.apache.commons.vfs.FileListener;
++import org.apache.commons.vfs.FileChangeEvent;
++import org.apache.commons.vfs.FileObject;
++import org.apache.commons.vfs.VFS;
++import org.apache.commons.vfs.FileSystemManager;
++import org.apache.commons.vfs.FileSystemException;
++
++import java.util.Iterator;
++import java.util.Map;
++import java.util.HashMap;
++
++/**
++ * <p>A reloading strategy that will reload the configuration every time its
++ * underlying file is changed.</p>
++ * @since 1.7
++ * @author <a
++ * href="http://commons.apache.org/configuration/team-list.html">Commons Configuration team</a>
++ */
++public class VFSFileMonitorReloadingStrategy implements ReloadingStrategy, FileListener
++{
++    /** Used to synchronize initialization of the monitor. */
++    private static final String INIT_GATE = "gate";
++
++    /** The FileMonitor */
++    private static DefaultFileMonitor fm;
++
++    /** The files being monitored */
++    private static Map strategies = new HashMap();
++
++    /** Mimimum delay value */
++    private static final long DEFAULT_DELAY = 1000;
++
++    /** Stores a reference to the configuration to be monitored. */
++    protected FileConfiguration configuration;
++
++    /** The reload status */
++    private boolean reloadRequired;
++
++    /** Delay interval between checking the files. */
++    private long delay;
++
++    /**
++     * Return the current delay interval.
++     * @return The delay interval.
++     */
++    public long getDelay()
++    {
++        return fm.getDelay();
++    }
++
++    /**
++     * Request a new delay interval. If the interval specified is less than
++     * what the monitor is currently using the interval will be ignored. If
++     * this method is called after the strategy has started it will be ignored.
++     * @param delay The requested delay interval.
++     */
++    public void setDelay(long delay)
++    {
++        this.delay = delay;
++    }
++
++    /**
++     * Specify the configuration to monitor. The configuration must be set before
++     * init is called.
++     * @param configuration The configuration to monitor.
++     */
++    public void setConfiguration(FileConfiguration configuration)
++    {
++        if (configuration == null || configuration instanceof FileSystemBased)
++        {
++            this.configuration = configuration;
++        }
++        else
++        {
++            throw new ConfigurationRuntimeException("Configuration must be based on a FileSystem");
++        }
++    }
++
++    /**
++     * Initialize the ReloadingStrategy.
++     */
++    public void init()
++    {
++        if (configuration.getURL() == null && configuration.getFileName() == null)
++        {
++            return;
++        }
++        if (this.configuration == null)
++        {
++            throw new IllegalStateException("No configuration has been set for this strategy");
++        }
++        FileObject file;
++
++        try
++        {
++            FileSystemManager fsManager = VFS.getManager();
++            FileSystem fs = ((FileSystemBased) configuration).getFileSystem();
++            String uri = fs.getPath(null, configuration.getURL(), configuration.getBasePath(),
++                configuration.getFileName());
++            if (uri == null)
++            {
++                throw new ConfigurationRuntimeException("Unable to determine file to monitor");
++            }
++            file = fsManager.resolveFile(uri);
++        }
++        catch (FileSystemException fse)
++        {
++            String msg = "Unable to monitor " + configuration.getURL().toString();
++            throw new ConfigurationRuntimeException(msg, fse);
++        }
++        synchronized (INIT_GATE)
++        {
++            if (fm == null)
++            {
++                fm = new DefaultFileMonitor(null);
++                long delayTime = (delay > DEFAULT_DELAY) ? delay : DEFAULT_DELAY;
++                fm.setDelay(delayTime);
++                fm.start();
++            }
++            else
++            {
++                long delayTime = fm.getDelay();
++                if (delay > delayTime)
++                {
++                    fm.setDelay(delay);
++                }
++            }
++            file.getFileSystem().addListener(file, this);
++            fm.addFile(file);
++            strategies.put(file, this);
++        }
++
++    }
++
++    /**
++     * Shutdown all reloading strategies
++     */
++    public static void stopMonitor()
++    {
++        synchronized (INIT_GATE)
++        {
++            if (fm != null)
++            {
++                fm.stop();
++                fm = null;
++            }
++
++            Iterator iter = strategies.entrySet().iterator();
++
++            while (iter.hasNext())
++            {
++                Map.Entry entry = (Map.Entry) iter.next();
++                FileObject file = (FileObject) entry.getKey();
++                VFSFileMonitorReloadingStrategy strategy = (VFSFileMonitorReloadingStrategy) entry.getValue();
++                file.getFileSystem().removeListener(file, strategy);
++            }
++            strategies.clear();
++        }
++    }
++
++    /**
++     * Tell if the evaluation of the strategy requires to reload the configuration.
++     *
++     * @return a flag whether a reload should be performed
++     */
++    public boolean reloadingRequired()
++    {
++        return reloadRequired;
++    }
++
++    /**
++     * Notify the strategy that the file has been reloaded.
++     */
++    public void reloadingPerformed()
++    {
++        reloadRequired = false;
++    }
++
++
++    /**
++     * Called when a file is created.
++     * @param event The event.
++     * @throws Exception If an error occurs.
++     */
++    public void fileCreated(FileChangeEvent event) throws Exception
++    {
++        reloadRequired = true;
++        fireEvent();
++    }
++
++    /**
++     * Called when a file is deleted.
++     * @param event The event.
++     * @throws Exception If an error occurs.
++     */
++    public void fileDeleted(FileChangeEvent event) throws Exception
++    {
++        // Ignore this event
++    }
++
++    /**
++     * Called when a file is changed.
++     * @param event The event.
++     * @throws Exception If an exception occurs.
++     */
++    public void fileChanged(FileChangeEvent event) throws Exception
++    {
++        reloadRequired = true;
++        fireEvent();
++    }
++
++    private void fireEvent()
++    {
++        if (configuration instanceof AbstractFileConfiguration)
++        {
++            ((AbstractFileConfiguration) configuration).configurationChanged();
++        }
++    }
++
++}

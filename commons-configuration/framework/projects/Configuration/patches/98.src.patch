@@ -1,0 +1,29 @@
+diff --git a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+index 4f25d214..6a50e06d 100644
+--- a/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
++++ b/src/java/org/apache/commons/configuration/DatabaseConfiguration.java
+@@ -406,7 +406,7 @@ public class DatabaseConfiguration extends AbstractConfiguration
+      *
+      * @param key the key of the property to be removed
+      */
+-    protected void clearPropertyDirect(String key)
++    public void clearProperty(String key)
+     {
+         // build the query
+         StringBuffer query = new StringBuffer("DELETE FROM " + table + " WHERE " + keyColumn + "=?");
+@@ -452,7 +452,6 @@ public class DatabaseConfiguration extends AbstractConfiguration
+      */
+     public void clear()
+     {
+-        fireEvent(EVENT_CLEAR, null, null, true);
+         // build the query
+         StringBuffer query = new StringBuffer("DELETE FROM " + table);
+         if (nameColumn != null)
+@@ -485,7 +484,6 @@ public class DatabaseConfiguration extends AbstractConfiguration
+             // clean up
+             close(conn, pstmt);
+         }
+-        fireEvent(EVENT_CLEAR, null, null, false);
+     }
+ 
+     /**

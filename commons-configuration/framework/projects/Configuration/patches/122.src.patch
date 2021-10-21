@@ -1,0 +1,58 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertyConverter.java b/src/java/org/apache/commons/configuration/PropertyConverter.java
+index 6847eef7..37cd2e5c 100644
+--- a/src/java/org/apache/commons/configuration/PropertyConverter.java
++++ b/src/java/org/apache/commons/configuration/PropertyConverter.java
+@@ -589,35 +589,19 @@ public final class PropertyConverter
+ 
+     /**
+      * Escapes the delimiters that might be contained in the given string. This
+-     * method works like {@link #escapeListDelimiter(String, char)}. In addition,
+-     * a single backslash will also be escaped.
+-     *
+-     * @param s the string with the value
+-     * @param delimiter the list delimiter to use
+-     * @return the correctly escaped string
+-     */
+-    public static String escapeDelimiters(String s, char delimiter)
+-    {
+-        String s1 = StringUtils.replace(s, LIST_ESCAPE, LIST_ESCAPE + LIST_ESCAPE);
+-        return escapeListDelimiter(s1, delimiter);
+-    }
+-
+-    /**
+-     * Escapes the list delimiter if it is contained in the given string. This
+      * method ensures that list delimiter characters that are part of a
+      * property's value are correctly escaped when a configuration is saved to a
+      * file. Otherwise when loaded again the property will be treated as a list
+-     * property.
++     * property. A single backslash will also be escaped.
+      *
+      * @param s the string with the value
+      * @param delimiter the list delimiter to use
+-     * @return the escaped string
+-     * @since 1.7
++     * @return the correctly esaped string
+      */
+-    public static String escapeListDelimiter(String s, char delimiter)
++    public static String escapeDelimiters(String s, char delimiter)
+     {
+-        return StringUtils.replace(s, String.valueOf(delimiter), LIST_ESCAPE
+-                + delimiter);
++        String s1 = StringUtils.replace(s, LIST_ESCAPE, LIST_ESCAPE + LIST_ESCAPE);
++        return StringUtils.replace(s1, String.valueOf(delimiter), LIST_ESCAPE + delimiter);
+     }
+ 
+     /**
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 44cc1c80..97a2e65f 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -1463,7 +1463,7 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+                     String txt = newNode.getValue().toString();
+                     if (listDelimiter != 0)
+                     {
+-                        txt = PropertyConverter.escapeListDelimiter(txt, listDelimiter);
++                        txt = PropertyConverter.escapeDelimiters(txt, listDelimiter);
+                     }
+                     elem.appendChild(document.createTextNode(txt));
+                 }

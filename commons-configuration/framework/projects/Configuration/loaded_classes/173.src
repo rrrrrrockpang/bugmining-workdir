@@ -1,0 +1,5 @@
+org.apache.commons.configuration.beanutils.BeanDeclaration
+org.apache.commons.configuration.beanutils.BeanFactory
+org.apache.commons.configuration.beanutils.BeanHelper
+org.apache.commons.configuration.beanutils.DefaultBeanFactory
+org.apache.commons.configuration.ConfigurationRuntimeException

@@ -1,0 +1,354 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertyConverter.java b/src/java/org/apache/commons/configuration/PropertyConverter.java
+index a02cc776..d46324a4 100644
+--- a/src/java/org/apache/commons/configuration/PropertyConverter.java
++++ b/src/java/org/apache/commons/configuration/PropertyConverter.java
+@@ -17,8 +17,6 @@
+ package org.apache.commons.configuration;
+ 
+ import java.awt.Color;
+-import java.lang.reflect.Constructor;
+-import java.lang.reflect.InvocationTargetException;
+ import java.math.BigDecimal;
+ import java.math.BigInteger;
+ import java.net.MalformedURLException;
+@@ -57,11 +55,6 @@ public final class PropertyConverter
+     /** Constant for the radix of hex numbers.*/
+     private static final int HEX_RADIX = 16;
+ 
+-    /** Constant for the argument classes of the Number constructor that takes
+-     * a String.
+-     */
+-    private static final Class[] CONSTR_ARGS = { String.class };
+-
+     /**
+      * Private constructor prevents instances from being created.
+      */
+@@ -107,14 +100,32 @@ public final class PropertyConverter
+      */
+     public static Byte toByte(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Byte.class);
+-        if (n instanceof Byte)
++        if (value instanceof Byte)
+         {
+-            return (Byte) n;
++            return (Byte) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                String string = (String) value;
++                if (string.startsWith(HEX_PREFIX))
++                {
++                    return new Byte((byte) Integer.parseInt(string.substring(2), HEX_RADIX));
++                }
++                else
++                {
++                    return new Byte(string);
++                }
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a Byte object", e);
++            }
+         }
+         else
+         {
+-            return new Byte(n.byteValue());
++            throw new ConversionException("The value " + value + " can't be converted to a Byte object");
+         }
+     }
+ 
+@@ -127,14 +138,33 @@ public final class PropertyConverter
+      */
+     public static Short toShort(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Short.class);
+-        if (n instanceof Short)
++        if (value instanceof Short)
+         {
+-            return (Short) n;
++            return (Short) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                String string = (String) value;
++                if (string.startsWith(HEX_PREFIX))
++                {
++                    return new Short((short) Integer.parseInt(string.substring(2), HEX_RADIX));
++                }
++                else
++                {
++                    return new Short(string);
++                }
++
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a Short object", e);
++            }
+         }
+         else
+         {
+-            return new Short(n.shortValue());
++            throw new ConversionException("The value " + value + " can't be converted to a Short object");
+         }
+     }
+ 
+@@ -147,14 +177,32 @@ public final class PropertyConverter
+      */
+     public static Integer toInteger(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Integer.class);
+-        if (n instanceof Integer)
++        if (value instanceof Integer)
++        {
++            return (Integer) value;
++        }
++        else if (value instanceof String)
+         {
+-            return (Integer) n;
++            try
++            {
++                String string = (String) value;
++                if (string.startsWith(HEX_PREFIX))
++                {
++                    return new Integer((int) Long.parseLong(string.substring(2), HEX_RADIX));
++                }
++                else
++                {
++                    return new Integer(string);
++                }
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to an Integer object", e);
++            }
+         }
+         else
+         {
+-            return new Integer(n.intValue());
++            throw new ConversionException("The value " + value + " can't be converted to an Integer object");
+         }
+     }
+ 
+@@ -167,14 +215,32 @@ public final class PropertyConverter
+      */
+     public static Long toLong(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Long.class);
+-        if (n instanceof Long)
++        if (value instanceof Long)
+         {
+-            return (Long) n;
++            return (Long) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                String string = (String) value;
++                if (string.startsWith(HEX_PREFIX))
++                {
++                    return new Long(new BigInteger(string.substring(2), HEX_RADIX).longValue());
++                }
++                else
++                {
++                    return new Long(string);
++                }
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a Long object", e);
++            }
+         }
+         else
+         {
+-            return new Long(n.longValue());
++            throw new ConversionException("The value " + value + " can't be converted to a Long object");
+         }
+     }
+ 
+@@ -187,14 +253,24 @@ public final class PropertyConverter
+      */
+     public static Float toFloat(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Float.class);
+-        if (n instanceof Float)
++        if (value instanceof Float)
+         {
+-            return (Float) n;
++            return (Float) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                return new Float((String) value);
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a Float object", e);
++            }
+         }
+         else
+         {
+-            return new Float(n.floatValue());
++            throw new ConversionException("The value " + value + " can't be converted to a Float object");
+         }
+     }
+ 
+@@ -207,14 +283,24 @@ public final class PropertyConverter
+      */
+     public static Double toDouble(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, Double.class);
+-        if (n instanceof Double)
++        if (value instanceof Double)
+         {
+-            return (Double) n;
++            return (Double) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                return new Double((String) value);
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a Double object", e);
++            }
+         }
+         else
+         {
+-            return new Double(n.doubleValue());
++            throw new ConversionException("The value " + value + " can't be converted to a Double object");
+         }
+     }
+ 
+@@ -227,14 +313,32 @@ public final class PropertyConverter
+      */
+     public static BigInteger toBigInteger(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, BigInteger.class);
+-        if (n instanceof BigInteger)
++        if (value instanceof BigInteger)
+         {
+-            return (BigInteger) n;
++            return (BigInteger) value;
++        }
++        else if (value instanceof String)
++        {
++            try
++            {
++                String string = (String) value;
++                if (string.startsWith(HEX_PREFIX))
++                {
++                    return new BigInteger(string.substring(2), HEX_RADIX);
++                }
++                else
++                {
++                    return new BigInteger(string);
++                }
++            }
++            catch (NumberFormatException e)
++            {
++                throw new ConversionException("The value " + value + " can't be converted to a BigInteger object", e);
++            }
+         }
+         else
+         {
+-            return BigInteger.valueOf(n.longValue());
++            throw new ConversionException("The value " + value + " can't be converted to a BigInteger object");
+         }
+     }
+ 
+@@ -247,74 +351,25 @@ public final class PropertyConverter
+      */
+     public static BigDecimal toBigDecimal(Object value) throws ConversionException
+     {
+-        Number n = toNumber(value, BigDecimal.class);
+-        if (n instanceof BigDecimal)
+-        {
+-            return (BigDecimal) n;
+-        }
+-        else
+-        {
+-            return new BigDecimal(n.doubleValue());
+-        }
+-    }
+-
+-    /**
+-     * Tries to convert the specified object into a number object. This method
+-     * is used by the conversion methods for number types. Note that the return
+-     * value is not in always of the specified target class, but only if a new
+-     * object has to be created.
+-     *
+-     * @param value the value to be converted (must not be <b>null</b>)
+-     * @param targetClass the target class of the conversion (must be derived
+-     * from <code>java.lang.Number</code>)
+-     * @return the converted number
+-     * @throws ConversionException if the object cannot be converted
+-     */
+-    static Number toNumber(Object value, Class targetClass)
+-            throws ConversionException
+-    {
+-        if (value instanceof Number)
++        if (value instanceof BigDecimal)
+         {
+-            return (Number) value;
++            return (BigDecimal) value;
+         }
+-        else
++        else if (value instanceof String)
+         {
+-            String str = value.toString();
+-            if (str.startsWith(HEX_PREFIX))
+-            {
+-                try
+-                {
+-                    return new BigInteger(str.substring(HEX_PREFIX.length()),
+-                            HEX_RADIX);
+-                }
+-                catch (NumberFormatException nex)
+-                {
+-                    throw new ConversionException("Could not convert " + str
+-                            + " to " + targetClass.getName()
+-                            + "! Invalid hex number.", nex);
+-                }
+-            }
+-
+             try
+             {
+-                Constructor constr = targetClass.getConstructor(CONSTR_ARGS);
+-                return (Number) constr.newInstance(new Object[]
+-                { str });
+-            }
+-            catch (InvocationTargetException itex)
+-            {
+-                throw new ConversionException("Could not convert " + str
+-                        + " to " + targetClass.getName(), itex
+-                        .getTargetException());
++                return new BigDecimal((String) value);
+             }
+-            catch (Exception ex)
++            catch (NumberFormatException e)
+             {
+-                // Treat all possible exceptions the same way
+-                throw new ConversionException(
+-                        "Conversion error when trying to convert " + str
+-                                + " to " + targetClass.getName(), ex);
++                throw new ConversionException("The value " + value + " can't be converted to a BigDecimal object", e);
+             }
+         }
++        else
++        {
++            throw new ConversionException("The value " + value + " can't be converted to a BigDecimal object");
++        }
+     }
+ 
+     /**

@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java b/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
+index 5747b697..ae5f115d 100644
+--- a/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
+@@ -1417,7 +1417,6 @@ public class PropertiesConfiguration extends BaseConfiguration
+         }
+ 
+         FileHandler fh = new FileHandler(this);
+-        fh.setFileLocator(locator);
+         fh.load(url);
+     }
+ 

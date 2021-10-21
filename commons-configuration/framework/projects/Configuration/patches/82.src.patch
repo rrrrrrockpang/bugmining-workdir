@@ -1,0 +1,84 @@
+diff --git a/src/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+index 4e0e83fb..fc696b6d 100644
+--- a/src/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -30,7 +30,6 @@ import org.apache.commons.configuration.tree.ConfigurationNode;
+ import org.apache.commons.configuration.tree.DefaultConfigurationKey;
+ import org.apache.commons.configuration.tree.DefaultConfigurationNode;
+ import org.apache.commons.configuration.tree.DefaultExpressionEngine;
+-import org.apache.commons.configuration.tree.ExpressionEngine;
+ import org.apache.commons.configuration.tree.NodeCombiner;
+ import org.apache.commons.configuration.tree.UnionCombiner;
+ import org.apache.commons.configuration.tree.ViewNode;
+@@ -201,12 +200,6 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+     /** Stores a map with the named configurations. */
+     private Map namedConfigurations;
+ 
+-    /**
+-     * An expression engine used for converting child configurations to
+-     * hierarchical ones.
+-     */
+-    private ExpressionEngine conversionExpressionEngine;
+-
+     /** A flag whether an enhanced reload check is to be performed.*/
+     private boolean forceReloadCheck;
+ 
+@@ -293,39 +286,6 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+         this.forceReloadCheck = forceReloadCheck;
+     }
+ 
+-    /**
+-     * Returns the <code>ExpressionEngine</code> for converting flat child
+-     * configurations to hierarchical ones.
+-     *
+-     * @return the conversion expression engine
+-     * @since 1.6
+-     */
+-    public ExpressionEngine getConversionExpressionEngine()
+-    {
+-        return conversionExpressionEngine;
+-    }
+-
+-    /**
+-     * Sets the <code>ExpressionEngine</code> for converting flat child
+-     * configurations to hierarchical ones. When constructing the root node for
+-     * this combined configuration the properties of all child configurations
+-     * must be combined to a single hierarchical node structure. In this
+-     * process, non hierarchical configurations are converted to hierarchical
+-     * ones first. This can be problematic if a child configuration contains
+-     * keys that are no compatible with the default expression engine used by
+-     * hierarchical configurations. Therefore it is possible to specify a
+-     * specific expression engine to be used for this purpose.
+-     *
+-     * @param conversionExpressionEngine the conversion expression engine
+-     * @see ConfigurationUtils#convertToHierarchical(Configuration, ExpressionEngine)
+-     * @since 1.6
+-     */
+-    public void setConversionExpressionEngine(
+-            ExpressionEngine conversionExpressionEngine)
+-    {
+-        this.conversionExpressionEngine = conversionExpressionEngine;
+-    }
+-
+     /**
+      * Adds a new configuration to this combined configuration. It is possible
+      * (but not mandatory) to give the new configuration a name. This name must
+@@ -748,7 +708,7 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+      * An internal helper class for storing information about contained
+      * configurations.
+      */
+-    class ConfigData
++    static class ConfigData
+     {
+         /** Stores a reference to the configuration. */
+         private AbstractConfiguration configuration;
+@@ -848,8 +808,7 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+ 
+             // Copy data of the root node to the new path
+             HierarchicalConfiguration hc = ConfigurationUtils
+-                    .convertToHierarchical(getConfiguration(),
+-                            getConversionExpressionEngine());
++                    .convertToHierarchical(getConfiguration());
+             atParent.appendChildren(hc.getRootNode());
+             atParent.appendAttributes(hc.getRootNode());
+             rootNode = hc.getRootNode();

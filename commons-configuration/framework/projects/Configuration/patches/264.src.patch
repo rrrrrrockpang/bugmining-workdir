@@ -1,0 +1,20 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java b/src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java
+index 440dd9e1..dc9a1f5c 100644
+--- a/src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java
++++ b/src/main/java/org/apache/commons/configuration2/interpol/ExprLookup.java
+@@ -157,14 +157,11 @@ public class ExprLookup implements Lookup
+ 
+     /**
+      * Returns the list of Variables that are accessible within expressions.
+-     * This method returns a copy of the variables managed by this lookup; so
+-     * modifying this object has no impact on this lookup.
+-     *
+      * @return the List of Variables that are accessible within expressions.
+      */
+     public Variables getVariables()
+     {
+-        return new Variables(variables);
++        return null;
+     }
+ 
+     /**

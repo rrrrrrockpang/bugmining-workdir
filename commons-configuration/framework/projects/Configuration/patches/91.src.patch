@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractConfiguration.java b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+index fa9a4e9d..0fece8a8 100644
+--- a/src/java/org/apache/commons/configuration/AbstractConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+@@ -1004,7 +1004,7 @@ public abstract class AbstractConfiguration extends EventSource implements Confi
+             }
+             catch (ConversionException e)
+             {
+-                throw new ConversionException('\'' + key + "' doesn't map to a BigInteger object", e);
++                throw new ConversionException('\'' + key + "' doesn't map to a BigDecimal object", e);
+             }
+         }
+     }

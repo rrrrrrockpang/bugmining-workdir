@@ -1,0 +1,46 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java b/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
+index 7569d88f..332c15a0 100644
+--- a/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
+@@ -170,30 +170,22 @@ public class XMLPropertyListConfiguration extends BaseHierarchicalConfiguration
+         super(new InMemoryNodeModel(root));
+     }
+ 
+-    private void setPropertyDirect(final String key, final Object value) {
+-        setDetailEvents(false);
+-        try
+-        {
+-            clearProperty(key);
+-            addPropertyDirect(key, value);
+-        }
+-        finally
+-        {
+-            setDetailEvents(true);
+-        }
+-    }
+-
+     @Override
+     protected void setPropertyInternal(final String key, final Object value)
+     {
+         // special case for byte arrays, they must be stored as is in the configuration
+-        if (value instanceof byte[] || value instanceof List)
++        if (value instanceof byte[])
+         {
+-            setPropertyDirect(key, value);
+-        }
+-        else if (value instanceof Object[])
+-        {
+-            setPropertyDirect(key, Arrays.asList((Object[]) value));
++            setDetailEvents(false);
++            try
++            {
++                clearProperty(key);
++                addPropertyDirect(key, value);
++            }
++            finally
++            {
++                setDetailEvents(true);
++            }
+         }
+         else
+         {

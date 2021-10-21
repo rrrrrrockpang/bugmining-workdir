@@ -1,0 +1,32 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+index 6e2e51cd..18c65889 100644
+--- a/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractHierarchicalFileConfiguration.java
+@@ -24,7 +24,6 @@ import java.io.InputStream;
+ import java.io.OutputStream;
+ import java.net.URL;
+ import java.util.Iterator;
+-import java.util.List;
+ 
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+@@ -299,19 +298,6 @@ implements FileConfiguration, ConfigurationListener
+         return super.isEmpty();
+     }
+ 
+-    /**
+-     * Fetches a list of nodes, which are selected by the specified key. This
+-     * implementation will perform a reload if necessary.
+-     *
+-     * @param key the key
+-     * @return a list with the selected nodes
+-     */
+-    protected List fetchNodeList(String key)
+-    {
+-        reload();
+-        return super.fetchNodeList(key);
+-    }
+-
+     /**
+      * Creates the file configuration delegate, i.e. the object that implements
+      * functionality required by the <code>FileConfiguration</code> interface.

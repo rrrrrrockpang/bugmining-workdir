@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/SubsetConfiguration.java b/src/java/org/apache/commons/configuration/SubsetConfiguration.java
+index 9ddf8691..0225ac58 100644
+--- a/src/java/org/apache/commons/configuration/SubsetConfiguration.java
++++ b/src/java/org/apache/commons/configuration/SubsetConfiguration.java
+@@ -236,7 +236,7 @@ public class SubsetConfiguration extends AbstractConfiguration
+     /**
+      * {@inheritDoc}
+      */
+-    protected Object interpolate(Object base)
++    protected String interpolate(String base)
+     {
+         if (delimiter == null && "".equals(prefix))
+         {

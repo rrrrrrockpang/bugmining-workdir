@@ -1,0 +1,13 @@
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testINIConfiguration
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testDefaultBasePathFromDefinitionBuilder
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testSystemProperties
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testJndiConfiguration
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testDefaultBasePathInParameters
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder::testInterpolationOverMultipleSources
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testINIConfiguration
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testDefaultBasePathFromDefinitionBuilder
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testSystemProperties
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testJndiConfiguration
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testDefaultBasePathInParameters
+--- org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS::testInterpolationOverMultipleSources
+--- org.apache.commons.configuration.interpol.TestSystemPropertiesLookup::testLookupProperties

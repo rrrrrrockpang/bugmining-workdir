@@ -1,0 +1,81 @@
+diff --git a/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java b/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+index 4957f6c7..c0481ed7 100644
+--- a/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+@@ -668,26 +668,6 @@ public class TestHierarchicalConfiguration extends TestCase
+ 		checkContent(copy);
+ 	}
+ 
+-    /**
+-     * Tests interpolation facilities.
+-     */
+-    public void testInterpolation()
+-    {
+-        config.addProperty("base.dir", "/home/foo");
+-        config.addProperty("test.absolute.dir.dir1", "${base.dir}/path1");
+-        config.addProperty("test.absolute.dir.dir2", "${base.dir}/path2");
+-        config.addProperty("test.absolute.dir.dir3", "${base.dir}/path3");
+-
+-        Configuration sub = config.subset("test.absolute.dir");
+-        for (int i = 1; i < 4; i++)
+-        {
+-            assertEquals("Wrong interpolation in parent", "/home/foo/path" + i,
+-                    config.getString("test.absolute.dir.dir" + i));
+-            assertEquals("Wrong interpolation in subnode",
+-                    "/home/foo/path" + i, sub.getString("dir" + i));
+-        }
+-    }
+-
+ 	/**
+      * Tests the copy constructor when a null reference is passed.
+      */
+@@ -699,7 +679,7 @@ public class TestHierarchicalConfiguration extends TestCase
+ 
+ 	/**
+      * Helper method for testing the getKeys(String) method.
+-     *
++     * 
+      * @param prefix the key to pass into getKeys()
+      * @param expected the expected result
+      */
+@@ -766,7 +746,7 @@ public class TestHierarchicalConfiguration extends TestCase
+ 	/**
+      * Checks the content of the passed in configuration object. Used by some
+      * tests that copy a configuration.
+-     *
++     * 
+      * @param c the configuration to check
+      */
+ 	private void checkContent(Configuration c)
+diff --git a/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java b/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
+index 9629baf3..958466f1 100644
+--- a/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
+@@ -292,27 +292,6 @@ public class TestSubnodeConfiguration extends TestCase
+                 config.getString("tablespace"));
+     }
+ 
+-    /**
+-     * An additional test for interpolation when the configurationAt() method is
+-     * involved.
+-     */
+-    public void testInterpolationFromConfigurationAt()
+-    {
+-        parent.addProperty("base.dir", "/home/foo");
+-        parent.addProperty("test.absolute.dir.dir1", "${base.dir}/path1");
+-        parent.addProperty("test.absolute.dir.dir2", "${base.dir}/path2");
+-        parent.addProperty("test.absolute.dir.dir3", "${base.dir}/path3");
+-
+-        Configuration sub = parent.configurationAt("test.absolute.dir");
+-        for (int i = 1; i < 4; i++)
+-        {
+-            assertEquals("Wrong interpolation in parent", "/home/foo/path" + i,
+-                    parent.getString("test.absolute.dir.dir" + i));
+-            assertEquals("Wrong interpolation in subnode",
+-                    "/home/foo/path" + i, sub.getString("dir" + i));
+-        }
+-    }
+-
+     /**
+      * Initializes the parent configuration. This method creates the typical
+      * structure of tables and fields nodes.

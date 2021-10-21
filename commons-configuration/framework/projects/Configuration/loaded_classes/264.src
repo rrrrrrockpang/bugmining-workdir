@@ -1,0 +1,4 @@
+org.apache.commons.configuration2.ex.ConfigurationRuntimeException
+org.apache.commons.configuration2.interpol.ExprLookup
+org.apache.commons.configuration2.interpol.Lookup
+org.apache.commons.configuration2.io.FileBased

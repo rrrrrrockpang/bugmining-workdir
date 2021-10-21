@@ -1,0 +1,17 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java b/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
+index 91b8da22..f23eb9ba 100644
+--- a/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
+@@ -597,10 +597,10 @@ implements Cloneable
+      * @param config the configuration to query
+      * @param key the key of the property
+      */
+-    private  void appendListProperty(List<Object> dest, Configuration config,
++    private static void appendListProperty(List<Object> dest, Configuration config,
+             String key)
+     {
+-        Object value = interpolate(config.getProperty(key));
++        Object value = config.getProperty(key);
+         if (value != null)
+         {
+             if (value instanceof Collection)

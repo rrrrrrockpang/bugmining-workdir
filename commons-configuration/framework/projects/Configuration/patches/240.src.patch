@@ -1,0 +1,19 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java b/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
+index 5c4b1f0a..831a37cf 100644
+--- a/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/PropertiesConfiguration.java
+@@ -1421,13 +1421,7 @@ public class PropertiesConfiguration extends BaseConfiguration
+      */
+     private void loadIncludeFile(String fileName) throws ConfigurationException
+     {
+-        if (locator == null)
+-        {
+-            throw new ConfigurationException("Load operation not properly "
+-                    + "initialized! Do not call read(InputStream) directly,"
+-                    + " but use a FileHandler to load a configuration.");
+-        }
+-
++        assert locator != null : "Locator has not been set!";
+         URL url = locateIncludeFile(locator.getBasePath(), fileName);
+         if (url == null)
+         {

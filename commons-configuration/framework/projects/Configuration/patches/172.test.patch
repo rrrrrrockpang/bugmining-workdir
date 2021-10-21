@@ -1,0 +1,22 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestSystemConfiguration.java b/src/test/java/org/apache/commons/configuration/TestSystemConfiguration.java
+index ac23cffe..e6dcb788 100644
+--- a/src/test/java/org/apache/commons/configuration/TestSystemConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestSystemConfiguration.java
+@@ -78,17 +78,4 @@ public class TestSystemConfiguration
+         SystemConfiguration sconf = new SystemConfiguration();
+         assertTrue("Property from file not found", sconf.getBoolean("fromFile"));
+     }
+-
+-    /**
+-     * Tests whether the configuration can be used to change system properties.
+-     */
+-    @Test
+-    public void testChangeSystemProperties()
+-    {
+-        String testProperty = "someTest";
+-        SystemConfiguration config = new SystemConfiguration();
+-        config.setProperty(testProperty, "true");
+-        assertEquals("System property not changed", "true",
+-                System.getProperty(testProperty));
+-    }
+ }

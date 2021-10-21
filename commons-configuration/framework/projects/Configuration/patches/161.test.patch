@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestConfigurationUtils.java b/src/test/java/org/apache/commons/configuration/TestConfigurationUtils.java
+index 1312bc2b..1d3a52f3 100644
+--- a/src/test/java/org/apache/commons/configuration/TestConfigurationUtils.java
++++ b/src/test/java/org/apache/commons/configuration/TestConfigurationUtils.java
+@@ -231,19 +231,6 @@ public class TestConfigurationUtils
+                 reference.getAbsolutePath()));
+     }
+ 
+-    /**
+-     * Tests whether an encoded "%" character in the file name is handled correctly by
+-     * fileFromURL(). This test is related to CONFIGURATION-521.
+-     */
+-    @Test
+-    public void testFileFromURLWithEncodedPercent() throws MalformedURLException
+-    {
+-        File file = new File("https%3A%2F%2Fwww.apache.org%2F.url").getAbsoluteFile();
+-        URL fileURL = file.toURI().toURL();
+-        File file2 = ConfigurationUtils.fileFromURL(fileURL);
+-        assertEquals("Wrong file", file, file2);
+-    }
+-
+     /**
+      * Tests whether a "+" character in the file name is handled correctly by
+      * fileFromURL(). This test is related to CONFIGURATION-415.

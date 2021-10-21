@@ -1,0 +1,34 @@
+diff --git a/src/main/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/main/java/org/apache/commons/configuration/CombinedConfiguration.java
+index 37513eb3..239466cd 100644
+--- a/src/main/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -655,7 +655,6 @@ public class CombinedConfiguration extends BaseHierarchicalConfiguration impleme
+     @Override
+     protected void clearInternal()
+     {
+-        unregisterListenerAtChildren();
+         initChildCollections();
+         invalidateInternal();
+     }
+@@ -972,21 +971,6 @@ public class CombinedConfiguration extends BaseHierarchicalConfiguration impleme
+         }
+     }
+ 
+-    /**
+-     * Removes this combined configuration as listener from all child
+-     * configurations. This method is called on a clear() operation.
+-     */
+-    private void unregisterListenerAtChildren()
+-    {
+-        if (configurations != null)
+-        {
+-            for (ConfigData child : configurations)
+-            {
+-                unregisterListenerAt(child.getConfiguration());
+-            }
+-        }
+-    }
+-
+     /**
+      * Returns the number of child configurations in this combined
+      * configuration. The internal list of child configurations is accessed

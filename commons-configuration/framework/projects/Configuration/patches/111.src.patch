@@ -1,0 +1,41 @@
+diff --git a/src/java/org/apache/commons/configuration/tree/DefaultConfigurationKey.java b/src/java/org/apache/commons/configuration/tree/DefaultConfigurationKey.java
+index c51ed21f..9225457b 100644
+--- a/src/java/org/apache/commons/configuration/tree/DefaultConfigurationKey.java
++++ b/src/java/org/apache/commons/configuration/tree/DefaultConfigurationKey.java
+@@ -823,26 +823,20 @@ public class DefaultConfigurationKey
+         {
+             boolean result = false;
+ 
+-            try
++            int idx = key.lastIndexOf(getExpressionEngine().getIndexStart());
++            if (idx > 0)
+             {
+-                int idx = key.lastIndexOf(getExpressionEngine().getIndexStart());
+-                if (idx > 0)
++                int endidx = key.indexOf(getExpressionEngine().getIndexEnd(),
++                        idx);
++
++                if (endidx > idx + 1)
+                 {
+-                    int endidx = key.indexOf(getExpressionEngine().getIndexEnd(),
+-                            idx);
+-    
+-                    if (endidx > idx + 1)
+-                    {
+-                        indexValue = Integer.parseInt(key.substring(idx + 1, endidx));
+-                        current = key.substring(0, idx);
+-                        result = true;
+-                    }
++                    indexValue = Integer.parseInt(key
++                            .substring(idx + 1, endidx));
++                    current = key.substring(0, idx);
++                    result = true;
+                 }
+             }
+-            catch (NumberFormatException nfe)
+-            {
+-                result = false;
+-            }
+ 
+             return result;
+         }

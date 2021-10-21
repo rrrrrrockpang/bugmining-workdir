@@ -1,0 +1,142 @@
+diff --git a/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java b/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
+index 420b28e4..70c24201 100644
+--- a/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestCombinedConfiguration.java
+@@ -21,12 +21,7 @@ import java.io.FileWriter;
+ import java.io.IOException;
+ import java.io.PrintWriter;
+ import java.text.MessageFormat;
+-import java.util.ArrayList;
+-import java.util.Collection;
+-import java.util.Iterator;
+-import java.util.List;
+-import java.util.NoSuchElementException;
+-import java.util.Set;
++import java.util.*;
+ 
+ import junit.framework.Assert;
+ import junit.framework.TestCase;
+@@ -36,7 +31,6 @@ import org.apache.commons.configuration.event.ConfigurationListener;
+ import org.apache.commons.configuration.reloading.FileAlwaysReloadingStrategy;
+ import org.apache.commons.configuration.tree.DefaultExpressionEngine;
+ import org.apache.commons.configuration.tree.NodeCombiner;
+-import org.apache.commons.configuration.tree.OverrideCombiner;
+ import org.apache.commons.configuration.tree.UnionCombiner;
+ 
+ /**
+@@ -724,6 +718,7 @@ public class TestCombinedConfiguration extends TestCase
+         assertTrue("Incorrect configuration", c == pc);
+     }
+ 
++
+     public void testGetConfigurationNameList() throws Exception
+     {
+         config.addConfiguration(setUpTestConfiguration());
+@@ -738,32 +733,6 @@ public class TestCombinedConfiguration extends TestCase
+         assertTrue("Incorrect configuration name", TEST_NAME.equals(name));
+     }
+ 
+-    /**
+-     * Tests whether changes on a sub node configuration that is part of a
+-     * combined configuration are detected. This test is related to
+-     * CONFIGURATION-368.
+-     */
+-    public void testReloadWithSubNodeConfig() throws Exception
+-    {
+-        final String reloadContent = "<config><default><xmlReload1>{0}</xmlReload1></default></config>";
+-        config.setForceReloadCheck(true);
+-        config.setNodeCombiner(new OverrideCombiner());
+-        File testXmlFile1 = writeReloadFile(RELOAD_XML_NAME, reloadContent, 0);
+-        final String prefix1 = "default";
+-        XMLConfiguration c1 = new XMLConfiguration(testXmlFile1);
+-        SubnodeConfiguration sub1 = c1.configurationAt(prefix1, true);
+-        assertEquals("Inital test for sub config 1 failed", 0, sub1
+-                .getInt("xmlReload1"));
+-        config.addConfiguration(sub1);
+-        assertEquals(
+-                "Could not get value for sub config 1 from combined config", 0,
+-                config.getInt("xmlReload1"));
+-        c1.setReloadingStrategy(new FileAlwaysReloadingStrategy());
+-        writeReloadFile(RELOAD_XML_NAME, reloadContent, 1);
+-        assertEquals("Reload of sub config 1 not detected", 1, config
+-                .getInt("xmlReload1"));
+-    }
+-
+     /**
+      * Helper method for writing a file. The file is also added to a list and
+      * will be deleted in teadDown() automatically.
+diff --git a/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java b/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
+index c7745d89..90deea1e 100644
+--- a/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestSubnodeConfiguration.java
+@@ -17,9 +17,7 @@
+ package org.apache.commons.configuration;
+ 
+ import java.io.File;
+-import java.util.ArrayList;
+ import java.util.HashSet;
+-import java.util.Iterator;
+ import java.util.List;
+ import java.util.NoSuchElementException;
+ import java.util.Set;
+@@ -27,8 +25,6 @@ import java.util.Set;
+ import junit.framework.TestCase;
+ 
+ import org.apache.commons.collections.CollectionUtils;
+-import org.apache.commons.configuration.event.ConfigurationEvent;
+-import org.apache.commons.configuration.event.ConfigurationListener;
+ import org.apache.commons.configuration.reloading.FileAlwaysReloadingStrategy;
+ import org.apache.commons.configuration.tree.ConfigurationNode;
+ import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+@@ -358,31 +354,6 @@ public class TestSubnodeConfiguration extends TestCase
+                 .getString("tables.table(1).name"));
+     }
+ 
+-    /**
+-     * Tests whether events are fired if a change of the parent is detected.
+-     */
+-    public void testParentReloadEvents() throws ConfigurationException
+-    {
+-        setUpReloadTest(true);
+-        ConfigurationListenerTestImpl l = new ConfigurationListenerTestImpl();
+-        config.addConfigurationListener(l);
+-        config.getString("name");
+-        assertEquals("Wrong number of events", 2, l.events.size());
+-        boolean before = true;
+-        for (Iterator it = l.events.iterator(); it.hasNext();)
+-        {
+-            ConfigurationEvent e = (ConfigurationEvent) it.next();
+-            assertEquals("Wrong configuration", config, e.getSource());
+-            assertEquals("Wrong event type",
+-                    HierarchicalConfiguration.EVENT_SUBNODE_CHANGED, e
+-                            .getType());
+-            assertNull("Got a property name", e.getPropertyName());
+-            assertNull("Got a property value", e.getPropertyValue());
+-            assertEquals("Wrong before flag", before, e.isBeforeUpdate());
+-            before = !before;
+-        }
+-    }
+-
+     /**
+      * Tests a reload operation for the parent configuration when the subnode
+      * configuration is aware of reloads, and the parent configuration is
+@@ -534,19 +505,4 @@ public class TestSubnodeConfiguration extends TestCase
+     {
+         config = new SubnodeConfiguration(parent, getSubnodeRoot(parent));
+     }
+-
+-    /**
+-     * A specialized configuration listener for testing whether the expected
+-     * events are fired.
+-     */
+-    private static class ConfigurationListenerTestImpl implements ConfigurationListener
+-    {
+-        /** Stores the events received.*/
+-        final List events = new ArrayList();
+-
+-        public void configurationChanged(ConfigurationEvent event)
+-        {
+-            events.add(event);
+-        }
+-    }
+ }

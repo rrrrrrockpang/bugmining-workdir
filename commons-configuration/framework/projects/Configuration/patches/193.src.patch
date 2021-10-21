@@ -1,0 +1,28 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java b/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
+index 4bfa038f..45148f61 100644
+--- a/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/plist/XMLPropertyListConfiguration.java
+@@ -28,7 +28,6 @@ import java.text.DateFormat;
+ import java.text.ParseException;
+ import java.text.SimpleDateFormat;
+ import java.util.ArrayList;
+-import java.util.Arrays;
+ import java.util.Calendar;
+ import java.util.Collection;
+ import java.util.Date;
+@@ -191,14 +190,10 @@ public class XMLPropertyListConfiguration extends BaseHierarchicalConfiguration
+     @Override
+     protected void addPropertyInternal(String key, Object value)
+     {
+-        if (value instanceof byte[] || value instanceof List)
++        if (value instanceof byte[])
+         {
+             addPropertyDirect(key, value);
+         }
+-        else if (value instanceof Object[])
+-        {
+-            addPropertyDirect(key, Arrays.asList((Object[]) value));
+-        }
+         else
+         {
+             super.addPropertyInternal(key, value);

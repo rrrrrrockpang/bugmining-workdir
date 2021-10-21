@@ -1,0 +1,39 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/TestINIConfiguration.java b/src/test/java/org/apache/commons/configuration2/TestINIConfiguration.java
+index 10e279f2..5b90cf8f 100644
+--- a/src/test/java/org/apache/commons/configuration2/TestINIConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration2/TestINIConfiguration.java
+@@ -17,10 +17,8 @@
+ 
+ package org.apache.commons.configuration2;
+ 
+-import static org.hamcrest.CoreMatchers.containsString;
+ import static org.junit.Assert.assertEquals;
+ import static org.junit.Assert.assertFalse;
+-import static org.junit.Assert.assertThat;
+ import static org.junit.Assert.assertTrue;
+ import static org.junit.Assert.fail;
+ 
+@@ -832,23 +830,6 @@ public class TestINIConfiguration
+         assertEquals("Wrong value (2)", "test2", conf.getString(section + ".test2"));
+     }
+ 
+-    /**
+-     * Tests that loading and saving a configuration that contains keys with
+-     * delimiter characters works correctly. This test is related to
+-     * CONFIGURATION-622.
+-     */
+-    @Test
+-    public void testPropertyWithDelimiter() throws ConfigurationException
+-    {
+-        String data = INI_DATA + "key.dot = dotValue";
+-        INIConfiguration conf = new INIConfiguration();
+-        load(conf, data);
+-        assertEquals("Wrong property value", "dotValue",
+-                conf.getString("section3.key..dot"));
+-        String output = saveToString(conf);
+-        assertThat(output, containsString("key.dot = dotValue"));
+-    }
+-
+     /**
+      * Tests whether a value which contains a semicolon can be loaded
+      * successfully. This test is related to CONFIGURATION-434.

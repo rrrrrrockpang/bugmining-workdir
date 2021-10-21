@@ -1,0 +1,27 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+index 469b2269..d74005a6 100644
+--- a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+@@ -881,17 +881,19 @@ public class XMLConfiguration extends BaseHierarchicalConfiguration implements
+         final Transformer transformer = XMLDocumentHelper.createTransformer();
+ 
+         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+-        if (locator != null && locator.getEncoding() != null)
++        if (locator.getEncoding() != null)
+         {
+             transformer.setOutputProperty(OutputKeys.ENCODING, locator.getEncoding());
+         }
+         if (publicID != null)
+         {
+-            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, publicID);
++            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
++                    publicID);
+         }
+         if (systemID != null)
+         {
+-            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, systemID);
++            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
++                    systemID);
+         }
+ 
+         return transformer;

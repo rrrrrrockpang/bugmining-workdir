@@ -1,0 +1,16 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/MapConfiguration.java b/src/main/java/org/apache/commons/configuration2/MapConfiguration.java
+index 12daed9d..a1821f3b 100644
+--- a/src/main/java/org/apache/commons/configuration2/MapConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/MapConfiguration.java
+@@ -103,9 +103,9 @@ public class MapConfiguration extends AbstractConfiguration implements Cloneable
+      *
+      * @param map the map
+      */
+-    public MapConfiguration(Map<String, ?> map)
++    public MapConfiguration(Map<String, Object> map)
+     {
+-        this.map = (Map<String, Object>) map;
++        this.map = map;
+     }
+ 
+     /**

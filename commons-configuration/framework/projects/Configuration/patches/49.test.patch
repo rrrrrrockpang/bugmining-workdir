@@ -1,0 +1,63 @@
+diff --git a/src/test/org/apache/commons/configuration/TestAbstractConfigurationBasicFeatures.java b/src/test/org/apache/commons/configuration/TestAbstractConfigurationBasicFeatures.java
+index b7c501ef..62171a5a 100644
+--- a/src/test/org/apache/commons/configuration/TestAbstractConfigurationBasicFeatures.java
++++ b/src/test/org/apache/commons/configuration/TestAbstractConfigurationBasicFeatures.java
+@@ -20,7 +20,6 @@ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collection;
+ import java.util.Iterator;
+-import java.util.List;
+ 
+ import org.apache.commons.collections.CollectionUtils;
+ 
+@@ -79,50 +78,6 @@ public class TestAbstractConfigurationBasicFeatures extends TestCase
+                 config.getString("mypath"));
+     }
+ 
+-    /**
+-     * Tests adding list properties. The single elements of the list should be
+-     * added.
+-     */
+-    public void testAddPropertyList()
+-    {
+-        checkAddListProperty(new TestConfigurationImpl(
+-                new PropertiesConfiguration()));
+-    }
+-
+-    /**
+-     * Tests adding list properties when delimiter parsing is disabled.
+-     */
+-    public void testAddPropertyListNoDelimiterParsing()
+-    {
+-        AbstractConfiguration config = new TestConfigurationImpl(
+-                new PropertiesConfiguration());
+-        config.setDelimiterParsingDisabled(true);
+-        checkAddListProperty(config);
+-    }
+-
+-    /**
+-     * Helper method for adding properties with multiple values.
+-     *
+-     * @param config the configuration to be used for testing
+-     */
+-    private void checkAddListProperty(AbstractConfiguration config)
+-    {
+-        config.addProperty("test", "value1");
+-        Object[] lstValues1 = new Object[]
+-        { "value2", "value3" };
+-        Object[] lstValues2 = new Object[]
+-        { "value4", "value5", "value6" };
+-        config.addProperty("test", lstValues1);
+-        config.addProperty("test", Arrays.asList(lstValues2));
+-        List lst = config.getList("test");
+-        assertEquals("Wrong number of list elements", 6, lst.size());
+-        for (int i = 0; i < lst.size(); i++)
+-        {
+-            assertEquals("Wrong list element at " + i, "value" + (i + 1), lst
+-                    .get(i));
+-        }
+-    }
+-
+     /**
+      * A test configuration implementation. This implementation inherits
+      * directly from AbstractConfiguration. For implementing the required

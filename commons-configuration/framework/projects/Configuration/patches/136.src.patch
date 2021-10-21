@@ -1,0 +1,25 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index e0a02170..34d3fd6d 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -769,20 +769,6 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+         fireEvent(EVENT_SET_PROPERTY, key, value, false);
+     }
+ 
+-    /**
+-     * Clears this configuration. This is a more efficient implementation than
+-     * the one inherited from the base class. It directly removes all data from
+-     * the root node.
+-     */
+-    public void clear()
+-    {
+-        fireEvent(EVENT_CLEAR, null, null, true);
+-        getRootNode().removeAttributes();
+-        getRootNode().removeChildren();
+-        getRootNode().setValue(null);
+-        fireEvent(EVENT_CLEAR, null, null, false);
+-    }
+-
+     /**
+      * Removes all values of the property with the given name and of keys that
+      * start with this name. So if there is a property with the key

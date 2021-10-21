@@ -1,0 +1,21 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
+index b1c646db..2ec15d24 100644
+--- a/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -1431,16 +1431,6 @@ public class TestXMLConfiguration
+                 .getString("space.stars"));
+     }
+ 
+-    /**
+-     * Tests whether the xml:space attribute works directly on the current
+-     * element. This test is related to CONFIGURATION-555.
+-     */
+-    @Test
+-    public void testPreserveSpaceOnElement()
+-    {
+-        assertEquals("Wrong value", " preserved ", conf.getString("spaceElement"));
+-    }
+-
+     /**
+      * Tests whether the xml:space attribute can be overridden in nested
+      * elements.

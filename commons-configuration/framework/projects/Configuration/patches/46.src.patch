@@ -1,0 +1,42 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractConfiguration.java b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+index 71e8d8a9..8d842aa1 100644
+--- a/src/java/org/apache/commons/configuration/AbstractConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractConfiguration.java
+@@ -504,34 +504,17 @@ public abstract class AbstractConfiguration extends EventSource implements Confi
+     {
+         fireEvent(EVENT_CLEAR, null, null, true);
+         setDetailEvents(false);
+-        boolean useIterator = true;
+         try
+         {
+             Iterator it = getKeys();
+             while (it.hasNext())
+             {
+                 String key = (String) it.next();
+-                if (useIterator)
+-                {
+-                    try
+-                    {
+-                        it.remove();
+-                    }
+-                    catch (UnsupportedOperationException usoex)
+-                    {
+-                        useIterator = false;
+-                    }
+-                }
+-
+-                if (useIterator && containsKey(key))
+-                {
+-                    useIterator = false;
+-                }
++                it.remove();
+ 
+-                if (!useIterator)
++                if (containsKey(key))
+                 {
+-                    // workaround for Iterators that do not remove the property
+-                    // on calling remove() or do not support remove() at all
++                    // workaround for Iterators that do not remove the property on calling remove()
+                     clearProperty(key);
+                 }
+             }

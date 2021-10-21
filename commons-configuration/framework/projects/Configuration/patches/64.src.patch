@@ -1,0 +1,18 @@
+diff --git a/src/java/org/apache/commons/configuration/INIConfiguration.java b/src/java/org/apache/commons/configuration/INIConfiguration.java
+index 31cb861a..a4ac28d3 100644
+--- a/src/java/org/apache/commons/configuration/INIConfiguration.java
++++ b/src/java/org/apache/commons/configuration/INIConfiguration.java
+@@ -400,12 +400,7 @@ public class INIConfiguration extends AbstractFileConfiguration
+             i++;
+         }
+ 
+-        String v = result.toString();
+-        if(!quoted)
+-        {
+-            v = v.trim();
+-        }
+-        return v;
++        return result.toString().trim();
+     }
+ 
+     /**

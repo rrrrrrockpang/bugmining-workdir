@@ -1,0 +1,56 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+index 6582d9ab..8e95390e 100644
+--- a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
++++ b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+@@ -930,12 +930,9 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+          */
+         private String escapeValue(Object value)
+         {
+-            String escapedValue = StringEscapeUtils.escapeJava(String.valueOf(value));
+-            if (delimiter != 0)
+-            {
+-                escapedValue = StringUtils.replace(escapedValue, String.valueOf(delimiter), "\\" + delimiter);
+-            }
+-            return escapedValue;
++            String v = StringEscapeUtils.escapeJava(String.valueOf(value));
++            return StringUtils.replace(v, String.valueOf(delimiter), "\\"
++                    + delimiter);
+         }
+ 
+         /**
+diff --git a/src/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java b/src/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
+index ca133a1e..9fa8ee73 100644
+--- a/src/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
++++ b/src/java/org/apache/commons/configuration/PropertiesConfigurationLayout.java
+@@ -348,8 +348,7 @@ public class PropertiesConfigurationLayout implements ConfigurationListener
+      * Sets the &quot;force single line&quot; flag. If this flag is set, all
+      * properties with multiple values are written on single lines. This mode
+      * provides more compatibility with <code>java.lang.Properties</code>,
+-     * which cannot deal with multiple definitions of a single property. This
+-     * mode has no effect if the list delimiter parsing is disabled.
++     * which cannot deal with multiple definitions of a single property.
+      *
+      * @param f the force single line flag
+      */
+@@ -443,8 +442,8 @@ public class PropertiesConfigurationLayout implements ConfigurationListener
+     {
+         try
+         {
+-            char delimiter = getConfiguration().isDelimiterParsingDisabled() ? 0 : getConfiguration().getListDelimiter();
+-            PropertiesConfiguration.PropertiesWriter writer = new PropertiesConfiguration.PropertiesWriter(out, delimiter);
++            PropertiesConfiguration.PropertiesWriter writer = new PropertiesConfiguration.PropertiesWriter(
++                    out, getConfiguration().getListDelimiter());
+             if (headerComment != null)
+             {
+                 writer.writeln(getCanonicalHeaderComment(true));
+@@ -470,8 +469,8 @@ public class PropertiesConfigurationLayout implements ConfigurationListener
+                     }
+ 
+                     // Output the property and its value
+-                    boolean singleLine = (isForceSingleLine() || isSingleLine(key)) && !getConfiguration().isDelimiterParsingDisabled();
+-                    writer.writeProperty(key, getConfiguration().getProperty(key), singleLine);
++                    writer.writeProperty(key, getConfiguration().getProperty(
++                            key), isForceSingleLine() || isSingleLine(key));
+                 }
+             }
+             writer.flush();

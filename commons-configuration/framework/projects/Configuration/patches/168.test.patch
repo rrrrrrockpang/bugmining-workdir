@@ -1,0 +1,30 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java b/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+index ed9db588..cd24ec71 100644
+--- a/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestHierarchicalConfiguration.java
+@@ -742,25 +742,6 @@ public class TestHierarchicalConfiguration
+                 .getConfigurationListeners().isEmpty());
+     }
+ 
+-    /**
+-     * Tests whether interpolation works as expected after cloning.
+-     */
+-    @Test
+-    public void testCloneInterpolation()
+-    {
+-        final String keyAnswer = "answer";
+-        final String keyValue = "value";
+-        config.addProperty(keyAnswer, "The answer is ${" + keyValue + "}.");
+-        config.addProperty(keyValue, 42);
+-        BaseHierarchicalConfiguration clone =
+-                (BaseHierarchicalConfiguration) config.clone();
+-        clone.setProperty(keyValue, 43);
+-        assertEquals("Wrong interpolation in original", "The answer is 42.",
+-                config.getString(keyAnswer));
+-        assertEquals("Wrong interpolation in clone", "The answer is 43.",
+-                clone.getString(keyAnswer));
+-    }
+-
+     @Test
+     public void testAddNodes()
+     {

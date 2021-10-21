@@ -1,0 +1,20 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 7d74d13b..bfa6b702 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -279,7 +279,6 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+                     + "cannot be changed when loaded from an XML document!");
+         }
+         rootElementName = name;
+-        getRootNode().setName(name);
+     }
+ 
+     /**
+@@ -423,7 +422,6 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+         }
+ 
+         constructHierarchy(getRoot(), document.getDocumentElement(), elemRefs);
+-        getRootNode().setName(document.getDocumentElement().getNodeName());
+         if (elemRefs)
+         {
+             getRoot().setReference(document.getDocumentElement());

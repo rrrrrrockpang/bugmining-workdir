@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+index 0eba2908..3fe0e192 100644
+--- a/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/XMLConfiguration.java
+@@ -1135,7 +1135,6 @@ public class XMLConfiguration extends BaseHierarchicalConfiguration implements
+          */
+         public void processDocument(ReferenceNodeHandler refHandler)
+         {
+-            updateAttributes(refHandler.getRootNode(), document.getDocumentElement() );
+             NodeTreeWalker.INSTANCE.walkDFS(refHandler.getRootNode(), this,
+                     refHandler);
+         }

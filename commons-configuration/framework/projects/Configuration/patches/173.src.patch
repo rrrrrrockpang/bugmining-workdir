@@ -1,0 +1,90 @@
+diff --git a/src/main/java/org/apache/commons/configuration/beanutils/BeanHelper.java b/src/main/java/org/apache/commons/configuration/beanutils/BeanHelper.java
+index 5d34d02f..a05724d7 100644
+--- a/src/main/java/org/apache/commons/configuration/beanutils/BeanHelper.java
++++ b/src/main/java/org/apache/commons/configuration/beanutils/BeanHelper.java
+@@ -19,7 +19,6 @@ package org.apache.commons.configuration.beanutils;
+ import java.beans.PropertyDescriptor;
+ import java.lang.reflect.Constructor;
+ import java.lang.reflect.InvocationTargetException;
+-import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Collections;
+ import java.util.HashMap;
+@@ -27,7 +26,6 @@ import java.util.LinkedList;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Set;
+-import java.util.TreeSet;
+ 
+ import org.apache.commons.beanutils.BeanUtils;
+ import org.apache.commons.beanutils.PropertyUtils;
+@@ -211,27 +209,8 @@ public final class BeanHelper
+                 {
+                     String propName = e.getKey();
+                     Class<?> defaultClass = getDefaultClass(bean, propName);
+-
+-                    Object prop = e.getValue();
+-
+-                    if (prop instanceof Collection)
+-                    {
+-                        Collection<Object> beanCollection =
+-                                createPropertyCollection(propName, defaultClass);
+-
+-                        for (Object elemDef : (Collection<?>) prop)
+-                        {
+-                            beanCollection
+-                                    .add(createBean((BeanDeclaration) elemDef));
+-                        }
+-
+-                        initProperty(bean, propName, beanCollection);
+-                    }
+-                    else
+-                    {
+-                        initProperty(bean, propName, createBean(
+-                            (BeanDeclaration) e.getValue(), defaultClass));
+-                    }
++                    initProperty(bean, propName, createBean(
++                        (BeanDeclaration) e.getValue(), defaultClass));
+                 }
+             }
+         }
+@@ -313,39 +292,6 @@ public final class BeanHelper
+         }
+     }
+ 
+-    /**
+-     * Creates a concrete collection instance to populate a property of type
+-     * collection. This method tries to guess an appropriate collection type.
+-     * Mostly the type of the property will be one of the collection interfaces
+-     * rather than a concrete class; so we have to create a concrete equivalent.
+-     *
+-     * @param propName the name of the collection property
+-     * @param propertyClass the type of the property
+-     * @return the newly created collection
+-     */
+-    private static Collection<Object> createPropertyCollection(String propName,
+-            Class<?> propertyClass)
+-    {
+-        Collection<Object> beanCollection = null;
+-
+-        if (List.class.isAssignableFrom(propertyClass))
+-        {
+-            beanCollection = new ArrayList<Object>();
+-        }
+-        else if (Set.class.isAssignableFrom(propertyClass))
+-        {
+-            beanCollection = new TreeSet<Object>();
+-        }
+-        else
+-        {
+-            throw new UnsupportedOperationException(
+-                    "Unable to handle collection of type : "
+-                            + propertyClass.getName() + " for property "
+-                            + propName);
+-        }
+-        return beanCollection;
+-    }
+-
+     /**
+      * Set a property on the bean only if the property exists
+      *

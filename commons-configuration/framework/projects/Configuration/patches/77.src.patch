@@ -1,0 +1,63 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+index 1c660c97..b955c387 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalConfiguration.java
+@@ -26,11 +26,12 @@ import java.util.List;
+ import java.util.Set;
+ import java.util.Stack;
+ 
+-import org.apache.commons.collections.iterators.SingletonIterator;
+ import org.apache.commons.collections.set.ListOrderedSet;
++import org.apache.commons.collections.iterators.SingletonIterator;
+ import org.apache.commons.configuration.event.ConfigurationEvent;
+ import org.apache.commons.configuration.event.ConfigurationListener;
+ import org.apache.commons.configuration.tree.ConfigurationNode;
++import org.apache.commons.configuration.tree.ConfigurationNodeVisitor;
+ import org.apache.commons.configuration.tree.ConfigurationNodeVisitorAdapter;
+ import org.apache.commons.configuration.tree.DefaultConfigurationNode;
+ import org.apache.commons.configuration.tree.DefaultExpressionEngine;
+@@ -202,12 +203,6 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+      */
+     public Node getRoot()
+     {
+-        if (root == null && rootNode != null)
+-        {
+-            // Dynamically create a snapshot of the root node
+-            return new Node(rootNode);
+-        }
+-
+         return root;
+     }
+ 
+@@ -255,7 +250,7 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+         this.rootNode = rootNode;
+ 
+         // For backward compatibility also set the old root field.
+-        root = (rootNode instanceof Node) ? (Node) rootNode : null;
++        root = (rootNode instanceof Node) ? (Node) rootNode : new Node(rootNode);
+     }
+ 
+     /**
+@@ -1208,20 +1203,11 @@ public class HierarchicalConfiguration extends AbstractConfiguration implements
+             setReference(src.getReference());
+             for (Iterator it = src.getChildren().iterator(); it.hasNext();)
+             {
+-                ConfigurationNode nd = (ConfigurationNode) it.next();
+-                // Don't change the parent node
+-                ConfigurationNode parent = nd.getParentNode();
+-                addChild(nd);
+-                nd.setParentNode(parent);
++                addChild((ConfigurationNode) it.next());
+             }
+-
+             for (Iterator it = src.getAttributes().iterator(); it.hasNext();)
+             {
+-                ConfigurationNode nd = (ConfigurationNode) it.next();
+-                // Don't change the parent node
+-                ConfigurationNode parent = nd.getParentNode();
+-                addAttribute(nd);
+-                nd.setParentNode(parent);
++                addAttribute((ConfigurationNode) it.next());
+             }
+         }
+ 

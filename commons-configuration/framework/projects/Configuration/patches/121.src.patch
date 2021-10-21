@@ -1,0 +1,34 @@
+diff --git a/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java b/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+index 96876943..905f52e1 100644
+--- a/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
++++ b/src/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+@@ -616,23 +616,22 @@ public class HierarchicalINIConfiguration extends
+     {
+         Set sections = new ListOrderedSet();
+         boolean globalSection = false;
+-        boolean inSection = false;
+ 
+         for (Iterator it = getRootNode().getChildren().iterator(); it.hasNext();)
+         {
+             ConfigurationNode node = (ConfigurationNode) it.next();
+             if (isSectionNode(node))
+             {
+-                inSection = true;
++                if (globalSection)
++                {
++                    sections.add(null);
++                    globalSection = false;
++                }
+                 sections.add(node.getName());
+             }
+             else
+             {
+-                if(!inSection && !globalSection)
+-                {
+-                    globalSection = true;
+-                    sections.add(null);
+-                }
++                globalSection = true;
+             }
+         }
+ 

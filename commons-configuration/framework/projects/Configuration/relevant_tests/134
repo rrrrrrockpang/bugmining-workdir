@@ -1,0 +1,11 @@
+org.apache.commons.configuration.TestCombinedConfiguration
+org.apache.commons.configuration.TestDefaultConfigurationBuilder
+org.apache.commons.configuration.TestDynamicCombinedConfiguration
+org.apache.commons.configuration.TestMultiFileHierarchicalConfiguration
+org.apache.commons.configuration.TestPatternSubtreeConfiguration
+org.apache.commons.configuration.TestSubnodeConfiguration
+org.apache.commons.configuration.TestVFSConfigurationBuilder
+org.apache.commons.configuration.TestXMLConfiguration
+org.apache.commons.configuration.tree.TestMergeCombiner
+org.apache.commons.configuration.tree.xpath.TestXPathExpressionEngine
+org.apache.commons.configuration.tree.xpath.TestXPathExpressionEngineInConfig

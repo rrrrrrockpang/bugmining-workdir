@@ -1,0 +1,89 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java b/src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java
+index f41d632f..7642134e 100644
+--- a/src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/AbstractConfiguration.java
+@@ -1425,7 +1425,7 @@ public abstract class AbstractConfiguration extends BaseEventSource implements C
+     }
+ 
+     @Override
+-    public List<Object> getList(String key, List<?> defaultValue)
++    public List<Object> getList(String key, List<Object> defaultValue)
+     {
+         Object value = getProperty(key);
+         List<Object> list;
+@@ -1448,10 +1448,7 @@ public abstract class AbstractConfiguration extends BaseEventSource implements C
+         }
+         else if (value == null)
+         {
+-            // This is okay because we just return this list to the caller
+-            @SuppressWarnings("unchecked")
+-            List<Object> resultList = (List<Object>) defaultValue;
+-            list = resultList;
++            list = defaultValue;
+         }
+         else if (value.getClass().isArray())
+         {
+diff --git a/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java b/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
+index f23eb9ba..e9946de0 100644
+--- a/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/CompositeConfiguration.java
+@@ -380,7 +380,7 @@ implements Cloneable
+     }
+ 
+     @Override
+-    public List<Object> getList(String key, List<?> defaultValue)
++    public List<Object> getList(String key, List<Object> defaultValue)
+     {
+         List<Object> list = new ArrayList<Object>();
+ 
+@@ -400,10 +400,7 @@ implements Cloneable
+ 
+         if (list.isEmpty())
+         {
+-            // This is okay because we just return this list to the caller
+-            @SuppressWarnings("unchecked")
+-            List<Object> resultList = (List<Object>) defaultValue;
+-            return resultList;
++            return defaultValue;
+         }
+ 
+         ListIterator<Object> lit = list.listIterator();
+diff --git a/src/main/java/org/apache/commons/configuration2/DynamicCombinedConfiguration.java b/src/main/java/org/apache/commons/configuration2/DynamicCombinedConfiguration.java
+index a4493c01..fe0239c7 100644
+--- a/src/main/java/org/apache/commons/configuration2/DynamicCombinedConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/DynamicCombinedConfiguration.java
+@@ -522,7 +522,7 @@ public class DynamicCombinedConfiguration extends CombinedConfiguration
+     }
+ 
+     @Override
+-    public List<Object> getList(String key, List<?> defaultValue)
++    public List<Object> getList(String key, List<Object> defaultValue)
+     {
+         return this.getCurrentConfig().getList(key, defaultValue);
+     }
+diff --git a/src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java b/src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java
+index 83fe8b8f..c552442b 100644
+--- a/src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/ImmutableConfiguration.java
+@@ -533,7 +533,7 @@ public interface ImmutableConfiguration
+      *         object that is not a List.
+      * @see #getList(Class, String, List)
+      */
+-    List<Object> getList(String key, List<?> defaultValue);
++    List<Object> getList(String key, List<Object> defaultValue);
+ 
+     /**
+      * Get an object of the specified type associated with the given
+diff --git a/src/main/java/org/apache/commons/configuration2/PatternSubtreeConfigurationWrapper.java b/src/main/java/org/apache/commons/configuration2/PatternSubtreeConfigurationWrapper.java
+index 39f88246..cb571fd1 100644
+--- a/src/main/java/org/apache/commons/configuration2/PatternSubtreeConfigurationWrapper.java
++++ b/src/main/java/org/apache/commons/configuration2/PatternSubtreeConfigurationWrapper.java
+@@ -225,7 +225,7 @@ public class PatternSubtreeConfigurationWrapper extends BaseHierarchicalConfigur
+     }
+ 
+     @Override
+-    public List<Object> getList(String key, List<?> defaultValue)
++    public List<Object> getList(String key, List<Object> defaultValue)
+     {
+         return config.getList(makePath(key), defaultValue);
+     }

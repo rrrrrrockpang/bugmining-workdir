@@ -1,0 +1,8 @@
+org.apache.commons.configuration.TestCombinedConfiguration
+org.apache.commons.configuration.TestCompositeConfiguration
+org.apache.commons.configuration.TestDefaultConfigurationBuilder
+org.apache.commons.configuration.TestFileConfiguration
+org.apache.commons.configuration.TestPropertiesConfiguration
+org.apache.commons.configuration.TestSubnodeConfiguration
+org.apache.commons.configuration.TestXMLConfiguration
+org.apache.commons.configuration.reloading.TestFileChangedReloadingStrategy

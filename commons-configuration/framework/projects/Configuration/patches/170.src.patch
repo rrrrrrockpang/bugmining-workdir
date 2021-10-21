@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/configuration/CompositeConfiguration.java b/src/main/java/org/apache/commons/configuration/CompositeConfiguration.java
+index 4423d381..aa7bc0ca 100644
+--- a/src/main/java/org/apache/commons/configuration/CompositeConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/CompositeConfiguration.java
+@@ -441,7 +441,6 @@ implements Cloneable
+                 }
+             }
+ 
+-            copy.cloneInterpolator(this);
+             return copy;
+         }
+         catch (CloneNotSupportedException cnex)

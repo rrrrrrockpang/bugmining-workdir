@@ -1,0 +1,3 @@
+org.apache.commons.configuration.TestCompositeConfiguration
+org.apache.commons.configuration.TestCompositeConfigurationNonStringProperties
+org.apache.commons.configuration.TestNullCompositeConfiguration

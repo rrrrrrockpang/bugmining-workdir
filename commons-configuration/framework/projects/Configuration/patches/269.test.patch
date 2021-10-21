@@ -1,0 +1,24 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/reloading/TestCombinedReloadingController.java b/src/test/java/org/apache/commons/configuration2/reloading/TestCombinedReloadingController.java
+index 2fcdf344..917ec6e7 100644
+--- a/src/test/java/org/apache/commons/configuration2/reloading/TestCombinedReloadingController.java
++++ b/src/test/java/org/apache/commons/configuration2/reloading/TestCombinedReloadingController.java
+@@ -118,8 +118,6 @@ public class TestCombinedReloadingController
+                 Boolean.FALSE);
+         EasyMock.expect(subControllers[1].checkForReloading(null)).andReturn(
+                 Boolean.TRUE);
+-        EasyMock.expect(subControllers[2].checkForReloading(null)).andReturn(
+-                Boolean.FALSE);
+         replaySubControllers();
+         assertTrue("Wrong result", ctrl.checkForReloading("someData"));
+         verifySubSontrollers();
+@@ -151,10 +149,6 @@ public class TestCombinedReloadingController
+         CombinedReloadingController ctrl = setUpController();
+         EasyMock.expect(subControllers[0].checkForReloading(null)).andReturn(
+                 Boolean.TRUE);
+-        EasyMock.expect(subControllers[1].checkForReloading(null)).andReturn(
+-                Boolean.FALSE);
+-        EasyMock.expect(subControllers[2].checkForReloading(null)).andReturn(
+-                Boolean.FALSE);
+         for (ReloadingController rc : subControllers)
+         {
+             rc.resetReloadingState();

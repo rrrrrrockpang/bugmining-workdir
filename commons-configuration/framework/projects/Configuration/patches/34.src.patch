@@ -1,0 +1,33 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index de2ea642..11a3cf50 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -477,25 +477,12 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+ 
+             if (values.size() > 1)
+             {
+-                Iterator it = values.iterator();
+-                // Create new node for the original child's first value
+-                Node c = createNode(child.getName());
+-                c.setValue(it.next());
+-                // Copy original attributes to the new node
+-                for (Iterator itAttrs = child.getAttributes().iterator(); itAttrs
+-                        .hasNext();)
+-                {
+-                    Node ndAttr = (Node) itAttrs.next();
+-                    ndAttr.setReference(null);
+-                    c.addAttribute(ndAttr);
+-                }
++                // remove the original child
+                 parent.remove(child);
+-                parent.addChild(c);
+-
+                 // add multiple new children
+-                while (it.hasNext())
++                for (Iterator it = values.iterator(); it.hasNext();)
+                 {
+-                    c = new XMLNode(child.getName(), null);
++                    Node c = new XMLNode(child.getName(), null);
+                     c.setValue(it.next());
+                     parent.addChild(c);
+                 }

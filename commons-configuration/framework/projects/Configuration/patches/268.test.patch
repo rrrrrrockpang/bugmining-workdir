@@ -1,0 +1,28 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/builder/combined/TestCombinedConfigurationBuilder.java b/src/test/java/org/apache/commons/configuration2/builder/combined/TestCombinedConfigurationBuilder.java
+index 44494250..018a2cc0 100644
+--- a/src/test/java/org/apache/commons/configuration2/builder/combined/TestCombinedConfigurationBuilder.java
++++ b/src/test/java/org/apache/commons/configuration2/builder/combined/TestCombinedConfigurationBuilder.java
+@@ -1145,23 +1145,6 @@ public class TestCombinedConfigurationBuilder
+         assertEquals("Wrong number of child builders", 3, childBuilders.size());
+     }
+ 
+-    /**
+-     * Tests that child configuration builders are not initialized multiple
+-     * times. This test is releated to CONFIGURATION-687.
+-     */
+-    @Test
+-    public void testChildBuildersAreInitializedOnlyOnce()
+-            throws ConfigurationException
+-    {
+-        builder.configure(createParameters().setFile(TEST_FILE));
+-        builder.getConfiguration();
+-        builder.resetResult();
+-        builder.getConfiguration();
+-        Collection<ConfigurationBuilder<? extends Configuration>> childBuilders =
+-                builder.getChildBuilders();
+-        assertEquals("Wrong number of child builders", 3, childBuilders.size());
+-    }
+-
+     /**
+      * Loads a test file which includes a MultiFileConfigurationBuilder
+      * declaration and returns the resulting configuration.

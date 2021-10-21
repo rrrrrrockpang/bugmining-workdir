@@ -1,0 +1,13 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index 01d998d8..3b5e80f4 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -617,7 +617,7 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+      */
+     public File getFile()
+     {
+-        if (getFileName() == null && sourceURL == null)
++        if (getFileName() == null)
+         {
+             return null;
+         }

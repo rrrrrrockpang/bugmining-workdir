@@ -1,0 +1,3 @@
+org.apache.commons.configuration.tree.NodeStructureHelper
+org.apache.commons.configuration.tree.xpath.AbstractXPathTest
+org.apache.commons.configuration.tree.xpath.TestConfigurationNodeIteratorChildren

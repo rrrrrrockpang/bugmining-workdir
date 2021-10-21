@@ -1,0 +1,3 @@
+org.apache.commons.configuration2.ConfigurationAssert
+org.apache.commons.configuration2.SynchronizerTestImpl
+org.apache.commons.configuration2.TestCompositeConfiguration

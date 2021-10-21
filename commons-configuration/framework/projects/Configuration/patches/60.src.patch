@@ -1,0 +1,16 @@
+diff --git a/src/java/org/apache/commons/configuration/interpol/ConstantLookup.java b/src/java/org/apache/commons/configuration/interpol/ConstantLookup.java
+index 82d1fdfe..2f8eb9b7 100644
+--- a/src/java/org/apache/commons/configuration/interpol/ConstantLookup.java
++++ b/src/java/org/apache/commons/configuration/interpol/ConstantLookup.java
+@@ -107,8 +107,9 @@ public class ConstantLookup extends StrLookup
+                 {
+                     // In worst case, the value will be fetched multiple times
+                     // because of this lax synchronisation, but for constant
+-                    // values this shouldn't be a problem.
+-                    constantCache.put(var, String.valueOf(value));
++                    // values
++                    // this shouldn't be a problem.
++                    constantCache.put(var, value);
+                 }
+                 result = value.toString();
+             }

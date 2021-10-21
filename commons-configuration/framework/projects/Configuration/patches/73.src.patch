@@ -1,0 +1,30 @@
+diff --git a/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java b/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
+index 92473bbd..efeedc57 100644
+--- a/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
++++ b/src/java/org/apache/commons/configuration/plist/XMLPropertyListConfiguration.java
+@@ -22,7 +22,6 @@ import java.io.PrintWriter;
+ import java.io.Reader;
+ import java.io.Writer;
+ import java.math.BigDecimal;
+-import java.math.BigInteger;
+ import java.net.URL;
+ import java.text.DateFormat;
+ import java.text.ParseException;
+@@ -652,7 +651,7 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+          */
+         public void addIntegerValue(String value)
+         {
+-            addValue(new BigInteger(value));
++            addValue(new Integer(value));
+         }
+ 
+         /**
+@@ -662,7 +661,7 @@ public class XMLPropertyListConfiguration extends AbstractHierarchicalFileConfig
+          */
+         public void addRealValue(String value)
+         {
+-            addValue(new BigDecimal(value));
++            addValue(new Double(value));
+         }
+ 
+         /**

@@ -1,0 +1,90 @@
+diff --git a/src/test/org/apache/commons/configuration/TestHierarchicalINIConfiguration.java b/src/test/org/apache/commons/configuration/TestHierarchicalINIConfiguration.java
+index eb76bd65..edaf639a 100644
+--- a/src/test/org/apache/commons/configuration/TestHierarchicalINIConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestHierarchicalINIConfiguration.java
+@@ -76,13 +76,9 @@ public class TestHierarchicalINIConfiguration extends TestCase
+             + "  line 2" + LINE_SEPARATOR
+             + "continueNoLine = one \\" + LINE_SEPARATOR;
+ 
+-    /** An ini file that contains only a property in the global section. */
+-    private static final String INI_DATA_GLOBAL_ONLY = "globalVar = testGlobal"
+-            + LINE_SEPARATOR + LINE_SEPARATOR;
+-
+     /** An ini file with a global section. */
+-    private static final String INI_DATA_GLOBAL = INI_DATA_GLOBAL_ONLY
+-            + INI_DATA;
++    private static final String INI_DATA_GLOBAL = "globalVar = testGlobal"
++            + LINE_SEPARATOR + LINE_SEPARATOR + INI_DATA;
+ 
+     /** A test ini file. */
+     private static final File TEST_FILE = new File("target/test.ini");
+@@ -155,37 +151,16 @@ public class TestHierarchicalINIConfiguration extends TestCase
+         assertEquals("Wrong content of ini file", INI_DATA, writer.toString());
+     }
+ 
+-    /**
+-     * Helper method for testing a save operation. This method constructs a
+-     * configuration from the specified content string. Then it saves this
+-     * configuration and checks whether the result matches the original content.
+-     *
+-     * @param content the content of the configuration
+-     * @throws ConfigurationException if an error occurs
+-     */
+-    private void checkSave(String content) throws ConfigurationException
+-    {
+-        HierarchicalINIConfiguration config = setUpConfig(content);
+-        StringWriter writer = new StringWriter();
+-        config.save(writer);
+-        assertEquals("Wrong content of ini file", content, writer.toString());
+-    }
+-
+     /**
+      * Tests saving a configuration that contains a global section.
+      */
+     public void testSaveWithGlobalSection() throws ConfigurationException
+     {
+-        checkSave(INI_DATA_GLOBAL);
+-    }
+-
+-    /**
+-     * Tests whether a configuration that contains only a global section can be
+-     * saved correctly.
+-     */
+-    public void testSaveWithOnlyGlobalSection() throws ConfigurationException
+-    {
+-        checkSave(INI_DATA_GLOBAL_ONLY);
++        HierarchicalINIConfiguration config = setUpConfig(INI_DATA_GLOBAL);
++        StringWriter writer = new StringWriter();
++        config.save(writer);
++        assertEquals("Wrong content of ini file", INI_DATA_GLOBAL, writer
++                .toString());
+     }
+ 
+     /**
+@@ -234,7 +209,7 @@ public class TestHierarchicalINIConfiguration extends TestCase
+     {
+         writeTestFile(INI_DATA);
+         HierarchicalINIConfiguration config = new HierarchicalINIConfiguration(
+-                TEST_FILE.toURI().toURL());
++                TEST_FILE.toURL());
+         checkContent(config);
+     }
+ 
+@@ -473,17 +448,6 @@ public class TestHierarchicalINIConfiguration extends TestCase
+         });
+     }
+ 
+-    /**
+-     * Tests whether the sections of a configuration can be queried that
+-     * contains only a global section.
+-     */
+-    public void testGetSectionsGlobalOnly() throws ConfigurationException
+-    {
+-        checkSectionNames(INI_DATA_GLOBAL_ONLY, new String[] {
+-            null
+-        });
+-    }
+-
+     /**
+      * Tests whether variables containing a dot are not misinterpreted as
+      * sections. This test is related to CONFIGURATION-327.

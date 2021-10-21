@@ -1,0 +1,4 @@
+org.apache.commons.configuration2.TestCompositeConfiguration
+org.apache.commons.configuration2.TestCompositeConfigurationNonStringProperties
+org.apache.commons.configuration2.TestNullCompositeConfiguration
+org.apache.commons.configuration2.spring.TestConfigurationPropertiesFactoryBean

@@ -1,0 +1,111 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index 9fac70e1..6aa0f72f 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -238,7 +238,7 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+     {
+         try
+         {
+-            load(ConfigurationUtils.toURL(file));
++            load(file.toURL());
+         }
+         catch (ConfigurationException e)
+         {
+diff --git a/src/java/org/apache/commons/configuration/ConfigurationUtils.java b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+index 9df3d99f..9fd0e783 100644
+--- a/src/java/org/apache/commons/configuration/ConfigurationUtils.java
++++ b/src/java/org/apache/commons/configuration/ConfigurationUtils.java
+@@ -34,7 +34,6 @@ import org.apache.commons.configuration.event.ConfigurationErrorEvent;
+ import org.apache.commons.configuration.event.ConfigurationErrorListener;
+ import org.apache.commons.configuration.event.EventSource;
+ import org.apache.commons.lang.StringUtils;
+-import org.apache.commons.lang.SystemUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ 
+@@ -295,7 +294,7 @@ public final class ConfigurationUtils
+         File f = new File(file);
+         if (f.isAbsolute()) // already absolute?
+         {
+-            return toURL(f);
++            return f.toURL();
+         }
+ 
+         try
+@@ -312,7 +311,7 @@ public final class ConfigurationUtils
+         }
+         catch (MalformedURLException uex)
+         {
+-            return toURL(constructFile(basePath, file));
++            return constructFile(basePath, file).toURL();
+         }
+     }
+ 
+@@ -453,7 +452,7 @@ public final class ConfigurationUtils
+             {
+                 try
+                 {
+-                    url = toURL(file);
++                    url = file.toURL();
+                     log.debug("Loading configuration from the absolute path " + name);
+                 }
+                 catch (MalformedURLException e)
+@@ -471,7 +470,7 @@ public final class ConfigurationUtils
+                 File file = constructFile(base, name);
+                 if (file != null && file.exists())
+                 {
+-                    url = toURL(file);
++                    url = file.toURL();
+                 }
+ 
+                 if (url != null)
+@@ -493,7 +492,7 @@ public final class ConfigurationUtils
+                 File file = constructFile(System.getProperty("user.home"), name);
+                 if (file != null && file.exists())
+                 {
+-                    url = toURL(file);
++                    url = file.toURL();
+                 }
+ 
+                 if (url != null)
+@@ -680,40 +679,6 @@ public final class ConfigurationUtils
+         }
+     }
+ 
+-    /**
+-     * Convert the specified file into an URL. This method is equivalent
+-     * to file.toURI().toURL() on Java 1.4 and above, and equivalent to
+-     * file.toURL() on Java 1.3. This is to work around a bug in the JDK
+-     * preventing the transformation of a file into an URL if the file name
+-     * contains a '#' character. See the issue CONFIGURATION-300 for
+-     * more details.
+-     *
+-     * @param file the file to be converted into an URL
+-     */
+-    static URL toURL(File file) throws MalformedURLException
+-    {
+-        if (SystemUtils.isJavaVersionAtLeast(1.4f))
+-        {
+-            try
+-            {
+-                Method toURI = file.getClass().getMethod("toURI", (Class[]) null);
+-                Object uri = toURI.invoke(file, (Class[]) null);
+-                Method toURL = uri.getClass().getMethod("toURL", (Class[]) null);
+-                URL url = (URL) toURL.invoke(uri, (Class[]) null);
+-
+-                return url;
+-            }
+-            catch (Exception e)
+-            {
+-                throw new MalformedURLException(e.getMessage());
+-            }
+-        }
+-        else
+-        {
+-            return file.toURL();
+-        }
+-    }
+-
+     /**
+      * Enables runtime exceptions for the specified configuration object. This
+      * method can be used for configuration implementations that may face errors

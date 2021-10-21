@@ -1,0 +1,152 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java b/src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java
+index 9978f915..3d2ababf 100644
+--- a/src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java
++++ b/src/main/java/org/apache/commons/configuration2/interpol/ConfigurationInterpolator.java
+@@ -108,7 +108,7 @@ public class ConfigurationInterpolator
+ 
+     static
+     {
+-        final Map<String, Lookup> lookups = new HashMap<>(DefaultLookups.values().length);
++        final Map<String, Lookup> lookups = new HashMap<>();
+         for (final DefaultLookups l : DefaultLookups.values())
+         {
+             lookups.put(l.getPrefix(), l.getLookup());
+diff --git a/src/main/java/org/apache/commons/configuration2/interpol/DefaultLookups.java b/src/main/java/org/apache/commons/configuration2/interpol/DefaultLookups.java
+index d8520caa..0429b7c8 100644
+--- a/src/main/java/org/apache/commons/configuration2/interpol/DefaultLookups.java
++++ b/src/main/java/org/apache/commons/configuration2/interpol/DefaultLookups.java
+@@ -64,74 +64,68 @@ public enum DefaultLookups {
+      * 
+      * @since 2.4
+      */
+-    BASE64_DECODER(StringLookupFactory.KEY_BASE64_DECODER,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.base64DecoderStringLookup())),
++    BASE64_DECODER("base64Decoder", new StringLookupAdapter(StringLookupFactory.INSTANCE.base64StringLookup())),
+ 
+     /**
+      * The lookup for Base64 decoding.
+      * 
+      * @since 2.4
+      */
+-    BASE64_ENCODER(StringLookupFactory.KEY_BASE64_ENCODER,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.base64EncoderStringLookup())),
++    //BASE64_ENCODER("base64Encoder", new StringLookupAdapter(StringLookupFactory.INSTANCE.base64EncoderStringLookup())),
+ 
+     /**
+      * The lookup for constants.
+      * 
+      * @since 2.4
+      */
+-    CONST(StringLookupFactory.KEY_CONST, new StringLookupAdapter(StringLookupFactory.INSTANCE.constantStringLookup())),
++    CONST("const", new StringLookupAdapter(StringLookupFactory.INSTANCE.constantStringLookup())),
+ 
+     /**
+      * The lookup for dates.
+      * 
+      * @since 2.4
+      */
+-    DATE(StringLookupFactory.KEY_DATE, new StringLookupAdapter(StringLookupFactory.INSTANCE.dateStringLookup())),
++    DATE("date", new StringLookupAdapter(StringLookupFactory.INSTANCE.dateStringLookup())),
+ 
+     /**
+      * The lookup for environment properties.
+      */
+-    ENVIRONMENT(StringLookupFactory.KEY_ENV,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.environmentVariableStringLookup())),
++    ENVIRONMENT("env", new StringLookupAdapter(StringLookupFactory.INSTANCE.environmentVariableStringLookup())),
+ 
+     /**
+      * The lookup for files.
+      * 
+      * @since 2.4
+      */
+-    FILE(StringLookupFactory.KEY_FILE, new StringLookupAdapter(StringLookupFactory.INSTANCE.fileStringLookup())),
++    FILE("file", new StringLookupAdapter(StringLookupFactory.INSTANCE.fileStringLookup())),
+ 
+     /**
+      * The lookup for Java platform information.
+      * 
+      * @since 2.4
+      */
+-    JAVA(StringLookupFactory.KEY_JAVA,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.javaPlatformStringLookup())),
++    JAVA("java", new StringLookupAdapter(StringLookupFactory.INSTANCE.javaPlatformStringLookup())),
+ 
+     /**
+      * The lookup for localhost information.
+      * 
+      * @since 2.4
+      */
+-    LOCAL_HOST(StringLookupFactory.KEY_LOCALHOST,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.localHostStringLookup())),
++    LOCAL_HOST("localhost", new StringLookupAdapter(StringLookupFactory.INSTANCE.localHostStringLookup())),
+ 
+     /**
+      * The lookup for properties.
+      * 
+      * @since 2.4
+      */
+-    PROPERTIES(StringLookupFactory.KEY_PROPERTIES,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.propertiesStringLookup())),
++    PROPERTIES("properties", new StringLookupAdapter(StringLookupFactory.INSTANCE.propertiesStringLookup())),
+ 
+     /**
+      * The lookup for resource bundles.
+      * 
+      * @since 2.4
+      */
+-    RESOURCE_BUNDLE(StringLookupFactory.KEY_RESOURCE_BUNDLE,
++    RESOURCE_BUNDLE("resourceBundle",
+             new StringLookupAdapter(StringLookupFactory.INSTANCE.resourceBundleStringLookup())),
+ 
+     /**
+@@ -139,43 +133,40 @@ public enum DefaultLookups {
+      * 
+      * @since 2.4
+      */
+-    SCRIPT(StringLookupFactory.KEY_SCRIPT, new StringLookupAdapter(StringLookupFactory.INSTANCE.scriptStringLookup())),
++    SCRIPT("script", new StringLookupAdapter(StringLookupFactory.INSTANCE.scriptStringLookup())),
+ 
+     /**
+      * The lookup for system properties.
+      */
+-    SYSTEM_PROPERTIES(StringLookupFactory.KEY_SYS,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.systemPropertyStringLookup())),
++    SYSTEM_PROPERTIES("sys", new StringLookupAdapter(StringLookupFactory.INSTANCE.systemPropertyStringLookup())),
+ 
+     /**
+      * The lookup for URLs.
+      * 
+      * @since 2.4
+      */
+-    URL(StringLookupFactory.KEY_URL, new StringLookupAdapter(StringLookupFactory.INSTANCE.urlStringLookup())),
++    URL("url", new StringLookupAdapter(StringLookupFactory.INSTANCE.urlStringLookup())),
+ 
+     /**
+      * The lookup for URL decoding.
+      * 
+      * @since 2.4
+      */
+-    URL_DECODER(StringLookupFactory.KEY_URL_DECODER,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.urlDecoderStringLookup())),
++    // URL_DECODE("urlDecoder", new StringLookupAdapter(StringLookupFactory.INSTANCE.urlDecoderStringLookup())),
+ 
+     /**
+      * The lookup for URL decoding.
+      * 
+      * @since 2.4
+      */
+-    URL_ENCODER(StringLookupFactory.KEY_URL_ENCODER,
+-            new StringLookupAdapter(StringLookupFactory.INSTANCE.urlEncoderStringLookup())),
++    // URL_ENCODE("urlEncoder", new StringLookupAdapter(StringLookupFactory.INSTANCE.urlEncoderStringLookup())),
+ 
+     /**
+      * The lookup for URL decoding.
+      * 
+      * @since 2.4
+      */
+-    XML(StringLookupFactory.KEY_XML, new StringLookupAdapter(StringLookupFactory.INSTANCE.xmlStringLookup()));
++    XML("xml", new StringLookupAdapter(StringLookupFactory.INSTANCE.xmlStringLookup()));
+ 
+     /** The associated lookup instance. */
+     private final Lookup lookup;

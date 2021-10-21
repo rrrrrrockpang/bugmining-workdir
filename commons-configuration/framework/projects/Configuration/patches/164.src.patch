@@ -1,0 +1,55 @@
+diff --git a/src/main/java/org/apache/commons/configuration/PropertiesConfiguration.java b/src/main/java/org/apache/commons/configuration/PropertiesConfiguration.java
+index 98a36bb5..79e2482b 100644
+--- a/src/main/java/org/apache/commons/configuration/PropertiesConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/PropertiesConfiguration.java
+@@ -228,7 +228,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+     private volatile IOFactory ioFactory;
+ 
+     /** Allow file inclusion or not */
+-    private boolean includesAllowed = true;
++    private boolean includesAllowed;
+ 
+     /**
+      * Creates an empty PropertyConfiguration object which can be
+@@ -238,6 +238,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+     public PropertiesConfiguration()
+     {
+         layout = createLayout();
++        setIncludesAllowed(false);
+     }
+ 
+     /**
+@@ -309,11 +310,12 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+ 
+     /**
+      * Controls whether additional files can be loaded by the include = <xxx>
+-     * statement or not. This is <b>true</b> per default.
++     * statement or not. Base rule is, that objects created by the empty
++     * C'tor can not have included files.
+      *
+-     * @param includesAllowed True if Includes are allowed.
++     * @param includesAllowed includesAllowed True if Includes are allowed.
+      */
+-    public void setIncludesAllowed(boolean includesAllowed)
++    protected void setIncludesAllowed(boolean includesAllowed)
+     {
+         this.includesAllowed = includesAllowed;
+     }
+@@ -323,7 +325,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+      *
+      * @return True if include files are loaded.
+      */
+-    public boolean isIncludesAllowed()
++    public boolean getIncludesAllowed()
+     {
+         return this.includesAllowed;
+     }
+@@ -585,7 +587,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+         if (StringUtils.isNotEmpty(getInclude())
+                 && key.equalsIgnoreCase(getInclude()))
+         {
+-            if (isIncludesAllowed())
++            if (getIncludesAllowed())
+             {
+                 String[] files;
+                 if (!isDelimiterParsingDisabled())

@@ -1,0 +1,26 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/PropertiesConfigurationLayout.java b/src/main/java/org/apache/commons/configuration2/PropertiesConfigurationLayout.java
+index 61a41d5e..952fecce 100644
+--- a/src/main/java/org/apache/commons/configuration2/PropertiesConfigurationLayout.java
++++ b/src/main/java/org/apache/commons/configuration2/PropertiesConfigurationLayout.java
+@@ -796,7 +796,8 @@ public class PropertiesConfigurationLayout implements EventListener<Configuratio
+      */
+     private int checkHeaderComment(List<String> commentLines)
+     {
+-        if (loadCounter == 1 && layoutData.isEmpty())
++        if (loadCounter == 1 && getHeaderComment() == null
++                && layoutData.isEmpty())
+         {
+             // This is the first comment. Search for blanc lines.
+             int index = commentLines.size() - 1;
+@@ -805,10 +806,7 @@ public class PropertiesConfigurationLayout implements EventListener<Configuratio
+             {
+                 index--;
+             }
+-            if (getHeaderComment() == null)
+-            {
+-                setHeaderComment(extractComment(commentLines, 0, index - 1));
+-            }
++            setHeaderComment(extractComment(commentLines, 0, index - 1));
+             return index + 1;
+         }
+         else

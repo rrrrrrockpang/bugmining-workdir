@@ -1,0 +1,9 @@
+**/AbstractTestFileConfigurationEvents.java
+**/AbstractTestPListEvents.java
+**/TestBasePropertiesConfiguration.java
+**/NonStringTestHolder.java
+**/TestAbstractConfiguration.java
+**/AbstractXPathTest.java
+**/InterpolationTestHelper.java
+**/AbstractCombinerTest.java
+**/AbstractTestConfigurationEvents.java

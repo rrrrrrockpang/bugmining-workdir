@@ -1,0 +1,31 @@
+diff --git a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+index b50a15a3..9c080693 100644
+--- a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -963,26 +963,6 @@ public class TestXMLConfiguration extends TestCase
+                         .getString("entity"));
+     }
+ 
+-    /**
+-     * Tests whether reloads are recognized when querying the configuration's
+-     * keys.
+-     */
+-    public void testGetKeysWithReload() throws ConfigurationException
+-    {
+-        XMLConfiguration c = setUpReloadTest();
+-        conf.addProperty("aNewKey", "aNewValue");
+-        conf.save(testSaveConf);
+-        boolean found = false;
+-        for (Iterator it = c.getKeys(); it.hasNext();)
+-        {
+-            if ("aNewKey".equals(it.next()))
+-            {
+-                found = true;
+-            }
+-        }
+-        assertTrue("Reload not performed", found);
+-    }
+-
+     /**
+      * Tests accessing properties when the XPATH expression engine is set.
+      */

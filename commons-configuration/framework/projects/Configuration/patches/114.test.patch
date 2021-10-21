@@ -1,0 +1,25 @@
+diff --git a/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java b/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
+index ec7702ed..a3be6802 100644
+--- a/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestPropertiesConfiguration.java
+@@ -979,20 +979,6 @@ public class TestPropertiesConfiguration extends TestCase
+                 separatorTests.length, foundLines.size());
+     }
+ 
+-    /**
+-     * Tests whether properties with slashes in their values can be saved. This
+-     * test is related to CONFIGURATION-408.
+-     */
+-    public void testSlashEscaping() throws ConfigurationException
+-    {
+-        conf.setProperty(PROP_NAME, "http://www.apache.org");
+-        StringWriter writer = new StringWriter();
+-        conf.save(writer);
+-        String s = writer.toString();
+-        assertTrue("Value not found: " + s, s.indexOf(PROP_NAME
+-                + " = http://www.apache.org") >= 0);
+-    }
+-
+     /**
+      * Creates a configuration that can be used for testing copy operations.
+      *

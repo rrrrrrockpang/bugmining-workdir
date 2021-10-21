@@ -1,0 +1,12 @@
+diff --git a/src/test/java/org/apache/commons/configuration2/TestXMLConfiguration.java b/src/test/java/org/apache/commons/configuration2/TestXMLConfiguration.java
+index a180a302..840bc964 100644
+--- a/src/test/java/org/apache/commons/configuration2/TestXMLConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration2/TestXMLConfiguration.java
+@@ -1784,7 +1784,6 @@ public class TestXMLConfiguration
+         // Check that we can parse the XML.
+         Assert.assertNotNull(parseXml(sw.toString()));
+     }
+-
+     /**
+      * Tests accessing properties when the XPATH expression engine is set.
+      */

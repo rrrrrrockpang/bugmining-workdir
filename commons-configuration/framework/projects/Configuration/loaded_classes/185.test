@@ -1,0 +1,2 @@
+org.apache.commons.configuration.tree.xpath.AbstractXPathTest
+org.apache.commons.configuration.tree.xpath.TestConfigurationIteratorAttributes

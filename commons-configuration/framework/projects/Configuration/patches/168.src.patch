@@ -1,0 +1,12 @@
+diff --git a/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java b/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
+index b0d20e3c..ab16c91d 100644
+--- a/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/BaseHierarchicalConfiguration.java
+@@ -940,7 +940,6 @@ public class BaseHierarchicalConfiguration extends AbstractConfiguration
+             CloneVisitor v = new CloneVisitor();
+             getRootNode().visit(v);
+             copy.setRootNode(v.getClone());
+-            copy.cloneInterpolator(this);
+ 
+             return copy;
+         }

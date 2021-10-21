@@ -1,0 +1,3 @@
+org.apache.commons.configuration.TestSystemConfiguration
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration.builder.combined.TestCombinedConfigurationBuilderVFS

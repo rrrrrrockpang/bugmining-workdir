@@ -1,0 +1,27 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java b/src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java
+index a492d7fd..d1a0a626 100644
+--- a/src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java
++++ b/src/main/java/org/apache/commons/configuration2/io/FileLocatorUtils.java
+@@ -650,20 +650,8 @@ public final class FileLocatorUtils
+     private static FileLocator createFullyInitializedLocatorFromURL(FileLocator src,
+             URL url)
+     {
+-        FileLocator.FileLocatorBuilder fileLocatorBuilder = fileLocator(src);
+-        if (src.getSourceURL() == null)
+-        {
+-            fileLocatorBuilder.sourceURL(url);
+-        }
+-        if (StringUtils.isBlank(src.getFileName()))
+-        {
+-            fileLocatorBuilder.fileName(getFileName(url));
+-        }
+-        if (StringUtils.isBlank(src.getBasePath()))
+-        {
+-            fileLocatorBuilder.basePath(getBasePath(url));
+-        }
+-        return fileLocatorBuilder.create();
++        return fileLocator(src).sourceURL(url).fileName(getFileName(url))
++                .basePath(getBasePath(url)).create();
+     }
+ 
+     /**

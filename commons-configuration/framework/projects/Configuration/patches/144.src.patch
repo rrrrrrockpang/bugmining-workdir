@@ -1,0 +1,69 @@
+diff --git a/src/main/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java b/src/main/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+index f346dad9..de6d8641 100644
+--- a/src/main/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration/HierarchicalINIConfiguration.java
+@@ -24,7 +24,6 @@ import java.io.Reader;
+ import java.io.Writer;
+ import java.net.URL;
+ import java.util.Collection;
+-import java.util.Collections;
+ import java.util.Iterator;
+ import java.util.LinkedHashSet;
+ import java.util.List;
+@@ -315,7 +314,7 @@ public class HierarchicalINIConfiguration extends
+                     Iterator<?> values = ((Collection<?>) value).iterator();
+                     while (values.hasNext())
+                     {
+-                        value = values.next();
++                        value = (Object) values.next();
+                         out.print(key);
+                         out.print(" = ");
+                         out.print(formatValue(value.toString()));
+@@ -385,7 +384,9 @@ public class HierarchicalINIConfiguration extends
+                             // use space for properties with no key
+                             key = " ";
+                         }
+-                        createValueNodes(sectionNode, key, value);
++                        ConfigurationNode node = createNode(key);
++                        node.setValue(value);
++                        sectionNode.addChild(node);
+                     }
+                 }
+ 
+@@ -399,36 +400,6 @@ public class HierarchicalINIConfiguration extends
+         }
+     }
+ 
+-    /**
+-     * Creates the node(s) for the given key value-pair. If delimiter parsing is
+-     * enabled, the value string is split if possible, and for each single value
+-     * a node is created. Otherwise only a single node is added to the section.
+-     *
+-     * @param sectionNode the section node new nodes have to be added
+-     * @param key the key
+-     * @param value the value string
+-     */
+-    private void createValueNodes(ConfigurationNode sectionNode, String key,
+-            String value)
+-    {
+-        Collection<String> values;
+-        if (isDelimiterParsingDisabled())
+-        {
+-            values = Collections.singleton(value);
+-        }
+-        else
+-        {
+-            values = PropertyConverter.split(value, getListDelimiter(), false);
+-        }
+-
+-        for (String v : values)
+-        {
+-            ConfigurationNode node = createNode(key);
+-            node.setValue(v);
+-            sectionNode.addChild(node);
+-        }
+-    }
+-
+     /**
+      * Parse the value to remove the quotes and ignoring the comment. Example:
+      *

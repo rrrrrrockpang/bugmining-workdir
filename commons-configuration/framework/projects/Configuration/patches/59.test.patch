@@ -1,0 +1,29 @@
+diff --git a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+index 01b2088f..c7d30c97 100644
+--- a/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestXMLConfiguration.java
+@@ -301,24 +301,6 @@ public class TestXMLConfiguration extends TestCase
+         checkSavedConfig(checkConf);
+         assertTrue("Attribute not found after save", checkConf
+                 .containsKey("[@test]"));
+-        checkConf.setProperty("[@test]", "newValue");
+-        checkConf.save();
+-        conf = checkConf;
+-        checkConf = new XMLConfiguration();
+-        checkConf.setFile(testSaveConf);
+-        checkSavedConfig(checkConf);
+-        assertEquals("Attribute not modified after save", "newValue", checkConf
+-                .getString("[@test]"));
+-    }
+-
+-    /**
+-     * Tests whether the configuration's root node is initialized with a
+-     * reference to the corresponding XML element.
+-     */
+-    public void testGetRootReference()
+-    {
+-        assertNotNull("Root node has no reference", conf.getRootNode()
+-                .getReference());
+     }
+ 
+     public void testAddList()

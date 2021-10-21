@@ -1,0 +1,426 @@
+diff --git a/src/test/org/apache/commons/configuration/DatabaseConfigurationTestHelper.java b/src/test/org/apache/commons/configuration/DatabaseConfigurationTestHelper.java
+index fdb2702e..77a6cfe8 100644
+--- a/src/test/org/apache/commons/configuration/DatabaseConfigurationTestHelper.java
++++ b/src/test/org/apache/commons/configuration/DatabaseConfigurationTestHelper.java
+@@ -17,7 +17,6 @@
+ package org.apache.commons.configuration;
+ 
+ import java.io.FileInputStream;
+-import java.sql.Connection;
+ 
+ import javax.sql.DataSource;
+ 
+@@ -70,49 +69,48 @@ public class DatabaseConfigurationTestHelper
+     public static final String CONFIG_NAME = "test";
+ 
+     /** Stores the in-process database. */
+-    private HsqlDB hsqlDB;
++    private static HsqlDB hsqlDB = null;
+ 
+     /** The data source. */
+     private DataSource datasource;
+ 
+-    /**
+-     * The auto-commit mode for the connections created by the managed data
+-     * source.
+-     */
+-    private boolean autoCommit = true;
+-
+-    /**
+-     * Returns the auto-commit mode of the connections created by the managed
+-     * data source.
+-     *
+-     * @return the auto-commit mode
+-     */
+-    public boolean isAutoCommit()
+-    {
+-        return autoCommit;
+-    }
+-
+-    /**
+-     * Sets the auto-commit mode of the connections created by the managed data
+-     * source.
+-     *
+-     * @param autoCommit the auto-commit mode
+-     */
+-    public void setAutoCommit(boolean autoCommit)
+-    {
+-        this.autoCommit = autoCommit;
+-    }
+-
+     /**
+      * Initializes this helper object. This method can be called from a
+      * <code>setUp()</code> method of a unit test class. It creates the database
+-     * instance if necessary.
++     * instance if necessary and populates it with test data.
+      *
+      * @throws Exception if an error occurs
+      */
+     public void setUp() throws Exception
+     {
+-        hsqlDB = new HsqlDB(DATABASE_URL, DATABASE_DRIVER, "conf/testdb.script");
++        if (hsqlDB == null)
++        {
++            hsqlDB = new HsqlDB(DATABASE_URL, DATABASE_DRIVER,
++                    "conf/testdb.script");
++        }
++
++        BasicDataSource datasource = new BasicDataSource();
++        datasource.setDriverClassName(DATABASE_DRIVER);
++        datasource.setUrl(DATABASE_URL);
++        datasource.setUsername(DATABASE_USERNAME);
++        datasource.setPassword(DATABASE_PASSWORD);
++
++        this.datasource = datasource;
++
++        // prepare the database
++        IDatabaseConnection connection = new DatabaseConnection(datasource
++                .getConnection());
++        IDataSet dataSet = new XmlDataSet(new FileInputStream(
++                "conf/dataset.xml"));
++
++        try
++        {
++            DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
++        }
++        finally
++        {
++            connection.close();
++        }
+     }
+ 
+     /**
+@@ -123,11 +121,8 @@ public class DatabaseConfigurationTestHelper
+      */
+     public void tearDown() throws Exception
+     {
+-        if (datasource != null)
+-        {
+-            datasource.getConnection().close();
+-        }
+-        hsqlDB.close();
++        datasource.getConnection().commit();
++        datasource.getConnection().close();
+     }
+ 
+     /**
+@@ -137,8 +132,7 @@ public class DatabaseConfigurationTestHelper
+      */
+     public DatabaseConfiguration setUpConfig()
+     {
+-        return new DatabaseConfiguration(getDatasource(), TABLE, COL_KEY,
+-                COL_VALUE, !isAutoCommit());
++        return new DatabaseConfiguration(datasource, TABLE, COL_KEY, COL_VALUE);
+     }
+ 
+     /**
+@@ -149,80 +143,17 @@ public class DatabaseConfigurationTestHelper
+      */
+     public DatabaseConfiguration setUpMultiConfig()
+     {
+-        return setUpMultiConfig(CONFIG_NAME);
+-    }
+-
+-    /**
+-     * Creates a database configuration that supports multiple configurations in
+-     * a table and sets the specified configuration name.
+-     *
+-     * @param configName the name of the configuration
+-     * @return the configuration
+-     */
+-    public DatabaseConfiguration setUpMultiConfig(String configName)
+-    {
+-        return new DatabaseConfiguration(getDatasource(), TABLE_MULTI,
+-                COL_NAME, COL_KEY, COL_VALUE, configName, !isAutoCommit());
++        return new DatabaseConfiguration(datasource, TABLE_MULTI, COL_NAME,
++                COL_KEY, COL_VALUE, CONFIG_NAME);
+     }
+ 
+     /**
+-     * Returns the <code>DataSource</code> managed by this class. The data
+-     * source is created on first access.
++     * Returns the <code>DataSource</code> managed by this class.
+      *
+      * @return the <code>DataSource</code>
+      */
+     public DataSource getDatasource()
+     {
+-        if (datasource == null)
+-        {
+-            try
+-            {
+-                datasource = setUpDataSource();
+-            }
+-            catch (Exception ex)
+-            {
+-                throw new ConfigurationRuntimeException(
+-                        "Could not create data source", ex);
+-            }
+-        }
+         return datasource;
+     }
+-
+-    /**
+-     * Creates the internal data source. This method also initializes the
+-     * database.
+-     *
+-     * @return the data source
+-     * @throws Exception if an error occurs
+-     */
+-    private DataSource setUpDataSource() throws Exception
+-    {
+-        BasicDataSource ds = new BasicDataSource();
+-        ds.setDriverClassName(DATABASE_DRIVER);
+-        ds.setUrl(DATABASE_URL);
+-        ds.setUsername(DATABASE_USERNAME);
+-        ds.setPassword(DATABASE_PASSWORD);
+-        ds.setDefaultAutoCommit(isAutoCommit());
+-
+-        // prepare the database
+-        Connection conn = ds.getConnection();
+-        IDatabaseConnection connection = new DatabaseConnection(conn);
+-        IDataSet dataSet = new XmlDataSet(new FileInputStream(
+-                "conf/dataset.xml"));
+-
+-        try
+-        {
+-            DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
+-        }
+-        finally
+-        {
+-            if (!isAutoCommit())
+-            {
+-                conn.commit();
+-            }
+-            connection.close();
+-        }
+-
+-        return ds;
+-    }
+ }
+diff --git a/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java b/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
+index 792e598f..57e83979 100644
+--- a/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestDatabaseConfiguration.java
+@@ -37,9 +37,6 @@ import org.apache.commons.configuration.event.ConfigurationErrorListener;
+  */
+ public class TestDatabaseConfiguration extends TestCase
+ {
+-    /** Constant for another configuration name. */
+-    private static final String CONFIG_NAME2 = "anotherTestConfig";
+-
+     /** An error listener for testing whether internal errors occurred.*/
+     private ConfigurationErrorListenerImpl listener;
+ 
+@@ -85,6 +82,17 @@ public class TestDatabaseConfiguration extends TestCase
+                 DatabaseConfigurationTestHelper.COL_VALUE);
+     }
+ 
++    /**
++     * Creates a database configuration that supports multiple configurations in
++     * a table with default values.
++     *
++     * @return the configuration
++     */
++    private DatabaseConfiguration setUpMultiConfig()
++    {
++        return helper.setUpMultiConfig();
++    }
++
+     /**
+      * Creates an error listener and adds it to the specified configuration.
+      *
+@@ -131,55 +139,17 @@ public class TestDatabaseConfiguration extends TestCase
+         listener = null; // mark as checked
+     }
+ 
+-    /**
+-     * Tests the default value of the doCommits property.
+-     */
+-    public void testDoCommitsDefault()
+-    {
+-        DatabaseConfiguration config = new DatabaseConfiguration(helper
+-                .getDatasource(), DatabaseConfigurationTestHelper.TABLE,
+-                DatabaseConfigurationTestHelper.COL_KEY,
+-                DatabaseConfigurationTestHelper.COL_VALUE);
+-        assertFalse("Wrong commits flag", config.isDoCommits());
+-    }
+-
+-    /**
+-     * Tests the default value of the doCommits property for multiple
+-     * configurations in a table.
+-     */
+-    public void testDoCommitsDefaultMulti()
+-    {
+-        DatabaseConfiguration config = new DatabaseConfiguration(helper
+-                .getDatasource(), DatabaseConfigurationTestHelper.TABLE,
+-                DatabaseConfigurationTestHelper.COL_NAME,
+-                DatabaseConfigurationTestHelper.COL_KEY,
+-                DatabaseConfigurationTestHelper.COL_VALUE,
+-                DatabaseConfigurationTestHelper.CONFIG_NAME);
+-        assertFalse("Wrong commits flag", config.isDoCommits());
+-    }
+-
+     public void testAddPropertyDirectSingle()
+     {
+-        DatabaseConfiguration config = helper.setUpConfig();
++        DatabaseConfiguration config = setUpConfig();
+         config.addPropertyDirect("key", "value");
+ 
+         assertTrue("missing property", config.containsKey("key"));
+     }
+ 
+-    /**
+-     * Tests whether a commit is performed after a property was added.
+-     */
+-    public void testAddPropertyDirectCommit()
+-    {
+-        helper.setAutoCommit(false);
+-        DatabaseConfiguration config = helper.setUpConfig();
+-        config.addPropertyDirect("key", "value");
+-        assertTrue("missing property", config.containsKey("key"));
+-    }
+-
+     public void testAddPropertyDirectMultiple()
+     {
+-        DatabaseConfiguration config = helper.setUpMultiConfig();
++        DatabaseConfiguration config = setUpMultiConfig();
+         config.addPropertyDirect("key", "value");
+ 
+         assertTrue("missing property", config.containsKey("key"));
+@@ -187,7 +157,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testAddNonStringProperty()
+     {
+-        DatabaseConfiguration config = helper.setUpConfig();
++        DatabaseConfiguration config = setUpConfig();
+         config.addPropertyDirect("boolean", Boolean.TRUE);
+ 
+         assertTrue("missing property", config.containsKey("boolean"));
+@@ -204,7 +174,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetPropertyDirectMultiple()
+     {
+-        Configuration config = helper.setUpMultiConfig();
++        Configuration config = setUpMultiConfig();
+ 
+         assertEquals("property1", "value1", config.getProperty("key1"));
+         assertEquals("property2", "value2", config.getProperty("key2"));
+@@ -213,49 +183,23 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearPropertySingle()
+     {
+-        Configuration config = helper.setUpConfig();
+-        config.clearProperty("key1");
++        Configuration config = setUpConfig();
++        config.clearProperty("key");
+ 
+-        assertFalse("property not cleared", config.containsKey("key1"));
++        assertFalse("property not cleared", config.containsKey("key"));
+     }
+ 
+     public void testClearPropertyMultiple()
+     {
+-        Configuration config = helper.setUpMultiConfig();
+-        config.clearProperty("key1");
+-
+-        assertFalse("property not cleared", config.containsKey("key1"));
+-    }
+-
+-    /**
+-     * Tests that another configuration is not affected when clearing
+-     * properties.
+-     */
+-    public void testClearPropertyMultipleOtherConfig()
+-    {
+-        DatabaseConfiguration config = helper.setUpMultiConfig();
+-        DatabaseConfiguration config2 = helper.setUpMultiConfig(CONFIG_NAME2);
+-        config2.addProperty("key1", "some test");
+-        config.clearProperty("key1");
+-        assertFalse("property not cleared", config.containsKey("key1"));
+-        assertTrue("Property cleared in other config", config2
+-                .containsKey("key1"));
+-    }
++        Configuration config = setUpMultiConfig();
++        config.clearProperty("key");
+ 
+-    /**
+-     * Tests whether a commit is performed after a property was cleared.
+-     */
+-    public void testClearPropertyCommit()
+-    {
+-        helper.setAutoCommit(false);
+-        Configuration config = helper.setUpConfig();
+-        config.clearProperty("key1");
+-        assertFalse("property not cleared", config.containsKey("key1"));
++        assertFalse("property not cleared", config.containsKey("key"));
+     }
+ 
+     public void testClearSingle()
+     {
+-        Configuration config = helper.setUpConfig();
++        Configuration config = setUpConfig();
+         config.clear();
+ 
+         assertTrue("configuration is not cleared", config.isEmpty());
+@@ -263,23 +207,12 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testClearMultiple()
+     {
+-        Configuration config = helper.setUpMultiConfig();
++        Configuration config = setUpMultiConfig();
+         config.clear();
+ 
+         assertTrue("configuration is not cleared", config.isEmpty());
+     }
+ 
+-    /**
+-     * Tests whether a commit is performed after a clear operation.
+-     */
+-    public void testClearCommit()
+-    {
+-        helper.setAutoCommit(false);
+-        Configuration config = helper.setUpConfig();
+-        config.clear();
+-        assertTrue("configuration is not cleared", config.isEmpty());
+-    }
+-
+     public void testGetKeysSingle()
+     {
+         Configuration config = setUpConfig();
+@@ -291,7 +224,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testGetKeysMultiple()
+     {
+-        Configuration config = helper.setUpMultiConfig();
++        Configuration config = setUpMultiConfig();
+         Iterator it = config.getKeys();
+ 
+         assertEquals("1st key", "key1", it.next());
+@@ -307,7 +240,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testContainsKeyMultiple()
+     {
+-        Configuration config = helper.setUpMultiConfig();
++        Configuration config = setUpMultiConfig();
+         assertTrue("missing key1", config.containsKey("key1"));
+         assertTrue("missing key2", config.containsKey("key2"));
+     }
+@@ -320,7 +253,7 @@ public class TestDatabaseConfiguration extends TestCase
+ 
+     public void testIsEmptyMultiple()
+     {
+-        Configuration config1 = helper.setUpMultiConfig();
++        Configuration config1 = setUpMultiConfig();
+         assertFalse("The configuration named 'test' is empty", config1.isEmpty());
+ 
+         Configuration config2 = new DatabaseConfiguration(helper.getDatasource(), DatabaseConfigurationTestHelper.TABLE_MULTI, DatabaseConfigurationTestHelper.COL_NAME, DatabaseConfigurationTestHelper.COL_KEY, DatabaseConfigurationTestHelper.COL_VALUE, "testIsEmpty");
+@@ -474,7 +407,7 @@ public class TestDatabaseConfiguration extends TestCase
+      */
+     public void testSetPropertyWithDelimiter()
+     {
+-        DatabaseConfiguration config = helper.setUpMultiConfig();
++        DatabaseConfiguration config = setUpMultiConfig();
+         config.setListDelimiter(';');
+         config.setProperty("keyList", "1;2;3");
+         String[] values = config.getStringArray("keyList");

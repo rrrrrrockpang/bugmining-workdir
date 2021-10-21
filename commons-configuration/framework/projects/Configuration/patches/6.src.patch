@@ -1,0 +1,34 @@
+diff --git a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+index 60598854..164cee24 100644
+--- a/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
++++ b/src/java/org/apache/commons/configuration/PropertiesConfiguration.java
+@@ -208,7 +208,6 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+      */
+     public PropertiesConfiguration()
+     {
+-        layout = createLayout();
+         setIncludesAllowed(false);
+     }
+ 
+@@ -341,20 +340,7 @@ public class PropertiesConfiguration extends AbstractFileConfiguration
+      */
+     public synchronized void setLayout(PropertiesConfigurationLayout layout)
+     {
+-        // only one layout must exist
+-        if (this.layout != null)
+-        {
+-            removeConfigurationListener(this.layout);
+-        }
+-
+-        if (layout == null)
+-        {
+-            this.layout = createLayout();
+-        }
+-        else
+-        {
+-            this.layout = layout;
+-        }
++        this.layout = layout;
+     }
+ 
+     /**

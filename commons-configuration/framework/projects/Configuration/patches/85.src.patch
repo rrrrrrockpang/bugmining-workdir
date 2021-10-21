@@ -1,0 +1,61 @@
+diff --git a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+index fe01feb7..e418b32b 100644
+--- a/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
++++ b/src/java/org/apache/commons/configuration/AbstractFileConfiguration.java
+@@ -920,11 +920,8 @@ public abstract class AbstractFileConfiguration extends BaseConfiguration implem
+ 
+     public Object getProperty(String key)
+     {
+-        synchronized (reloadLock)
+-        {
+-            reload();
+-            return super.getProperty(key);
+-        }
++        reload();
++        return super.getProperty(key);
+     }
+ 
+     public boolean isEmpty()
+diff --git a/src/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+index 6d47bf8d..4e0e83fb 100644
+--- a/src/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -193,7 +193,7 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+     private NodeCombiner nodeCombiner;
+ 
+     /** Stores the combined root node. */
+-    private volatile ConfigurationNode combinedRoot;
++    private ConfigurationNode combinedRoot;
+ 
+     /** Stores a list with the contained configurations. */
+     private List configurations;
+@@ -509,7 +509,10 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+      */
+     public void invalidate()
+     {
+-        combinedRoot = null;
++        synchronized (getNodeCombiner()) // use combiner as lock
++        {
++            combinedRoot = null;
++        }
+         fireEvent(EVENT_COMBINED_INVALIDATE, null, null, false);
+     }
+ 
+@@ -537,11 +540,14 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+      */
+     public ConfigurationNode getRootNode()
+     {
+-        if (combinedRoot == null)
++        synchronized (getNodeCombiner())
+         {
+-            combinedRoot = constructCombinedNode();
++            if (combinedRoot == null)
++            {
++                combinedRoot = constructCombinedNode();
++            }
++            return combinedRoot;
+         }
+-        return combinedRoot;
+     }
+ 
+     /**

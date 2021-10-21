@@ -1,0 +1,46 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java b/src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java
+index 5165737d..193b1f40 100644
+--- a/src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java
++++ b/src/main/java/org/apache/commons/configuration2/DatabaseConfiguration.java
+@@ -390,17 +390,15 @@ public class DatabaseConfiguration extends AbstractConfiguration
+                 }
+                 query.append(")");
+ 
+-                try (final PreparedStatement pstmt = initStatement(query.toString(),
+-                        false, key, String.valueOf(obj)))
++                final PreparedStatement pstmt = initStatement(query.toString(),
++                        false, key, String.valueOf(obj));
++                if (configurationNameColumn != null)
+                 {
+-                    if (configurationNameColumn != null)
+-                    {
+-                        pstmt.setString(3, configurationName);
+-                    }
+-
+-                    pstmt.executeUpdate();
+-                    return null;
++                    pstmt.setString(3, configurationName);
+                 }
++
++                pstmt.executeUpdate();
++                return null;
+             }
+         }
+         .execute();
+@@ -514,12 +512,10 @@ public class DatabaseConfiguration extends AbstractConfiguration
+             @Override
+             protected Void performOperation() throws SQLException
+             {
+-                try (final PreparedStatement ps = initStatement(String.format(
+-                        SQL_CLEAR_PROPERTY, table, keyColumn), true, key))
+-                {
+-                    ps.executeUpdate();
+-                    return null;
+-                }
++                final PreparedStatement ps = initStatement(String.format(
++                        SQL_CLEAR_PROPERTY, table, keyColumn), true, key);
++                ps.executeUpdate();
++                return null;
+             }
+         }
+         .execute();

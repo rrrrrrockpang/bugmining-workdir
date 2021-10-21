@@ -1,0 +1,16 @@
+diff --git a/src/java/org/apache/commons/configuration/CombinedConfiguration.java b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+index 780f42ec..4cee442d 100644
+--- a/src/java/org/apache/commons/configuration/CombinedConfiguration.java
++++ b/src/java/org/apache/commons/configuration/CombinedConfiguration.java
+@@ -485,10 +485,7 @@ public class CombinedConfiguration extends HierarchicalConfiguration implements
+      */
+     public void configurationChanged(ConfigurationEvent event)
+     {
+-        if (!event.isBeforeUpdate())
+-        {
+-            invalidate();
+-        }
++        invalidate();
+     }
+ 
+     /**

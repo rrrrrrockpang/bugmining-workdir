@@ -1,0 +1,26 @@
+diff --git a/src/java/org/apache/commons/configuration/XMLConfiguration.java b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+index 2999768f..c162a2b9 100644
+--- a/src/java/org/apache/commons/configuration/XMLConfiguration.java
++++ b/src/java/org/apache/commons/configuration/XMLConfiguration.java
+@@ -419,12 +419,7 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+             setPublicID(document.getDoctype().getPublicId());
+             setSystemID(document.getDoctype().getSystemId());
+         }
+-
+         constructHierarchy(getRoot(), document.getDocumentElement(), elemRefs);
+-        if (elemRefs)
+-        {
+-            getRoot().setReference(document.getDocumentElement());
+-        }
+     }
+ 
+     /**
+@@ -1247,7 +1242,7 @@ public class XMLConfiguration extends AbstractHierarchicalFileConfiguration
+          *
+          * @param node the affected node
+          * @param name the name of the attribute
+-         * @param listDelimiter the delimiter for attributes with multiple values
++         * @param listDelimiter the delimiter vor attributes with multiple values
+          */
+         static void updateAttribute(Node node, String name, char listDelimiter)
+         {

@@ -1,0 +1,4 @@
+org.apache.commons.configuration.event.AbstractTestConfigurationEvents
+org.apache.commons.configuration.plist.AbstractTestPListEvents
+org.apache.commons.configuration.plist.TestXMLPropertyListConfiguration
+org.apache.commons.configuration.plist.TestXMLPropertyListConfigurationEvents

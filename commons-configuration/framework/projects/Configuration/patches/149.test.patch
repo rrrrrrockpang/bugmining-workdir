@@ -1,0 +1,42 @@
+diff --git a/src/test/java/org/apache/commons/configuration/TestDataConfiguration.java b/src/test/java/org/apache/commons/configuration/TestDataConfiguration.java
+index 405aca5d..a592a72b 100644
+--- a/src/test/java/org/apache/commons/configuration/TestDataConfiguration.java
++++ b/src/test/java/org/apache/commons/configuration/TestDataConfiguration.java
+@@ -2386,17 +2386,4 @@ public class TestDataConfiguration
+             // expected
+         }
+     }
+-
+-    /**
+-     * Tests whether a string property can be obtained through get() if no type
+-     * conversion is required.
+-     */
+-    @Test
+-    public void testGetPropertyWithoutConversion()
+-    {
+-        String key = "test.str";
+-        String value = "someTestValue";
+-        conf.addProperty(key, value);
+-        assertEquals("Wrong result", value, conf.get(String.class, key));
+-    }
+ }
+diff --git a/src/test/java/org/apache/commons/configuration/TestPropertyConverter.java b/src/test/java/org/apache/commons/configuration/TestPropertyConverter.java
+index 0f3b48c1..3ed9ffa4 100644
+--- a/src/test/java/org/apache/commons/configuration/TestPropertyConverter.java
++++ b/src/test/java/org/apache/commons/configuration/TestPropertyConverter.java
+@@ -338,15 +338,4 @@ public class TestPropertyConverter
+     {
+         PropertyConverter.toEnum(Integer.valueOf(-1), ENUM_CLASS);
+     }
+-
+-    /**
+-     * Tests a trivial conversion: the value has already the desired type.
+-     */
+-    @Test
+-    public void testToNoConversionNeeded()
+-    {
+-        String value = "testValue";
+-        assertEquals("Wrong conversion result", value,
+-                PropertyConverter.to(String.class, value, null));
+-    }
+ }

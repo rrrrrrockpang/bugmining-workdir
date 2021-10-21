@@ -1,0 +1,16 @@
+diff --git a/src/java/org/apache/commons/configuration/tree/xpath/XPathExpressionEngine.java b/src/java/org/apache/commons/configuration/tree/xpath/XPathExpressionEngine.java
+index d2f2d297..a143fdac 100644
+--- a/src/java/org/apache/commons/configuration/tree/xpath/XPathExpressionEngine.java
++++ b/src/java/org/apache/commons/configuration/tree/xpath/XPathExpressionEngine.java
+@@ -170,7 +170,10 @@ public class XPathExpressionEngine implements ExpressionEngine
+             if (parentKey.length() > 0)
+             {
+                 buf.append(parentKey);
+-                buf.append(PATH_DELIMITER);
++                if (!node.isAttribute())
++                {
++                    buf.append(PATH_DELIMITER);
++                }
+             }
+             if (node.isAttribute())
+             {

@@ -1,0 +1,7 @@
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilder
+org.apache.commons.configuration2.builder.combined.TestCombinedConfigurationBuilderVFS
+org.apache.commons.configuration2.builder.combined.TestReloadingCombinedConfigurationBuilder
+org.apache.commons.configuration2.builder.fluent.TestConfigurations
+org.apache.commons.configuration2.ConfigurationAssert
+org.apache.commons.configuration2.FileURLStreamHandler
+org.apache.commons.configuration2.TestPropertiesConfiguration

@@ -1,0 +1,153 @@
+diff --git a/src/test/org/apache/commons/configuration/TestBaseConfiguration.java b/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
+index c24b9a67..5e1bc585 100644
+--- a/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestBaseConfiguration.java
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright 2001-2006 The Apache Software Foundation.
++ * Copyright 2001-2005 The Apache Software Foundation.
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License")
+  * you may not use this file except in compliance with the License.
+@@ -38,9 +38,6 @@ import junitx.framework.ObjectAssert;
+  */
+ public class TestBaseConfiguration extends TestCase
+ {
+-    /** Constant for the number key.*/
+-    static final String KEY_NUMBER = "number";
+-
+     protected BaseConfiguration config = null;
+ 
+     protected static Class missingElementException = NoSuchElementException.class;
+@@ -713,27 +710,4 @@ public class TestBaseConfiguration extends TestCase
+         config.addPropertyDirect("array.double", new double[] { 1, 2 });
+         assertEquals("first element of the 'array.double' property", 1, config.getDouble("array.double"), 0);
+     }
+-
+-    /**
+-     * Tests if conversion between number types is possible.
+-     */
+-    public void testNumberConversions()
+-    {
+-        config.setProperty(KEY_NUMBER, new Integer(42));
+-        assertEquals("Wrong int returned", 42, config.getInt(KEY_NUMBER));
+-        assertEquals("Wrong long returned", 42L, config.getLong(KEY_NUMBER));
+-        assertEquals("Wrong byte returned", (byte) 42, config
+-                .getByte(KEY_NUMBER));
+-        assertEquals("Wrong float returned", 42.0f,
+-                config.getFloat(KEY_NUMBER), 0.01f);
+-        assertEquals("Wrong double returned", 42.0, config
+-                .getDouble(KEY_NUMBER), 0.001);
+-
+-        assertEquals("Wrong Long returned", new Long(42L), config.getLong(
+-                KEY_NUMBER, null));
+-        assertEquals("Wrong BigInt returned", new BigInteger("42"), config
+-                .getBigInteger(KEY_NUMBER));
+-        assertEquals("Wrong DigDecimal returned", new BigDecimal("42"), config
+-                .getBigDecimal(KEY_NUMBER));
+-    }
+ }
+diff --git a/src/test/org/apache/commons/configuration/TestPropertyConverter.java b/src/test/org/apache/commons/configuration/TestPropertyConverter.java
+index 47c8ba3d..cf42494b 100644
+--- a/src/test/org/apache/commons/configuration/TestPropertyConverter.java
++++ b/src/test/org/apache/commons/configuration/TestPropertyConverter.java
+@@ -15,7 +15,6 @@
+  */
+ package org.apache.commons.configuration;
+ 
+-import java.math.BigDecimal;
+ import java.util.List;
+ import java.util.Iterator;
+ 
+@@ -164,91 +163,4 @@ public class TestPropertyConverter extends TestCase
+                         .interpolate("The ${animal} jumps over ${target}.",
+                                 config));
+     }
+-
+-    /**
+-     * Tests conversion to numbers when the passed in objects are already
+-     * numbers.
+-     */
+-    public void testToNumberDirect()
+-    {
+-        Integer i = new Integer(42);
+-        assertSame("Wrong integer", i, PropertyConverter.toNumber(i,
+-                Integer.class));
+-        BigDecimal d = new BigDecimal("3.1415");
+-        assertSame("Wrong BigDecimal", d, PropertyConverter.toNumber(d,
+-                Integer.class));
+-    }
+-
+-    /**
+-     * Tests conversion to numbers when the passed in objects have a compatible
+-     * string representation.
+-     */
+-    public void testToNumberFromString()
+-    {
+-        assertEquals("Incorrect Integer value", new Integer(42),
+-                PropertyConverter.toNumber("42", Integer.class));
+-        assertEquals("Incorrect Short value", new Short((short) 10),
+-                PropertyConverter.toNumber(new StringBuffer("10"), Short.class));
+-    }
+-
+-    /**
+-     * Tests conversion to numbers when the passed in objects are strings with
+-     * prefixes for special radices.
+-     */
+-    public void testToNumberFromHexString()
+-    {
+-        Number n = PropertyConverter.toNumber("0x10", Integer.class);
+-        assertEquals("Incorrect Integer value", 16, n.intValue());
+-    }
+-
+-    /**
+-     * Tests conversion to numbers when an invalid Hex value is passed in. This
+-     * should cause an exception.
+-     */
+-    public void testToNumberFromInvalidHexString()
+-    {
+-        try
+-        {
+-            PropertyConverter.toNumber("0xNotAHexValue", Integer.class);
+-            fail("Could convert invalid hex value!");
+-        }
+-        catch (ConversionException cex)
+-        {
+-            // ok
+-        }
+-    }
+-
+-    /**
+-     * Tests conversion to numbers when the passed in objects have no numeric
+-     * String representation. This should cause an exception.
+-     */
+-    public void testToNumberFromInvalidString()
+-    {
+-        try
+-        {
+-            PropertyConverter.toNumber("Not a number", Byte.class);
+-            fail("Could convert invalid String!");
+-        }
+-        catch (ConversionException cex)
+-        {
+-            // ok
+-        }
+-    }
+-
+-    /**
+-     * Tests conversion to numbers when the passed in target class is invalid.
+-     * This should cause an exception.
+-     */
+-    public void testToNumberWithInvalidClass()
+-    {
+-        try
+-        {
+-            PropertyConverter.toNumber("42", Object.class);
+-            fail("Could convert to invalid target class!");
+-        }
+-        catch (ConversionException cex)
+-        {
+-            //ok
+-        }
+-    }
+ }

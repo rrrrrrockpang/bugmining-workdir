@@ -1,0 +1,45 @@
+diff --git a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+index 0c425d64..de78cec7 100644
+--- a/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
++++ b/src/test/org/apache/commons/configuration/TestAbstractConfiguration.java
+@@ -21,12 +21,12 @@ import java.util.ArrayList;
+ import java.util.Iterator;
+ import java.util.List;
+ 
+-import junit.framework.TestCase;
+-import junitx.framework.ListAssert;
+-
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ 
++import junit.framework.TestCase;
++import junitx.framework.ListAssert;
++
+ /**
+  * Abstract TestCase for implementations of {@link AbstractConfiguration}.
+  *
+@@ -154,24 +154,4 @@ public abstract class TestAbstractConfiguration extends TestCase
+         config.setLogger(log);
+         assertSame("Logger was not set", log, config.getLogger());
+     }
+-
+-    /**
+-     * Tests the exception message triggered by the conversion to BigInteger.
+-     * This test is related to CONFIGURATION-357.
+-     */
+-    public void testGetBigIntegerConversion()
+-    {
+-        Configuration config = getConfiguration();
+-        try
+-        {
+-            config.getBigInteger("key1");
+-            fail("No conversion exception thrown!");
+-        }
+-        catch (ConversionException cex)
+-        {
+-            assertEquals("Wrong exception message",
+-                    "'key1' doesn't map to a BigInteger object", cex
+-                            .getMessage());
+-        }
+-    }
+ }

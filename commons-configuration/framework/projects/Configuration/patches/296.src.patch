@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/convert/DefaultListDelimiterHandler.java b/src/main/java/org/apache/commons/configuration2/convert/DefaultListDelimiterHandler.java
+index 1691d120..ece51f47 100644
+--- a/src/main/java/org/apache/commons/configuration2/convert/DefaultListDelimiterHandler.java
++++ b/src/main/java/org/apache/commons/configuration2/convert/DefaultListDelimiterHandler.java
+@@ -103,7 +103,7 @@ public class DefaultListDelimiterHandler extends AbstractListDelimiterHandler
+     @Override
+     public Object escapeList(final List<?> values, final ValueTransformer transformer)
+     {
+-        final Object[] escapedValues = new Object[values.size()];
++        final Object[] escapedValues = new String[values.size()];
+         int idx = 0;
+         for (final Object v : values)
+         {

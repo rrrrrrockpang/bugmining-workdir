@@ -1,0 +1,13 @@
+diff --git a/src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java b/src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java
+index 35bdb58d..75d46ed8 100644
+--- a/src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java
++++ b/src/main/java/org/apache/commons/configuration2/builder/PropertiesBuilderParametersImpl.java
+@@ -52,7 +52,7 @@ public class PropertiesBuilderParametersImpl extends
+     private static final String PROP_LAYOUT = "layout";
+ 
+     /** The key for the IO factory property. */
+-    private static final String PROP_IO_FACTORY = "IOFactory";
++    private static final String PROP_IO_FACTORY = "iOFactory";
+ 
+     @Override
+     public PropertiesBuilderParametersImpl setIncludesAllowed(boolean f)
